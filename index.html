@@ -34,7 +34,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem; height: 70px;
     }
-    .nav-logo images { height: 52px; width: auto; object-fit: contain; }
+    .nav-logo img { height: 52px; width: auto; object-fit: contain; }
     .nav-links { display: flex; gap: 0; list-style: none; position: relative; }
     .nav-links > li { position: relative; }
     .nav-links > li > a {
@@ -136,7 +136,7 @@
     .hero-right {
       height: 100vh; position: relative; overflow: hidden;
     }
-    .hero-right images {
+    .hero-right img {
       width: 100%; height: 100%; object-fit: cover;
       object-position: center;
     }
@@ -189,13 +189,13 @@
     }
     .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
     .cat-card.large { grid-column: span 2; }
-    .cat-card .images-wrap { width: 100%; height: 280px; overflow: hidden; }
-    .cat-card.large .images-wrap { height: 320px; }
-    .cat-card .images-wrap images {
+    .cat-card .img-wrap { width: 100%; height: 280px; overflow: hidden; }
+    .cat-card.large .img-wrap { height: 320px; }
+    .cat-card .img-wrap img {
       width: 100%; height: 100%; object-fit: cover;
       transition: transform 0.5s ease;
     }
-    .cat-card:hover .images-wrap images { transform: scale(1.07); }
+    .cat-card:hover .img-wrap img { transform: scale(1.07); }
     .cat-card .cat-info {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 1.5rem 1.5rem 1.2rem;
@@ -230,8 +230,8 @@
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 0; padding: 0; align-items: stretch;
     }
-    .sobre-images { overflow: hidden; min-height: 480px; }
-    .sobre-images images { width: 100%; height: 100%; object-fit: cover; }
+    .sobre-img { overflow: hidden; min-height: 480px; }
+    .sobre-img img { width: 100%; height: 100%; object-fit: cover; }
     .sobre-text {
       padding: 5rem 4rem;
       display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;
@@ -260,9 +260,9 @@
       transition: transform 0.25s, box-shadow 0.25s;
     }
     .prod-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
-    .prod-images { height: 210px; overflow: hidden; }
-    .prod-images images { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .prod-card:hover .prod-images images { transform: scale(1.06); }
+    .prod-img { height: 210px; overflow: hidden; }
+    .prod-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .prod-card:hover .prod-img img { transform: scale(1.06); }
     .prod-body { padding: 1.2rem 1.2rem 1.4rem; }
     .prod-cat {
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
@@ -313,9 +313,9 @@
       transition: transform 0.25s, box-shadow 0.25s;
     }
     .price-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
-    .price-card .card-images { height: 190px; overflow: hidden; }
-    .price-card .card-images images { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .price-card:hover .card-images images { transform: scale(1.06); }
+    .price-card .card-img { height: 190px; overflow: hidden; }
+    .price-card .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .price-card:hover .card-img img { transform: scale(1.06); }
     .price-card .card-body { padding: 1.2rem 1.3rem 1.4rem; }
     .price-card h3 {
       font-family: 'Playfair Display', serif;
@@ -363,7 +363,7 @@
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 1rem; font-size: 0.78rem;
     }
-    footer images { height: 40px; opacity: 0.7; filter: invert(1); }
+    footer img { height: 40px; opacity: 0.7; filter: invert(1); }
     footer a { color: rgba(253,248,240,0.5); text-decoration: none; }
     footer a:hover { color: var(--mint); }
 
@@ -377,7 +377,7 @@
       .hero-right { display: none; }
       .hero-left { padding: 4rem 2rem 3rem; }
       #sobre { grid-template-columns: 1fr; }
-      .sobre-images { min-height: 260px; }
+      .sobre-img { min-height: 260px; }
       .sobre-text { padding: 3rem 2rem; }
       .cat-grid { grid-template-columns: 1fr 1fr; }
       .cat-card.large { grid-column: span 2; }
@@ -399,7 +399,7 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a href="#" class="nav-logo"><images src="images/logo.png" alt="MAMEMI Madera"></a>
+  <a href="#" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#categorias">Cositas Mamemi ▾ <span class="arrow"></span></a>
       <div class="dropdown">
@@ -454,15 +454,15 @@
     </div>
   </div>
   <div class="hero-right">
-    <images src="images/pack_nac.jpg" alt="Pack nacimiento MAMEMI Madera">
-    <images src="images/logo.png" alt="Logo MAMEMI" class="hero-logo-float">
+    <img src="images/pack_nac.jpg" alt="Pack nacimiento MAMEMI Madera">
+    <img src="images/logo.png" alt="Logo MAMEMI" class="hero-logo-float">
   </div>
 </section>
 
 <!-- ── SOBRE MÍ ── -->
 <section id="sobre">
-  <div class="sobre-images">
-    <images src="images/nacimiento.jpg" alt="Sobre MAMEMI Madera">
+  <div class="sobre-img">
+    <img src="images/nacimiento.jpg" alt="Sobre MAMEMI Madera">
   </div>
   <div class="sobre-text fade-in">
     <p class="section-label">El corazón de MAMEMI</p>
@@ -484,7 +484,7 @@
 
     <!-- Cositas Mamemi (large) -->
     <a href="#precios" class="cat-card large fade-in" id="cat-cositas">
-      <div class="images-wrap"><images src="images/llavero.jpg" alt="Cositas Mamemi"></div>
+      <div class="img-wrap"><img src="images/llavero.jpg" alt="Cositas Mamemi"></div>
       <div class="cat-info">
         <h3>Cositas Mamemi</h3>
         <p>Llaveros grabados · Imanes personalizados</p>
@@ -494,7 +494,7 @@
 
     <!-- Regalos Personalizados -->
     <a href="#precios" class="cat-card fade-in" id="cat-regalos">
-      <div class="images-wrap"><images src="images/letra3d.jpg" alt="Regalos Personalizados"></div>
+      <div class="img-wrap"><img src="images/letra3d.jpg" alt="Regalos Personalizados"></div>
       <div class="cat-info">
         <h3>Regalos Personalizados</h3>
         <p>Letras 3D · Placas · Nombres · Marcapáginas</p>
@@ -504,7 +504,7 @@
 
     <!-- Packs para Regalar -->
     <a href="#precios" class="cat-card fade-in" id="cat-packs">
-      <div class="images-wrap"><images src="images/pack_nac.jpg" alt="Packs para Regalar"></div>
+      <div class="img-wrap"><img src="images/pack_nac.jpg" alt="Packs para Regalar"></div>
       <div class="cat-info">
         <h3>Packs para Regalar</h3>
         <p>Cajas de nacimiento y más · Listos para sorprender</p>
@@ -514,7 +514,7 @@
 
     <!-- Detallitos para Eventos -->
     <a href="#precios" class="cat-card fade-in" id="cat-eventos">
-      <div class="images-wrap"><images src="images/libretas.jpg" alt="Detallitos para Eventos"></div>
+      <div class="img-wrap"><img src="images/libretas.jpg" alt="Detallitos para Eventos"></div>
       <div class="cat-info">
         <h3>Detallitos para Eventos</h3>
         <p>Libretas personalizadas · Detalles únicos</p>
@@ -525,7 +525,7 @@
     <!-- Colección Cocina (large) -->
     <a href="#precios" class="cat-card large fade-in" id="cat-cocina">
       <span class="sub-badge">Mar y Montaña</span>
-      <div class="images-wrap"><images src="images/tabla.jpg" alt="Colección Cocina"></div>
+      <div class="img-wrap"><img src="images/tabla.jpg" alt="Colección Cocina"></div>
       <div class="cat-info">
         <h3>Colección Cocina</h3>
         <p>Tablas de cocina · Colección Mar y Montaña</p>
@@ -595,7 +595,7 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <images src="images/logo.png" alt="MAMEMI Madera">
+  <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2025 MAMEMI Madera · www.mamemimadera.es</span>
   <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></span>
 </footer>
