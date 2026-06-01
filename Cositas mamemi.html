@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cositas Mamemi – MAMEMI Madera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6;
+      --wood-mid:   #d4a96a;
+      --wood-dark:  #8b5e3c;
+      --wood-deep:  #5a3a1a;
+      --mint:       #a8c5b5;
+      --mint-light: #e0ede8;
+      --mint-dark:  #6a9e8a;
+      --cream:      #fdf8f0;
+      --cream2:     #f9f2e4;
+      --text:       #3a2510;
+      --text-mid:   #6b4c2a;
+      --shadow:     rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      background: rgba(253,248,240,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1.5px solid var(--wood-light);
+      box-shadow: 0 2px 20px var(--shadow);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 70px;
+    }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-back {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--text-mid);
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--mint-dark); }
+    .nav-cta {
+      background: var(--wood-dark); color: #fff;
+      border-radius: 30px; padding: 0.5rem 1.2rem;
+      text-decoration: none; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background 0.25s;
+    }
+    .nav-cta:hover { background: var(--mint-dark); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 110px 2rem 3rem;
+      background: var(--mint-light);
+      text-align: center;
+    }
+    .page-hero .breadcrumb {
+      font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+    .page-hero .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
+    .page-hero .breadcrumb a:hover { text-decoration: underline; }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--wood-deep); margin-bottom: 0.8rem;
+    }
+    .page-hero p {
+      max-width: 560px; margin: 0 auto;
+      color: var(--text-mid); font-size: 1rem;
+      line-height: 1.8; font-weight: 300;
+    }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
+
+    /* ── PRODUCTS GRID ── */
+    .products-section { padding: 4rem 2rem 5rem; max-width: 1200px; margin: 0 auto; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1.5px solid var(--wood-light);
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
+
+    .product-img {
+      position: relative; height: 260px; overflow: hidden; cursor: zoom-in;
+    }
+    .product-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-img img { transform: scale(1.06); }
+    .zoom-icon {
+      position: absolute; bottom: 0.8rem; right: 0.8rem;
+      background: rgba(253,248,240,0.9); border-radius: 50%;
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; box-shadow: 0 2px 8px var(--shadow);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .product-card:hover .zoom-icon { opacity: 1; }
+    .personalizable-badge {
+      position: absolute; top: 0.8rem; left: 0.8rem;
+      background: var(--mint-dark); color: #fff;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px;
+    }
+    .limited-badge {
+      position: absolute; top: 0.8rem; left: 0.8rem;
+      background: var(--wood-dark); color: #fff;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px;
+    }
+
+    .product-body { padding: 1.4rem 1.4rem 1.6rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+    .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
+    .product-body h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--wood-deep); }
+    .product-desc { font-size: 0.87rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; flex: 1; }
+
+    .price-block { margin-top: 0.5rem; border-top: 1px dashed var(--wood-light); padding-top: 0.8rem; }
+    .price-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.83rem; color: var(--text-mid); padding: 0.3rem 0;
+      border-bottom: 1px dashed var(--wood-light);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.95rem; }
+    .price-note { font-size: 0.75rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
+
+    .btn-contact {
+      display: block; text-align: center; margin-top: 1rem;
+      background: var(--wood-dark); color: #fff;
+      border-radius: 30px; padding: 0.7rem 1rem;
+      text-decoration: none; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background 0.25s;
+    }
+    .btn-contact:hover { background: var(--mint-dark); }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.88); align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 88vh;
+      border-radius: 12px; object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: fixed; top: 1.2rem; right: 1.5rem;
+      color: #fff; font-size: 2rem; cursor: pointer;
+      background: rgba(255,255,255,0.15); border-radius: 50%;
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; line-height: 1;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+    /* ── INFO BANNER ── */
+    .info-banner {
+      background: var(--wood-deep); color: var(--cream);
+      padding: 2rem; text-align: center;
+    }
+    .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
+    .info-banner strong { color: var(--wood-mid); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--wood-deep); color: rgba(253,248,240,0.4);
+      padding: 1.5rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem; font-size: 0.78rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    footer img { height: 36px; opacity: 0.6; filter: invert(1); }
+    footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .products-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+  <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">💬 Pedir ahora</a>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Inicio</a> · Cositas Mamemi</p>
+  <h1>Cositas Mamemi</h1>
+  <div class="divider"></div>
+  <p>Mis propias ediciones limitadas, diseñadas y creadas por mí. No son personalizables — cada colección es exclusiva y cuando se acaba, se acaba. Pequeñas piezas con mucho carácter, perfectas para regalar o para ti.</p>
+</div>
+
+<!-- ── PRODUCTS ── -->
+<section class="products-section">
+  <div class="products-grid">
+
+    <!-- LLAVEROS -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/llavero.jpg')">
+        <img src="images/llavero.jpg" alt="Llavero grabado en madera">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi</p>
+        <h2>Llavero grabado en madera</h2>
+        <p class="product-desc">Llavero redondo de madera natural grabado al láser con diseños exclusivos creados por mí. Cada edición tiene su propio diseño y colores, con mosquetón y borla decorativa. Cuando la edición se agota, no se repite.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">desde 12 €</span></div>
+          <p class="price-note">✦ Precio por unidad · IVA incluido · Hasta agotar existencias</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20edici%C3%B3n%20de%20llaveros" class="btn-contact" target="_blank">Quiero este</a>
+      </div>
+    </div>
+
+    <!-- IMANES -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/iman.jpg')">
+        <img src="images/iman.jpg" alt="Imán personalizado en madera">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi</p>
+        <h2>Imán personalizado</h2>
+        <p class="product-desc">Imanes de madera grabados al láser con diseños propios de cada edición. Pequeñas piezas decorativas con mucha personalidad. Cada colección es limitada y exclusiva — cuando se agotan, no vuelven.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Menos de 25 unidades</span><span class="amount">4,50 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">3,50 € / u</span></div>
+          <div class="price-row"><span>Más de 50 unidades</span><span class="amount">2,90 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Consulta para pedidos mixtos</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20imanes%20de%20edici%C3%B3n%20limitada" class="btn-contact" target="_blank">Quiero este</a>
+      </div>
+    </div>
+
+    <!-- MARCAPÁGINAS -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/marcapag.jpg')">
+        <img src="images/marcapag.jpg" alt="Marcapáginas de cuero personalizado">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi</p>
+        <h2>Marcapáginas personalizado</h2>
+        <p class="product-desc">Marcapáginas de cuero natural grabado al láser con diseños exclusivos de cada edición. Un detalle precioso para los amantes de la lectura. Cada colección tiene su propio diseño, disponible hasta agotar existencias.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">desde 15 €</span></div>
+          <p class="price-note">✦ Precio por unidad · IVA incluido · Hasta agotar existencias</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20edici%C3%B3n%20de%20marcap%C3%A1ginas" class="btn-contact" target="_blank">Quiero este</a>
+      </div>
+    </div>
+
+    <!-- PLACAS EDICIÓN LIMITADA -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/nacimiento.jpg')">
+        <img src="images/nacimiento.jpg" alt="Placa de madera edición limitada">
+        <span class="limited-badge">Edición limitada</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi</p>
+        <h2>Placa de madera · Diseño exclusivo</h2>
+        <p class="product-desc">Placas de madera natural con diseños exclusivos creados por mí, grabadas al láser y con toques de color pintados a mano. Cada edición es única e irrepetible. Perfectas para decorar o regalar. Consulta qué colección está disponible en el momento de tu pedido.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio según diseño y tamaño</span><span class="amount">a consultar</span></div>
+          <p class="price-note">✦ IVA incluido · Disponibilidad limitada</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20las%20placas%20de%20edici%C3%B3n%20limitada" class="btn-contact" target="_blank">Quiero este</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── INFO BANNER ── -->
+<div class="info-banner">
+  <p>✦ Todos los precios incluyen IVA · <strong>Gastos de envío aparte</strong> · Realizo envíos a toda España ✦<br>
+  ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por WhatsApp al <strong>622 562 499</strong></p>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <img src="images/logo.png" alt="MAMEMI Madera">
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></span>
+</footer>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // Fade in
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
