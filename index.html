@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MAMEMI Madera – Regalos personalizados en madera</title>
+  <title>Cositas Mamemi – MAMEMI Madera</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -35,374 +35,169 @@
       padding: 0 2.5rem; height: 70px;
     }
     .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
-    .nav-links { display: flex; gap: 0; list-style: none; position: relative; }
-    .nav-links > li { position: relative; }
-    .nav-links > li > a {
-      display: flex; align-items: center; gap: 4px;
-      padding: 0 1rem; height: 70px;
-      text-decoration: none; font-size: 0.8rem; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--text-mid); transition: color 0.2s;
+    .nav-back {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--text-mid);
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: color 0.2s;
     }
-    .nav-links > li > a:hover, .nav-links > li.active > a { color: var(--mint-dark); }
-    .nav-links > li > a .arrow { font-size: 0.6rem; transition: transform 0.2s; }
-    .nav-links > li:hover > a .arrow { transform: rotate(180deg); }
-
-    /* Dropdown */
-    .dropdown {
-      display: none; position: absolute; top: 70px; left: 0;
-      background: #fff; border: 1.5px solid var(--wood-light);
-      border-radius: 0 0 12px 12px;
-      box-shadow: 0 8px 30px var(--shadow);
-      min-width: 220px; z-index: 300;
-    }
-    .nav-links > li:hover .dropdown { display: block; }
-    .dropdown a {
-      display: block; padding: 0.75rem 1.2rem;
-      text-decoration: none; font-size: 0.82rem; color: var(--text-mid);
-      font-weight: 600; border-bottom: 1px solid var(--wood-light);
-      transition: background 0.2s, color 0.2s;
-    }
-    .dropdown a:last-child { border-bottom: none; border-radius: 0 0 12px 12px; }
-    .dropdown a:hover { background: var(--mint-light); color: var(--mint-dark); }
-    .dropdown .sub-label {
-      padding: 0.4rem 1.2rem; font-size: 0.7rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.12em; color: var(--wood-mid);
-      border-bottom: 1px solid var(--wood-light); background: var(--cream2);
-    }
-
+    .nav-back:hover { color: var(--mint-dark); }
     .nav-cta {
-      background: var(--wood-dark); color: #fff !important;
-      border-radius: 30px; padding: 0.5rem 1.2rem !important;
-      height: auto !important; margin-left: 0.5rem;
-      font-size: 0.78rem !important;
-      transition: background 0.25s !important;
-    }
-    .nav-cta:hover { background: var(--mint-dark) !important; }
-
-    /* Hamburger */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
-    .mobile-logo { display: none; justify-content: center; margin-bottom: 1.5rem; }
-    .mobile-logo img { width: 150px; height: 150px; object-fit: contain; }
-    .hamburger span { width: 24px; height: 2px; background: var(--wood-dark); border-radius: 2px; transition: all 0.3s; }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 70px 0 0;
-      overflow: visible;
-      background: var(--mint-light);
-      position: relative;
-    }
-    .hero-left {
-      padding: 5rem 3rem 4rem 5rem;
-      display: flex; flex-direction: column; gap: 1.5rem;
-      background: var(--mint-light);
-    }
-    .hero-tag {
-      display: inline-block;
-      background: rgba(255,255,255,0.6); color: var(--wood-dark);
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 30px;
-      width: fit-content;
-    }
-    .hero-left h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
-      color: var(--wood-deep); line-height: 1.15;
-    }
-    .hero-left h1 em { color: var(--wood-dark); font-style: italic; }
-    .hero-left p {
-      font-size: 1.05rem; color: var(--text-mid);
-      line-height: 1.8; font-weight: 300; max-width: 480px;
-    }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary {
-      display: inline-block; padding: 0.85rem 2rem;
       background: var(--wood-dark); color: #fff;
-      border-radius: 40px; text-decoration: none;
-      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; transition: all 0.3s;
-      box-shadow: 0 4px 16px rgba(139,94,60,0.35);
-    }
-    .btn-primary:hover { background: var(--mint-dark); transform: translateY(-2px); }
-    .btn-secondary {
-      display: inline-block; padding: 0.85rem 2rem;
-      background: transparent; color: var(--wood-dark);
-      border: 2px solid var(--wood-dark); border-radius: 40px;
-      text-decoration: none; font-size: 0.85rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s;
-    }
-    .btn-secondary:hover { background: var(--wood-light); transform: translateY(-2px); }
-    .hero-right {
-      height: 100vh; position: relative; overflow: visible;
-    }
-    .hero-right img {
-      width: 100%; height: 100%; object-fit: cover;
-      object-position: center;
-    }
-    .hero-right::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to right, var(--mint-light) 0%, transparent 30%);
-    }
-    .hero-logo-float {
-      position: absolute; bottom: 2rem; right: 2rem; z-index: 50;
-      width: 160px; height: 160px;
-      background: rgba(253,248,240,0.95);
-      border-radius: 50%;
-      padding: 8px;
-      box-shadow: 0 6px 24px var(--shadow);
-      animation: floatLogo 4s ease-in-out infinite;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .hero-logo-float img {
-      width: 90%; height: 90%; object-fit: contain;
-    }
-    @keyframes floatLogo { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-    /* ── SECTION COMMONS ── */
-    section { padding: 5rem 2rem; }
-    .section-label {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em;
-      text-transform: uppercase; color: var(--mint-dark);
-      text-align: center; margin-bottom: 0.5rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      color: var(--wood-deep); text-align: center;
-      margin-bottom: 0.5rem; line-height: 1.2;
-    }
-    .section-title em { color: var(--wood-dark); font-style: italic; }
-    .divider {
-      width: 50px; height: 2px; background: var(--wood-mid);
-      margin: 0.6rem auto 2.5rem; border-radius: 2px;
-    }
-
-    /* ── CATEGORÍAS ── */
-    #categorias { background: var(--cream2); }
-    .cat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem; max-width: 1100px; margin: 0 auto;
-    }
-    .cat-card {
-      position: relative; border-radius: 20px; overflow: hidden;
-      cursor: pointer; group: true;
-      box-shadow: 0 4px 20px var(--shadow);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-decoration: none;
-    }
-    .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
-    .cat-card.large { grid-column: span 1; }
-    .cat-card .img-wrap { width: 100%; height: 280px; overflow: hidden; }
-    .cat-card.large .img-wrap { height: 280px; }
-    .cat-card .img-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .cat-card:hover .img-wrap img { transform: scale(1.07); }
-    .cat-card .cat-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.5rem 1.5rem 1.2rem;
-      background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%);
-      color: #fff;
-    }
-    .cat-info h3 span, .cat-info p span { background: rgba(253,248,240,0.15); }
-    .cat-info h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
-    }
-    .cat-info p { font-size: 0.8rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
-    .cat-info .cat-arrow {
-      display: inline-block; margin-top: 0.5rem;
-      background: rgba(255,255,255,0.2); border-radius: 30px;
-      padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.08em; backdrop-filter: blur(4px);
+      border-radius: 30px; padding: 0.5rem 1.2rem;
+      text-decoration: none; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
       transition: background 0.25s;
     }
-    .cat-card:hover .cat-arrow { background: var(--mint-dark); }
+    .nav-cta:hover { background: var(--mint-dark); }
 
-    /* Colección Cocina card con subcategoría */
-    .cat-card .sub-badge {
-      position: absolute; top: 1rem; left: 1rem;
-      background: var(--mint-dark); color: #fff;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px;
-    }
-
-    /* ── SOBRE MÍ ── */
-    #sobre {
-      background: var(--cream);
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; padding: 0; align-items: stretch;
-    }
-    .sobre-img { overflow: hidden; min-height: 480px; }
-    .sobre-img img { width: 100%; height: 100%; object-fit: cover; }
-    .sobre-text {
-      padding: 5rem 4rem;
-      display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;
-    }
-    .sobre-text .section-label { text-align: left; }
-    .sobre-text h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      color: var(--wood-deep); line-height: 1.2;
-    }
-    .sobre-text p { color: var(--text-mid); line-height: 1.9; font-weight: 300; font-size: 0.98rem; }
-    .sobre-text strong { color: var(--wood-dark); font-weight: 700; }
-
-    /* ── PRODUCTOS DESTACADOS ── */
-    #productos { background: var(--cream); }
-    .prod-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
-    }
-    .prod-card {
-      background: #fff; border-radius: 18px;
-      border: 1.5px solid var(--wood-light);
-      overflow: hidden;
-      box-shadow: 0 4px 18px var(--shadow);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .prod-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
-    .prod-img { height: 210px; overflow: hidden; }
-    .prod-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .prod-card:hover .prod-img img { transform: scale(1.06); }
-    .prod-body { padding: 1.2rem 1.2rem 1.4rem; }
-    .prod-cat {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--mint-dark); margin-bottom: 0.3rem;
-    }
-    .prod-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; color: var(--wood-deep); margin-bottom: 0.5rem;
-    }
-    .prod-price {
-      font-size: 1.1rem; font-weight: 700; color: var(--wood-dark);
-    }
-    .prod-price .desde { font-size: 0.75rem; font-weight: 400; color: var(--text-mid); }
-    .prod-note { font-size: 0.75rem; color: var(--text-mid); margin-top: 0.3rem; font-weight: 300; }
-
-    /* ── TESTIMONIOS ── */
-    #testimonios { background: var(--wood-deep); color: var(--cream); }
-    #testimonios .section-title { color: var(--wood-light); }
-    #testimonios .section-label { color: var(--mint); }
-    #testimonios .divider { background: var(--mint); }
-    .testi-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.4rem; max-width: 1000px; margin: 0 auto;
-    }
-    .testi-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px; padding: 1.8rem 1.5rem;
-      transition: background 0.25s;
-    }
-    .testi-card:hover { background: rgba(255,255,255,0.12); }
-    .testi-stars { color: var(--wood-mid); font-size: 0.9rem; margin-bottom: 0.8rem; letter-spacing: 2px; }
-    .testi-text { font-size: 0.9rem; line-height: 1.75; font-weight: 300; font-style: italic; margin-bottom: 1rem; }
-    .testi-author { font-size: 0.8rem; font-weight: 700; color: var(--mint); letter-spacing: 0.05em; }
-    .testi-product { font-size: 0.72rem; color: rgba(253,248,240,0.5); margin-top: 0.2rem; }
-
-    /* ── PRECIOS ── */
-    #precios { background: var(--cream2); }
-    .price-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.4rem; max-width: 1100px; margin: 0 auto;
-    }
-    .price-card {
-      background: #fff; border-radius: 18px;
-      border: 1.5px solid var(--wood-light);
-      overflow: hidden;
-      box-shadow: 0 4px 18px var(--shadow);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .price-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
-    .price-card .card-img { height: 190px; overflow: hidden; }
-    .price-card .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .price-card:hover .card-img img { transform: scale(1.06); }
-    .price-card .card-body { padding: 1.2rem 1.3rem 1.4rem; }
-    .price-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem; color: var(--wood-deep); margin-bottom: 0.8rem;
-    }
-    .price-line {
-      display: flex; justify-content: space-between; align-items: baseline;
-      border-bottom: 1px dashed var(--wood-light);
-      padding: 0.35rem 0; font-size: 0.83rem; color: var(--text-mid);
-    }
-    .price-line:last-child { border-bottom: none; }
-    .price-line .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.95rem; }
-    .price-note {
-      text-align: center; margin-top: 2rem;
-      font-size: 0.82rem; color: var(--text-mid); font-style: italic;
-    }
-
-    /* ── CONTACTO ── */
-    #contacto {
-      background: linear-gradient(135deg, var(--mint-light) 0%, var(--wood-light) 100%);
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 110px 2rem 3rem;
+      background: var(--mint-light);
       text-align: center;
     }
-    #contacto .section-title { color: var(--wood-deep); }
-    .contact-grid {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem;
-      margin-top: 2.5rem;
+    .page-hero .breadcrumb {
+      font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem;
+      letter-spacing: 0.1em;
     }
-    .contact-card {
-      background: #fff; border-radius: 16px; padding: 1.5rem 2rem;
-      box-shadow: 0 4px 20px var(--shadow); text-decoration: none;
-      color: var(--text); min-width: 200px;
+    .page-hero .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
+    .page-hero .breadcrumb a:hover { text-decoration: underline; }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--wood-deep); margin-bottom: 0.8rem;
+    }
+    .page-hero p {
+      max-width: 560px; margin: 0 auto;
+      color: var(--text-mid); font-size: 1rem;
+      line-height: 1.8; font-weight: 300;
+    }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
+
+    /* ── PRODUCTS GRID ── */
+    .products-section { padding: 4rem 2rem 5rem; max-width: 1200px; margin: 0 auto; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1.5px solid var(--wood-light);
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--shadow);
       transition: transform 0.25s, box-shadow 0.25s;
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      display: flex; flex-direction: column;
     }
-    .contact-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px var(--shadow); }
-    .contact-card .icon { font-size: 1.8rem; }
-    .contact-card .label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-mid); }
-    .contact-card .value { font-size: 0.9rem; font-weight: 600; color: var(--wood-dark); }
-    .contact-note { margin-top: 2rem; font-size: 0.85rem; color: var(--text-mid); font-weight: 300; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
+
+    .product-img {
+      position: relative; height: 260px; overflow: hidden; cursor: zoom-in;
+    }
+    .product-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-img img { transform: scale(1.06); }
+    .zoom-icon {
+      position: absolute; bottom: 0.8rem; right: 0.8rem;
+      background: rgba(253,248,240,0.9); border-radius: 50%;
+      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; box-shadow: 0 2px 8px var(--shadow);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .product-card:hover .zoom-icon { opacity: 1; }
+    .personalizable-badge {
+      position: absolute; top: 0.8rem; left: 0.8rem;
+      background: var(--mint-dark); color: #fff;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px;
+    }
+    .limited-badge {
+      position: absolute; top: 0.8rem; left: 0.8rem;
+      background: var(--wood-dark); color: #fff;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px;
+    }
+
+    .product-body { padding: 1.4rem 1.4rem 1.6rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+    .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
+    .product-body h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--wood-deep); }
+    .product-desc { font-size: 0.87rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; flex: 1; }
+
+    .price-block { margin-top: 0.5rem; border-top: 1px dashed var(--wood-light); padding-top: 0.8rem; }
+    .price-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.83rem; color: var(--text-mid); padding: 0.3rem 0;
+      border-bottom: 1px dashed var(--wood-light);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.95rem; }
+    .price-note { font-size: 0.75rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
+
+    .btn-contact {
+      display: block; text-align: center; margin-top: 1rem;
+      background: var(--wood-dark); color: #fff;
+      border-radius: 30px; padding: 0.7rem 1rem;
+      text-decoration: none; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background 0.25s;
+    }
+    .btn-contact:hover { background: var(--mint-dark); }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.88); align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 88vh;
+      border-radius: 12px; object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: fixed; top: 1.2rem; right: 1.5rem;
+      color: #fff; font-size: 2rem; cursor: pointer;
+      background: rgba(255,255,255,0.15); border-radius: 50%;
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; line-height: 1;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+    /* ── INFO BANNER ── */
+    .info-banner {
+      background: var(--wood-deep); color: var(--cream);
+      padding: 2rem; text-align: center;
+    }
+    .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
+    .info-banner strong { color: var(--wood-mid); }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--wood-deep); color: rgba(253,248,240,0.5);
-      padding: 2rem 2.5rem;
+      background: var(--wood-deep); color: rgba(253,248,240,0.4);
+      padding: 1.5rem 2.5rem;
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 1rem; font-size: 0.78rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
-    footer img { height: 40px; opacity: 0.7; filter: invert(1); }
-    footer a { color: rgba(253,248,240,0.5); text-decoration: none; }
+    footer img { height: 36px; opacity: 0.6; filter: invert(1); }
+    footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
     footer a:hover { color: var(--mint); }
 
     /* ── FADE IN ── */
-    .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      #hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .hero-left { padding: 4rem 2rem 3rem; background: var(--mint-light); }
-      .mobile-logo { display: flex !important; }
-      #sobre { grid-template-columns: 1fr; }
-      .sobre-img { min-height: 260px; }
-      .sobre-text { padding: 3rem 2rem; }
-      .cat-grid { grid-template-columns: 1fr 1fr; }
-      .cat-card.large { grid-column: span 1; }
-    }
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
-      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
-      .nav-links.open { display: flex; }
-      .nav-links > li > a { height: 44px; font-size: 0.85rem; }
-      .dropdown { display: block !important; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.5rem 1rem; }
-      .dropdown a { font-size: 0.8rem; padding: 0.55rem 1rem; }
-      .hamburger { display: flex; }
-      .cat-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
   </style>
@@ -411,201 +206,48 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a href="#" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#categorias">Cositas Mamemi ▾ <span class="arrow"></span></a>
-      <div class="dropdown">
-        <a href="cositas-mamemi.html">Llaveros</a>
-        <a href="cositas-mamemi.html">Imanes</a>
-      </div>
-    </li>
-    <li><a href="#categorias">Regalos Personalizados <span class="arrow">▾</span></a>
-      <div class="dropdown">
-        <a href="#cat-regalos">Letra 3D autoportante</a>
-        <a href="#cat-regalos">Placa de nacimiento</a>
-        <a href="#cat-regalos">Placa de profe</a>
-        <a href="#cat-regalos">Nombre para puerta</a>
-        <a href="#cat-regalos">Marcapáginas</a>
-        <a href="#cat-regalos">Tarjetas de visita</a>
-      </div>
-    </li>
-    <li><a href="#categorias">Packs para Regalar <span class="arrow">▾</span></a>
-      <div class="dropdown">
-        <a href="#cat-packs">Pack Nacimiento</a>
-        <a href="#cat-packs">Más packs próximamente</a>
-      </div>
-    </li>
-    <li><a href="#categorias">Detallitos para Eventos <span class="arrow">▾</span></a>
-      <div class="dropdown">
-        <a href="#cat-eventos">Libretas personalizadas</a>
-      </div>
-    </li>
-    <li><a href="#categorias">Colección Cocina <span class="arrow">▾</span></a>
-      <div class="dropdown">
-        <div class="sub-label">Mar y Montaña</div>
-        <a href="#cat-cocina">Tabla de cocina</a>
-      </div>
-    </li>
-    <li><a href="#sobre">Sobre mí</a></li>
-    <li><a href="#contacto" class="nav-cta">¿Hablamos?</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
-    <span></span><span></span><span></span>
-  </div>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+  <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">💬 Pedir ahora</a>
 </nav>
 
-<!-- ── HERO ── -->
-<section id="hero">
-  <div class="hero-left fade-in">
-    <div class="mobile-logo"><img src="images/logo.png" alt="MAMEMI Madera"></div>
-    <span class="hero-tag">✦ Diseños con amor ✦</span>
-    <h1>Regalos únicos<br>hechos con <em>mimo</em></h1>
-    <p>Diseño y creo piezas únicas combinando principalmente técnicas de grabado láser e impresión 3D con un proceso artesanal. Cada pieza es irrepetible, pensada exclusivamente para dar vida a esos momentos que merecen ser recordados para siempre.</p>
-    <div class="hero-btns">
-      <a href="#categorias" class="btn-primary">Ver productos</a>
-      <a href="#contacto" class="btn-secondary">Contactar</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <img src="images/pack_nac.jpg" alt="Pack nacimiento MAMEMI Madera">
-    <img src="images/logo.png" alt="Logo MAMEMI" class="hero-logo-float">
-  </div>
-</section>
-
-<!-- ── SOBRE MÍ ── -->
-<section id="sobre">
-  <div class="sobre-img">
-    <img src="images/nacimiento.jpg" alt="Sobre MAMEMI Madera">
-  </div>
-  <div class="sobre-text fade-in">
-    <p class="section-label">El corazón de MAMEMI</p>
-    <h2>Hola, soy <em style="font-style:italic; color:var(--mint-dark)">Leticia</em> y este es mi rincón creativo 👋</h2>
-    <p></p>
-    <p><strong>MAMEMI Madera</strong> nace de la pasión por transformar elementos naturales en recuerdos eternos. Creo firmemente que los mejores regalos son los que cuentan una historia: la de quien los recibe. Por eso, cada pieza de mi estudio combina mimo artesanal y precisión técnica.</p>
-    <p>Trabajo con <strong>madera natural de calidad</strong>, grabando con láser para crear piezas únicas. Personalizo para cualquier ocasión especial: nacimientos, bodas, fin de curso, aniversarios… o simplemente porque sí.</p>
-    <p style="font-size:0.85rem; color:var(--text-mid);">✦ Todos los precios incluyen IVA · Envíos a toda España</p>
-    <a href="#contacto" class="btn-primary" style="width:fit-content; margin-top:0.5rem;">Escríbeme</a>
-  </div>
-</section>
-
-<!-- ── CATEGORÍAS ── -->
-<section id="categorias">
-  <p class="section-label">Lo que creo</p>
-  <h2 class="section-title">Mis <em>categorías</em></h2>
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Inicio</a> · Cositas Mamemi</p>
+  <h1>Cositas Mamemi</h1>
   <div class="divider"></div>
+  <p>Mis propias ediciones limitadas, diseñadas y creadas por mí. No son personalizables — cada colección es exclusiva y cuando se acaba, se acaba. Pequeñas piezas con mucho carácter, perfectas para regalar o para ti.</p>
+</div>
 
-  <div class="cat-grid">
+<!-- ── PRODUCTS ── -->
+<section class="products-section">
+  <div class="products-grid">
 
-    <!-- Cositas Mamemi (large) -->
-    <a href="#precios" class="cat-card large fade-in" id="cat-cositas">
-      <div class="img-wrap"><img src="images/llavero.jpg" alt="Cositas Mamemi"></div>
-      <div class="cat-info">
-        <h3>Cositas Mamemi</h3>
-        <p>Ediciones limitadas · Diseños exclusivos Mamemi</p>
-        <span class="cat-arrow">Ver más →</span>
+    <!-- LLAVEROS -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/llavero.jpg')">
+        <img src="images/llavero.jpg" alt="Llavero grabado en madera">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
       </div>
-    </a>
-
-    <!-- Regalos Personalizados -->
-    <a href="#precios" class="cat-card fade-in" id="cat-regalos">
-      <div class="img-wrap"><img src="images/letra3d.jpg" alt="Regalos Personalizados"></div>
-      <div class="cat-info">
-        <h3>Regalos Personalizados</h3>
-        <p>Letras 3D · Placas · Nombres · Marcapáginas</p>
-        <span class="cat-arrow">Ver más →</span>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi</p>
+        <h2>Llavero grabado en madera</h2>
+        <p class="product-desc">Llavero redondo de madera natural grabado al láser con diseños exclusivos creados por mí. Cada edición tiene su propio diseño y colores, con mosquetón y borla decorativa. Cuando la edición se agota, no se repite.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">desde 12 €</span></div>
+          <p class="price-note">✦ Precio por unidad · IVA incluido · Hasta agotar existencias</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20edici%C3%B3n%20de%20llaveros" class="btn-contact" target="_blank">Quiero este</a>
       </div>
-    </a>
-
-    <!-- Packs para Regalar -->
-    <a href="#precios" class="cat-card fade-in" id="cat-packs">
-      <div class="img-wrap"><img src="images/pack_nac.jpg" alt="Packs para Regalar"></div>
-      <div class="cat-info">
-        <h3>Packs para Regalar</h3>
-        <p>Cajas de nacimiento y más · Listos para sorprender</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
-    </a>
-
-    <!-- Detallitos para Eventos -->
-    <a href="#precios" class="cat-card fade-in" id="cat-eventos">
-      <div class="img-wrap"><img src="images/libretas.jpg" alt="Detallitos para Eventos"></div>
-      <div class="cat-info">
-        <h3>Detallitos para Eventos</h3>
-        <p>Libretas personalizadas · Detalles únicos</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
-    </a>
-
-    <!-- Colección Cocina (large) -->
-    <a href="#precios" class="cat-card large fade-in" id="cat-cocina">
-      <span class="sub-badge">Mar y Montaña</span>
-      <div class="img-wrap"><img src="images/tabla.jpg" alt="Colección Cocina"></div>
-      <div class="cat-info">
-        <h3>Colección Cocina</h3>
-        <p>Tablas de cocina · Colección Mar y Montaña</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
-    </a>
-
-  </div>
+    </div>
 </section>
 
-
-
-
-
-<!-- ── TESTIMONIOS ── -->
-<section id="testimonios">
-  <p class="section-label">Lo que dicen</p>
-  <h2 class="section-title">Opiniones de <em style="color:var(--mint)">clientas</em></h2>
-  <div class="divider"></div>
-  <div class="testi-grid">
-    <div class="testi-card fade-in">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"Pero buenoooooo… Me encanta. Me gusta mucho todo 😍 Tía qué creativa eres, la leche. Me dejas alucinada."</p>
-      <div class="testi-author">Coral</div>
-      <div class="testi-product">Marcapáginas de cuero con imán personalizado</div>
-    </div>
-    <div class="testi-card fade-in">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"O sea, voy a llorar de emoción. Qué cosa más bonita. Pero más bonita. Me encanta el trébol con los tres corazones. Es que es precioso. ¡Me encantan Leti! Son perfectos, justo así es perfecto."</p>
-      <div class="testi-author">Cristi</div>
-      <div class="testi-product">Juego de 3 llaveros personalizados en madera</div>
-    </div>
-    <div class="testi-card fade-in">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"Esta lindo 🥰 La arbor mas clara ficou muy linda. Todo esta lindo. Tu trabajo és muy lindo."</p>
-      <div class="testi-author">Thallyta</div>
-      <div class="testi-product">Placa de madera diseñada y grabada al láser con toque de color pintado a mano</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── CONTACTO ── -->
-<section id="contacto">
-  <p class="section-label">¿Hablamos?</p>
-  <h2 class="section-title">Escríbeme sin compromiso</h2>
-  <div class="divider"></div>
-  <p style="text-align:center; color:var(--text-mid); font-weight:300; max-width:500px; margin:0 auto;">¿Tienes dudas o quieres hacer un pedido personalizado? Contáctame por cualquiera de estos canales y te contesto lo antes posible.</p>
-  <div class="contact-grid">
-    <a href="https://instagram.com/mamemimadera" class="contact-card" target="_blank">
-      <span class="icon">📸</span>
-      <span class="label">Instagram</span>
-      <span class="value">@mamemimadera</span>
-    </a>
-    <a href="mailto:hola@mamemimadera.es" class="contact-card">
-      <span class="icon">✉️</span>
-      <span class="label">Email</span>
-      <span class="value">hola@mamemimadera.es</span>
-    </a>
-    <a href="https://wa.me/34622562499" class="contact-card" target="_blank">
-      <span class="icon">💬</span>
-      <span class="label">WhatsApp</span>
-      <span class="value">Escríbeme</span>
-    </a>
-  </div>
-  <p class="contact-note">Respondo en menos de 24 h · Realizo envíos a toda España</p>
-</section>
+<!-- ── INFO BANNER ── -->
+<div class="info-banner">
+  <p>✦ Todos los precios incluyen IVA · <strong>Gastos de envío aparte</strong> · Realizo envíos a toda España ✦<br>
+  ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por WhatsApp al <strong>622 562 499</strong></p>
+</div>
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -614,8 +256,25 @@
   <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></span>
 </footer>
 
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <script>
-  // Scroll animations
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // Fade in
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
