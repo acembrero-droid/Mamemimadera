@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
@@ -34,7 +34,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem; height: 70px;
     }
-    .nav-logo img { height: 52px; width: auto; object-fit: contain; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
     .nav-links { display: flex; gap: 0; list-style: none; position: relative; }
     .nav-links > li { position: relative; }
     .nav-links > li > a {
@@ -82,6 +82,8 @@
 
     /* Hamburger */
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .mobile-logo { display: none; justify-content: center; margin-bottom: 1.5rem; }
+    .mobile-logo img { width: 150px; height: 150px; object-fit: contain; }
     .hamburger span { width: 24px; height: 2px; background: var(--wood-dark); border-radius: 2px; transition: all 0.3s; }
 
     /* ── HERO ── */
@@ -90,8 +92,9 @@
       display: grid; grid-template-columns: 1fr 1fr;
       align-items: center;
       padding: 70px 0 0;
-      overflow: hidden;
+      overflow: visible;
       background: var(--mint-light);
+      position: relative;
     }
     .hero-left {
       padding: 5rem 3rem 4rem 5rem;
@@ -134,7 +137,7 @@
     }
     .btn-secondary:hover { background: var(--wood-light); transform: translateY(-2px); }
     .hero-right {
-      height: 100vh; position: relative; overflow: hidden;
+      height: 100vh; position: relative; overflow: visible;
     }
     .hero-right img {
       width: 100%; height: 100%; object-fit: cover;
@@ -145,11 +148,18 @@
       background: linear-gradient(to right, var(--mint-light) 0%, transparent 30%);
     }
     .hero-logo-float {
-      position: absolute; bottom: 2.5rem; right: 2.5rem; z-index: 10;
-      width: 130px; background: rgba(253,248,240,0.92);
-      border-radius: 50%; padding: 12px;
+      position: absolute; bottom: 2rem; right: 2rem; z-index: 50;
+      width: 160px; height: 160px;
+      background: rgba(253,248,240,0.95);
+      border-radius: 50%;
+      padding: 8px;
       box-shadow: 0 6px 24px var(--shadow);
       animation: floatLogo 4s ease-in-out infinite;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-logo-float img {
+      width: 90%; height: 90%; object-fit: contain;
     }
     @keyframes floatLogo { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
@@ -199,14 +209,16 @@
     .cat-card .cat-info {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 1.5rem 1.5rem 1.2rem;
-      background: linear-gradient(to top, rgba(90,58,26,0.82) 0%, transparent 100%);
+      background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%);
       color: #fff;
     }
+    .cat-info h3 span, .cat-info p span { background: rgba(253,248,240,0.15); }
     .cat-info h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
     }
-    .cat-info p { font-size: 0.8rem; opacity: 0.85; font-weight: 300; }
+    .cat-info p { font-size: 0.8rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
     .cat-info .cat-arrow {
       display: inline-block; margin-top: 0.5rem;
       background: rgba(255,255,255,0.2); border-radius: 30px;
@@ -226,7 +238,7 @@
 
     /* ── SOBRE MÍ ── */
     #sobre {
-      background: var(--mint-light);
+      background: var(--cream);
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 0; padding: 0; align-items: stretch;
     }
@@ -375,7 +387,8 @@
     @media (max-width: 900px) {
       #hero { grid-template-columns: 1fr; }
       .hero-right { display: none; }
-      .hero-left { padding: 4rem 2rem 3rem; }
+      .hero-left { padding: 4rem 2rem 3rem; background: var(--mint-light); }
+      .mobile-logo { display: flex !important; }
       #sobre { grid-template-columns: 1fr; }
       .sobre-img { min-height: 260px; }
       .sobre-text { padding: 3rem 2rem; }
@@ -384,10 +397,11 @@
     }
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
-      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
       .nav-links.open { display: flex; }
       .nav-links > li > a { height: 44px; font-size: 0.85rem; }
-      .dropdown { position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0.3rem 0 0.3rem 1rem; }
+      .dropdown { display: block !important; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.5rem 1rem; }
+      .dropdown a { font-size: 0.8rem; padding: 0.55rem 1rem; }
       .hamburger { display: flex; }
       .cat-grid { grid-template-columns: 1fr; }
       .cat-card.large { grid-column: span 1; }
@@ -445,6 +459,7 @@
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="hero-left fade-in">
+    <div class="mobile-logo"><img src="images/logo.png" alt="MAMEMI Madera"></div>
     <span class="hero-tag">✦ Diseños con amor ✦</span>
     <h1>Regalos únicos<br>hechos con <em>mimo</em></h1>
     <p>Diseño y creo piezas únicas combinando principalmente técnicas de grabado láser e impresión 3D con un proceso artesanal. Cada pieza es irrepetible, pensada exclusivamente para dar vida a esos momentos que merecen ser recordados para siempre.</p>
@@ -466,8 +481,9 @@
   </div>
   <div class="sobre-text fade-in">
     <p class="section-label">El corazón de MAMEMI</p>
-    <h2>Hola, soy <em style="font-style:italic; color:var(--mint-dark)">Leticia</em> 👋</h2>
-    <p>Mi nombre es Leticia y te doy la bienvenida a mi rincón creativo. <strong>MAMEMI Madera</strong> nace de la pasión por transformar elementos naturales en recuerdos eternos. Creo firmemente que los mejores regalos son los que cuentan una historia: la de quien los recibe. Por eso, cada pieza de mi estudio combina mimo artesanal y precisión técnica.</p>
+    <h2>Hola, soy <em style="font-style:italic; color:var(--mint-dark)">Leticia</em> y este es mi rincón creativo 👋</h2>
+    <p></p>
+    <p><strong>MAMEMI Madera</strong> nace de la pasión por transformar elementos naturales en recuerdos eternos. Creo firmemente que los mejores regalos son los que cuentan una historia: la de quien los recibe. Por eso, cada pieza de mi estudio combina mimo artesanal y precisión técnica.</p>
     <p>Trabajo con <strong>madera natural de calidad</strong>, grabando con láser para crear piezas únicas. Personalizo para cualquier ocasión especial: nacimientos, bodas, fin de curso, aniversarios… o simplemente porque sí.</p>
     <p style="font-size:0.85rem; color:var(--text-mid);">✦ Todos los precios incluyen IVA · Envíos a toda España</p>
     <a href="#contacto" class="btn-primary" style="width:fit-content; margin-top:0.5rem;">Escríbeme</a>
@@ -550,19 +566,19 @@
       <div class="testi-stars">★★★★★</div>
       <p class="testi-text">"Pero buenoooooo… Me encanta. Me gusta mucho todo 😍 Tía qué creativa eres, la leche. Me dejas alucinada."</p>
       <div class="testi-author">Coral</div>
-      <div class="testi-product">Marcapáginas personalizado</div>
+      <div class="testi-product">Marcapáginas de cuero con imán personalizado</div>
     </div>
     <div class="testi-card fade-in">
       <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"Me encantan Leti! Son perfectos! Justo así es perfecto. O sea, voy a llorar de emoción. Qué cosa más bonita. Pero más bonita. Me encanta el trébol con los tres corazones. Es que es precioso."</p>
+      <p class="testi-text">"O sea, voy a llorar de emoción. Qué cosa más bonita. Pero más bonita. Me encanta el trébol con los tres corazones. Es que es precioso. ¡Me encantan Leti! Son perfectos, justo así es perfecto."</p>
       <div class="testi-author">Cristi</div>
-      <div class="testi-product">Llavero personalizado</div>
+      <div class="testi-product">Juego de 3 llaveros personalizados en madera</div>
     </div>
     <div class="testi-card fade-in">
       <div class="testi-stars">★★★★★</div>
       <p class="testi-text">"Esta lindo 🥰 La arbor mas clara ficou muy linda. Todo esta lindo. Tu trabajo és muy lindo."</p>
       <div class="testi-author">Thallyta</div>
-      <div class="testi-product">Placa personalizada grabada al láser y pintada a mano</div>
+      <div class="testi-product">Placa de madera diseñada y grabada al láser con toque de color pintado a mano</div>
     </div>
   </div>
 </section>
@@ -596,7 +612,7 @@
 <!-- ── FOOTER ── -->
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
-  <span>© 2025 MAMEMI Madera · www.mamemimadera.es</span>
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
   <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></span>
 </footer>
 
