@@ -183,14 +183,14 @@
     }
 
     /* ── CATEGORÍAS ── */
-    #categorias { background: var(--cream2); }
+    #categorias { background: var(--cream2); padding-bottom: 5rem; position: relative; z-index: 0; overflow: hidden; }
     .cat-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.2rem; max-width: 1100px; margin: 0 auto;
     }
     .cat-card {
-      position: relative; border-radius: 20px; overflow: hidden;
+      position: relative; border-radius: 20px; overflow: hidden; isolation: isolate;
       cursor: pointer; group: true;
       box-shadow: 0 4px 20px var(--shadow);
       transition: transform 0.3s, box-shadow 0.3s;
@@ -474,15 +474,6 @@
   <div class="hero-right">
     <img src="images/pack_nac.jpg" alt="Pack nacimiento MAMEMI Madera">
     <img src="images/logo.png" alt="Logo MAMEMI" class="hero-logo-float">
-    <!-- Estudio Creativo -->
-    <a href="estudio-creativo.html" class="cat-card fade-in" id="cat-estudio">
-      <div class="img-wrap"><img src="images/logo_estudio.png" alt="Estudio Creativo" style="object-fit:contain; background:var(--mint-light); padding:1.5rem;"></div>
-      <div class="cat-info">
-        <h3>Estudio Creativo</h3>
-        <p>Tarjetas de visita · Trípticos · Identidad visual</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
-    </a>
 
   </div>
 </section>
@@ -563,7 +554,7 @@
 
     <!-- Estudio Creativo -->
     <a href="estudio-creativo.html" class="cat-card fade-in" id="cat-estudio">
-      <div class="img-wrap"><img src="images/logo_estudio.png" alt="Estudio Creativo" style="object-fit:contain; background:var(--mint-light); padding:1.5rem;"></div>
+      <div class="img-wrap"><img src="images/logo_estudio.png" alt="Estudio Creativo" style="object-fit:contain; background:#fff; padding:1.5rem;"></div>
       <div class="cat-info">
         <h3>Estudio Creativo</h3>
         <p>Tarjetas de visita · Trípticos · Identidad visual</p>
