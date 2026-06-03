@@ -111,6 +111,15 @@
       .products-grid, .coming-soon-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
+
+    .mini-carousel { position: relative; width: 100%; overflow: hidden; }
+    .mini-track { display: flex; transition: transform 0.4s ease; }
+    .mc-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,248,240,0.9); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px var(--shadow); }
+    .mc-prev { left: 0.5rem; }
+    .mc-next { right: 0.5rem; }
+    .mc-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.35rem; }
+    .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
+    .mc-dot.active { background: #fff; }
   </style>
 </head>
 <body>
@@ -132,29 +141,42 @@
   <div class="products-grid">
 
     <!-- PACK NACIMIENTO -->
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pack_nac.jpg')">
-        <img src="images/pack_nac.jpg" alt="Pack nacimiento personalizado">
+    <div class="product-card fade-in" style="max-width:700px; margin:0 auto; grid-column: 1 / -1;">
+      <div class="product-img" style="padding:0; height:320px; position:relative;">
+        <div class="mini-carousel">
+          <div class="mini-track" id="packTrack">
+            <img src="images/pack_aroa.jpg" alt="Pack nacimiento caja madera personalizada Aroa" onclick="openLightbox(this.src)" style="width:100%;height:320px;object-fit:cover;flex-shrink:0;cursor:zoom-in;">
+            <img src="images/pack_lucia.jpg" alt="Pack nacimiento cesta mimbre Lucía" onclick="openLightbox(this.src)" style="width:100%;height:320px;object-fit:cover;flex-shrink:0;cursor:zoom-in;">
+            <img src="images/pack_yerai2.jpg" alt="Pack nacimiento caja madera Yerai" onclick="openLightbox(this.src)" style="width:100%;height:320px;object-fit:cover;flex-shrink:0;cursor:zoom-in;">
+            <img src="images/pack_nac.jpg" alt="Pack nacimiento con peluche Alba" onclick="openLightbox(this.src)" style="width:100%;height:320px;object-fit:cover;flex-shrink:0;cursor:zoom-in;">
+          </div>
+          <button class="mc-btn mc-prev" onclick="movePack(-1)">‹</button>
+          <button class="mc-btn mc-next" onclick="movePack(1)">›</button>
+          <div class="mc-dots">
+            <div class="mc-dot active" onclick="goPack(0)"></div>
+            <div class="mc-dot" onclick="goPack(1)"></div>
+            <div class="mc-dot" onclick="goPack(2)"></div>
+            <div class="mc-dot" onclick="goPack(3)"></div>
+          </div>
+        </div>
         <span class="personalizable-badge">Personalizable</span>
-        <span class="desde-badge">Desde 45 €</span>
-        <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Packs para Regalar</p>
         <h2>Pack Nacimiento</h2>
-        <p class="product-desc">Un pack pensado para recibir al bebé con todo el amor del mundo. Incluye una caja de madera y una placa de nacimiento grabada al láser con los datos del bebé. Se puede personalizar con el nombre en la caja, colores, peluches y mucho más según tus preferencias y presupuesto.</p>
+        <p class="product-desc">Un pack pensado para recibir al bebé con todo el amor del mundo. Incluye una placa de nacimiento grabada al láser con el nombre en 3D, los datos del bebé y un peluche sonajero. Disponible en tres presentaciones — y aquí va un detalle importante: <strong>las cajas de madera no son solo un envoltorio</strong>. Son un elemento decorativo y de almacenaje que quedará en la habitación del bebé durante años, guardando sus primeros recuerdos. Un regalo dentro del regalo.</p>
         <div class="includes-list">
-          <p>El pack básico incluye:</p>
+          <p>Elige tu presentación:</p>
           <ul>
-            <li>Caja de madera sin personalizar</li>
-            <li>Placa de nacimiento grabada al láser</li>
-            <li>Presentación con papel de seda y virutas decorativas</li>
+            <li><strong>Cesta de mimbre</strong> — opción natural y elegante</li>
+            <li><strong>Caja de madera sin personalizar</strong> — clásica, cálida y reutilizable</li>
+            <li><strong>Caja grande de madera personalizada</strong> — con el nombre del bebé grabado, para guardar sus cositas especiales para siempre</li>
           </ul>
         </div>
         <div class="price-block">
-          <div class="price-row"><span>Pack básico (caja sin personalizar)</span><span class="amount">desde 45 €</span></div>
-          <div class="price-row"><span>Con caja personalizada con nombre</span><span class="amount">a consultar</span></div>
-          <div class="price-row"><span>Pack completo con extras</span><span class="amount">a consultar</span></div>
+          <div class="price-row"><span>Pack con cesta de mimbre</span><span class="amount">48 €</span></div>
+          <div class="price-row"><span>Pack con caja de madera sin personalizar</span><span class="amount">55 €</span></div>
+          <div class="price-row"><span>Pack con caja grande personalizada con nombre</span><span class="amount">65 €</span></div>
           <p class="price-note">✦ IVA incluido · El precio final depende del contenido y personalización elegidos</p>
         </div>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20pack%20de%20nacimiento" class="btn-contact" target="_blank">Quiero este pack</a>
@@ -212,6 +234,17 @@
 </div>
 
 <script>
+
+  let packIdx = 0;
+  const packTotal = 4;
+  function movePack(dir) { packIdx = (packIdx + dir + packTotal) % packTotal; goPack(packIdx); }
+  function goPack(i) {
+    packIdx = i;
+    document.getElementById('packTrack').style.transform = `translateX(-${i * 100}%)`;
+    document.querySelectorAll('.mc-dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+  setInterval(() => movePack(1), 4000);
+
   function openLightbox(src) {
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('active');
