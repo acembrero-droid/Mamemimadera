@@ -199,6 +199,15 @@
       .products-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
+
+    .mini-carousel { position: relative; width: 100%; height: 260px; overflow: hidden; }
+    .mini-track { display: flex; transition: transform 0.4s ease; height: 100%; }
+    .mc-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,248,240,0.9); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px var(--shadow); }
+    .mc-prev { left: 0.5rem; }
+    .mc-next { right: 0.5rem; }
+    .mc-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.35rem; }
+    .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
+    .mc-dot.active { background: #fff; }
   </style>
 </head>
 <body>
@@ -260,6 +269,25 @@
       </div>
     </div>
 
+    <!-- PLACA CUMPLEAÑOS -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/placa_cumple.jpg')">
+        <img src="images/placa_cumple.jpg" alt="Placa de felicitación cumpleaños">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Regalos Personalizados</p>
+        <h2>Placa de felicitación</h2>
+        <p class="product-desc">Placa circular de pino de 18 cm de diámetro y 1 cm de grosor, grabada al láser con el diseño e ilustración que elijas. El nombre se añade en relieve con impresión 3D. Perfecta para cumpleaños, aniversarios u ocasiones especiales que merecen un regalo único e irrepetible.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Placa 18cm · grabado láser + nombre 3D</span><span class="amount">a consultar</span></div>
+          <p class="price-note">✦ IVA incluido · El precio varía según el diseño y acabado</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20felicitaci%C3%B3n%20personalizada" class="btn-contact" target="_blank">Quiero este</a>
+      </div>
+    </div>
+
     <!-- PLACA PROFE -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_profe.jpg')">
@@ -302,10 +330,20 @@
 
     <!-- MARCAPÁGINAS -->
     <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag.jpg')">
-        <img src="images/marcapag.jpg" alt="Marcapáginas personalizado">
+      <div class="product-img" style="padding:0; height:260px; position:relative;">
+        <div class="mini-carousel" id="marcaCarousel">
+          <div class="mini-track" id="marcaTrack">
+            <img src="images/marcapag.jpg" alt="Marcapáginas cuero personalizado" onclick="openLightbox(this.src)" style="width:100%;height:260px;object-fit:cover;flex-shrink:0;cursor:zoom-in;">
+            <img src="images/marcapag2.jpg" alt="Marcapáginas cuero 2 caras" onclick="openLightbox(this.src)" style="width:100%;height:260px;object-fit:cover;flex-shrink:0;cursor:zoom-in;">
+          </div>
+          <button class="mc-btn mc-prev" onclick="moveMarca(-1)">‹</button>
+          <button class="mc-btn mc-next" onclick="moveMarca(1)">›</button>
+          <div class="mc-dots">
+            <div class="mc-dot active" onclick="goMarca(0)"></div>
+            <div class="mc-dot" onclick="goMarca(1)"></div>
+          </div>
+        </div>
         <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Regalos Personalizados</p>
@@ -317,6 +355,71 @@
           <p class="price-note">✦ Precio por unidad · IVA incluido</p>
         </div>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20marcap%C3%A1ginas%20personalizado" class="btn-contact" target="_blank">Quiero este</a>
+      </div>
+    </div>
+    <!-- LLAVEROS PERSONALIZADOS -->
+    <div class="product-card fade-in">
+      <div class="product-img" style="padding:0; height:260px; position:relative;">
+        <div class="mini-carousel" id="llavCarousel">
+          <div class="mini-track" id="llavTrack">
+            <img src="images/llavero.jpg" alt="Llavero madera personalizado" onclick="openLightbox(this.src)" style="width:100%;height:260px;object-fit:cover;flex-shrink:0;cursor:zoom-in;">
+            <img src="images/llavero2.jpg" alt="Llaveros madera personalizados La Cabaña y Cristi" onclick="openLightbox(this.src)" style="width:100%;height:260px;object-fit:cover;flex-shrink:0;cursor:zoom-in;">
+          </div>
+          <button class="mc-btn mc-prev" onclick="moveLlav(-1)">‹</button>
+          <button class="mc-btn mc-next" onclick="moveLlav(1)">›</button>
+          <div class="mc-dots">
+            <div class="mc-dot active" onclick="goLlav(0)"></div>
+            <div class="mc-dot" onclick="goLlav(1)"></div>
+          </div>
+        </div>
+        <span class="personalizable-badge">Personalizable</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Regalos Personalizados</p>
+        <h2>Llavero grabado en madera</h2>
+        <p class="product-desc">Llavero redondo de madera natural grabado al láser con el diseño, nombre, ilustración o texto que elijas. Acabado con mosquetón y borla decorativa disponible en varios colores. Un regalo pequeño con mucho significado — perfecto para cualquier ocasión.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Grabado por 1 cara</span><span class="amount">12 €</span></div>
+          <div class="price-row"><span>Grabado por 2 caras</span><span class="amount">15 €</span></div>
+          <p class="price-note">✦ Precio por unidad · IVA incluido</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20llavero%20personalizado" class="btn-contact" target="_blank">Quiero este</a>
+      </div>
+    </div>
+    <!-- PLACA ESPECIAL -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/placa_especial.jpg')">
+        <img src="images/placa_especial.jpg" alt="Placa especial grabada al láser">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Regalos Personalizados</p>
+        <h2>Placa especial grabada</h2>
+        <p class="product-desc">Disco de madera natural con diseño completamente personalizado: texto largo, poemas, dedicatorias en varios idiomas, ilustraciones grabadas al láser y toques de color pintados a mano. Cada pieza es única y se diseña desde cero según tus necesidades. El precio varía según la complejidad del diseño, la cantidad de texto e ilustraciones.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio según complejidad del diseño</span><span class="amount">a consultar</span></div>
+          <p class="price-note">✦ IVA incluido · Escríbeme con los detalles y te preparo un presupuesto sin compromiso</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20especial%20personalizada" class="btn-contact" target="_blank">Quiero este</a>
+      </div>
+    </div>
+    <!-- BANDERÍN -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/banderin.jpg')">
+        <img src="images/banderin.jpg" alt="Banderín de madera con letras 3D personalizado">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Regalos Personalizados</p>
+        <h2>Banderín de madera personalizado</h2>
+        <p class="product-desc">Banderín de madera cortado al láser con las letras del nombre en relieve con impresión 3D en el color que elijas. Perfecto para decorar la habitación del bebé, celebrar un cumpleaños o cualquier ocasión especial. El precio depende de la longitud del nombre o texto.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio según longitud del nombre o texto</span><span class="amount">a consultar</span></div>
+          <p class="price-note">✦ IVA incluido · Escríbeme con el nombre y te preparo un presupuesto sin compromiso</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20banderín%20de%20madera%20personalizado" class="btn-contact" target="_blank">Quiero este</a>
       </div>
     </div>
 
@@ -343,6 +446,19 @@
 </div>
 
 <script>
+
+  let marcaIdx = 0;
+  function moveMarca(dir) {
+    marcaIdx = (marcaIdx + dir + 2) % 2;
+    goMarca(marcaIdx);
+  }
+  function goMarca(i) {
+    marcaIdx = i;
+    document.getElementById('marcaTrack').style.transform = `translateX(-${i * 100}%)`;
+    document.querySelectorAll('.mc-dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+  setInterval(() => moveMarca(1), 3500);
+
   function openLightbox(src) {
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('active');
@@ -358,6 +474,15 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  let llavIdx = 0;
+  function moveLlav(dir) { llavIdx = (llavIdx + dir + 2) % 2; goLlav(llavIdx); }
+  function goLlav(i) {
+    llavIdx = i;
+    document.getElementById('llavTrack').style.transform = `translateX(-${i * 100}%)`;
+    document.querySelectorAll('#llavCarousel .mc-dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+  }
+  setInterval(() => moveLlav(1), 4200);
 </script>
 </body>
 </html>
