@@ -166,85 +166,38 @@
 
   <div class="subcat-grid">
 
-    <!-- CESTA DE MIMBRE -->
+    <!-- PACK ESENCIAL -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_lucia.jpg')">
-        <img src="images/pack_lucia.jpg" alt="Pack nacimiento cesta mimbre">
+        <img src="images/pack_lucia.jpg" alt="Pack Esencial cesta mimbre">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Pack Nacimiento</p>
-        <h3>Con cesta de mimbre</h3>
-        <p class="product-desc">Pack de nacimiento presentado en una preciosa cesta de mimbre natural. Una opción elegante y cálida que quedará perfecta en cualquier rincón del hogar.</p>
+        <h3>Pack Esencial · Cesta de mimbre</h3>
+        <p class="product-desc">Un pack de nacimiento con todo lo esencial, presentado en una preciosa cesta de mimbre natural. Se puede incluir una tarjeta con dedicatoria personalizada para que llegue listo para entregar.</p>
         <div class="includes-list">
           <p>Incluye:</p>
           <ul>
             <li>Cesta de mimbre natural</li>
-            <li>Placa de nacimiento grabada al láser</li>
-            <li>Peluche sonajero</li>
+            <li>Placa de nacimiento grabada al láser con todos los datos</li>
+            <li>Sonajero conejo de ganchillo con agarre de madera natural</li>
             <li>Papel de seda y decoración</li>
+            <li>Tarjeta con dedicatoria personalizada (opcional)</li>
           </ul>
         </div>
-        <div class="price-block">
-          <div class="price-display">
-            <span class="label">Precio</span>
-            <span class="amount">48 €</span>
-          </div>
-          <p class="price-note">✦ IVA incluido · Gastos de envío aparte</p>
-        </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20pack%20nacimiento%20con%20cesta%20de%20mimbre" class="btn-contact" target="_blank">Quiero este pack</a>
-      </div>
-    </div>
-
-    <!-- CAJA MADERA SIN NOMBRE -->
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pack_yerai2.jpg')">
-        <img src="images/pack_yerai2.jpg" alt="Pack nacimiento caja madera">
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Pack Nacimiento</p>
-        <h3>Con caja de madera sin nombre</h3>
-        <p class="product-desc">Pack de nacimiento en una caja de madera natural sin personalizar. <strong>La caja no es solo un envoltorio</strong> — es un elemento decorativo y de almacenaje que quedará en la habitación del bebé durante años, guardando sus primeros recuerdos.</p>
-        <div class="includes-list">
-          <p>Incluye:</p>
-          <ul>
-            <li>Caja de madera natural</li>
-            <li>Placa de nacimiento grabada al láser</li>
-            <li>Peluche sonajero</li>
-            <li>Papel de seda y decoración</li>
-          </ul>
-        </div>
-        <div class="price-block">
-          <div class="price-display">
-            <span class="label">Precio</span>
-            <span class="amount">55 €</span>
-          </div>
-          <p class="price-note">✦ IVA incluido · Gastos de envío aparte</p>
-        </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20pack%20nacimiento%20con%20caja%20de%20madera%20sin%20nombre" class="btn-contact" target="_blank">Quiero este pack</a>
-      </div>
-    </div>
-
-    <!-- CAJA MADERA CON NOMBRE 3D -->
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pack_aroa.jpg')">
-        <img src="images/pack_aroa.jpg" alt="Pack nacimiento caja personalizada">
-        <span class="personalizable-badge">Con nombre 3D</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Pack Nacimiento</p>
-        <h3>Con caja de madera y nombre en 3D</h3>
-        <p class="product-desc">Pack de nacimiento en una caja de madera con el nombre del bebé en relieve con impresión 3D. <strong>La caja se convierte en parte del recuerdo</strong> — decorativa, funcional y completamente personalizada para ese bebé en concreto.</p>
-        <div class="includes-list">
-          <p>Incluye:</p>
-          <ul>
-            <li>Caja de madera con nombre en 3D</li>
-            <li>Placa de nacimiento grabada al láser</li>
-            <li>Peluche sonajero</li>
-            <li>Papel de seda y decoración</li>
-          </ul>
+        <div class="selector-block">
+          <p class="selector-label">Personaliza tu pack</p>
+          <select id="esencialDatos" style="margin-bottom:0.5rem;">
+            <option value="">¿Quieres añadir los datos del bebé? (nombre, fecha, hora, peso, talla...)</option>
+            <option value="si">Sí, quiero personalizar los datos</option>
+            <option value="no">No por ahora, ya me pondré en contacto</option>
+          </select>
+          <select id="esencialDedicatoria">
+            <option value="">¿Quieres añadir una dedicatoria en la tarjeta?</option>
+            <option value="si">Sí, quiero incluir una dedicatoria personalizada</option>
+            <option value="no">No, sin dedicatoria</option>
+          </select>
         </div>
         <div class="price-block">
           <div class="price-display">
@@ -253,49 +206,106 @@
           </div>
           <p class="price-note">✦ IVA incluido · Gastos de envío aparte</p>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20pack%20nacimiento%20con%20caja%20personalizada%20con%20nombre%203D" class="btn-contact" target="_blank">Quiero este pack</a>
+        <button class="btn-contact" onclick="pedirEsencial()">Quiero este pack</button>
       </div>
     </div>
 
-    <!-- BAÚL -->
+    <!-- PACK RECUERDO -->
     <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pack_baul.jpg')">
-        <img src="images/pack_baul.jpg" alt="Pack nacimiento en baúl">
+      <div class="product-img" onclick="openLightbox('images/pack_yerai2.jpg')">
+        <img src="images/pack_yerai2.jpg" alt="Pack Recuerdo caja bambú">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Pack Nacimiento</p>
-        <h3>En Baúl</h3>
-        <p class="product-desc">La opción más especial y completa. Un baúl de madera que no es solo un regalo — es un recuerdo que el bebé guardará durante años.</p>
+        <h3>Pack Recuerdo · Caja de bambú</h3>
+        <p class="product-desc">Todo lo del Pack Esencial presentado en una caja de bambú abierta. <strong>La caja no es solo un envoltorio</strong> — es un elemento decorativo y de almacenaje que quedará en la habitación del bebé durante años. Se puede incluir tarjeta con dedicatoria personalizada.</p>
         <div class="includes-list">
           <p>Incluye:</p>
           <ul>
-            <li>Placa de nacimiento 20cm · madera de pino · grabado láser · nombre en 3D</li>
-            <li>Sonajero de ganchillo en forma de conejo tejido a mano</li>
-            <li>Muselina 80×80cm</li>
+            <li>Caja de bambú abierta</li>
+            <li>Placa de nacimiento grabada al láser con todos los datos</li>
+            <li>Sonajero conejo de ganchillo con agarre de madera natural</li>
+            <li>Papel de seda y decoración</li>
+            <li>Tarjeta con dedicatoria personalizada (opcional)</li>
+          </ul>
+        </div>
+        <div class="selector-block">
+          <p class="selector-label">Personaliza tu pack</p>
+          <select id="nombreBambuSelect" onchange="updatePrecioBambu()" style="margin-bottom:0.5rem;">
+            <option value="no">Sin nombre en la caja</option>
+            <option value="si">Con nombre en impresión 3D en la caja (+5 €)</option>
+          </select>
+          <p class="nombre-note" id="nombreBambuNote">✦ Se añadirá el nombre del bebé en relieve 3D en la caja</p>
+          <select id="recuerdoDatos" style="margin-bottom:0.5rem; margin-top:0.5rem;">
+            <option value="">¿Quieres añadir los datos del bebé? (nombre, fecha, hora, peso, talla...)</option>
+            <option value="si">Sí, quiero personalizar los datos</option>
+            <option value="no">No por ahora, ya me pondré en contacto</option>
+          </select>
+          <select id="recuerdoDedicatoria">
+            <option value="">¿Quieres añadir una dedicatoria en la tarjeta?</option>
+            <option value="si">Sí, quiero incluir una dedicatoria personalizada</option>
+            <option value="no">No, sin dedicatoria</option>
+          </select>
+        </div>
+        <div class="price-block">
+          <div class="price-display">
+            <span class="label">Precio total</span>
+            <span class="amount" id="precioBambu">72 €</span>
+          </div>
+          <p class="price-note">✦ IVA incluido · Gastos de envío aparte</p>
+        </div>
+        <button class="btn-contact" onclick="pedirBambu()">Quiero este pack</button>
+      </div>
+    </div>
+
+    <!-- PACK CANASTILLA DELUXE -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/pack_baul.jpg')">
+        <img src="images/pack_baul.jpg" alt="Pack Canastilla Deluxe baúl bambú">
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Pack Nacimiento</p>
+        <h3>Pack Canastilla Deluxe · Baúl de bambú</h3>
+        <p class="product-desc">El pack más completo y especial. Todo lo del Pack Recuerdo más los extras más bonitos, presentado en un baúl de bambú que el bebé guardará toda la vida. Se puede incluir tarjeta con dedicatoria personalizada, listo para entregar.</p>
+        <div class="includes-list">
+          <p>Incluye:</p>
+          <ul>
+            <li>Baúl de bambú</li>
+            <li>Placa de nacimiento grabada al láser con todos los datos</li>
+            <li>Sonajero conejo de ganchillo con agarre de madera natural</li>
             <li>Peluche oso doudou</li>
+            <li>Muselina 80×80cm</li>
             <li>Chocolate Simón Coll para la mamá</li>
-            <li>Todo sobre viruta de madera y papel de seda</li>
-            <li>Tarjeta con dedicatoria personalizada</li>
+            <li>Viruta de madera y papel de seda</li>
+            <li>Tarjeta con dedicatoria personalizada (opcional)</li>
             <li>Entrega en mano: baúl abierto en celofán de topos blancos</li>
             <li>Envío por transportista: baúl cerrado en celofán</li>
           </ul>
         </div>
-
-        <!-- SELECTOR NOMBRE -->
         <div class="selector-block">
-          <p class="selector-label">¿Quieres añadir el nombre en el baúl?</p>
-          <select id="nombreSelect" onchange="updatePrice()">
+          <p class="selector-label">Personaliza tu pack</p>
+          <select id="nombreSelect" onchange="updatePrice()" style="margin-bottom:0.5rem;">
             <option value="no">Sin nombre en el baúl</option>
-            <option value="si">Sí, con nombre en 3D en el baúl (+3 €)</option>
+            <option value="si">Con nombre en impresión 3D en el baúl (+5 €)</option>
           </select>
           <p class="nombre-note" id="nombreNote">✦ Se añadirá el nombre del bebé en relieve 3D en el baúl</p>
+          <select id="deluxeDatos" style="margin-bottom:0.5rem; margin-top:0.5rem;">
+            <option value="">¿Quieres añadir los datos del bebé en la placa? (nombre, fecha, hora, peso, talla...)</option>
+            <option value="si">Sí, quiero personalizar los datos</option>
+            <option value="no">No por ahora, ya me pondré en contacto</option>
+          </select>
+          <select id="deluxeDedicatoria">
+            <option value="">¿Quieres añadir una dedicatoria en la tarjeta?</option>
+            <option value="si">Sí, quiero incluir una dedicatoria personalizada</option>
+            <option value="no">No, sin dedicatoria</option>
+          </select>
         </div>
-
         <div class="price-block">
           <div class="price-display">
             <span class="label">Precio total</span>
-            <span class="amount" id="precioFinal">92 €</span>
+            <span class="amount" id="precioFinal">105 €</span>
           </div>
           <p class="price-note">✦ IVA incluido · Gastos de envío aparte · Listo para entregar</p>
         </div>
@@ -353,19 +363,45 @@
     const precio = document.getElementById('precioFinal');
     const note = document.getElementById('nombreNote');
     if (sel === 'si') {
-      precio.textContent = '95 €';
+      precio.textContent = '110 €';
       note.classList.add('visible');
     } else {
-      precio.textContent = '92 €';
+      precio.textContent = '105 €';
       note.classList.remove('visible');
     }
   }
 
+  function pedirEsencial() {
+    const datos = document.getElementById('esencialDatos').value;
+    const dedicatoria = document.getElementById('esencialDedicatoria').value;
+    let msg = 'Hola!%20Me%20interesa%20el%20Pack%20Esencial%20en%20cesta%20de%20mimbre';
+    if (datos === 'si') msg += '%20-%20quiero%20personalizar%20los%20datos%20del%20beb%C3%A9';
+    if (dedicatoria === 'si') msg += '%20-%20quiero%20incluir%20una%20dedicatoria';
+    window.open('https://wa.me/34622562499?text=' + msg, '_blank');
+  }
+
+  function updatePrecioBambu() {
+    const sel = document.getElementById('nombreBambuSelect').value;
+    document.getElementById('precioBambu').textContent = sel === 'si' ? '77 €' : '72 €';
+    document.getElementById('nombreBambuNote').classList.toggle('visible', sel === 'si');
+  }
+  function pedirBambu() {
+    const conNombre = document.getElementById('nombreBambuSelect').value === 'si';
+    const dedicatoria = document.getElementById('recuerdoDedicatoria').value;
+    let msg = conNombre
+      ? 'Hola!%20Me%20interesa%20el%20Pack%20Recuerdo%20en%20caja%20de%20bamb%C3%BA%20con%20nombre%20en%203D'
+      : 'Hola!%20Me%20interesa%20el%20Pack%20Recuerdo%20en%20caja%20de%20bamb%C3%BA%20sin%20nombre';
+    if (dedicatoria === 'si') msg += '%20-%20quiero%20incluir%20una%20dedicatoria';
+    window.open('https://wa.me/34622562499?text=' + msg, '_blank');
+  }
+
   function pedirCajaTapa() {
     const conNombre = document.getElementById('nombreSelect').value === 'si';
-    const msg = conNombre
-      ? 'Hola!%20Me%20interesa%20el%20pack%20nacimiento%20con%20caja%20con%20tapa%20y%20nombre%20en%203D'
-      : 'Hola!%20Me%20interesa%20el%20pack%20nacimiento%20con%20caja%20con%20tapa%20sin%20nombre';
+    const dedicatoria = document.getElementById('deluxeDedicatoria').value;
+    let msg = conNombre
+      ? 'Hola!%20Me%20interesa%20el%20Pack%20Canastilla%20Deluxe%20con%20nombre%20en%203D'
+      : 'Hola!%20Me%20interesa%20el%20Pack%20Canastilla%20Deluxe%20sin%20nombre';
+    if (dedicatoria === 'si') msg += '%20-%20quiero%20incluir%20una%20dedicatoria';
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
