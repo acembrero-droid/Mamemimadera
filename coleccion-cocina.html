@@ -11,224 +11,180 @@
       --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
       --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
       --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
-      --ocean: #1a4a7a; --ocean-light: #e8f0f8;
-      --forest: #2d6a4f; --forest-light: #e8f3ee;
+      --ocean: #1a4a7a; --forest: #2d6a4f;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
-
     nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
     .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
-    .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--mint-dark); }
     .nav-cta { background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .nav-cta:hover { background: var(--mint-dark); }
-
-    /* ── PAGE HERO ── */
     .page-hero { padding: 110px 2rem 3rem; background: var(--mint-light); text-align: center; }
-    .page-hero .breadcrumb { font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem; letter-spacing: 0.1em; }
-    .page-hero .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
+    .breadcrumb { font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem; letter-spacing: 0.1em; }
+    .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
     .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); color: var(--wood-deep); margin-bottom: 0.8rem; }
     .page-hero p { max-width: 580px; margin: 0 auto; color: var(--text-mid); font-size: 1rem; line-height: 1.8; font-weight: 300; }
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
-
-    /* ── SUBCATEGORY HEADER ── */
-    .subcat-section { padding: 3rem 2rem 1rem; max-width: 1100px; margin: 0 auto; }
-    .subcat-header {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 2rem; padding-bottom: 1rem;
-      border-bottom: 2px solid var(--wood-light);
-    }
-    .subcat-header .subcat-icon { font-size: 2rem; }
-    .subcat-header h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--wood-deep); }
-    .subcat-header p { font-size: 0.85rem; color: var(--text-mid); font-weight: 300; margin-top: 0.2rem; }
-    .subcat-badge {
-      margin-left: auto; background: var(--wood-mid); color: #fff;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 20px;
-      white-space: nowrap;
-    }
-
-    /* ── PRODUCTS GRID ── */
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto; }
-
+    .cat-section { padding: 4rem 2rem 5rem; }
+    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; }
+    .cat-divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; max-width: 900px; margin: 0 auto; }
+    .cat-card { position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; display: block; }
+    .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
+    .cat-card .img-wrap { width: 100%; height: 280px; overflow: hidden; }
+    .cat-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .cat-card:hover .img-wrap img { transform: scale(1.07); }
+    .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.5rem 1.2rem; background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%); color: #fff; }
+    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+    .cat-info p { font-size: 0.8rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+    .cat-arrow { display: inline-block; margin-top: 0.5rem; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(4px); transition: background 0.25s; }
+    .cat-card:hover .cat-arrow { background: var(--mint-dark); }
+    .product-page { display: none; padding: 2rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+    .product-page.active { display: block; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
+    .back-btn:hover { background: var(--wood-light); }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; }
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
-    .product-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
+    .product-card.mar { border-top: 3px solid var(--ocean); }
+    .product-card.montana { border-top: 3px solid var(--forest); }
     .product-img { position: relative; height: 300px; overflow: hidden; cursor: zoom-in; }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .product-card:hover .product-img img { transform: scale(1.05); }
     .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
     .product-card:hover .zoom-icon { opacity: 1; }
-
-    /* Mar badge - blue */
     .mar-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--ocean); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
-    /* Montana badge - green */
     .montana-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--forest); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
-
-    .product-body { padding: 1.4rem 1.4rem 1.6rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+    .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
     .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
-    .product-body h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--wood-deep); }
-    .product-desc { font-size: 0.87rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; flex: 1; }
-    .price-block { margin-top: 0.5rem; border-top: 1px dashed var(--wood-light); padding-top: 0.8rem; }
-    .price-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.83rem; color: var(--text-mid); padding: 0.3rem 0; border-bottom: 1px dashed var(--wood-light); }
+    .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
+    .product-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; flex: 1; }
+    .price-block { margin-top: 0.5rem; border-top: 1px dashed var(--wood-light); padding-top: 0.7rem; }
+    .price-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.82rem; color: var(--text-mid); padding: 0.25rem 0; border-bottom: 1px dashed var(--wood-light); }
     .price-row:last-of-type { border-bottom: none; }
-    .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.95rem; }
-    .price-note { font-size: 0.75rem; color: var(--text-mid); font-style: italic; margin-top: 0.5rem; line-height: 1.6; }
-
-    /* Mar card accent */
-    .product-card.mar { border-top: 3px solid var(--ocean); }
-    /* Montana card accent */
-    .product-card.montana { border-top: 3px solid var(--forest); }
-
-    .btn-contact { display: block; text-align: center; margin-top: 1rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.7rem 1rem; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.92rem; }
+    .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
+    .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-contact:hover { background: var(--mint-dark); }
     .btn-mar:hover { background: var(--ocean) !important; }
     .btn-montana:hover { background: var(--forest) !important; }
-
-    /* ── COMING SOON ── */
-    .coming-soon-section { padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto; }
-    .coming-soon-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--text-mid); margin-bottom: 1rem; font-style: italic; }
-    .coming-soon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
-    .cs-card { background: #fff; border-radius: 14px; border: 1.5px dashed var(--wood-mid); padding: 1.5rem 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-    .cs-card .cs-icon { font-size: 1.6rem; }
-    .cs-card h3 { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--wood-deep); }
+    .cs-section { padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+    .cs-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-mid); font-style: italic; margin-bottom: 1rem; }
+    .cs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+    .cs-card { background: #fff; border-radius: 14px; border: 1.5px dashed var(--wood-mid); padding: 1.5rem 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+    .cs-card h3 { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--wood-deep); }
     .cs-card p { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; }
-    .cs-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mint-dark); background: var(--mint-light); padding: 0.2rem 0.6rem; border-radius: 20px; }
-
-    /* ── LIGHTBOX ── */
+    .cs-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mint-dark); background: var(--mint-light); padding: 0.2rem 0.6rem; border-radius: 20px; }
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
     .lightbox.active { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
     .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
     .lightbox-close:hover { background: rgba(255,255,255,0.3); }
-
     .info-banner { background: var(--wood-deep); color: var(--cream); padding: 2rem; text-align: center; }
     .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
     .info-banner strong { color: var(--wood-mid); }
-
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
     footer img { height: 36px; opacity: 0.6; filter: invert(1); }
     footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
     footer a:hover { color: var(--mint); }
-
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 640px) {
-      nav { padding: 0 1rem; }
-      .products-grid { grid-template-columns: 1fr; }
-      .subcat-header { flex-wrap: wrap; }
-      .subcat-badge { margin-left: 0; }
-      footer { flex-direction: column; text-align: center; }
-    }
+    @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .products-grid, .cs-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
   </style>
 </head>
 <body>
-
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
-  <a href="index.html" class="nav-back">← Volver al inicio</a>
-  <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">💬 Pedir ahora</a>
+  <a href="index.html" class="nav-back">← Inicio</a>
+  <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">Pedir ahora</a>
 </nav>
 
 <div class="page-hero">
-  <p class="breadcrumb"><a href="index.html">Inicio</a> · Colección Cocina</p>
+  <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Colección Cocina</p>
   <h1>Colección Cocina</h1>
   <div class="divider"></div>
-  <p>Piezas únicas para la cocina que combinan madera natural de primera calidad con diseños exclusivos. Funcionales, decorativas y con mucho carácter — porque la cocina también merece un toque especial.</p>
+  <p>Piezas únicas para la cocina que combinan madera natural de primera calidad con diseños exclusivos. Funcionales, decorativas y con mucho carácter.</p>
 </div>
 
-<!-- ── MAR Y MONTAÑA ── -->
-<section class="subcat-section">
-  <div class="subcat-header fade-in">
-    <span class="subcat-icon">🌊🌿</span>
-    <div>
-      <h2>Mar y Montaña</h2>
-      <p>Dos mundos, dos estilos, una misma pasión por la naturaleza</p>
-    </div>
-    <span class="subcat-badge">Colección exclusiva</span>
+<!-- CATEGORY GRID -->
+<section class="cat-section" id="catGrid">
+  <p class="section-label">Colecciones</p>
+  <h2 class="section-title">¿Qué colección te apetece ver?</h2>
+  <div class="cat-divider"></div>
+  <div class="cat-grid">
+    <a class="cat-card fade-in" onclick="showPage('mar-montana'); return false;" href="#">
+      <div class="img-wrap"><img src="images/tabla_mar_montana.jpg" alt="Mar y Montaña"></div>
+      <div class="cat-info">
+        <h3>🌊 Mar y Montaña 🌿</h3>
+        <p>Tablas de cocina · Madera y resina · Diseños exclusivos</p>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
   </div>
 </section>
 
-<div class="products-grid">
+<!-- MAR Y MONTAÑA PAGE -->
+<div class="product-page" id="page-mar-montana">
+  <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
+  <div class="products-grid">
 
-  <!-- TABLA MAR -->
-  <div class="product-card mar fade-in">
-    <div class="product-img" onclick="openLightbox('images/tabla_mar.jpg')">
-      <img src="images/tabla_mar.jpg" alt="Tabla de cocina Mar">
-      <span class="mar-badge">🌊 Mar</span>
-      <span class="zoom-icon">🔍</span>
-    </div>
-    <div class="product-body">
-      <p class="product-cat">Colección Cocina · Mar y Montaña</p>
-      <h2>Tabla de cocina · Mar</h2>
-      <p class="product-desc">Tabla de cocina en madera de acacia natural combinada con resina blanca decorada con peces en azul marino. La parte superior en resina es decorativa — la madera maciza inferior es funcional y resistente. Un elemento que da vida a cualquier cocina y queda igual de bien como tabla de quesos en la mesa.</p>
-      <div class="price-block">
-        <div class="price-row"><span>Tabla cocina · diseño Mar</span><span class="amount">32 € / u</span></div>
-        <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+    <div class="product-card mar fade-in">
+      <div class="product-img" onclick="openLightbox('images/tabla_mar.jpg')">
+        <img src="images/tabla_mar.jpg" alt="Tabla cocina Mar">
+        <span class="mar-badge">🌊 Mar</span>
+        <span class="zoom-icon">🔍</span>
       </div>
-      <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20de%20cocina%20Mar" class="btn-contact btn-mar" target="_blank">Quiero esta</a>
+      <div class="product-body">
+        <p class="product-cat">Colección Cocina · Mar y Montaña</p>
+        <h3>Tabla de cocina · Mar</h3>
+        <p class="product-desc">Tabla en madera de acacia natural combinada con resina blanca decorada con peces en azul marino. La parte en resina es decorativa — la madera maciza inferior es funcional y resistente. Perfecta como tabla de corte o como tabla de quesos en la mesa.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Mar" class="btn-contact btn-mar" target="_blank">Quiero esta</a>
+      </div>
     </div>
+
+    <div class="product-card montana fade-in">
+      <div class="product-img" onclick="openLightbox('images/tabla_montana.jpg')">
+        <img src="images/tabla_montana.jpg" alt="Tabla cocina Montaña">
+        <span class="montana-badge">🌿 Montaña</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Colección Cocina · Mar y Montaña</p>
+        <h3>Tabla de cocina · Montaña</h3>
+        <p class="product-desc">Tabla en madera de acacia natural combinada con resina blanca decorada con ramas de eucalipto en tonos verdes y dorados. La parte en resina es decorativa — la madera maciza inferior es funcional y resistente. Un elemento botánico y elegante para cualquier cocina.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Monta%C3%B1a" class="btn-contact btn-montana" target="_blank">Quiero esta</a>
+      </div>
+    </div>
+
   </div>
 
-  <!-- TABLA MONTAÑA -->
-  <div class="product-card montana fade-in">
-    <div class="product-img" onclick="openLightbox('images/tabla_montana.jpg')">
-      <img src="images/tabla_montana.jpg" alt="Tabla de cocina Montaña">
-      <span class="montana-badge">🌿 Montaña</span>
-      <span class="zoom-icon">🔍</span>
-    </div>
-    <div class="product-body">
-      <p class="product-cat">Colección Cocina · Mar y Montaña</p>
-      <h2>Tabla de cocina · Montaña</h2>
-      <p class="product-desc">Tabla de cocina en madera de acacia natural combinada con resina blanca decorada con ramas de eucalipto en tonos verdes y dorados. La parte superior en resina es decorativa — la madera maciza inferior es funcional y resistente. Un elemento botánico y elegante que convierte cualquier cocina en un espacio con alma.</p>
-      <div class="price-block">
-        <div class="price-row"><span>Tabla cocina · diseño Montaña</span><span class="amount">32 € / u</span></div>
-        <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-      </div>
-      <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20de%20cocina%20Monta%C3%B1a" class="btn-contact btn-montana" target="_blank">Quiero esta</a>
+  <div class="cs-section" style="padding: 2rem 0 0;">
+    <h3 class="cs-title">✦ Próximamente más productos en Mar y Montaña ✦</h3>
+    <div class="cs-grid">
+      <div class="cs-card fade-in"><h3>Posavasos</h3><p>Madera y porcelana</p><span class="cs-badge">Próximamente</span></div>
+      <div class="cs-card fade-in"><h3>Salero y pimentero</h3><p>Diseño exclusivo</p><span class="cs-badge">Próximamente</span></div>
+      <div class="cs-card fade-in"><h3>Pack tabla + accesorios</h3><p>Set completo</p><span class="cs-badge">Próximamente</span></div>
     </div>
   </div>
-
 </div>
-
-<!-- PRÓXIMAMENTE -->
-<section class="coming-soon-section">
-  <h3 class="coming-soon-title">✦ Próximamente más productos en esta colección ✦</h3>
-  <div class="coming-soon-grid">
-    <div class="cs-card fade-in">
-      <span class="cs-icon">🧂</span>
-      <h3>Salero y pimentero</h3>
-      <p>Mar y Montaña</p>
-      <span class="cs-badge">Próximamente</span>
-    </div>
-    <div class="cs-card fade-in">
-      <span class="cs-icon">🥄</span>
-      <h3>Cuchara de madera</h3>
-      <p>Diseño exclusivo</p>
-      <span class="cs-badge">Próximamente</span>
-    </div>
-    <div class="cs-card fade-in">
-      <span class="cs-icon">🍳</span>
-      <h3>Posavaso/salvamanteles</h3>
-      <p>Colección cocina</p>
-      <span class="cs-badge">Próximamente</span>
-    </div>
-    <div class="cs-card fade-in">
-      <span class="cs-icon">🪵</span>
-      <h3>Pack tabla + accesorios</h3>
-      <p>Set completo</p>
-      <span class="cs-badge">Próximamente</span>
-    </div>
-  </div>
-</section>
 
 <div class="info-banner">
   <p>✦ Todos los precios incluyen IVA · <strong>Gastos de envío aparte</strong> · Realizo envíos a toda España ✦<br>
   ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por WhatsApp al <strong>622 562 499</strong></p>
 </div>
-
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
@@ -241,19 +197,23 @@
 </div>
 
 <script>
-  function openLightbox(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden';
+  function showPage(id) {
+    document.getElementById('catGrid').style.display = 'none';
+    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Colección Cocina</a> · Mar y Montaña';
   }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-    document.body.style.overflow = '';
+  function showGrid() {
+    document.getElementById('catGrid').style.display = 'block';
+    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Colección Cocina';
   }
+  function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
 </body>
