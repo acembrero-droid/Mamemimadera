@@ -257,52 +257,47 @@
       </div>
     </div>
 
-    <!-- CAJA CON TAPA -->
+    <!-- BAÚL -->
     <div class="product-card fade-in">
-      <div class="product-img" style="position:relative; height:260px;">
-        <div class="mini-carousel">
-          <div class="mini-track" id="packTrack">
-            <img src="images/pack_nac.jpg" alt="Pack nacimiento caja con tapa" onclick="openLightbox(this.src)">
-            <img src="images/pack_aroa.jpg" alt="Pack nacimiento caja con tapa 2" onclick="openLightbox(this.src)">
-          </div>
-          <button class="mc-btn mc-prev" onclick="movePack(-1)">‹</button>
-          <button class="mc-btn mc-next" onclick="movePack(1)">›</button>
-          <div class="mc-dots">
-            <div class="mc-dot active" onclick="goPack(0)"></div>
-            <div class="mc-dot" onclick="goPack(1)"></div>
-          </div>
-        </div>
+      <div class="product-img" onclick="openLightbox('images/pack_baul.jpg')">
+        <img src="images/pack_baul.jpg" alt="Pack nacimiento en baúl">
+        <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Pack Nacimiento</p>
-        <h3>Con caja de madera con tapa</h3>
-        <p class="product-desc">Pack de nacimiento en una caja de madera con tapa. La opción más especial para conservar los recuerdos del bebé — una caja que se puede guardar con todo dentro durante años.</p>
+        <h3>En Baúl</h3>
+        <p class="product-desc">La opción más especial y completa. Un baúl de madera que no es solo un regalo — es un recuerdo que el bebé guardará durante años.</p>
         <div class="includes-list">
           <p>Incluye:</p>
           <ul>
-            <li>Caja de madera con tapa</li>
-            <li>Placa de nacimiento grabada al láser</li>
-            <li>Peluche sonajero</li>
-            <li>Papel de seda y decoración</li>
+            <li>Placa de nacimiento 20cm · madera de pino · grabado láser · nombre en 3D</li>
+            <li>Sonajero de ganchillo en forma de conejo tejido a mano</li>
+            <li>Muselina 80×80cm</li>
+            <li>Peluche oso doudou</li>
+            <li>Chocolate Simón Coll para la mamá</li>
+            <li>Todo sobre viruta de madera y papel de seda</li>
+            <li>Tarjeta con dedicatoria personalizada</li>
+            <li>Entrega en mano: baúl abierto en celofán de topos blancos</li>
+            <li>Envío por transportista: baúl cerrado en celofán</li>
           </ul>
         </div>
 
         <!-- SELECTOR NOMBRE -->
         <div class="selector-block">
-          <p class="selector-label">¿Quieres añadir el nombre en la caja?</p>
+          <p class="selector-label">¿Quieres añadir el nombre en el baúl?</p>
           <select id="nombreSelect" onchange="updatePrice()">
-            <option value="no">Sin nombre</option>
-            <option value="si">Sí, con nombre en 3D (+3 €)</option>
+            <option value="no">Sin nombre en el baúl</option>
+            <option value="si">Sí, con nombre en 3D en el baúl (+3 €)</option>
           </select>
-          <p class="nombre-note" id="nombreNote">✦ Se añadirá el nombre del bebé en relieve 3D en la tapa</p>
+          <p class="nombre-note" id="nombreNote">✦ Se añadirá el nombre del bebé en relieve 3D en el baúl</p>
         </div>
 
         <div class="price-block">
           <div class="price-display">
             <span class="label">Precio total</span>
-            <span class="amount" id="precioFinal">65 €</span>
+            <span class="amount" id="precioFinal">92 €</span>
           </div>
-          <p class="price-note">✦ IVA incluido · Gastos de envío aparte</p>
+          <p class="price-note">✦ IVA incluido · Gastos de envío aparte · Listo para entregar</p>
         </div>
         <button class="btn-contact" onclick="pedirCajaTapa()">Quiero este pack</button>
       </div>
@@ -358,10 +353,10 @@
     const precio = document.getElementById('precioFinal');
     const note = document.getElementById('nombreNote');
     if (sel === 'si') {
-      precio.textContent = '68 €';
+      precio.textContent = '95 €';
       note.classList.add('visible');
     } else {
-      precio.textContent = '65 €';
+      precio.textContent = '92 €';
       note.classList.remove('visible');
     }
   }
@@ -374,15 +369,7 @@
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
-  // Pack carousel
-  let packIdx = 0;
-  function movePack(dir) { packIdx = (packIdx + dir + 2) % 2; goPack(packIdx); }
-  function goPack(i) {
-    packIdx = i;
-    document.getElementById('packTrack').style.transform = `translateX(-${i * 100}%)`;
-    document.getElementById('packTrack').closest('.mini-carousel').querySelectorAll('.mc-dot').forEach((d,j) => d.classList.toggle('active', j===i));
-  }
-  setInterval(() => movePack(1), 4000);
+
 
   function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
   function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
