@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pago no completado – MAMEMI Madera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --wood-dark: #8b5e3c; --wood-deep: #5a3a1a; --mint-dark: #6a9e8a; --cream: #fdf8f0; --text-mid: #6b4c2a; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; }
+    .box { background: #fff; border-radius: 24px; padding: 3rem 2.5rem; text-align: center; max-width: 480px; box-shadow: 0 8px 40px rgba(90,58,26,0.12); }
+    .icon { font-size: 4rem; margin-bottom: 1rem; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--wood-deep); margin-bottom: 0.8rem; }
+    p { font-size: 0.92rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
+    .btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
+    .btn { display: inline-block; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.75rem 1.8rem; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .btn:hover { background: var(--mint-dark); }
+    .btn.secondary { background: transparent; color: var(--wood-dark); border: 1.5px solid var(--wood-dark); }
+    .btn.secondary:hover { background: #f5e9d6; }
+    .divider { width: 50px; height: 2px; background: #e74c3c; margin: 1rem auto; border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="icon">😕</div>
+    <h1>Pago no completado</h1>
+    <div class="divider"></div>
+    <p>El pago no se ha podido procesar. Tu carrito sigue guardado — puedes intentarlo de nuevo o escribirme directamente si prefieres.</p>
+    <p>Si el problema persiste escríbeme a <strong>hola@mamemimadera.es</strong> o por WhatsApp y lo resolvemos.</p>
+    <div class="btns">
+      <a href="javascript:history.back()" class="btn">Reintentar</a>
+      <a href="https://wa.me/34622562499" class="btn secondary" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+</body>
+</html>
