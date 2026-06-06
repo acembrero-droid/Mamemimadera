@@ -109,6 +109,20 @@
     .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
     .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
     .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
+
+    .cart-btn {
+      background: #6a9e8a; color: #fff;
+      border: none !important; outline: none !important; border-radius: 30px;
+      padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif;
+      font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: background 0.25s; letter-spacing: 0.08em;
+      text-transform: uppercase; position: relative;
+      box-shadow: none !important; -webkit-appearance: none; appearance: none;
+    }
+    .cart-btn:hover { background: #4d8a72; }
+    .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
+    .cart-btn:active { outline: none !important; }
   </style>
 </head>
 <body>
@@ -762,7 +776,8 @@
     const sel = document.createElement('select');
     sel.className = 'opt-input puerta-color';
     sel.style.cssText = 'margin:0;width:130px;';
-    sel.innerHTML = '<option value="">Color</option><option value="Verde menta">Verde menta</option><option value="Blanco">Blanco</option><option value="Negro">Negro</option><option value="Burdeos">Burdeos</option>';
+    sel.type = 'text'; sel.placeholder = 'Color del nombre';
+    sel.title = 'Escribe el color que quieres — recibirás confirmación de disponibilidad';
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = '✕';
@@ -784,6 +799,77 @@
     nombres.forEach((n, i) => { opts['Nombre ' + (i+1)] = n + (colores[i] ? ' (' + colores[i] + ')' : ''); });
     const total = parseFloat(price) * parseInt(qty);
     addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: parseFloat(price), qty: parseInt(qty), options: opts });
+  }
+
+
+  function updatePuerta3d() {
+    const sel = document.getElementById('opt-puerta3d-qty');
+    if (!sel) return;
+    const [price, qty] = sel.value.split('|');
+    const total = parseFloat(price) * parseInt(qty);
+    document.getElementById('opt-puerta3d-total').textContent = total.toFixed(0) + ' €';
+    // sync rows with qty
+    const wrap = document.getElementById('puerta3d-nombres-wrap');
+    const q = parseInt(qty);
+    const rows = wrap.querySelectorAll('.puerta-nombre-row');
+    if (rows.length < q) {
+      for (let i = rows.length; i < q; i++) addPuerta3dRow();
+    }
+  }
+
+  function addPuerta3dRow() {
+    const wrap = document.getElementById('puerta3d-nombres-wrap');
+    const count = wrap.querySelectorAll('.puerta-nombre-row').length + 1;
+    const row = document.createElement('div');
+    row.className = 'puerta-nombre-row';
+    row.style.cssText = 'display:grid;grid-template-columns:1fr 80px 120px auto;gap:0.4rem;margin-bottom:0.4rem;align-items:center;';
+
+    const inp = document.createElement('input');
+    inp.type = 'text'; inp.className = 'opt-input puerta3d-nombre';
+    inp.placeholder = 'Nombre ' + count; inp.style.margin = '0';
+
+    const ini = document.createElement('input');
+    ini.type = 'text'; ini.className = 'opt-input puerta3d-inicial';
+    ini.placeholder = 'Inicial'; ini.maxLength = 1;
+    ini.style.cssText = 'margin:0;text-align:center;text-transform:uppercase;';
+
+    const sel = document.createElement('input');
+    sel.className = 'opt-input puerta3d-color';
+    sel.style.cssText = 'margin:0;';
+    sel.type = 'text'; sel.placeholder = 'Color del nombre';
+    sel.title = 'Escribe el color que quieres — recibirás confirmación de disponibilidad';
+
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.textContent = '✕';
+    btn.style.cssText = 'background:#fee;border:none;border-radius:6px;width:28px;cursor:pointer;color:#c0392b;font-weight:700;';
+    btn.onclick = function() { this.parentNode.remove(); };
+
+    row.appendChild(inp); row.appendChild(ini); row.appendChild(sel); row.appendChild(btn);
+    wrap.appendChild(row);
+  }
+
+  function addCartPuerta3d() {
+    const sel = document.getElementById('opt-puerta3d-qty');
+    const [price, qty] = sel.value.split('|');
+    const nombres = Array.from(document.querySelectorAll('#puerta3d-nombres-wrap .puerta3d-nombre')).map(i => i.value.trim());
+    const iniciales = Array.from(document.querySelectorAll('#puerta3d-nombres-wrap .puerta3d-inicial')).map(i => i.value.trim().toUpperCase());
+    const colores = Array.from(document.querySelectorAll('#puerta3d-nombres-wrap .puerta3d-color')).map(s => s.value);
+    const valid = nombres.filter(Boolean);
+    if (valid.length === 0) { alert('Por favor escribe al menos un nombre.'); return; }
+    const opts = {};
+    nombres.forEach((n, i) => {
+      if (!n) return;
+      let val = n;
+      if (iniciales[i]) val += ' · Inicial: ' + iniciales[i];
+      if (colores[i]) val += ' · Color: ' + colores[i];
+      opts['Nombre ' + (i+1)] = val;
+    });
+    addToCart({ id: 'puerta3d-' + Date.now(), name: 'Nombre para puerta (3D)', price: parseFloat(price), qty: parseInt(qty), options: opts });
+    // Show color confirmation message
+    const hasColor = Object.values(opts).some(v => v.includes('Color:'));
+    if (hasColor) {
+      setTimeout(() => alert('✦ ¡Añadido al carrito!\n\nHas indicado un color para el nombre. Te enviaré una confirmación de que tengo disponibilidad antes de procesar el pedido. ¡Gracias por confiar en MAMEMI Madera!'), 300);
+    }
   }
 
 </script>
