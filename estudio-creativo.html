@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estudio Creativo – MAMEMI Madera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-back { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--mint-dark); }
+    .nav-cta { background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .nav-cta:hover { background: var(--mint-dark); }
+
+    /* HERO */
+    .page-hero {
+      padding: 110px 2rem 4rem;
+      background: var(--mint-light);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .hero-text .breadcrumb { font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem; letter-spacing: 0.1em; }
+    .hero-text .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
+    .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--wood-deep); margin-bottom: 1rem; line-height: 1.2; }
+    .hero-text h1 em { color: var(--mint-dark); font-style: italic; }
+    .hero-text p { color: var(--text-mid); font-size: 1rem; line-height: 1.85; font-weight: 300; margin-bottom: 1.2rem; }
+    .hero-logo { display: flex; justify-content: center; align-items: center; }
+    .hero-logo img { width: min(320px, 80%); height: auto; object-fit: contain; filter: drop-shadow(0 6px 20px rgba(90,58,26,0.15)); animation: floatLogo 4s ease-in-out infinite; }
+    @keyframes floatLogo { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+
+    .hero-strip { background: var(--mint-light); padding: 0 2rem 3rem; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem 0 1.5rem; border-radius: 2px; }
+
+    /* SOBRE */
+    .sobre-section { background: var(--cream); padding: 4rem 2rem; }
+    .sobre-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .sobre-img { border-radius: 20px; overflow: hidden; box-shadow: 0 6px 28px var(--shadow); }
+    .sobre-img img { width: 100%; height: 320px; object-fit: cover; }
+    .sobre-text .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); margin-bottom: 0.5rem; }
+    .sobre-text h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--wood-deep); margin-bottom: 1rem; line-height: 1.2; }
+    .sobre-text p { color: var(--text-mid); font-size: 0.92rem; line-height: 1.85; font-weight: 300; margin-bottom: 0.8rem; }
+    .sobre-text strong { color: var(--wood-dark); font-weight: 700; }
+
+    /* SERVICIOS */
+    .servicios-section { background: var(--cream2); padding: 4rem 2rem 5rem; }
+    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; }
+    .sec-divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
+    .servicios-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; max-width: 1100px; margin: 0 auto; }
+
+    .servicio-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; height: auto; }
+    .servicio-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
+    .servicio-img { height: 220px; overflow: hidden; cursor: zoom-in; position: relative; }
+    .servicio-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .servicio-card:hover .servicio-img img { transform: scale(1.06); }
+    .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
+    .servicio-card:hover .zoom-icon { opacity: 1; }
+    .servicio-body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .servicio-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
+    .servicio-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
+    .servicio-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+    .price-block { margin-top: 0.5rem; border-top: 1px dashed var(--wood-light); padding-top: 0.7rem; }
+    .price-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.82rem; color: var(--text-mid); padding: 0.25rem 0; border-bottom: 1px dashed var(--wood-light); }
+    .price-row:last-of-type { border-bottom: none; }
+    .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.95rem; }
+    .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
+    .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .btn-contact:hover { background: var(--mint-dark); }
+
+    /* PLACEHOLDER */
+    .img-placeholder { width: 100%; height: 220px; background: var(--wood-light); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--text-mid); font-size: 0.8rem; font-weight: 300; }
+    .img-placeholder span { font-size: 2rem; }
+
+    /* GALLERY */
+    .gallery-section { background: var(--cream); padding: 4rem 2rem 5rem; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
+    .gallery-item { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px var(--shadow); cursor: zoom-in; aspect-ratio: 1; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .gallery-item:hover img { transform: scale(1.08); }
+
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
+    .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+    .info-banner { background: var(--wood-deep); color: var(--cream); padding: 2rem; text-align: center; }
+    .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
+    .info-banner strong { color: var(--wood-mid); }
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
+    footer img { height: 36px; opacity: 0.6; filter: invert(1); }
+    footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 900px) { .page-hero, .sobre-inner { grid-template-columns: 1fr; } .hero-logo { display: none; } }
+    @media (max-width: 640px) { nav { padding: 0 1rem; } .servicios-grid, .gallery-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <a href="index.html" class="nav-back">← Inicio</a>
+  <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">Pedir ahora</a>
+</nav>
+
+<!-- HERO -->
+<div style="background: var(--mint-light);">
+  <div class="page-hero">
+    <div class="hero-text">
+      <p class="breadcrumb"><a href="index.html">Inicio</a> · Estudio Creativo</p>
+      <h1>MAMEMI<br><em>Estudio Creativo</em></h1>
+      <div class="divider"></div>
+      <p>Diseño gráfico hecho con alma. Desde tarjetas de visita hasta logos, webs y mucho más — todo creado por mí, con la misma dedicación y cariño que pongo en cada pieza de madera.</p>
+      <p>Esta web que estás viendo la he diseñado y desarrollado yo misma. Si te gusta lo que ves y quieres algo parecido para tu negocio, ¡hablemos!</p>
+    </div>
+    <div class="hero-logo">
+      <img src="images/logo_estudio.png" alt="MAMEMI Estudio Creativo">
+    </div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section class="sobre-section">
+  <div class="sobre-inner">
+    <div class="sobre-img fade-in">
+      <img src="images/bolsa_mamemi.jpg" alt="Bolsa MAMEMI Madera diseño propio">
+    </div>
+    <div class="sobre-text fade-in">
+      <p class="section-label">Quién hay detrás</p>
+      <h2>Diseño con propósito</h2>
+      <p>Soy Leticia, y además de crear piezas en madera también <strong>diseño la identidad visual</strong> de proyectos y negocios. Creo en el diseño que cuenta una historia — que no solo se ve bien, sino que transmite exactamente lo que eres.</p>
+      <p>Trabajo con <strong>mimo y precisión</strong>, igual que con la madera. Cada proyecto es único y lo trato como si fuera el mío propio.</p>
+      <p>¿Tienes un negocio que necesita imagen? ¿Un proyecto que merece una identidad propia? Escríbeme y lo hablamos sin compromiso.</p>
+      <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Estudio%20Creativo%20de%20MAMEMI" class="btn-contact" style="width:fit-content; display:inline-block;" target="_blank">Hablemos</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="servicios-section">
+  <p class="section-label">Lo que ofrezco</p>
+  <h2 class="section-title">Servicios de diseño</h2>
+  <div class="sec-divider"></div>
+
+  <div class="servicios-grid">
+
+    <!-- Tarjetas de visita -->
+    <div class="servicio-card fade-in">
+      <div class="servicio-img" onclick="openLightbox('images/estudio_tarjetas.jpg')">
+        <img src="images/estudio_tarjetas.jpg" alt="Tarjetas de visita diseñadas por MAMEMI">
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="servicio-body">
+        <p class="servicio-cat">Estudio Creativo</p>
+        <h3>Tarjetas de visita</h3>
+        <p class="servicio-desc">Diseño, maquetación y preparación del archivo listo para imprimir. Incluye hasta 2 revisiones. El archivo te queda en propiedad para que puedas imprimir cuando quieras y donde quieras. El coste de impresión no está incluido.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Diseño, maquetación y archivo</span><span class="amount">40 €</span></div>
+          <div class="price-row"><span>Coste de impresión</span><span class="amount">a consultar</span></div>
+          <p class="price-note">✦ IVA incluido · El archivo es tuyo para siempre</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20las%20tarjetas%20de%20visita%20del%20Estudio%20Creativo" class="btn-contact" target="_blank">Quiero este servicio</a>
+      </div>
+    </div>
+
+    <!-- Logo e identidad -->
+    <div class="servicio-card fade-in">
+      <div class="servicio-img" onclick="openLightbox('images/estudio_tags.jpg')">
+        <img src="images/estudio_tags.jpg" alt="Diseño de etiquetas y papelería MAMEMI">
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="servicio-body">
+        <p class="servicio-cat">Estudio Creativo</p>
+        <h3>Logo e identidad visual</h3>
+        <p class="servicio-desc">Creación de logo, paleta de colores, tipografías y elementos gráficos para dar vida a tu marca. Recibes los archivos en varios formatos para que puedas usar tu identidad en cualquier soporte.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Según alcance del proyecto</span><span class="amount">a consultar</span></div>
+          <p class="price-note">✦ Escríbeme con los detalles de tu proyecto</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20logo%20o%20identidad%20visual" class="btn-contact" target="_blank">Quiero este servicio</a>
+      </div>
+    </div>
+
+    <!-- Diseño web -->
+    <div class="servicio-card fade-in">
+      <div class="servicio-img">
+        <div class="img-placeholder">
+          <span>💻</span>
+          <p>¡Esta web la hice yo!</p>
+        </div>
+      </div>
+      <div class="servicio-body">
+        <p class="servicio-cat">Estudio Creativo</p>
+        <h3>Diseño web</h3>
+        <p class="servicio-desc">Diseño y desarrollo de páginas web a medida, como esta que estás viendo. Webs bonitas, funcionales y adaptadas a móvil. Sin plantillas genéricas — cada web es única como el negocio que representa.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Según alcance del proyecto</span><span class="amount">a consultar</span></div>
+          <p class="price-note">✦ Escríbeme con los detalles de tu proyecto</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20dise%C3%B1o%20web" class="btn-contact" target="_blank">Quiero este servicio</a>
+      </div>
+    </div>
+
+    <!-- Papelería y otros -->
+    <div class="servicio-card fade-in">
+      <div class="servicio-img" onclick="openLightbox('images/estudio_caja.jpg')">
+        <img src="images/estudio_caja.jpg" alt="Packaging y papelería diseñada por MAMEMI">
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="servicio-body">
+        <p class="servicio-cat">Estudio Creativo</p>
+        <h3>Papelería y otros diseños</h3>
+        <p class="servicio-desc">Trípticos, flyers, carteles, menús, etiquetas, packaging, redes sociales… Si necesitas algo diseñado, cuéntame y lo vemos. Me adapto a cualquier proyecto y presupuesto.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Según alcance del proyecto</span><span class="amount">a consultar</span></div>
+          <p class="price-note">✦ Escríbeme con los detalles de tu proyecto</p>
+        </div>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20dise%C3%B1o%20de%20papeler%C3%ADa" class="btn-contact" target="_blank">Quiero este servicio</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section class="gallery-section">
+  <p class="section-label">Trabajos realizados</p>
+  <h2 class="section-title">Algunos ejemplos</h2>
+  <div class="sec-divider"></div>
+  <div class="gallery-grid">
+    <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_tarjetas.jpg')">
+      <img src="images/estudio_tarjetas.jpg" alt="Tarjetas de visita Estudi Caldes d'Estrac">
+    </div>
+    <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_caja.jpg')">
+      <img src="images/estudio_caja.jpg" alt="Caja packaging tarjetas de visita">
+    </div>
+    <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_tags.jpg')">
+      <img src="images/estudio_tags.jpg" alt="Etiquetas Colección Cocina MAMEMI">
+    </div>
+    <div class="gallery-item fade-in" onclick="openLightbox('images/bolsa_mamemi.jpg')">
+      <img src="images/bolsa_mamemi.jpg" alt="Bolsa MAMEMI Madera diseño propio">
+    </div>
+    <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_creativo.jpg')">
+      <img src="images/estudio_creativo.jpg" alt="Tarjeta de visita MAMEMI Madera">
+    </div>
+    <div class="gallery-item fade-in" onclick="openLightbox('images/logo_estudio.png')">
+      <img src="images/logo_estudio.png" alt="Logo MAMEMI Estudio Creativo" style="object-fit:contain; background:var(--mint-light); padding:1rem;">
+    </div>
+  </div>
+  
+</section>
+
+<div class="info-banner">
+  <p>¿Tienes un proyecto en mente? Escríbeme a <strong>hola@mamemimadera.es</strong> o por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-mid);font-weight:700;">WhatsApp</a> y hablamos sin compromiso ✦</p>
+</div>
+
+<footer>
+  <img src="images/logo_estudio.png" alt="MAMEMI Estudio Creativo">
+  <span>© 2026 MAMEMI Madera · Estudio Creativo · www.mamemimadera.es</span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+</footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
