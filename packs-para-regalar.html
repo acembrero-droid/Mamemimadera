@@ -6,6 +6,7 @@
   <title>Packs para Regalar – MAMEMI Madera</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
+
     :root {
       --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
       --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
@@ -144,6 +145,21 @@
     .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
     .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
     .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
+
+    .cart-btn {
+      background: #6a9e8a; color: #fff;
+      border: none !important; outline: none !important; border-radius: 30px;
+      padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif;
+      font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: background 0.25s; letter-spacing: 0.08em;
+      text-transform: uppercase; position: relative;
+      box-shadow: none !important; -webkit-appearance: none; appearance: none;
+    }
+    .cart-btn:hover { background: #4d8a72; }
+    .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
+    .cart-btn:active { outline: none !important; }
+  
   </style>
 </head>
 <body>
@@ -160,7 +176,6 @@
   <p>Regalos listos para sorprender, pensados con mimo desde el primer detalle hasta el último lazo.</p>
 </div>
 
-<!-- CATEGORY GRID -->
 <section class="cat-section" id="catGrid">
   <p class="section-label">Colecciones</p>
   <h2 class="section-title">¿Qué pack estás buscando?</h2>
@@ -177,13 +192,32 @@
   </div>
 </section>
 
-<!-- PACK NACIMIENTO -->
+<!-- PACK NACIMIENTO: sub-grid -->
 <div class="product-page" id="page-nacimiento">
   <button class="back-btn" onclick="showGrid()">← Volver a Packs para Regalar</button>
+  <p class="section-label" style="text-align:center;margin-bottom:0.5rem;">Pack Nacimiento</p>
+  <h2 class="section-title" style="text-align:center;margin-bottom:0.5rem;">Elige tu pack</h2>
+  <div class="cat-divider" style="margin:0.5rem auto 2rem;"></div>
+  <div class="cat-grid" style="max-width:900px;margin:0 auto;">
+    <a class="cat-card fade-in" onclick="showPackPage('ternura');return false;" href="#">
+      <div class="img-wrap"><img src="images/pack_lucia.jpg" alt="Pack Ternura"></div>
+      <div class="cat-info"><h3>Pack Ternura</h3><p>Cesta de mimbre · 68 €</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
+    <a class="cat-card fade-in" onclick="showPackPage('huella');return false;" href="#">
+      <div class="img-wrap"><img src="images/pack_aroa.jpg" alt="Pack Huella"></div>
+      <div class="cat-info"><h3>Pack Huella</h3><p>Caja de bambú · desde 75 €</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
+    <a class="cat-card fade-in" onclick="showPackPage('tesoro');return false;" href="#">
+      <div class="img-wrap"><img src="images/pack_baul.jpg" alt="Pack Tesoro"></div>
+      <div class="cat-info"><h3>Pack Tesoro</h3><p>Baúl de bambú · desde 105 €</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
+  </div>
+</div>
 
-  <div class="subcat-grid">
-
-    <!-- PACK ESENCIAL -->
+<!-- PACK TERNURA -->
+<div class="product-page" id="page-ternura">
+  <button class="back-btn" onclick="backToNacimiento()">← Volver a Pack Nacimiento</button>
+  <div style="max-width:700px;margin:0 auto;">
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_lucia.jpg')">
         <img src="images/pack_lucia.jpg" alt="Pack Esencial cesta mimbre">
@@ -229,31 +263,7 @@
             <option value="otro">Otro color (lo indico abajo)</option>
           </select>
           <input type="text" id="ternuraColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
-          <script>document.getElementById('ternuraColor').addEventListener('change',function(){{document.getElementById('ternuraColorCustom').style.display=this.value==='otro'?'block':'none';}});
-  // Remember scroll position when navigating back
-  window.addEventListener('beforeunload', () => {
-    sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY);
-  });
-  const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
-  if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
-
-
-  function updatePackPrice(prefix, base) {
-    const sel = document.getElementById('opt-' + prefix + '-cart');
-    const extra = sel ? parseFloat(sel.value) || 0 : 0;
-    const el = document.getElementById('opt-' + prefix + '-cart-total');
-    if (el) el.textContent = (base + extra).toFixed(0) + ' €';
-  }
-
-  function addCartPack(prefix, baseName, basePrice) {
-    const sel = document.getElementById('opt-' + prefix + '-cart');
-    const extra = sel ? parseFloat(sel.value) || 0 : 0;
-    const price = basePrice + extra;
-    const opts = extra > 0 ? { 'Nombre en caja': 'Sí (+5 €)' } : {};
-    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
-  }
-
-</script>
+          
         </div>
         <div class="price-block">
           <div class="price-display">
@@ -266,8 +276,14 @@
         <button class="btn-contact" onclick="pedirEsencial()" style="margin-top:0.4rem;">Personalizar y pedir</button>
       </div>
     </div>
+  </div>
+  </div>
+</div>
 
-    <!-- PACK RECUERDO -->
+<!-- PACK HUELLA -->
+<div class="product-page" id="page-huella">
+  <button class="back-btn" onclick="backToNacimiento()">← Volver a Pack Nacimiento</button>
+  <div style="max-width:700px;margin:0 auto;">
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_aroa.jpg')">
         <img src="images/pack_aroa.jpg" alt="Pack Huella caja bambú">
@@ -318,7 +334,7 @@
             <option value="otro">Otro color (lo indico abajo)</option>
           </select>
           <input type="text" id="huellaColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
-          <script>document.getElementById('huellaColor').addEventListener('change',function(){{document.getElementById('huellaColorCustom').style.display=this.value==='otro'?'block':'none';}});</script>
+          
         </div>
         <div class="price-block">
           <div class="price-display">
@@ -341,8 +357,14 @@
         <button class="btn-contact" onclick="pedirBambu()" style="margin-top:0.4rem;">Personalizar y pedir</button>
       </div>
     </div>
+  </div>
+  </div>
+</div>
 
-    <!-- PACK CANASTILLA DELUXE -->
+<!-- PACK TESORO -->
+<div class="product-page" id="page-tesoro">
+  <button class="back-btn" onclick="backToNacimiento()">← Volver a Pack Nacimiento</button>
+  <div style="max-width:700px;margin:0 auto;">
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_baul.jpg')">
         <img src="images/pack_baul.jpg" alt="Pack Canastilla Deluxe baúl bambú">
@@ -397,7 +419,7 @@
             <option value="otro">Otro color (lo indico abajo)</option>
           </select>
           <input type="text" id="tesoroColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
-          <script>document.getElementById('tesoroColor').addEventListener('change',function(){{document.getElementById('tesoroColorCustom').style.display=this.value==='otro'?'block':'none';}});</script>
+          
         </div>
         <div class="price-block">
           <div class="price-display">
@@ -422,18 +444,10 @@
     </div>
 
   </div>
-
-  <!-- PRÓXIMAMENTE -->
-  <div class="cs-section fade-in">
-    <h3 class="cs-title">✦ Próximamente más packs ✦</h3>
-    <div class="cs-grid">
-      <div class="cs-card"><h3>Pack Boda</h3><p>Detalles únicos para el día más especial</p><span class="cs-badge">Próximamente</span></div>
-      <div class="cs-card"><h3>Pack Cumpleaños</h3><p>Sorprende con un regalo que se recuerda</p><span class="cs-badge">Próximamente</span></div>
-      <div class="cs-card"><h3>Pack Graduación</h3><p>Para celebrar un logro con estilo</p><span class="cs-badge">Próximamente</span></div>
-      <div class="cs-card"><h3>Pack Mamá</h3><p>Porque hay personas que merecen todo</p><span class="cs-badge">Próximamente</span></div>
-    </div>
   </div>
 </div>
+
+
 
 <div class="info-banner">
   <p>✦ Todos los precios incluyen IVA · <strong>En packs de nacimiento, gastos de envío incluidos</strong> · Realizo envíos a toda España ✦<br>
@@ -451,6 +465,7 @@
 </div>
 
 <script>
+  // ── NAVIGATION ──
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
@@ -458,6 +473,22 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · Pack Nacimiento';
   }
+
+  function showPackPage(id) {
+    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const names = {ternura:'Pack Ternura', huella:'Pack Huella', tesoro:'Pack Tesoro'};
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · <a href="#" onclick="backToNacimiento();return false;">Pack Nacimiento</a> · ' + names[id];
+  }
+
+  function backToNacimiento() {
+    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-nacimiento').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · Pack Nacimiento';
+  }
+
   function showGrid() {
     document.getElementById('catGrid').style.display = 'block';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
@@ -465,74 +496,99 @@
     document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Packs para Regalar';
   }
 
-  // Selector nombre en caja con tapa
-  function updatePrice() {
-    const sel = document.getElementById('nombreSelect').value;
-    const precio = document.getElementById('precioFinal');
-    const note = document.getElementById('nombreNote');
-    if (sel === 'si') {
-      precio.textContent = '110 €';
-      note.classList.add('visible');
-    } else {
-      precio.textContent = '105 €';
-      note.classList.remove('visible');
-    }
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('catGrid').style.display = 'block';
+    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
+  });
+
+  // ── PACK PRICES ──
+  function updatePrecioBambu() {
+    const sel = document.getElementById('nombreBambuSelect');
+    if (!sel) return;
+    document.getElementById('precioBambu').textContent = sel.value === 'si' ? '80 €' : '75 €';
+    document.getElementById('nombreBambuNote').classList.toggle('visible', sel.value === 'si');
   }
 
+  function updatePrice() {
+    const sel = document.getElementById('nombreSelect');
+    if (!sel) return;
+    document.getElementById('precioFinal').textContent = sel.value === 'si' ? '110 €' : '105 €';
+    document.getElementById('nombreNote').classList.toggle('visible', sel.value === 'si');
+  }
+
+  function updatePackPrice(prefix, base) {
+    const sel = document.getElementById('opt-' + prefix + '-cart');
+    const extra = sel ? parseFloat(sel.value) || 0 : 0;
+    const el = document.getElementById('opt-' + prefix + '-cart-total');
+    if (el) el.textContent = (base + extra).toFixed(0) + ' €';
+  }
+
+  function addCartPack(prefix, baseName, basePrice) {
+    const sel = document.getElementById('opt-' + prefix + '-cart');
+    const extra = sel ? parseFloat(sel.value) || 0 : 0;
+    const price = basePrice + extra;
+    const opts = extra > 0 ? {'Nombre en caja': 'Sí (+5 €)'} : {};
+    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
+  }
+
+  // Color selectors
+  ['ternura','huella','tesoro'].forEach(function(pack) {
+    document.addEventListener('DOMContentLoaded', function() {
+      const sel = document.getElementById(pack + 'Color');
+      const custom = document.getElementById(pack + 'ColorCustom');
+      if (sel && custom) {
+        sel.addEventListener('change', function() {
+          custom.style.display = this.value === 'otro' ? 'block' : 'none';
+        });
+      }
+    });
+  });
+
+  // ── PACK TERNURA ──
   function pedirEsencial() {
-    const recogida = document.getElementById('esencialRecogida').value;
-    const nombre = document.getElementById('tNombre').value;
+    const recogida = document.getElementById('esencialRecogida')?.value || 'envio';
+    const nombre = document.getElementById('tNombre')?.value || '';
     const madre = document.getElementById('tMadre')?.value || '';
     const padre = document.getElementById('tPadre')?.value || '';
-    const fecha = document.getElementById('tFecha').value;
-    const hora = document.getElementById('tHora').value;
-    const peso = document.getElementById('tPeso').value;
-    const altura = document.getElementById('tAltura').value;
-    const dedicatoria = document.getElementById('tDedicatoria').value;
+    const fecha = document.getElementById('tFecha')?.value || '';
+    const hora = document.getElementById('tHora')?.value || '';
+    const peso = document.getElementById('tPeso')?.value || '';
+    const altura = document.getElementById('tAltura')?.value || '';
+    const dedicatoria = document.getElementById('tDedicatoria')?.value || '';
+    const color = document.getElementById('ternuraColor')?.value || '';
+    const colorCustom = document.getElementById('ternuraColorCustom')?.value || '';
     let msg = 'Hola!%20Me%20interesa%20el%20Pack%20Ternura%20en%20cesta%20de%20mimbre';
     if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
     if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
     if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
     if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
     if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
     if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
     if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
     if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
     if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
-    const tColor = document.getElementById('ternuraColor').value; const tColorCustom = document.getElementById('ternuraColorCustom').value;
-    if (tColor && tColor !== 'otro') msg += '%0AColor%20texto%3A%20' + encodeURIComponent(tColor); else if (tColorCustom) msg += '%0AColor%20texto%3A%20' + encodeURIComponent(tColorCustom);
+    const c = color !== 'otro' ? color : colorCustom;
+    if (c) msg += '%0AColor%203D%3A%20' + encodeURIComponent(c);
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
-  function updatePrecioBambu() {
-    const sel = document.getElementById('nombreBambuSelect').value;
-    document.getElementById('precioBambu').textContent = sel === 'si' ? '80 €' : '75 €';
-    document.getElementById('nombreBambuNote').classList.toggle('visible', sel === 'si');
-  }
+  // ── PACK HUELLA ──
   function pedirBambu() {
-    const conNombre = document.getElementById('nombreBambuSelect').value === 'si';
-    const recogida = document.getElementById('huellaRecogida').value;
-    const nombre = document.getElementById('hNombre').value;
+    const conNombre = document.getElementById('nombreBambuSelect')?.value === 'si';
+    const recogida = document.getElementById('huellaRecogida')?.value || 'envio';
+    const nombre = document.getElementById('hNombre')?.value || '';
     const madre = document.getElementById('hMadre')?.value || '';
     const padre = document.getElementById('hPadre')?.value || '';
-    const fecha = document.getElementById('hFecha').value;
-    const hora = document.getElementById('hHora').value;
-    const peso = document.getElementById('hPeso').value;
-    const altura = document.getElementById('hAltura').value;
-    const dedicatoria = document.getElementById('hDedicatoria').value;
-    let msg = conNombre
-      ? 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20con%20nombre%20en%203D'
-      : 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20sin%20nombre';
+    const fecha = document.getElementById('hFecha')?.value || '';
+    const hora = document.getElementById('hHora')?.value || '';
+    const peso = document.getElementById('hPeso')?.value || '';
+    const altura = document.getElementById('hAltura')?.value || '';
+    const dedicatoria = document.getElementById('hDedicatoria')?.value || '';
+    const color = document.getElementById('huellaColor')?.value || '';
+    const colorCustom = document.getElementById('huellaColorCustom')?.value || '';
+    let msg = conNombre ? 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20con%20nombre%20en%203D' : 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20sin%20nombre';
     if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
     if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
     if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
     if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
     if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
@@ -540,31 +596,28 @@
     if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
     if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
     if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
-    const hColor = document.getElementById('huellaColor').value; const hColorCustom = document.getElementById('huellaColorCustom').value;
-    if (hColor && hColor !== 'otro') msg += '%0AColor%20texto%3A%20' + encodeURIComponent(hColor); else if (hColorCustom) msg += '%0AColor%20texto%3A%20' + encodeURIComponent(hColorCustom);
+    const c = color !== 'otro' ? color : colorCustom;
+    if (c) msg += '%0AColor%203D%3A%20' + encodeURIComponent(c);
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
+  // ── PACK TESORO ──
   function pedirCajaTapa() {
-    const conNombre = document.getElementById('nombreSelect').value === 'si';
-    const recogida = document.getElementById('tesoroRecogida').value;
-    const nombre = document.getElementById('dNombre').value;
+    const conNombre = document.getElementById('nombreSelect')?.value === 'si';
+    const recogida = document.getElementById('tesoroRecogida')?.value || 'envio';
+    const nombre = document.getElementById('dNombre')?.value || '';
     const madre = document.getElementById('dMadre')?.value || '';
     const padre = document.getElementById('dPadre')?.value || '';
-    const fecha = document.getElementById('dFecha').value;
-    const hora = document.getElementById('dHora').value;
-    const peso = document.getElementById('dPeso').value;
-    const altura = document.getElementById('dAltura').value;
-    const dedicatoria = document.getElementById('dDedicatoria').value;
-    let msg = conNombre
-      ? 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20con%20nombre%20en%203D'
-      : 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20sin%20nombre';
+    const fecha = document.getElementById('dFecha')?.value || '';
+    const hora = document.getElementById('dHora')?.value || '';
+    const peso = document.getElementById('dPeso')?.value || '';
+    const altura = document.getElementById('dAltura')?.value || '';
+    const dedicatoria = document.getElementById('dDedicatoria')?.value || '';
+    const color = document.getElementById('tesoroColor')?.value || '';
+    const colorCustom = document.getElementById('tesoroColorCustom')?.value || '';
+    let msg = conNombre ? 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20con%20nombre%20en%203D' : 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20sin%20nombre';
     if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
     if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
     if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
     if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
     if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
@@ -572,16 +625,27 @@
     if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
     if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
     if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
+    const c = color !== 'otro' ? color : colorCustom;
+    if (c) msg += '%0AColor%203D%3A%20' + encodeURIComponent(c);
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
-
-
-  function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
+  // ── LIGHTBOX ──
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+  // ── FADE IN ──
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
 <script src="cookies-banner.js"></script>
