@@ -201,7 +201,24 @@
             <input type="text" id="tPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="tAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <textarea id="tDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
-          </div>
+          <select id="ternuraColor" style="margin-bottom:0.4rem; margin-top:0.4rem;">
+            <option value="">Color del texto en la placa (elige uno)</option>
+            <option value="verde">Verde menta</option>
+            <option value="blanco">Blanco</option>
+            <option value="negro">Negro</option>
+            <option value="burdeos">Burdeos</option>
+            <option value="otro">Otro color (lo indico abajo)</option>
+          </select>
+          <input type="text" id="ternuraColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
+          <script>document.getElementById('ternuraColor').addEventListener('change',function(){{document.getElementById('ternuraColorCustom').style.display=this.value==='otro'?'block':'none';}});
+  // Remember scroll position when navigating back
+  window.addEventListener('beforeunload', () => {
+    sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY);
+  });
+  const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
+  if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
+
+</script>
         </div>
         <div class="price-block">
           <div class="price-display">
@@ -216,8 +233,8 @@
 
     <!-- PACK RECUERDO -->
     <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pack_yerai2.jpg')">
-        <img src="images/pack_yerai2.jpg" alt="Pack Recuerdo caja bambú">
+      <div class="product-img" onclick="openLightbox('images/pack_aroa.jpg')">
+        <img src="images/pack_aroa.jpg" alt="Pack Huella caja bambú">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
@@ -254,7 +271,16 @@
             <input type="text" id="hPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="hAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <textarea id="hDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
-          </div>
+          <select id="huellaColor" style="margin-bottom:0.4rem; margin-top:0.4rem;">
+            <option value="">Color del texto en la placa (elige uno)</option>
+            <option value="verde">Verde menta</option>
+            <option value="blanco">Blanco</option>
+            <option value="negro">Negro</option>
+            <option value="burdeos">Burdeos</option>
+            <option value="otro">Otro color (lo indico abajo)</option>
+          </select>
+          <input type="text" id="huellaColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
+          <script>document.getElementById('huellaColor').addEventListener('change',function(){{document.getElementById('huellaColorCustom').style.display=this.value==='otro'?'block':'none';}});</script>
         </div>
         <div class="price-block">
           <div class="price-display">
@@ -311,7 +337,16 @@
             <input type="text" id="dPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="dAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <textarea id="dDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
-          </div>
+          <select id="tesoroColor" style="margin-bottom:0.4rem; margin-top:0.4rem;">
+            <option value="">Color del texto en la placa (elige uno)</option>
+            <option value="verde">Verde menta</option>
+            <option value="blanco">Blanco</option>
+            <option value="negro">Negro</option>
+            <option value="burdeos">Burdeos</option>
+            <option value="otro">Otro color (lo indico abajo)</option>
+          </select>
+          <input type="text" id="tesoroColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
+          <script>document.getElementById('tesoroColor').addEventListener('change',function(){{document.getElementById('tesoroColorCustom').style.display=this.value==='otro'?'block':'none';}});</script>
         </div>
         <div class="price-block">
           <div class="price-display">
@@ -340,12 +375,12 @@
 
 <div class="info-banner">
   <p>✦ Todos los precios incluyen IVA · <strong>En packs de nacimiento, gastos de envío incluidos</strong> · Realizo envíos a toda España ✦<br>
-  ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por WhatsApp al <strong>622 562 499</strong></p>
+  ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-mid);font-weight:700;">WhatsApp</a></p>
 </div>
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
-  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
 </footer>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -398,6 +433,8 @@
     if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
     if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
     if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
+    const tColor = document.getElementById('ternuraColor').value; const tColorCustom = document.getElementById('ternuraColorCustom').value;
+    if (tColor && tColor !== 'otro') msg += '%0AColor%20texto%3A%20' + encodeURIComponent(tColor); else if (tColorCustom) msg += '%0AColor%20texto%3A%20' + encodeURIComponent(tColorCustom);
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
@@ -425,6 +462,8 @@
     if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
     if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
     if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
+    const hColor = document.getElementById('huellaColor').value; const hColorCustom = document.getElementById('huellaColorCustom').value;
+    if (hColor && hColor !== 'otro') msg += '%0AColor%20texto%3A%20' + encodeURIComponent(hColor); else if (hColorCustom) msg += '%0AColor%20texto%3A%20' + encodeURIComponent(hColorCustom);
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
