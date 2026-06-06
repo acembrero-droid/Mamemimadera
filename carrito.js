@@ -190,14 +190,15 @@
     const style = document.createElement('style');
     style.textContent = `
       .cart-btn {
-        background: #8b5e3c; color: #fff;
-        border: none; border-radius: 30px; padding: 0.5rem 1.2rem;
+        background: #4d8a72; color: #fff;
+        border: none; outline: none; border-radius: 30px; padding: 0.5rem 1.2rem;
         font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700;
         cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
         transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase;
-        position: relative;
+        position: relative; box-shadow: none;
       }
-      .cart-btn:hover { background: #6a9e8a; }
+      .cart-btn:hover { background: #3a6e5a; }
+      .cart-btn:focus { outline: none; box-shadow: none; }
       .cart-badge {
         background: #e74c3c; color: #fff; border-radius: 50%;
         width: 20px; height: 20px; font-size: 0.72rem; font-weight: 700;
