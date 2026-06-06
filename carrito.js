@@ -190,15 +190,14 @@
     const style = document.createElement('style');
     style.textContent = `
       .cart-btn {
-        position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 900;
-        background: #6a9e8a; color: #fff;
-        border: none; border-radius: 50px; padding: 0.75rem 1.3rem;
-        font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 700;
-        cursor: pointer; box-shadow: 0 4px 20px rgba(106,158,138,0.4);
-        display: flex; align-items: center; gap: 0.5rem;
-        transition: all 0.25s; letter-spacing: 0.05em;
+        background: #8b5e3c; color: #fff;
+        border: none; border-radius: 30px; padding: 0.5rem 1.2rem;
+        font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700;
+        cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
+        transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase;
+        position: relative;
       }
-      .cart-btn:hover { background: #8b5e3c; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(90,58,26,0.35); }
+      .cart-btn:hover { background: #6a9e8a; }
       .cart-badge {
         background: #e74c3c; color: #fff; border-radius: 50%;
         width: 20px; height: 20px; font-size: 0.72rem; font-weight: 700;
@@ -280,12 +279,8 @@
     `;
     document.head.appendChild(style);
 
-    // Botón flotante
-    const btn = document.createElement('button');
-    btn.className = 'cart-btn';
-    btn.onclick = toggleCart;
-    btn.innerHTML = `🛒 Carrito <span class="cart-badge" id="cartBadge">0</span>`;
-    document.body.appendChild(btn);
+    // Cart badge update only — button is in nav
+    // (no floating button)
 
     // Overlay
     const overlay = document.createElement('div');
