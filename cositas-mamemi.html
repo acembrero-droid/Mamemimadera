@@ -130,7 +130,7 @@
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <a href="index.html" class="nav-back" id="navBack" onclick="return navBackClick()">← Inicio</a>
-  <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">Pedir ahora</a>
+  <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
 </nav>
 
 <div class="page-hero">
@@ -320,7 +320,17 @@
           <div class="price-row"><span>Precio por unidad</span><span class="amount">9 €</span></div>
           <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'iman-elefante',name:'Imán · Mandala Elefante',price:9,options:{}})">Añadir al carrito</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Añadir toque de color pintado a mano?</label>
+            <select id="opt-iman-elefante-color" onchange="updateImanPrice('iman-elefante',9)">
+              <option value="0">Sin color — 9 €</option>
+              <option value="6">Con toque de color — +6 €</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-iman-elefante-total">9 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartIman('iman-elefante','Imán · Mandala Elefante',9)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20im%C3%A1n%20Mandala%20Elefante" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -339,7 +349,17 @@
           <div class="price-row"><span>Precio por unidad</span><span class="amount">9 €</span></div>
           <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'iman-baides',name:'Imán · Baides está en mi corazón',price:9,options:{}})">Añadir al carrito</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Añadir toque de color pintado a mano?</label>
+            <select id="opt-iman-baides-color" onchange="updateImanPrice('iman-baides',9)">
+              <option value="0">Sin color — 9 €</option>
+              <option value="6">Con toque de color — +6 €</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-iman-baides-total">9 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartIman('iman-baides','Imán · Baides está en mi corazón',9)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20im%C3%A1n%20Baides" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -503,25 +523,6 @@
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
 
 
-  // Smart back button
-  function navBackClick() {
-    const anyOpen = document.querySelector('.product-page.active');
-    if (anyOpen) { showGrid(); return false; }
-    return true;
-  }
-  // Update nav back text when pages change
-  const origShowPage = showPage;
-  showPage = function(id) {
-    origShowPage(id);
-    document.getElementById('navBack').textContent = '← Volver a categorías';
-  };
-  const origShowGrid = showGrid;
-  showGrid = function() {
-    origShowGrid();
-    document.getElementById('navBack').textContent = '← Inicio';
-  };
-
-
   // Product options helpers
   function getOptVal(id) {
     const el = document.getElementById(id);
@@ -587,6 +588,21 @@
     const optLabel = Object.entries(opts).map(([k,v]) => k+': '+v).join(', ');
     const name = baseName + (optLabel ? ' (' + optLabel + ')' : '');
     addToCart({ id, name, price, options: opts });
+  }
+
+
+  function updateImanPrice(prefix, base) {
+    const sel = document.getElementById('opt-' + prefix + '-color');
+    const extra = sel ? parseFloat(sel.value) || 0 : 0;
+    const el = document.getElementById('opt-' + prefix + '-total');
+    if (el) el.textContent = (base + extra).toFixed(0) + ' €';
+  }
+  function addCartIman(prefix, baseName, basePrice) {
+    const sel = document.getElementById('opt-' + prefix + '-color');
+    const extra = sel ? parseFloat(sel.value) || 0 : 0;
+    const price = basePrice + extra;
+    const opts = extra > 0 ? { 'Acabado': 'Con toque de color' } : { 'Acabado': 'Sin color' };
+    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
   }
 
 </script>
