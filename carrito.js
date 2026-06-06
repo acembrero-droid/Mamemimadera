@@ -190,14 +190,14 @@
     const style = document.createElement('style');
     style.textContent = `
       .cart-btn {
-        background: #4d8a72; color: #fff;
+        background: #6a9e8a; color: #fff;
         border: none; outline: none; border-radius: 30px; padding: 0.5rem 1.2rem;
         font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700;
         cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
         transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase;
         position: relative; box-shadow: none;
       }
-      .cart-btn:hover { background: #3a6e5a; }
+      .cart-btn:hover { background: #4d8a72; }
       .cart-btn:focus { outline: none; box-shadow: none; }
       .cart-badge {
         background: #e74c3c; color: #fff; border-radius: 50%;
