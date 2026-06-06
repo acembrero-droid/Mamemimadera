@@ -619,14 +619,14 @@
       <span class="value">Escríbeme</span>
     </a>
   </div>
-  <p class="contact-note">Respondo en menos de 24 h · Realizo envíos a toda España</p>
+  <p class="contact-note">Respondo en 24–72 h · Realizo envíos a toda España</p>
 </section>
 
 <!-- ── FOOTER ── -->
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
-  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
 </footer>
 
 <script>
@@ -635,6 +635,20 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+
+<script>
+  // Store scroll position before navigating to category pages
+  document.querySelectorAll('.cat-card').forEach(card => {
+    card.addEventListener('click', () => {
+      sessionStorage.setItem('scrollPos_index', window.scrollY);
+    });
+  });
+  // Restore scroll if coming back
+  const savedIdx = sessionStorage.getItem('scrollPos_index');
+  if (savedIdx && document.referrer.includes('mamemimadera')) {
+    window.scrollTo(0, parseInt(savedIdx));
+  }
 </script>
 </body>
 </html>
