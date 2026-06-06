@@ -191,14 +191,14 @@
     style.textContent = `
       .cart-btn {
         position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 900;
-        background: var(--wood-dark, #8b5e3c); color: #fff;
+        background: #6a9e8a; color: #fff;
         border: none; border-radius: 50px; padding: 0.75rem 1.3rem;
         font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 700;
-        cursor: pointer; box-shadow: 0 4px 20px rgba(90,58,26,0.3);
+        cursor: pointer; box-shadow: 0 4px 20px rgba(106,158,138,0.4);
         display: flex; align-items: center; gap: 0.5rem;
         transition: all 0.25s; letter-spacing: 0.05em;
       }
-      .cart-btn:hover { background: var(--mint-dark, #6a9e8a); transform: translateY(-2px); }
+      .cart-btn:hover { background: #8b5e3c; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(90,58,26,0.35); }
       .cart-badge {
         background: #e74c3c; color: #fff; border-radius: 50%;
         width: 20px; height: 20px; font-size: 0.72rem; font-weight: 700;
