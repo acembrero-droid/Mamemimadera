@@ -53,7 +53,7 @@
     .back-btn:hover { background: var(--wood-light); }
 
     /* SUBCAT GRID (inside Pack Nacimiento) */
-    .subcat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; align-items: start; }
+    .subcat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: start; }
 
     /* PRODUCT CARD */
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; height: auto; }
@@ -126,7 +126,7 @@
     footer a:hover { color: var(--mint); }
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .subcat-grid, .cs-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+    @media (max-width: 900px) { .subcat-grid { grid-template-columns: 1fr; } } @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .cs-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
   </style>
 </head>
 <body>
@@ -227,7 +227,8 @@
           </div>
           <p class="price-note">✦ IVA incluido · Gastos de envío incluidos</p>
         </div>
-        <button class="btn-contact" onclick="pedirEsencial()">Quiero este pack</button>
+        <button class="btn-add-cart" onclick="addToCart({id:'pack-ternura',name:'Pack Ternura · Cesta de mimbre',price:68,options:{}})">Añadir al carrito</button>
+        <button class="btn-contact" onclick="pedirEsencial()" style="margin-top:0.4rem;">Personalizar y pedir</button>
       </div>
     </div>
 
@@ -498,5 +499,7 @@
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
+<script src="cookies-banner.js"></script>
+<script src="carrito.js"></script>
 </body>
 </html>
