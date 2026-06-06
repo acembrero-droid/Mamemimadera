@@ -53,10 +53,10 @@
     .back-btn:hover { background: var(--wood-light); }
 
     /* SUBCAT GRID (inside Pack Nacimiento) */
-    .subcat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .subcat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; align-items: start; }
 
     /* PRODUCT CARD */
-    .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
+    .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; height: auto; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
     .product-img { position: relative; height: 260px; overflow: hidden; cursor: zoom-in; }
     .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
@@ -67,7 +67,7 @@
     .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
     .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
     .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
-    .product-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; flex: 1; }
+    .product-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
 
     /* INCLUDES LIST */
     .includes-list { background: var(--cream2); border-radius: 10px; border-left: 3px solid var(--mint-dark); padding: 0.7rem 1rem; }
@@ -153,7 +153,7 @@
       <div class="img-wrap"><img src="images/pack_nac.jpg" alt="Pack Nacimiento"></div>
       <div class="cat-info">
         <h3>Pack Nacimiento</h3>
-        <p>Con cesta de mimbre, caja o baúl de bambú, con datos personalizados</p>
+        <p>En cesta de mimbre, caja o baúl de bambú · Todos personalizables</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -166,7 +166,7 @@
 
   <div class="subcat-grid">
 
-    <!-- PACK TERNURA -->
+    <!-- PACK ESENCIAL -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_lucia.jpg')">
         <img src="images/pack_lucia.jpg" alt="Pack Esencial cesta mimbre">
@@ -180,53 +180,58 @@
           <p>Incluye:</p>
           <ul>
             <li>Cesta de mimbre natural</li>
-            <li>Placa de nacimiento grabada al láser con todos los datos</li>
-            <li>Sonajero conejo de ganchillo con agarre de madera natural</li>
-            <li>Papel de seda y decoración</li>
+            <li>Placa de nacimiento grabada al láser con todos los datos · nombre y estrellitas de decoración impresos en 3D</li>
+            <li>Sonajero de ganchillo con agarre de madera natural</li>
+            <li>Viruta de madera y papel de seda</li>
+            <li>Presentado en papel celofán · listo para entregar en mano o enviar</li>
             <li>Tarjeta con dedicatoria personalizada (opcional)</li>
           </ul>
         </div>
         <div class="selector-block">
           <p class="selector-label">Personaliza tu pack</p>
-          <select id="ternuraDatos" style="margin-bottom:0.5rem;">
-            <option value="">¿Quieres añadir los datos del bebé? (nombre, fecha, hora, peso, talla...)</option>
-            <option value="si">Sí, quiero personalizar los datos</option>
-            <option value="no">No por ahora, ya me pondré en contacto</option>
+          <select id="esencialRecogida" style="margin-bottom:0.5rem;">
+            <option value="envio">Envío a domicilio</option>
+            <option value="tienda">Recogida en tienda</option>
           </select>
-          <select id="ternuraDedicatoria">
-            <option value="">¿Quieres añadir una dedicatoria en la tarjeta?</option>
-            <option value="si">Sí, quiero incluir una dedicatoria personalizada</option>
-            <option value="no">No, sin dedicatoria</option>
-          </select>
+          <div id="ternuraDatosForm">
+            <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
+            <input type="text" id="tNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="tFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="tHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="tPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="tAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <textarea id="tDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
+          </div>
         </div>
         <div class="price-block">
           <div class="price-display">
             <span class="label">Precio</span>
-            <span class="amount">65 €</span>
+            <span class="amount">68 €</span>
           </div>
-          <p class="price-note">✦ IVA incluido · Gastos de envío aparte · Listo para entregar</p>
+          <p class="price-note">✦ IVA incluido · Gastos de envío incluidos</p>
         </div>
-        <button class="btn-contact" onclick="pedirternura()">Quiero este pack</button>
+        <button class="btn-contact" onclick="pedirEsencial()">Quiero este pack</button>
       </div>
     </div>
 
-    <!-- PACK HUELLA -->
+    <!-- PACK RECUERDO -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_yerai2.jpg')">
-        <img src="images/pack_aroa.jpg" alt="Pack Huella caja bambú">
+        <img src="images/pack_yerai2.jpg" alt="Pack Recuerdo caja bambú">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Pack Nacimiento</p>
         <h3>Pack Huella · Caja de bambú</h3>
-        <p class="product-desc">Todo lo del Pack Ternura presentado en una caja de bambú abierta. <strong>La caja no es solo un envoltorio</strong> — es un elemento decorativo y de almacenaje que quedará en la habitación del bebé durante años. Se puede incluir tarjeta con dedicatoria personalizada.</p>
+        <p class="product-desc">Todo lo del Pack Esencial presentado en una caja de bambú abierta. <strong>La caja no es solo un envoltorio</strong> — es un elemento decorativo y de almacenaje que quedará en la habitación del bebé durante años. Se puede incluir tarjeta con dedicatoria personalizada.</p>
         <div class="includes-list">
           <p>Incluye:</p>
           <ul>
             <li>Caja de bambú abierta</li>
-            <li>Placa de nacimiento grabada al láser con todos los datos</li>
-            <li>Sonajero conejo de ganchillo con agarre de madera natural</li>
-            <li>Papel de seda y decoración</li>
+            <li>Placa de nacimiento grabada al láser con todos los datos · nombre y estrellitas de decoración impresos en 3D</li>
+            <li>Sonajero de ganchillo con agarre de madera natural</li>
+            <li>Viruta de madera y papel de seda</li>
+            <li>Presentado en papel celofán · listo para entregar en mano o enviar</li>
             <li>Tarjeta con dedicatoria personalizada (opcional)</li>
           </ul>
         </div>
@@ -237,51 +242,54 @@
             <option value="si">Con nombre en impresión 3D en la caja (+5 €)</option>
           </select>
           <p class="nombre-note" id="nombreBambuNote">✦ Se añadirá el nombre del bebé en relieve 3D en la caja</p>
-          <select id="recuerdoDatos" style="margin-bottom:0.5rem; margin-top:0.5rem;">
-            <option value="">¿Quieres añadir los datos del bebé? (nombre, fecha, hora, peso, talla...)</option>
-            <option value="si">Sí, quiero personalizar los datos</option>
-            <option value="no">No por ahora, ya me pondré en contacto</option>
+          <select id="huellaRecogida" style="margin-bottom:0.5rem; margin-top:0.5rem;">
+            <option value="envio">Envío a domicilio</option>
+            <option value="tienda">Recogida en tienda</option>
           </select>
-          <select id="huellaDedicatoria">
-            <option value="">¿Quieres añadir una dedicatoria en la tarjeta?</option>
-            <option value="si">Sí, quiero incluir una dedicatoria personalizada</option>
-            <option value="no">No, sin dedicatoria</option>
-          </select>
+          <div id="huellaDatosForm">
+            <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
+            <input type="text" id="hNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="hFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="hHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="hPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="hAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <textarea id="hDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
+          </div>
         </div>
         <div class="price-block">
           <div class="price-display">
             <span class="label">Precio total</span>
-            <span class="amount" id="precioBambu">72 €</span>
+            <span class="amount" id="precioBambu">75 €</span>
           </div>
-          <p class="price-note">✦ IVA incluido · Gastos de envío aparte · Listo para entregar</p>
+          <p class="price-note">✦ IVA incluido · Gastos de envío incluidos</p>
         </div>
         <button class="btn-contact" onclick="pedirBambu()">Quiero este pack</button>
       </div>
     </div>
 
-    <!-- PACK TESORO -->
+    <!-- PACK CANASTILLA DELUXE -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_baul.jpg')">
-        <img src="images/pack_baul.jpg" alt="Pack Tesoro baúl bambú">
+        <img src="images/pack_baul.jpg" alt="Pack Canastilla Deluxe baúl bambú">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Pack Nacimiento</p>
         <h3>Pack Tesoro · Baúl de bambú</h3>
-        <p class="product-desc">El pack más completo y especial. Todo lo del Pack Huella más los extras más bonitos, presentado en un baúl de bambú que el bebé guardará toda la vida. Se puede incluir tarjeta con dedicatoria personalizada, listo para entregar.</p>
+        <p class="product-desc">El pack más completo y especial. Todo lo del Pack Recuerdo más los extras más bonitos, presentado en un baúl de bambú que el bebé guardará toda la vida. Se puede incluir tarjeta con dedicatoria personalizada, listo para entregar.</p>
         <div class="includes-list">
           <p>Incluye:</p>
           <ul>
             <li>Baúl de bambú</li>
-            <li>Placa de nacimiento grabada al láser con todos los datos</li>
-            <li>Sonajero conejo de ganchillo con agarre de madera natural</li>
+            <li>Placa de nacimiento grabada al láser con todos los datos · nombre y estrellitas de decoración impresos en 3D</li>
+            <li>Sonajero de ganchillo con agarre de madera natural</li>
             <li>Peluche oso doudou</li>
             <li>Muselina 80×80cm</li>
             <li>Chocolate Simón Coll para la mamá</li>
             <li>Viruta de madera y papel de seda</li>
             <li>Tarjeta con dedicatoria personalizada (opcional)</li>
-            <li>Entrega en mano: baúl abierto en celofán de topos blancos</li>
-            <li>Envío por transportista: baúl cerrado en celofán</li>
+            <li>Viruta de madera y papel de seda</li>
+            <li>Presentado en papel celofán · listo para entregar en mano o enviar</li>
           </ul>
         </div>
         <div class="selector-block">
@@ -291,16 +299,19 @@
             <option value="si">Con nombre en impresión 3D en el baúl (+5 €)</option>
           </select>
           <p class="nombre-note" id="nombreNote">✦ Se añadirá el nombre del bebé en relieve 3D en el baúl</p>
-          <select id="tesoroDatos" style="margin-bottom:0.5rem; margin-top:0.5rem;">
-            <option value="">¿Quieres añadir los datos del bebé en la placa? (nombre, fecha, hora, peso, talla...)</option>
-            <option value="si">Sí, quiero personalizar los datos</option>
-            <option value="no">No por ahora, ya me pondré en contacto</option>
+          <select id="tesoroRecogida" style="margin-bottom:0.5rem; margin-top:0.5rem;">
+            <option value="envio">Envío a domicilio</option>
+            <option value="tienda">Recogida en tienda</option>
           </select>
-          <select id="tesoroDedicatoria">
-            <option value="">¿Quieres añadir una dedicatoria en la tarjeta?</option>
-            <option value="si">Sí, quiero incluir una dedicatoria personalizada</option>
-            <option value="no">No, sin dedicatoria</option>
-          </select>
+          <div id="tesoroDatosForm">
+            <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
+            <input type="text" id="dNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="dFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="dHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="dPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="dAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <textarea id="dDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
+          </div>
         </div>
         <div class="price-block">
           <div class="price-display">
@@ -328,7 +339,7 @@
 </div>
 
 <div class="info-banner">
-  <p>✦ Todos los precios incluyen IVA · <strong>Gastos de envío aparte</strong> · Realizo envíos a toda España ✦<br>
+  <p>✦ Todos los precios incluyen IVA · <strong>En packs de nacimiento, gastos de envío incluidos</strong> · Realizo envíos a toda España ✦<br>
   ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por WhatsApp al <strong>622 562 499</strong></p>
 </div>
 <footer>
@@ -372,36 +383,70 @@
   }
 
   function pedirEsencial() {
-    const datos = document.getElementById('esencialDatos').value;
-    const dedicatoria = document.getElementById('esencialDedicatoria').value;
-    let msg = 'Hola!%20Me%20interesa%20el%20Pack%20Esencial%20en%20cesta%20de%20mimbre';
-    if (datos === 'si') msg += '%20-%20quiero%20personalizar%20los%20datos%20del%20beb%C3%A9';
-    if (dedicatoria === 'si') msg += '%20-%20quiero%20incluir%20una%20dedicatoria';
+    const recogida = document.getElementById('esencialRecogida').value;
+    const nombre = document.getElementById('tNombre').value;
+    const fecha = document.getElementById('tFecha').value;
+    const hora = document.getElementById('tHora').value;
+    const peso = document.getElementById('tPeso').value;
+    const altura = document.getElementById('tAltura').value;
+    const dedicatoria = document.getElementById('tDedicatoria').value;
+    let msg = 'Hola!%20Me%20interesa%20el%20Pack%20Ternura%20en%20cesta%20de%20mimbre';
+    if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
+    if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
+    if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
+    if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
+    if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
+    if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
+    if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
   function updatePrecioBambu() {
     const sel = document.getElementById('nombreBambuSelect').value;
-    document.getElementById('precioBambu').textContent = sel === 'si' ? '77 €' : '72 €';
+    document.getElementById('precioBambu').textContent = sel === 'si' ? '80 €' : '75 €';
     document.getElementById('nombreBambuNote').classList.toggle('visible', sel === 'si');
   }
   function pedirBambu() {
     const conNombre = document.getElementById('nombreBambuSelect').value === 'si';
-    const dedicatoria = document.getElementById('recuerdoDedicatoria').value;
+    const recogida = document.getElementById('huellaRecogida').value;
+    const nombre = document.getElementById('hNombre').value;
+    const fecha = document.getElementById('hFecha').value;
+    const hora = document.getElementById('hHora').value;
+    const peso = document.getElementById('hPeso').value;
+    const altura = document.getElementById('hAltura').value;
+    const dedicatoria = document.getElementById('hDedicatoria').value;
     let msg = conNombre
-      ? 'Hola!%20Me%20interesa%20el%20Pack%20Recuerdo%20en%20caja%20de%20bamb%C3%BA%20con%20nombre%20en%203D'
-      : 'Hola!%20Me%20interesa%20el%20Pack%20Recuerdo%20en%20caja%20de%20bamb%C3%BA%20sin%20nombre';
-    if (dedicatoria === 'si') msg += '%20-%20quiero%20incluir%20una%20dedicatoria';
+      ? 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20con%20nombre%20en%203D'
+      : 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20sin%20nombre';
+    if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
+    if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
+    if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
+    if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
+    if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
+    if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
+    if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
   function pedirCajaTapa() {
     const conNombre = document.getElementById('nombreSelect').value === 'si';
-    const dedicatoria = document.getElementById('deluxeDedicatoria').value;
+    const recogida = document.getElementById('tesoroRecogida').value;
+    const nombre = document.getElementById('dNombre').value;
+    const fecha = document.getElementById('dFecha').value;
+    const hora = document.getElementById('dHora').value;
+    const peso = document.getElementById('dPeso').value;
+    const altura = document.getElementById('dAltura').value;
+    const dedicatoria = document.getElementById('dDedicatoria').value;
     let msg = conNombre
-      ? 'Hola!%20Me%20interesa%20el%20Pack%20Canastilla%20Deluxe%20con%20nombre%20en%203D'
-      : 'Hola!%20Me%20interesa%20el%20Pack%20Canastilla%20Deluxe%20sin%20nombre';
-    if (dedicatoria === 'si') msg += '%20-%20quiero%20incluir%20una%20dedicatoria';
+      ? 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20con%20nombre%20en%203D'
+      : 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20sin%20nombre';
+    if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
+    if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
+    if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
+    if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
+    if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
+    if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
+    if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
     window.open('https://wa.me/34622562499?text=' + msg, '_blank');
   }
 
