@@ -161,8 +161,8 @@
         <h3>Llavero grabado en madera</h3>
         <p class="product-desc">Llavero redondo de madera natural grabado al láser con el diseño, nombre o texto que elijas. Con anilla metálica y borla de gamuza en el color que prefieras. Se presenta en bolsa de rafia/algodón personalizada con el nombre grabado o en cajita kraft.</p>
         <div class="price-block">
-          <div class="price-row"><span>Grabado por 1 cara</span><span class="amount">12 €</span></div>
-          <div class="price-row"><span>Grabado por 2 caras</span><span class="amount">15 €</span></div>
+          <div class="price-row"><span>Diseño y grabado por 1 cara</span><span class="amount">15 €</span></div>
+          <div class="price-row"><span>Grabado en el otro lado también</span><span class="amount">+ 5 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20llavero%20personalizado" class="btn-contact" target="_blank">Quiero este</a>
@@ -432,13 +432,13 @@
 </div>
 
 <div class="info-banner">
-  <p>✦ Todos los precios incluyen IVA · <strong>Gastos de envío aparte</strong> · Realizo envíos a toda España ✦<br>
-  ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por WhatsApp al <strong>622 562 499</strong></p>
+  <p>✦ Todos los precios incluyen IVA · <strong>Gastos de envío gratuitos en pedidos +60 €</strong> · Realizo envíos a toda España ✦<br>
+  ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-mid);font-weight:700;">WhatsApp</a></p>
 </div>
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
-  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
 </footer>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -479,6 +479,14 @@
 
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Remember scroll position when navigating back
+  window.addEventListener('beforeunload', () => {
+    sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY);
+  });
+  const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
+  if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
+
 </script>
 </body>
 </html>
