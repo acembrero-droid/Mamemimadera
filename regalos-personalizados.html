@@ -91,12 +91,30 @@
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .products-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+
+    .btn-add-cart {
+      display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem;
+      background: var(--mint-dark); color: #fff; border: none; border-radius: 30px;
+      font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background 0.25s;
+    }
+    .btn-add-cart:hover { background: var(--wood-dark); }
+
+    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
+    .opt-row { margin-bottom: 0.5rem; }
+    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
+    .opt-row select:focus { border-color: var(--mint-dark); }
+    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
+    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
+    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
   </style>
 </head>
 <body>
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
-  <a href="index.html" class="nav-back">← Inicio</a>
+  <a href="index.html" class="nav-back" id="navBack" onclick="return navBackClick()">← Inicio</a>
   <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">Pedir ahora</a>
 </nav>
 
@@ -184,7 +202,29 @@
           <div class="price-row"><span>Con nombre en 3D y decoración</span><span class="amount">38 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <p class="opt-label" style="margin-bottom:0.6rem;">Datos para la placa:</p>
+          <div class="opt-row"><label class="opt-label">Nombre del bebé</label><input type="text" class="opt-input" id="pnac-m-nombre" placeholder="Nombre del bebé"></div>
+          <div class="opt-row"><label class="opt-label">Nombre de la madre</label><input type="text" class="opt-input" id="pnac-m-madre" placeholder="Nombre de la madre"></div>
+          <div class="opt-row"><label class="opt-label">Nombre del padre</label><input type="text" class="opt-input" id="pnac-m-padre" placeholder="Nombre del padre"></div>
+          <div class="opt-row"><label class="opt-label">Fecha completa de nacimiento</label><input type="text" class="opt-input" id="pnac-m-fecha" placeholder="ej. 22 de febrero de 2026"></div>
+          <div class="opt-row"><label class="opt-label">Hora del nacimiento</label><input type="text" class="opt-input" id="pnac-m-hora" placeholder="ej. 14:15h"></div>
+          <div class="opt-row"><label class="opt-label">Peso al nacer</label><input type="text" class="opt-input" id="pnac-m-peso" placeholder="ej. 3.200 kg"></div>
+          <div class="opt-row"><label class="opt-label">Longitud al nacer</label><input type="text" class="opt-input" id="pnac-m-longitud" placeholder="ej. 50 cm"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre y estrellitas en 3D</label>
+            <select class="opt-input" id="pnac-m-color">
+              <option value="">Elige color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>38 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPlacaNac('pnac-m')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -204,7 +244,41 @@
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
           <div class="price-alert">⚠️ Si el grupo tiene menos de 15 o más de 21 alumn@s, consúltame — el precio puede variar según el tamaño del disco.</div>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20profe" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <div style="background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.8rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            ✦ <strong>¿Cómo funciona?</strong> Yo dejo el hueco para cada huella. Cuando la placa llega, los peques ponen el dedo 🖐️ — incluyo un pack de colores para que lo hagan sin complicaciones, y una bolsita mona para entregar el regalo sin pensar en envolverlo.<br>
+            ✦ Si el grupo tiene <strong>menos de 15 o más de 21 alumn@s</strong>, escríbeme para crear un diseño a tu medida.
+          </div>
+          <div class="opt-row"><label class="opt-label">Nombre del profe / profesora</label><input type="text" class="opt-input" id="profe-nombre" placeholder="Nombre del profe"></div>
+          <div class="opt-row"><label class="opt-label">Curso escolar</label><input type="text" class="opt-input" id="profe-curso" placeholder="ej. 2025-2026"></div>
+          <p class="opt-label" style="margin:0.6rem 0 0.4rem;">Nombres de los alumn@s (máximo 21):</p>
+          <div style="max-height:280px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 1</label><input type="text" class="opt-input" id="profe-alumno-1" placeholder="Nombre alumno 1" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 2</label><input type="text" class="opt-input" id="profe-alumno-2" placeholder="Nombre alumno 2" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 3</label><input type="text" class="opt-input" id="profe-alumno-3" placeholder="Nombre alumno 3" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 4</label><input type="text" class="opt-input" id="profe-alumno-4" placeholder="Nombre alumno 4" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 5</label><input type="text" class="opt-input" id="profe-alumno-5" placeholder="Nombre alumno 5" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 6</label><input type="text" class="opt-input" id="profe-alumno-6" placeholder="Nombre alumno 6" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 7</label><input type="text" class="opt-input" id="profe-alumno-7" placeholder="Nombre alumno 7" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 8</label><input type="text" class="opt-input" id="profe-alumno-8" placeholder="Nombre alumno 8" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 9</label><input type="text" class="opt-input" id="profe-alumno-9" placeholder="Nombre alumno 9" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 10</label><input type="text" class="opt-input" id="profe-alumno-10" placeholder="Nombre alumno 10" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 11</label><input type="text" class="opt-input" id="profe-alumno-11" placeholder="Nombre alumno 11" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 12</label><input type="text" class="opt-input" id="profe-alumno-12" placeholder="Nombre alumno 12" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 13</label><input type="text" class="opt-input" id="profe-alumno-13" placeholder="Nombre alumno 13" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 14</label><input type="text" class="opt-input" id="profe-alumno-14" placeholder="Nombre alumno 14" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 15</label><input type="text" class="opt-input" id="profe-alumno-15" placeholder="Nombre alumno 15" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 16</label><input type="text" class="opt-input" id="profe-alumno-16" placeholder="Nombre alumno 16" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 17</label><input type="text" class="opt-input" id="profe-alumno-17" placeholder="Nombre alumno 17" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 18</label><input type="text" class="opt-input" id="profe-alumno-18" placeholder="Nombre alumno 18" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 19</label><input type="text" class="opt-input" id="profe-alumno-19" placeholder="Nombre alumno 19" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 20</label><input type="text" class="opt-input" id="profe-alumno-20" placeholder="Nombre alumno 20" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 21</label><input type="text" class="opt-input" id="profe-alumno-21" placeholder="Nombre alumno 21" style="margin:0;"></div>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>40 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartProfe()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20profe" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -243,7 +317,32 @@
           <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">16 € / u</span></div>
           <p class="price-note">✦ IVA incluido</p>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad:</label>
+            <select id="opt-puerta-qty" onchange="updatePuerta()">
+              <option value="20|1">1 unidad — 20 €</option>
+              <option value="16|3">Pack 3 unidades — 16 € / u (48 € total)</option>
+            </select>
+          </div>
+          <p class="opt-label" style="margin:0.6rem 0 0.3rem;">Nombre(s) y color de cada uno:</p>
+          <div id="puerta-nombres-wrap">
+            <div class="puerta-nombre-row" style="display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;">
+              <input type="text" class="opt-input puerta-nombre" placeholder="Nombre 1" style="margin:0;">
+              <select class="opt-input puerta-color" style="margin:0;width:130px;">
+                <option value="">Color</option>
+                <option value="Verde menta">Verde menta</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Negro">Negro</option>
+                <option value="Burdeos">Burdeos</option>
+              </select>
+            </div>
+          </div>
+          <button type="button" onclick="addPuertaRow()" style="background:none;border:1.5px dashed var(--wood-mid);border-radius:8px;padding:0.35rem 0.8rem;font-size:0.78rem;color:var(--wood-dark);cursor:pointer;margin-top:0.3rem;font-family:Nunito,sans-serif;">+ Añadir otro nombre</button>
+          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">20 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPuertaV2()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -308,7 +407,8 @@
           <div class="price-row"><span>Con nombre y decoración en otro color</span><span class="amount">42 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20letra%203D%20autoportante" class="btn-contact" target="_blank">Quiero este</a>
+        <button class="btn-add-cart" onclick="addToCart({id:'letra3d',name:'Letra 3D autoportante',price:42,options:{}})">Añadir al carrito — 42 €</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20letra%203D%20autoportante" class="btn-contact" target="_blank" style="margin-top:0.4rem;">Personalizar y pedir</a>
       </div>
     </div>
 
@@ -327,7 +427,29 @@
           <div class="price-row"><span>Con nombre en 3D y decoración</span><span class="amount">38 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <p class="opt-label" style="margin-bottom:0.6rem;">Datos para la placa:</p>
+          <div class="opt-row"><label class="opt-label">Nombre del bebé</label><input type="text" class="opt-input" id="pnac-3d-nombre" placeholder="Nombre del bebé"></div>
+          <div class="opt-row"><label class="opt-label">Nombre de la madre</label><input type="text" class="opt-input" id="pnac-3d-madre" placeholder="Nombre de la madre"></div>
+          <div class="opt-row"><label class="opt-label">Nombre del padre</label><input type="text" class="opt-input" id="pnac-3d-padre" placeholder="Nombre del padre"></div>
+          <div class="opt-row"><label class="opt-label">Fecha completa de nacimiento</label><input type="text" class="opt-input" id="pnac-3d-fecha" placeholder="ej. 22 de febrero de 2026"></div>
+          <div class="opt-row"><label class="opt-label">Hora del nacimiento</label><input type="text" class="opt-input" id="pnac-3d-hora" placeholder="ej. 14:15h"></div>
+          <div class="opt-row"><label class="opt-label">Peso al nacer</label><input type="text" class="opt-input" id="pnac-3d-peso" placeholder="ej. 3.200 kg"></div>
+          <div class="opt-row"><label class="opt-label">Longitud al nacer</label><input type="text" class="opt-input" id="pnac-3d-longitud" placeholder="ej. 50 cm"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre y estrellitas en 3D</label>
+            <select class="opt-input" id="pnac-3d-color">
+              <option value="">Elige color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>38 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPlacaNac('pnac-3d')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -347,7 +469,41 @@
           <p class="price-note">✦ IVA incluido</p>
           <div class="price-alert">⚠️ Si el grupo tiene menos de 15 o más de 21 alumn@s, consúltame — el precio puede variar según el tamaño del disco.</div>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20profe" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <div style="background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.8rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            ✦ <strong>¿Cómo funciona?</strong> Yo dejo el hueco para cada huella. Cuando la placa llega, los peques ponen el dedo 🖐️ — incluyo un pack de colores para que lo hagan sin complicaciones, y una bolsita mona para entregar el regalo sin pensar en envolverlo.<br>
+            ✦ Si el grupo tiene <strong>menos de 15 o más de 21 alumn@s</strong>, escríbeme para crear un diseño a tu medida.
+          </div>
+          <div class="opt-row"><label class="opt-label">Nombre del profe / profesora</label><input type="text" class="opt-input" id="profe-nombre" placeholder="Nombre del profe"></div>
+          <div class="opt-row"><label class="opt-label">Curso escolar</label><input type="text" class="opt-input" id="profe-curso" placeholder="ej. 2025-2026"></div>
+          <p class="opt-label" style="margin:0.6rem 0 0.4rem;">Nombres de los alumn@s (máximo 21):</p>
+          <div style="max-height:280px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 1</label><input type="text" class="opt-input" id="profe-alumno-1" placeholder="Nombre alumno 1" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 2</label><input type="text" class="opt-input" id="profe-alumno-2" placeholder="Nombre alumno 2" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 3</label><input type="text" class="opt-input" id="profe-alumno-3" placeholder="Nombre alumno 3" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 4</label><input type="text" class="opt-input" id="profe-alumno-4" placeholder="Nombre alumno 4" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 5</label><input type="text" class="opt-input" id="profe-alumno-5" placeholder="Nombre alumno 5" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 6</label><input type="text" class="opt-input" id="profe-alumno-6" placeholder="Nombre alumno 6" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 7</label><input type="text" class="opt-input" id="profe-alumno-7" placeholder="Nombre alumno 7" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 8</label><input type="text" class="opt-input" id="profe-alumno-8" placeholder="Nombre alumno 8" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 9</label><input type="text" class="opt-input" id="profe-alumno-9" placeholder="Nombre alumno 9" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 10</label><input type="text" class="opt-input" id="profe-alumno-10" placeholder="Nombre alumno 10" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 11</label><input type="text" class="opt-input" id="profe-alumno-11" placeholder="Nombre alumno 11" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 12</label><input type="text" class="opt-input" id="profe-alumno-12" placeholder="Nombre alumno 12" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 13</label><input type="text" class="opt-input" id="profe-alumno-13" placeholder="Nombre alumno 13" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 14</label><input type="text" class="opt-input" id="profe-alumno-14" placeholder="Nombre alumno 14" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 15</label><input type="text" class="opt-input" id="profe-alumno-15" placeholder="Nombre alumno 15" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 16</label><input type="text" class="opt-input" id="profe-alumno-16" placeholder="Nombre alumno 16" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 17</label><input type="text" class="opt-input" id="profe-alumno-17" placeholder="Nombre alumno 17" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 18</label><input type="text" class="opt-input" id="profe-alumno-18" placeholder="Nombre alumno 18" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 19</label><input type="text" class="opt-input" id="profe-alumno-19" placeholder="Nombre alumno 19" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 20</label><input type="text" class="opt-input" id="profe-alumno-20" placeholder="Nombre alumno 20" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 21</label><input type="text" class="opt-input" id="profe-alumno-21" placeholder="Nombre alumno 21" style="margin:0;"></div>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>40 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartProfe()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20profe" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -487,6 +643,162 @@
   const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
 
+
+  // Smart back button
+  function navBackClick() {
+    const anyOpen = document.querySelector('.product-page.active');
+    if (anyOpen) { showGrid(); return false; }
+    return true;
+  }
+  // Update nav back text when pages change
+  const origShowPage = showPage;
+  showPage = function(id) {
+    origShowPage(id);
+    document.getElementById('navBack').textContent = '← Volver a categorías';
+  };
+  const origShowGrid = showGrid;
+  showGrid = function() {
+    origShowGrid();
+    document.getElementById('navBack').textContent = '← Inicio';
+  };
+
+
+  function updatePrice2(prefix, base) {
+    let extra = 0;
+    const sel = document.getElementById('opt-' + prefix + '-caras');
+    if (sel) extra = parseFloat(sel.value) || 0;
+    const total = base + extra;
+    const el = document.getElementById('opt-' + prefix + '-total');
+    if (el) el.textContent = total.toFixed(0) + ' €';
+  }
+
+  function addCartOpt2(prefix, baseName, basePrice) {
+    const sel = document.getElementById('opt-' + prefix + '-caras');
+    const extra = sel ? parseFloat(sel.value) || 0 : 0;
+    const price = basePrice + extra;
+    const opts = {};
+    if (extra > 0) opts['Grabado'] = '2 caras';
+    else opts['Grabado'] = '1 cara';
+    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
+  }
+
+  function updatePrice2Puerta() {
+    const sel = document.getElementById('opt-puerta-qty');
+    if (!sel) return;
+    const [price, qty] = sel.value.split('|');
+    const total = parseFloat(price) * parseInt(qty);
+    document.getElementById('opt-puerta-total').textContent = total.toFixed(0) + ' €';
+  }
+
+  function addCartPuerta() {
+    const sel = document.getElementById('opt-puerta-qty');
+    if (!sel) return;
+    const [price, qty] = sel.value.split('|');
+    const p = parseFloat(price);
+    const q = parseInt(qty);
+    addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: p, qty: q, options: { Cantidad: q + ' u' } });
+  }
+
+  // Also update puerta on change
+  document.addEventListener('DOMContentLoaded', function() {
+    const s = document.getElementById('opt-puerta-qty');
+    if (s) s.addEventListener('change', function() {
+      const [price, qty] = s.value.split('|');
+      const total = parseFloat(price) * parseInt(qty);
+      document.getElementById('opt-puerta-total').textContent = total.toFixed(0) + ' €';
+    });
+  });
+
+
+  // ── PLACA NACIMIENTO ──
+  function addCartPlacaNac(prefix) {
+    const nombre   = document.getElementById(prefix + '-nombre')?.value.trim();
+    const madre    = document.getElementById(prefix + '-madre')?.value.trim();
+    const padre    = document.getElementById(prefix + '-padre')?.value.trim();
+    const fecha    = document.getElementById(prefix + '-fecha')?.value.trim();
+    const hora     = document.getElementById(prefix + '-hora')?.value.trim();
+    const peso     = document.getElementById(prefix + '-peso')?.value.trim();
+    const longitud = document.getElementById(prefix + '-longitud')?.value.trim();
+    const color    = document.getElementById(prefix + '-color')?.value;
+    if (!nombre) { alert('Por favor escribe el nombre del bebé.'); return; }
+    const opts = {};
+    if (nombre)   opts['Bebé'] = nombre;
+    if (madre)    opts['Madre'] = madre;
+    if (padre)    opts['Padre'] = padre;
+    if (fecha)    opts['Fecha'] = fecha;
+    if (hora)     opts['Hora'] = hora;
+    if (peso)     opts['Peso'] = peso;
+    if (longitud) opts['Longitud'] = longitud;
+    if (color)    opts['Color 3D'] = color;
+    addToCart({ id: 'placa-nac-' + Date.now(), name: 'Placa de nacimiento', price: 38, options: opts });
+  }
+
+  // ── PLACA PROFE ──
+  function addCartProfe() {
+    const nombreProfe = document.getElementById('profe-nombre')?.value.trim();
+    const curso = document.getElementById('profe-curso')?.value.trim();
+    if (!nombreProfe) { alert('Por favor escribe el nombre del profe.'); return; }
+    const alumnos = [];
+    for (let i = 1; i <= 21; i++) {
+      const v = document.getElementById('profe-alumno-' + i)?.value.trim();
+      if (v) alumnos.push(v);
+    }
+    if (alumnos.length < 1) { alert('Por favor añade al menos un nombre de alumno.'); return; }
+    if (alumnos.length > 21) { alert('Máximo 21 alumnos. Si tienes más, escríbeme para un diseño a medida.'); return; }
+    const opts = { 'Profe': nombreProfe };
+    if (curso) opts['Curso'] = curso;
+    opts['Alumnos (' + alumnos.length + ')'] = alumnos.join(', ');
+    addToCart({ id: 'placa-profe-' + Date.now(), name: 'Placa de profe', price: 40, options: opts });
+  }
+
+  // ── NOMBRE PUERTA ──
+  function updatePuerta() {
+    const sel = document.getElementById('opt-puerta-qty');
+    if (!sel) return;
+    const [price, qty] = sel.value.split('|');
+    const total = parseFloat(price) * parseInt(qty);
+    document.getElementById('opt-puerta-total').textContent = total.toFixed(0) + ' €';
+    // Sync number of name rows with quantity
+    const wrap = document.getElementById('puerta-nombres-wrap');
+    const q = parseInt(qty);
+    const rows = wrap.querySelectorAll('.puerta-nombre-row');
+    if (rows.length < q) {
+      for (let i = rows.length; i < q; i++) addPuertaRow();
+    }
+  }
+
+  function addPuertaRow() {
+    const wrap = document.getElementById('puerta-nombres-wrap');
+    const count = wrap.querySelectorAll('.puerta-nombre-row').length + 1;
+    const row = document.createElement('div');
+    row.className = 'puerta-nombre-row';
+    row.style.cssText = 'display:grid;grid-template-columns:1fr auto auto;gap:0.4rem;margin-bottom:0.4rem;';
+    row.innerHTML = '<input type="text" class="opt-input puerta-nombre" placeholder="Nombre ' + count + '" style="margin:0;">' +
+      '<select class="opt-input puerta-color" style="margin:0;width:130px;">' +
+      '<option value="">Color</option>' +
+      '<option value="Verde menta">Verde menta</option>' +
+      '<option value="Blanco">Blanco</option>' +
+      '<option value="Negro">Negro</option>' +
+      '<option value="Burdeos">Burdeos</option>' +
+      '</select>' +
+      '<button type="button" onclick="this.closest('.puerta-nombre-row').remove()" style="background:#fee;border:none;border-radius:6px;width:28px;cursor:pointer;color:#c0392b;font-weight:700;">✕</button>';
+    wrap.appendChild(row);
+  }
+
+  function addCartPuertaV2() {
+    const sel = document.getElementById('opt-puerta-qty');
+    const [price, qty] = sel.value.split('|');
+    const nombres = Array.from(document.querySelectorAll('.puerta-nombre')).map(i => i.value.trim()).filter(Boolean);
+    const colores = Array.from(document.querySelectorAll('.puerta-color')).map(s => s.value).filter(Boolean);
+    if (nombres.length === 0) { alert('Por favor escribe al menos un nombre.'); return; }
+    const opts = {};
+    nombres.forEach((n, i) => { opts['Nombre ' + (i+1)] = n + (colores[i] ? ' (' + colores[i] + ')' : ''); });
+    const total = parseFloat(price) * parseInt(qty);
+    addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: parseFloat(price), qty: parseInt(qty), options: opts });
+  }
+
 </script>
+<script src="cookies-banner.js"></script>
+<script src="carrito.js"></script>
 </body>
 </html>
