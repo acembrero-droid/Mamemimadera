@@ -264,6 +264,16 @@
             ✦ Si el grupo tiene <strong>menos de 15 o más de 21 alumn@s</strong>, escríbeme para crear un diseño a tu medida.
           </div>
           <div class="opt-row"><label class="opt-label">Nombre del profe / profesora</label><input type="text" class="opt-input" id="profe-nombre" placeholder="Nombre del profe"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre en 3D</label>
+            <select class="opt-input" id="profe-color">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+            </select>
+          </div>
           <div class="opt-row"><label class="opt-label">Curso escolar</label><input type="text" class="opt-input" id="profe-curso" placeholder="ej. 2025-2026"></div>
           <p class="opt-label" style="margin:0.6rem 0 0.4rem;">Nombres de los alumn@s (máximo 21):</p>
           <div style="max-height:280px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
@@ -421,8 +431,41 @@
           <div class="price-row"><span>Con nombre y decoración en otro color</span><span class="amount">42 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'letra3d',name:'Letra 3D autoportante',price:42,options:{}})">Añadir al carrito — 42 €</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20letra%203D%20autoportante" class="btn-contact" target="_blank" style="margin-top:0.4rem;">Personalizar y pedir</a>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Letra inicial</label>
+            <input type="text" class="opt-input" id="letra3d-inicial" placeholder="Escribe la letra inicial" maxlength="1" style="text-transform:uppercase;">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Color de la letra inicial</label>
+            <select class="opt-input" id="letra3d-color-inicial">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Rosa pastel">Rosa pastel</option>
+              <option value="Azul clarito">Azul clarito</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Naranja">Naranja</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Nombre completo</label>
+            <input type="text" class="opt-input" id="letra3d-nombre" placeholder="Escribe el nombre completo">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre</label>
+            <select class="opt-input" id="letra3d-color-nombre">
+              <option value="">Elige un color</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>42 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartLetra3d()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20letra%203D%20autoportante" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -489,6 +532,16 @@
             ✦ Si el grupo tiene <strong>menos de 15 o más de 21 alumn@s</strong>, escríbeme para crear un diseño a tu medida.
           </div>
           <div class="opt-row"><label class="opt-label">Nombre del profe / profesora</label><input type="text" class="opt-input" id="profe-nombre" placeholder="Nombre del profe"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre en 3D</label>
+            <select class="opt-input" id="profe-color">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+            </select>
+          </div>
           <div class="opt-row"><label class="opt-label">Curso escolar</label><input type="text" class="opt-input" id="profe-curso" placeholder="ej. 2025-2026"></div>
           <p class="opt-label" style="margin:0.6rem 0 0.4rem;">Nombres de los alumn@s (máximo 21):</p>
           <div style="max-height:280px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
@@ -740,7 +793,8 @@
     }
     if (alumnos.length < 1) { alert('Por favor añade al menos un nombre de alumno.'); return; }
     if (alumnos.length > 21) { alert('Máximo 21 alumnos. Si tienes más, escríbeme para un diseño a medida.'); return; }
-    const opts = { 'Profe': nombreProfe };
+    const color = document.getElementById('profe-color')?.value || '';
+    const opts = { 'Profe': nombreProfe + (color ? ' · Color: ' + color : '') };
     if (curso) opts['Curso'] = curso;
     opts['Alumnos (' + alumnos.length + ')'] = alumnos.join(', ');
     addToCart({ id: 'placa-profe-' + Date.now(), name: 'Placa de profe', price: 40, options: opts });
@@ -870,6 +924,23 @@
     if (hasColor) {
       setTimeout(() => alert('✦ ¡Añadido al carrito!\n\nHas indicado un color para el nombre. Te enviaré una confirmación de que tengo disponibilidad antes de procesar el pedido. ¡Gracias por confiar en MAMEMI Madera!'), 300);
     }
+  }
+
+
+  function addCartLetra3d() {
+    const inicial = document.getElementById('letra3d-inicial')?.value.trim().toUpperCase();
+    const colorInicial = document.getElementById('letra3d-color-inicial')?.value;
+    const nombre = document.getElementById('letra3d-nombre')?.value.trim();
+    const colorNombre = document.getElementById('letra3d-color-nombre')?.value;
+    if (!inicial) { alert('Por favor escribe la letra inicial.'); return; }
+    if (!colorInicial) { alert('Por favor elige el color de la letra inicial.'); return; }
+    if (!nombre) { alert('Por favor escribe el nombre completo.'); return; }
+    if (!colorNombre) { alert('Por favor elige el color del nombre.'); return; }
+    const opts = {
+      'Letra inicial': inicial + ' (' + colorInicial + ')',
+      'Nombre': nombre + ' (' + colorNombre + ')'
+    };
+    addToCart({ id: 'letra3d-' + Date.now(), name: 'Letra 3D autoportante', price: 42, options: opts });
   }
 
 </script>
