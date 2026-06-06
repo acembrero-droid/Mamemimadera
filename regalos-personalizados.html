@@ -115,7 +115,7 @@
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <a href="index.html" class="nav-back" id="navBack" onclick="return navBackClick()">← Inicio</a>
-  <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">Pedir ahora</a>
+  <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
 </nav>
 
 <div class="page-hero">
@@ -132,20 +132,20 @@
   <div class="cat-divider"></div>
   <div class="cat-grid">
 
-    <a class="cat-card fade-in" onclick="showPage('madera'); return false;" href="#">
-      <div class="img-wrap"><img src="images/placa_cumple.jpg" alt="En madera"></div>
-      <div class="cat-info">
-        <h3>En madera</h3>
-        <p>Placas · Llaveros · Nombres puerta · Banderín · Placa especial</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
-    </a>
-
     <a class="cat-card fade-in" onclick="showPage('3d'); return false;" href="#">
       <div class="img-wrap"><img src="images/letra3d.jpg" alt="Con impresión 3D"></div>
       <div class="cat-info">
         <h3>Con impresión 3D</h3>
         <p>Letras · Placas · Banderín · Nombre puerta</p>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
+
+    <a class="cat-card fade-in" onclick="showPage('madera'); return false;" href="#">
+      <div class="img-wrap"><img src="images/placa_cumple.jpg" alt="En madera"></div>
+      <div class="cat-info">
+        <h3>En madera</h3>
+        <p>Placas · Llaveros · Nombres puerta · Banderín · Placa especial</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -644,25 +644,6 @@
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
 
 
-  // Smart back button
-  function navBackClick() {
-    const anyOpen = document.querySelector('.product-page.active');
-    if (anyOpen) { showGrid(); return false; }
-    return true;
-  }
-  // Update nav back text when pages change
-  const origShowPage = showPage;
-  showPage = function(id) {
-    origShowPage(id);
-    document.getElementById('navBack').textContent = '← Volver a categorías';
-  };
-  const origShowGrid = showGrid;
-  showGrid = function() {
-    origShowGrid();
-    document.getElementById('navBack').textContent = '← Inicio';
-  };
-
-
   function updatePrice2(prefix, base) {
     let extra = 0;
     const sel = document.getElementById('opt-' + prefix + '-caras');
@@ -773,15 +754,23 @@
     const row = document.createElement('div');
     row.className = 'puerta-nombre-row';
     row.style.cssText = 'display:grid;grid-template-columns:1fr auto auto;gap:0.4rem;margin-bottom:0.4rem;';
-    row.innerHTML = '<input type="text" class="opt-input puerta-nombre" placeholder="Nombre ' + count + '" style="margin:0;">' +
-      '<select class="opt-input puerta-color" style="margin:0;width:130px;">' +
-      '<option value="">Color</option>' +
-      '<option value="Verde menta">Verde menta</option>' +
-      '<option value="Blanco">Blanco</option>' +
-      '<option value="Negro">Negro</option>' +
-      '<option value="Burdeos">Burdeos</option>' +
-      '</select>' +
-      '<button type="button" onclick="this.closest('.puerta-nombre-row').remove()" style="background:#fee;border:none;border-radius:6px;width:28px;cursor:pointer;color:#c0392b;font-weight:700;">✕</button>';
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'opt-input puerta-nombre';
+    inp.placeholder = 'Nombre ' + count;
+    inp.style.margin = '0';
+    const sel = document.createElement('select');
+    sel.className = 'opt-input puerta-color';
+    sel.style.cssText = 'margin:0;width:130px;';
+    sel.innerHTML = '<option value="">Color</option><option value="Verde menta">Verde menta</option><option value="Blanco">Blanco</option><option value="Negro">Negro</option><option value="Burdeos">Burdeos</option>';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = '✕';
+    btn.style.cssText = 'background:#fee;border:none;border-radius:6px;width:28px;cursor:pointer;color:#c0392b;font-weight:700;';
+    btn.onclick = function() { this.parentNode.remove(); };
+    row.appendChild(inp);
+    row.appendChild(sel);
+    row.appendChild(btn);
     wrap.appendChild(row);
   }
 
