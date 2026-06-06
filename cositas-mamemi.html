@@ -114,6 +114,15 @@
       transition: background 0.25s;
     }
     .btn-add-cart:hover { background: var(--wood-dark); }
+
+    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
+    .opt-row { margin-bottom: 0.5rem; }
+    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
+    .opt-row select:focus { border-color: var(--mint-dark); }
+    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
+    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
+    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
   </style>
 </head>
 <body>
@@ -197,7 +206,20 @@
           <div class="price-row"><span>+ nombre en el otro lado</span><span class="amount">+ 3 €</span></div>
           <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'llavero-mama',name:'Llavero · Mamá',price:12,options:{}})">Añadir al carrito</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Añadir nombre en el otro lado?</label>
+            <select id="opt-llav-mama-nombre" onchange="updateOptPrice('llav-mama')">
+              <option value="0">Sin nombre</option>
+              <option value="3">Sí, con nombre (+3 €)</option>
+            </select>
+            <input type="text" id="opt-llav-mama-texto" placeholder="Escribe el nombre" class="opt-input" style="display:none;" oninput="updateOptPrice('llav-mama')">
+          </div>
+          <div class="opt-price-row">
+            <span>Total:</span><strong id="opt-llav-mama-total">12 €</strong>
+          </div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartWithOpts('llav-mama','Llavero · Mamá',12)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20llavero%20Mam%C3%A1" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -217,7 +239,20 @@
           <div class="price-row"><span>+ nombre en el otro lado</span><span class="amount">+ 3 €</span></div>
           <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'llavero-mamemi',name:'Llavero · MAMEMI Madera',price:12,options:{}})">Añadir al carrito</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Añadir nombre en el otro lado?</label>
+            <select id="opt-llav-mamemi-nombre" onchange="updateOptPrice('llav-mamemi')">
+              <option value="0">Sin nombre</option>
+              <option value="3">Sí, con nombre (+3 €)</option>
+            </select>
+            <input type="text" id="opt-llav-mamemi-texto" placeholder="Escribe el nombre" class="opt-input" style="display:none;" oninput="updateOptPrice('llav-mamemi')">
+          </div>
+          <div class="opt-price-row">
+            <span>Total:</span><strong id="opt-llav-mamemi-total">12 €</strong>
+          </div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartWithOpts('llav-mamemi','Llavero · MAMEMI Madera',12)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20llavero%20MAMEMI%20Madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -349,8 +384,27 @@
           <div class="price-row"><span>+ personalización con nombre</span><span class="amount">+ 3 €</span></div>
           <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'disco-bw',name:'Disco de madera · Sin color',price:9,options:{}})">Añadir al carrito (sin color · 9 €)</button>
-        <button class="btn-add-cart" onclick="addToCart({id:'disco-color',name:'Disco de madera · Con color',price:12,options:{}})" style="margin-top:0.4rem;">Añadir al carrito (con color · 12 €)</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Acabado:</label>
+            <select id="opt-disco-color" onchange="updateOptPrice('disco')">
+              <option value="9">Sin color — 9 €</option>
+              <option value="12">Con color pintado a mano — 12 €</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Añadir nombre personalizado?</label>
+            <select id="opt-disco-nombre" onchange="updateOptPrice('disco')">
+              <option value="0">Sin nombre</option>
+              <option value="3">Sí, con nombre (+3 €)</option>
+            </select>
+            <input type="text" id="opt-disco-texto" placeholder="Escribe el nombre" class="opt-input" style="display:none;" oninput="updateOptPrice('disco')">
+          </div>
+          <div class="opt-price-row">
+            <span>Total:</span><strong id="opt-disco-total">9 €</strong>
+          </div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartWithOpts('disco','Disco de madera',9)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20discos%20de%20madera%20Mamemi" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -466,6 +520,74 @@
     origShowGrid();
     document.getElementById('navBack').textContent = '← Inicio';
   };
+
+
+  // Product options helpers
+  function getOptVal(id) {
+    const el = document.getElementById(id);
+    return el ? parseFloat(el.value) || 0 : 0;
+  }
+  function getOptText(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function updateOptPrice(prefix) {
+    let base = 0;
+    const opts = {};
+
+    if (prefix === 'llav-mama' || prefix === 'llav-mamemi') {
+      base = 12;
+      const nombreExtra = getOptVal('opt-' + prefix + '-nombre');
+      base += nombreExtra;
+      const nombreInput = document.getElementById('opt-' + prefix + '-texto');
+      if (nombreInput) nombreInput.style.display = nombreExtra > 0 ? 'block' : 'none';
+    }
+
+    if (prefix === 'disco') {
+      base = getOptVal('opt-disco-color') || 9;
+      const nombreExtra = getOptVal('opt-disco-nombre');
+      base += nombreExtra;
+      const nombreInput = document.getElementById('opt-disco-texto');
+      if (nombreInput) nombreInput.style.display = nombreExtra > 0 ? 'block' : 'none';
+    }
+
+    const totalEl = document.getElementById('opt-' + prefix + '-total');
+    if (totalEl) totalEl.textContent = base.toFixed(0) + ' €';
+  }
+
+  function addCartWithOpts(prefix, baseName, basePrice) {
+    let price = basePrice;
+    const opts = {};
+
+    if (prefix === 'llav-mama' || prefix === 'llav-mamemi') {
+      const nombreExtra = getOptVal('opt-' + prefix + '-nombre');
+      if (nombreExtra > 0) {
+        const nombre = getOptText('opt-' + prefix + '-texto');
+        if (!nombre) { alert('Por favor escribe el nombre que quieres grabar.'); return; }
+        price += nombreExtra;
+        opts['Nombre'] = nombre;
+      }
+    }
+
+    if (prefix === 'disco') {
+      const colorPrice = getOptVal('opt-disco-color') || 9;
+      price = colorPrice;
+      opts['Acabado'] = colorPrice === 12 ? 'Con color' : 'Sin color';
+      const nombreExtra = getOptVal('opt-disco-nombre');
+      if (nombreExtra > 0) {
+        const nombre = getOptText('opt-disco-texto');
+        if (!nombre) { alert('Por favor escribe el nombre que quieres añadir.'); return; }
+        price += nombreExtra;
+        opts['Nombre'] = nombre;
+      }
+    }
+
+    const id = prefix + '-' + Date.now();
+    const optLabel = Object.entries(opts).map(([k,v]) => k+': '+v).join(', ');
+    const name = baseName + (optLabel ? ' (' + optLabel + ')' : '');
+    addToCart({ id, name, price, options: opts });
+  }
 
 </script>
 <script src="cookies-banner.js"></script>
