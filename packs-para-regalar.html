@@ -47,13 +47,13 @@
     .cat-card:hover .cat-arrow { background: var(--mint-dark); }
 
     /* PRODUCT PAGES */
-    .product-page { display: none; padding: 2rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
+    .product-page { display: none; padding: 2rem 1rem 4rem; max-width: 1300px; margin: 0 auto; }
     .product-page.active { display: block; }
     .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
     .back-btn:hover { background: var(--wood-light); }
 
     /* SUBCAT GRID (inside Pack Nacimiento) */
-    .subcat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: start; }
+    .subcat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 1.2rem; align-items: start; }
 
     /* PRODUCT CARD */
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; height: auto; }
@@ -126,7 +126,24 @@
     footer a:hover { color: var(--mint); }
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 900px) { .subcat-grid { grid-template-columns: 1fr; } } @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .cs-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+    @media (max-width: 750px) { .subcat-grid { grid-template-columns: 1fr; } } @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .cs-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+
+    .btn-add-cart {
+      display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem;
+      background: var(--mint-dark); color: #fff; border: none; border-radius: 30px;
+      font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background 0.25s;
+    }
+    .btn-add-cart:hover { background: var(--wood-dark); }
+
+    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
+    .opt-row { margin-bottom: 0.5rem; }
+    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
+    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
+    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
+    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
   </style>
 </head>
 <body>
@@ -196,6 +213,8 @@
           <div id="ternuraDatosForm">
             <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
             <input type="text" id="tNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="tMadre" placeholder="Nombre de la madre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="tPadre" placeholder="Nombre del padre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="tFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="tHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="tPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
@@ -217,6 +236,22 @@
   });
   const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
+
+
+  function updatePackPrice(prefix, base) {
+    const sel = document.getElementById('opt-' + prefix + '-cart');
+    const extra = sel ? parseFloat(sel.value) || 0 : 0;
+    const el = document.getElementById('opt-' + prefix + '-cart-total');
+    if (el) el.textContent = (base + extra).toFixed(0) + ' €';
+  }
+
+  function addCartPack(prefix, baseName, basePrice) {
+    const sel = document.getElementById('opt-' + prefix + '-cart');
+    const extra = sel ? parseFloat(sel.value) || 0 : 0;
+    const price = basePrice + extra;
+    const opts = extra > 0 ? { 'Nombre en caja': 'Sí (+5 €)' } : {};
+    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
+  }
 
 </script>
         </div>
@@ -267,6 +302,8 @@
           <div id="huellaDatosForm">
             <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
             <input type="text" id="hNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="hMadre" placeholder="Nombre de la madre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="hPadre" placeholder="Nombre del padre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="hFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="hHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="hPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
@@ -290,7 +327,18 @@
           </div>
           <p class="price-note">✦ IVA incluido · Gastos de envío incluidos</p>
         </div>
-        <button class="btn-contact" onclick="pedirBambu()">Quiero este pack</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Nombre en la caja?</label>
+            <select id="opt-huella-cart" onchange="updatePackPrice('huella',75)">
+              <option value="0">Sin nombre — 75 €</option>
+              <option value="5">Con nombre en 3D — +5 €</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-huella-cart-total">75 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPack('huella','Pack Huella · Caja de bambú',75)">Añadir al carrito</button>
+        <button class="btn-contact" onclick="pedirBambu()" style="margin-top:0.4rem;">Personalizar y pedir</button>
       </div>
     </div>
 
@@ -333,6 +381,8 @@
           <div id="tesoroDatosForm">
             <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
             <input type="text" id="dNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="dMadre" placeholder="Nombre de la madre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
+            <input type="text" id="dPadre" placeholder="Nombre del padre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="dFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="dHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
             <input type="text" id="dPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
@@ -356,7 +406,18 @@
           </div>
           <p class="price-note">✦ IVA incluido · Gastos de envío incluidos · Listo para entregar</p>
         </div>
-        <button class="btn-contact" onclick="pedirCajaTapa()">Quiero este pack</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Nombre en el baúl?</label>
+            <select id="opt-tesoro-cart" onchange="updatePackPrice('tesoro',105)">
+              <option value="0">Sin nombre — 105 €</option>
+              <option value="5">Con nombre en 3D — +5 €</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-tesoro-cart-total">105 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPack('tesoro','Pack Tesoro · Baúl de bambú',105)">Añadir al carrito</button>
+        <button class="btn-contact" onclick="pedirCajaTapa()" style="margin-top:0.4rem;">Personalizar y pedir</button>
       </div>
     </div>
 
@@ -421,6 +482,8 @@
   function pedirEsencial() {
     const recogida = document.getElementById('esencialRecogida').value;
     const nombre = document.getElementById('tNombre').value;
+    const madre = document.getElementById('tMadre')?.value || '';
+    const padre = document.getElementById('tPadre')?.value || '';
     const fecha = document.getElementById('tFecha').value;
     const hora = document.getElementById('tHora').value;
     const peso = document.getElementById('tPeso').value;
@@ -429,6 +492,12 @@
     let msg = 'Hola!%20Me%20interesa%20el%20Pack%20Ternura%20en%20cesta%20de%20mimbre';
     if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
     if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
     if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
     if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
     if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
@@ -448,6 +517,8 @@
     const conNombre = document.getElementById('nombreBambuSelect').value === 'si';
     const recogida = document.getElementById('huellaRecogida').value;
     const nombre = document.getElementById('hNombre').value;
+    const madre = document.getElementById('hMadre')?.value || '';
+    const padre = document.getElementById('hPadre')?.value || '';
     const fecha = document.getElementById('hFecha').value;
     const hora = document.getElementById('hHora').value;
     const peso = document.getElementById('hPeso').value;
@@ -458,6 +529,12 @@
       : 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20sin%20nombre';
     if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
     if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
     if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
     if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
     if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
@@ -472,6 +549,8 @@
     const conNombre = document.getElementById('nombreSelect').value === 'si';
     const recogida = document.getElementById('tesoroRecogida').value;
     const nombre = document.getElementById('dNombre').value;
+    const madre = document.getElementById('dMadre')?.value || '';
+    const padre = document.getElementById('dPadre')?.value || '';
     const fecha = document.getElementById('dFecha').value;
     const hora = document.getElementById('dHora').value;
     const peso = document.getElementById('dPeso').value;
@@ -482,6 +561,12 @@
       : 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20sin%20nombre';
     if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
     if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
+    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
+    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
     if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
     if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
     if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
