@@ -84,8 +84,8 @@
     if (!panel) return;
 
     const total = cartTotal();
-    const shipping = total >= 60 ? 0 : 4.99;
-    const finalTotal = total + shipping;
+    const shipping = 0;
+    const finalTotal = total;
 
     if (cart.length === 0) {
       panel.querySelector('.cart-items').innerHTML = `
@@ -126,11 +126,9 @@
     panel.querySelector('.cart-shipping').textContent = shipping === 0 ? '¡Gratis!' : shipping.toFixed(2) + ' €';
     panel.querySelector('.cart-final').textContent = finalTotal.toFixed(2) + ' €';
 
-    if (shipping === 0) {
+    if (true) {
       panel.querySelector('.cart-shipping-note').textContent = '✦ Envío gratis por compra superior a 60 €';
     } else {
-      const remaining = (60 - total).toFixed(2);
-      panel.querySelector('.cart-shipping-note').textContent = `Añade ${remaining} € más para envío gratis`;
     }
   }
 
@@ -297,7 +295,7 @@
       <div class="cart-header">
         <div>
           <h2>Tu carrito 🛒</h2>
-          <p class="cart-header-sub">Envío gratis en pedidos +60 €</p>
+          <p class="cart-header-sub">Hecho con amor, para ti 🌿</p>
         </div>
         <button class="cart-close" onclick="closeCart()">✕</button>
       </div>
@@ -305,7 +303,6 @@
       <div class="cart-footer" style="display:none;">
         <div class="cart-totals">
           <div class="cart-total-row"><span>Subtotal</span><span class="cart-subtotal">0,00 €</span></div>
-          <div class="cart-total-row"><span>Gastos de envío</span><span class="cart-shipping">4,99 €</span></div>
           <div class="cart-total-row final"><span>Total</span><span class="cart-final">0,00 €</span></div>
         </div>
         <p class="cart-shipping-note"></p>
