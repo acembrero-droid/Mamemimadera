@@ -85,9 +85,6 @@
     .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
     .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
     .lightbox-close:hover { background: rgba(255,255,255,0.3); }
-    .info-banner { background: var(--wood-deep); color: var(--cream); padding: 2rem; text-align: center; }
-    .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
-    .info-banner strong { color: var(--wood-mid); }
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
     footer img { height: 36px; opacity: 0.6; filter: invert(1); }
     footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
@@ -125,8 +122,6 @@
     .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
     .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
     .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
-    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
-    .btn-add-cart:hover { background: var(--wood-dark); }
 
     .carousel { position: relative; overflow: hidden; border-radius: 14px; aspect-ratio: 1; }
     .carousel-track { display: flex; transition: transform 0.4s ease; height: 100%; }
@@ -143,7 +138,7 @@
 <body>
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
-  <a href="index.html" class="nav-back" id="navBack" onclick="return navBackClick()">← Inicio</a>
+  <a href="index.html" class="nav-back">← Inicio</a>
   <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
 </nav>
 
@@ -313,13 +308,11 @@
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
-  // Remember scroll position when navigating back
   window.addEventListener('beforeunload', () => {
     sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY);
   });
   const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
-
 
   function updateServilletero() {
     const sel = document.getElementById('opt-servilletero-qty');
@@ -335,8 +328,6 @@
     addToCart({ id: 'servilletero-' + Date.now(), name, price: parseFloat(price), qty: 1, options: { Cantidad: q + ' u' } });
   }
 
-
-  // ── CAROUSEL ──
   const carousels = {};
   function moveCarousel(id, dir) {
     if (!carousels[id]) carousels[id] = 0;
@@ -361,7 +352,6 @@
       d.classList.toggle('active', i === carousels[id]);
     });
   }
-
 </script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
