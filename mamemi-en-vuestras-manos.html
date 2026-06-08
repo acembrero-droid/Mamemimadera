@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mamemi en vuestras manos – MAMEMI Madera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-back { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--mint-dark); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 110px 2rem 4rem; background: var(--mint-light); text-align: center; }
+    .breadcrumb { font-size: 0.75rem; color: var(--text-mid); margin-bottom: 1rem; letter-spacing: 0.1em; }
+    .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .hero-tag { display: inline-block; background: rgba(255,255,255,0.6); color: var(--wood-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.4rem 1.1rem; border-radius: 30px; margin-bottom: 1.2rem; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--wood-deep); line-height: 1.15; margin-bottom: 1rem; }
+    .page-hero h1 em { color: var(--wood-dark); font-style: italic; }
+    .page-hero p { max-width: 560px; margin: 0 auto 1.5rem; color: var(--text-mid); font-size: 1rem; line-height: 1.8; font-weight: 300; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0 auto; border-radius: 2px; }
+
+    /* ── GALERÍA ── */
+    .gallery-section { padding: 4rem 2rem 5rem; max-width: 1100px; margin: 0 auto; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .entrega-card {
+      background: #fff; border-radius: 20px;
+      border: 1.5px solid var(--wood-light);
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .entrega-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
+
+    .entrega-img {
+      width: 100%; height: 340px; overflow: hidden; position: relative;
+    }
+    .entrega-img img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      transition: transform 0.4s ease;
+    }
+    .entrega-card:hover .entrega-img img { transform: scale(1.04); }
+
+    .entrega-body { padding: 1.2rem 1.3rem 1.4rem; }
+    .entrega-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--wood-deep);
+      margin-bottom: 0.3rem;
+    }
+    .entrega-product {
+      font-size: 0.82rem; color: var(--text-mid);
+      line-height: 1.6; font-weight: 300;
+    }
+    .entrega-heart {
+      display: inline-block; margin-top: 0.6rem;
+      font-size: 0.72rem; color: var(--mint-dark);
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
+    .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+
+    /* ── BANNER TÚ TAMBIÉN ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--mint-light) 0%, var(--wood-light) 100%);
+      border-radius: 20px; padding: 3rem 2rem;
+      text-align: center; margin: 0 2rem 4rem;
+      max-width: 1100px; margin: 0 auto 4rem;
+    }
+    .cta-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--wood-deep); margin-bottom: 0.8rem; }
+    .cta-banner p { font-size: 0.9rem; color: var(--text-mid); font-weight: 300; line-height: 1.7; max-width: 480px; margin: 0 auto 1.5rem; }
+    .cta-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .cta-link { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1.4rem; text-decoration: none; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.2s; }
+    .cta-link:hover { background: var(--mint-dark); }
+    .cta-link.secondary { background: #fff; color: var(--wood-dark); border: 1.5px solid var(--wood-light); }
+    .cta-link.secondary:hover { background: var(--wood-light); }
+
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
+    footer img { height: 36px; opacity: 0.6; filter: invert(1); }
+    footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <a href="index.html" class="nav-back">← Inicio</a>
+</nav>
+
+<div class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Inicio</a> · Mamemi en vuestras manos</p>
+  <span class="hero-tag">✦ Vuestras sonrisas ✦</span>
+  <h1>Mamemi en<br><em>vuestras manos</em></h1>
+  <div class="divider"></div>
+  <p style="margin-top:1rem;">Cada pieza tiene un destino especial. Aquí están las personas que ya la llevan con ellas. Gracias por confiar en MAMEMI Madera 🌿</p>
+</div>
+
+<section class="gallery-section">
+  <div class="gallery-grid">
+
+    <div class="entrega-card fade-in">
+      <div class="entrega-img">
+        <img src="images/entrega_03.jpg" alt="Cristi con sus llaveros MAMEMI">
+      </div>
+      <div class="entrega-body">
+        <p class="entrega-name">✦ Cristi</p>
+        <p class="entrega-product">Juego de 3 llaveros diseñados y grabados por ambas caras con borlas azules a su elección</p>
+        <span class="entrega-heart">Hecho con amor 🌿</span>
+      </div>
+    </div>
+
+    <div class="entrega-card fade-in">
+      <div class="entrega-img">
+        <img src="images/entrega_02.jpg" alt="Coral con su marcapáginas MAMEMI">
+      </div>
+      <div class="entrega-body">
+        <p class="entrega-name">✦ Coral</p>
+        <p class="entrega-product">Marcapáginas rojo imantado con diseño y grabado personalizado por ambas caras</p>
+        <span class="entrega-heart">Hecho con amor 🌿</span>
+      </div>
+    </div>
+
+    <div class="entrega-card fade-in">
+      <div class="entrega-img">
+        <img src="images/entrega_01.jpg" alt="Evelyn con su imán MAMEMI">
+      </div>
+      <div class="entrega-body">
+        <p class="entrega-name">✦ Evelyn</p>
+        <p class="entrega-product">Imán de madera contrachapada 10×10 cm con elefante mandala grabado al láser</p>
+        <span class="entrega-heart">Hecho con amor 🌿</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="cta-banner fade-in" style="padding: 0 2rem 4rem;">
+  <div style="background: linear-gradient(135deg, var(--mint-light) 0%, var(--wood-light) 100%); border-radius: 20px; padding: 3rem 2rem;">
+    <h2>¿Quieres ser la siguiente? 🌿</h2>
+    <p>Cada pieza se crea con mimo y dedicación, pensada exclusivamente para quien la va a recibir. Escríbeme y hablamos.</p>
+    <div class="cta-links">
+      <a href="https://wa.me/34622562499" class="cta-link" target="_blank">💬 Escríbeme por WhatsApp</a>
+      <a href="index.html#categorias" class="cta-link secondary">Ver productos</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="images/logo.png" alt="MAMEMI Madera">
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+<script src="cookies-banner.js"></script>
+</body>
+</html>
