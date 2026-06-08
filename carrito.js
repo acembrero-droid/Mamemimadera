@@ -1,6 +1,9 @@
 // ── MAMEMI Madera · Carrito de compra ──
 (function() {
 
+  const SHIPPING_COST = 4.99;
+  const FREE_SHIPPING_THRESHOLD = 60;
+
   // ── ESTADO ──
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
 
@@ -13,7 +16,6 @@
 
   // ── AÑADIR AL CARRITO ──
   window.addToCart = function(product) {
-    // product: { id, name, price, qty, options }
     const existing = cart.find(i => i.id === product.id && JSON.stringify(i.options) === JSON.stringify(product.options));
     if (existing) {
       existing.qty += (product.qty || 1);
@@ -43,9 +45,18 @@
     saveCart();
   };
 
-  // ── TOTAL ──
-  function cartTotal() {
+  // ── TOTALES ──
+  function cartSubtotal() {
     return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+  }
+
+  function getShipping(subtotal) {
+    return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  }
+
+  function cartTotal() {
+    const subtotal = cartSubtotal();
+    return subtotal + getShipping(subtotal);
   }
 
   function cartCount() {
@@ -83,9 +94,9 @@
     const panel = document.getElementById('cart-panel');
     if (!panel) return;
 
-    const total = cartTotal();
-    const shipping = 0;
-    const finalTotal = total;
+    const subtotal = cartSubtotal();
+    const shipping = getShipping(subtotal);
+    const finalTotal = subtotal + shipping;
 
     if (cart.length === 0) {
       panel.querySelector('.cart-items').innerHTML = `
@@ -121,14 +132,18 @@
     });
 
     panel.querySelector('.cart-items').innerHTML = html;
-
-    panel.querySelector('.cart-subtotal').textContent = total.toFixed(2) + ' €';
-    panel.querySelector('.cart-shipping').textContent = shipping === 0 ? '¡Gratis!' : shipping.toFixed(2) + ' €';
+    panel.querySelector('.cart-subtotal').textContent = subtotal.toFixed(2) + ' €';
+    panel.querySelector('.cart-shipping').textContent = shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €';
     panel.querySelector('.cart-final').textContent = finalTotal.toFixed(2) + ' €';
 
-    if (true) {
-      panel.querySelector('.cart-shipping-note').textContent = '✦ Envío gratis por compra superior a 60 €';
+    const note = panel.querySelector('.cart-shipping-note');
+    if (shipping === 0) {
+      note.textContent = '✦ ¡Envío gratis incluido!';
+      note.style.color = '#6a9e8a';
     } else {
+      const remaining = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
+      note.textContent = `✦ Añade ${remaining} € más para envío gratis`;
+      note.style.color = '#d4a96a';
     }
   }
 
@@ -150,14 +165,13 @@
   // ── PAGAR ──
   window.checkout = function() {
     if (cart.length === 0) return;
-    const total = cartTotal();
-    const shipping = total >= 60 ? 0 : 4.99;
-    const finalTotal = (total + shipping) * 100; // en céntimos
+    const subtotal = cartSubtotal();
+    const shipping = getShipping(subtotal);
+    const finalTotal = (subtotal + shipping) * 100; // en céntimos
 
     const orderNum = Date.now().toString().slice(-10);
     const items = cart.map(i => `${i.qty}x ${i.name}`).join(', ');
 
-    // Enviar al PHP de Redsys
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = 'pago.php';
@@ -184,7 +198,6 @@
 
   // ── INYECTAR UI ──
   function injectCartUI() {
-    // Estilos
     const style = document.createElement('style');
     style.textContent = `
       .cart-btn {
@@ -245,10 +258,10 @@
       .cart-remove { color: #e74c3c !important; }
       .cart-item-subtotal { font-size: 0.9rem; font-weight: 700; color: #8b5e3c; text-align: right; white-space: nowrap; }
       .cart-footer { padding: 1.2rem 1.5rem; border-top: 1.5px solid #f5e9d6; background: #fdf8f0; }
-      .cart-totals { margin-bottom: 1rem; }
+      .cart-totals { margin-bottom: 0.8rem; }
       .cart-total-row { display: flex; justify-content: space-between; font-size: 0.84rem; color: #6b4c2a; padding: 0.2rem 0; }
       .cart-total-row.final { font-size: 1rem; font-weight: 700; color: #5a3a1a; border-top: 1px solid #f5e9d6; padding-top: 0.6rem; margin-top: 0.3rem; }
-      .cart-shipping-note { font-size: 0.74rem; color: #6a9e8a; font-style: italic; margin-bottom: 0.8rem; text-align: center; }
+      .cart-shipping-note { font-size: 0.74rem; font-style: italic; margin-bottom: 0.8rem; text-align: center; }
       .cart-pay-btn {
         display: block; width: 100%; padding: 0.9rem; background: #8b5e3c; color: #fff;
         border: none; border-radius: 30px; font-family: 'Nunito', sans-serif;
@@ -278,17 +291,12 @@
     `;
     document.head.appendChild(style);
 
-    // Cart badge update only — button is in nav
-    // (no floating button)
-
-    // Overlay
     const overlay = document.createElement('div');
     overlay.id = 'cart-overlay';
     overlay.className = 'cart-overlay';
     overlay.onclick = closeCart;
     document.body.appendChild(overlay);
 
-    // Panel
     const panel = document.createElement('div');
     panel.id = 'cart-panel';
     panel.innerHTML = `
@@ -303,6 +311,7 @@
       <div class="cart-footer" style="display:none;">
         <div class="cart-totals">
           <div class="cart-total-row"><span>Subtotal</span><span class="cart-subtotal">0,00 €</span></div>
+          <div class="cart-total-row"><span>Envío</span><span class="cart-shipping">4,99 €</span></div>
           <div class="cart-total-row final"><span>Total</span><span class="cart-final">0,00 €</span></div>
         </div>
         <p class="cart-shipping-note"></p>
@@ -321,7 +330,6 @@
     updateCartBadge();
   }
 
-  // Inicializar cuando el DOM esté listo
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', injectCartUI);
   } else {
