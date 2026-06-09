@@ -6,7 +6,6 @@
   <title>Packs para Regalar – MAMEMI Madera</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
-
     :root {
       --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
       --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
@@ -29,8 +28,6 @@
     .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); color: var(--wood-deep); margin-bottom: 0.8rem; }
     .page-hero p { max-width: 580px; margin: 0 auto; color: var(--text-mid); font-size: 1rem; line-height: 1.8; font-weight: 300; }
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
-
-    /* CATEGORY GRID */
     .cat-section { padding: 4rem 2rem 5rem; }
     .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; }
@@ -46,46 +43,32 @@
     .cat-info p { font-size: 0.8rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
     .cat-arrow { display: inline-block; margin-top: 0.5rem; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(4px); transition: background 0.25s; }
     .cat-card:hover .cat-arrow { background: var(--mint-dark); }
-
-    /* PRODUCT PAGES */
     .product-page { display: none; padding: 2rem 1rem 4rem; max-width: 1300px; margin: 0 auto; }
     .product-page.active { display: block; }
     .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
     .back-btn:hover { background: var(--wood-light); }
-
-    /* SUBCAT GRID (inside Pack Nacimiento) */
-    .subcat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 1.2rem; align-items: start; }
-
-    /* PRODUCT CARD */
-    .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; height: auto; }
+    .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
     .product-img { position: relative; height: 260px; overflow: hidden; cursor: zoom-in; }
     .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .product-card:hover .product-img img { transform: scale(1.05); }
     .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
     .product-card:hover .zoom-icon { opacity: 1; }
-    .personalizable-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
     .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
     .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
     .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
     .product-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
-
-    /* INCLUDES LIST */
     .includes-list { background: var(--cream2); border-radius: 10px; border-left: 3px solid var(--mint-dark); padding: 0.7rem 1rem; }
     .includes-list p { font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.07em; }
     .includes-list ul { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
     .includes-list ul li { font-size: 0.8rem; color: var(--text-mid); }
     .includes-list ul li::before { content: "✦ "; color: var(--mint-dark); font-size: 0.65rem; }
-
-    /* SELECTOR */
     .selector-block { background: var(--mint-light); border-radius: 12px; padding: 0.9rem 1rem; border: 1.5px solid var(--mint); }
     .selector-label { font-size: 0.78rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.5rem; }
     .selector-block select { width: 100%; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.85rem; color: var(--text); cursor: pointer; outline: none; }
     .selector-block select:focus { border-color: var(--mint-dark); }
     .nombre-note { font-size: 0.75rem; color: var(--mint-dark); font-weight: 600; margin-top: 0.4rem; display: none; }
     .nombre-note.visible { display: block; }
-
-    /* PRICE */
     .price-block { border-top: 1px dashed var(--wood-light); padding-top: 0.7rem; }
     .price-display { display: flex; justify-content: space-between; align-items: center; }
     .price-display .label { font-size: 0.82rem; color: var(--text-mid); }
@@ -93,26 +76,17 @@
     .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
     .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; cursor: pointer; border: none; width: 100%; font-family: 'Nunito', sans-serif; }
     .btn-contact:hover { background: var(--mint-dark); }
-
-    /* CAROUSEL */
-    .mini-carousel { position: relative; width: 100%; overflow: hidden; }
-    .mini-track { display: flex; transition: transform 0.4s ease; }
-    .mini-track img { width: 100%; height: 260px; object-fit: cover; flex-shrink: 0; cursor: zoom-in; }
-    .mc-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,248,240,0.9); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px var(--shadow); }
-    .mc-prev { left: 0.5rem; } .mc-next { right: 0.5rem; }
-    .mc-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.35rem; }
-    .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
-    .mc-dot.active { background: #fff; }
-
-    /* COMING SOON */
-    .cs-section { margin-top: 3rem; }
-    .cs-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-mid); font-style: italic; margin-bottom: 1rem; }
-    .cs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
-    .cs-card { background: #fff; border-radius: 14px; border: 1.5px dashed var(--wood-mid); padding: 1.2rem 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-    .cs-card h3 { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--wood-deep); }
-    .cs-card p { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; }
-    .cs-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mint-dark); background: var(--mint-light); padding: 0.2rem 0.6rem; border-radius: 20px; }
-
+    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
+    .opt-row { margin-bottom: 0.5rem; }
+    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
+    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
+    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
+    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
+    .field-required { border-color: var(--wood-dark) !important; }
+    .req-note { font-size: 0.72rem; color: var(--wood-dark); font-weight: 700; margin-bottom: 0.5rem; background: var(--wood-light); border-radius: 8px; padding: 0.4rem 0.7rem; }
+    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .btn-add-cart:hover { background: var(--wood-dark); }
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
     .lightbox.active { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
@@ -127,39 +101,16 @@
     footer a:hover { color: var(--mint); }
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 750px) { .subcat-grid { grid-template-columns: 1fr; } } @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .cs-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
-
-    .btn-add-cart {
-      display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem;
-      background: var(--mint-dark); color: #fff; border: none; border-radius: 30px;
-      font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700;
-      cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase;
-      transition: background 0.25s;
-    }
-    .btn-add-cart:hover { background: var(--wood-dark); }
-
-    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
-    .opt-row { margin-bottom: 0.5rem; }
-    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
-    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
-    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
-    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
-
-    .cart-btn {
-      background: #6a9e8a; color: #fff;
-      border: none !important; outline: none !important; border-radius: 30px;
-      padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif;
-      font-size: 0.78rem; font-weight: 700; cursor: pointer;
-      display: flex; align-items: center; gap: 0.4rem;
-      transition: background 0.25s; letter-spacing: 0.08em;
-      text-transform: uppercase; position: relative;
-      box-shadow: none !important; -webkit-appearance: none; appearance: none;
-    }
+    @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+    .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
     .cart-btn:hover { background: #4d8a72; }
-    .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
+    .cart-btn:focus { outline: none !important; box-shadow: none !important; }
     .cart-btn:active { outline: none !important; }
-  
+
+    /* Input styles shared */
+    .data-input { width:100%; padding:0.4rem 0.6rem; border-radius:7px; border:1.5px solid var(--wood-mid); font-family:Nunito,sans-serif; font-size:0.82rem; margin-bottom:0.4rem; box-sizing:border-box; }
+    .data-input:focus { border-color: var(--mint-dark); outline: none; }
+    .data-input.error { border-color: #e74c3c !important; background: #fff5f5; }
   </style>
 </head>
 <body>
@@ -192,7 +143,7 @@
   </div>
 </section>
 
-<!-- PACK NACIMIENTO: sub-grid -->
+<!-- PACK NACIMIENTO sub-grid -->
 <div class="product-page" id="page-nacimiento">
   <button class="back-btn" onclick="showGrid()">← Volver a Packs para Regalar</button>
   <p class="section-label" style="text-align:center;margin-bottom:0.5rem;">Pack Nacimiento</p>
@@ -214,13 +165,13 @@
   </div>
 </div>
 
-<!-- PACK TERNURA -->
+<!-- ── PACK TERNURA ── -->
 <div class="product-page" id="page-ternura">
   <button class="back-btn" onclick="backToNacimiento()">← Volver a Pack Nacimiento</button>
   <div style="max-width:700px;margin:0 auto;">
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_lucia.jpg')">
-        <img src="images/pack_lucia.jpg" alt="Pack Esencial cesta mimbre">
+        <img src="images/pack_lucia.jpg" alt="Pack Ternura cesta mimbre">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
@@ -239,48 +190,36 @@
           </ul>
         </div>
         <div class="selector-block">
-          <p class="selector-label">Personaliza tu pack</p>
-          <select id="esencialRecogida" style="margin-bottom:0.5rem;">
-            <option value="envio">Envío a domicilio</option>
-            <option value="tienda">Recogida en tienda</option>
+          <p class="selector-label">Datos para la placa de nacimiento</p>
+          <p class="req-note">⚠️ Los campos marcados con * son obligatorios para poder procesar tu pedido</p>
+          <input type="text" id="tNombre" class="data-input" placeholder="* Nombre del bebé">
+          <input type="text" id="tMadre" class="data-input" placeholder="* Nombre de la madre">
+          <input type="text" id="tPadre" class="data-input" placeholder="* Nombre del padre">
+          <input type="text" id="tFecha" class="data-input" placeholder="* Fecha de nacimiento (ej. 22 de febrero de 2026)">
+          <input type="text" id="tHora" class="data-input" placeholder="* Hora del nacimiento (ej. 14:15h)">
+          <input type="text" id="tPeso" class="data-input" placeholder="* Peso al nacer (ej. 3.200 kg)">
+          <input type="text" id="tAltura" class="data-input" placeholder="* Altura al nacer (ej. 50 cm)">
+          <select id="ternuraColor" class="data-input" style="margin-bottom:0.4rem;">
+            <option value="">* Color del nombre en 3D (obligatorio)</option>
+            <option value="Verde menta">Verde menta</option>
+            <option value="Blanco">Blanco</option>
+            <option value="Negro">Negro</option>
+            <option value="Burdeos">Burdeos</option>
           </select>
-          <div id="ternuraDatosForm">
-            <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
-            <input type="text" id="tNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="tMadre" placeholder="Nombre de la madre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="tPadre" placeholder="Nombre del padre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="tFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="tHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="tPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="tAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <textarea id="tDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
-          <select id="ternuraColor" style="margin-bottom:0.4rem; margin-top:0.4rem;">
-            <option value="">Color del texto en la placa (elige uno)</option>
-            <option value="verde">Verde menta</option>
-            <option value="blanco">Blanco</option>
-            <option value="negro">Negro</option>
-            <option value="burdeos">Burdeos</option>
-            <option value="otro">Otro color (lo indico abajo)</option>
-          </select>
-          <input type="text" id="ternuraColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
-          
+          <textarea id="tDedicatoria" class="data-input" placeholder="Dedicatoria para la tarjeta (opcional)" rows="2" style="resize:vertical;"></textarea>
         </div>
         <div class="price-block">
-          <div class="price-display">
-            <span class="label">Precio</span>
-            <span class="amount">68 €</span>
-          </div>
+          <div class="price-display"><span class="label">Precio</span><span class="amount">68 €</span></div>
           <p class="price-note">✦ IVA incluido · Gastos de envío incluidos</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'pack-ternura',name:'Pack Ternura · Cesta de mimbre',price:68,options:{}})">Añadir al carrito</button>
-        <button class="btn-contact" onclick="pedirEsencial()" style="margin-top:0.4rem;">Personalizar y pedir</button>
+        <button class="btn-add-cart" onclick="addCartPack('ternura','Pack Ternura · Cesta de mimbre',68)">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Pack%20Ternura" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
-  </div>
 </div>
 
-<!-- PACK HUELLA -->
+<!-- ── PACK HUELLA ── -->
 <div class="product-page" id="page-huella">
   <button class="back-btn" onclick="backToNacimiento()">← Volver a Pack Nacimiento</button>
   <div style="max-width:700px;margin:0 auto;">
@@ -292,7 +231,7 @@
       <div class="product-body">
         <p class="product-cat">Pack Nacimiento</p>
         <h3>Pack Huella · Caja de bambú</h3>
-        <p class="product-desc">Todo lo del Pack Esencial presentado en una caja de bambú abierta. <strong>La caja no es solo un envoltorio</strong> — es un elemento decorativo y de almacenaje que quedará en la habitación del bebé durante años. Se puede incluir tarjeta con dedicatoria personalizada.</p>
+        <p class="product-desc">Todo lo del Pack Ternura presentado en una caja de bambú abierta. <strong>La caja no es solo un envoltorio</strong> — es un elemento decorativo y de almacenaje que quedará en la habitación del bebé durante años.</p>
         <div class="includes-list">
           <p>Incluye:</p>
           <ul>
@@ -305,75 +244,52 @@
           </ul>
         </div>
         <div class="selector-block">
-          <p class="selector-label">Personaliza tu pack</p>
-          <select id="nombreBambuSelect" onchange="updatePrecioBambu()" style="margin-bottom:0.5rem;">
-            <option value="no">Sin nombre en la caja</option>
-            <option value="si">Con nombre en impresión 3D en la caja (+5 €)</option>
+          <p class="selector-label">Datos para la placa de nacimiento</p>
+          <p class="req-note">⚠️ Los campos marcados con * son obligatorios para poder procesar tu pedido</p>
+          <select id="opt-huella-nombre-caja" onchange="updatePackPrice('huella',75)" style="width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1.5px solid var(--wood-mid);background:#fff;font-family:Nunito,sans-serif;font-size:0.85rem;margin-bottom:0.6rem;">
+            <option value="0">Sin nombre en la caja — 75 €</option>
+            <option value="5">Con nombre en 3D en la caja — +5 €</option>
           </select>
-          <p class="nombre-note" id="nombreBambuNote">✦ Se añadirá el nombre del bebé en relieve 3D en la caja</p>
-          <select id="huellaRecogida" style="margin-bottom:0.5rem; margin-top:0.5rem;">
-            <option value="envio">Envío a domicilio</option>
-            <option value="tienda">Recogida en tienda</option>
+          <input type="text" id="hNombre" class="data-input" placeholder="* Nombre del bebé">
+          <input type="text" id="hMadre" class="data-input" placeholder="* Nombre de la madre">
+          <input type="text" id="hPadre" class="data-input" placeholder="* Nombre del padre">
+          <input type="text" id="hFecha" class="data-input" placeholder="* Fecha de nacimiento (ej. 22 de febrero de 2026)">
+          <input type="text" id="hHora" class="data-input" placeholder="* Hora del nacimiento (ej. 14:15h)">
+          <input type="text" id="hPeso" class="data-input" placeholder="* Peso al nacer (ej. 3.200 kg)">
+          <input type="text" id="hAltura" class="data-input" placeholder="* Altura al nacer (ej. 50 cm)">
+          <select id="huellaColor" class="data-input" style="margin-bottom:0.4rem;">
+            <option value="">* Color del nombre en 3D (obligatorio)</option>
+            <option value="Verde menta">Verde menta</option>
+            <option value="Blanco">Blanco</option>
+            <option value="Negro">Negro</option>
+            <option value="Burdeos">Burdeos</option>
           </select>
-          <div id="huellaDatosForm">
-            <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
-            <input type="text" id="hNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="hMadre" placeholder="Nombre de la madre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="hPadre" placeholder="Nombre del padre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="hFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="hHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="hPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="hAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <textarea id="hDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
-          <select id="huellaColor" style="margin-bottom:0.4rem; margin-top:0.4rem;">
-            <option value="">Color del texto en la placa (elige uno)</option>
-            <option value="verde">Verde menta</option>
-            <option value="blanco">Blanco</option>
-            <option value="negro">Negro</option>
-            <option value="burdeos">Burdeos</option>
-            <option value="otro">Otro color (lo indico abajo)</option>
-          </select>
-          <input type="text" id="huellaColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
-          
+          <textarea id="hDedicatoria" class="data-input" placeholder="Dedicatoria para la tarjeta (opcional)" rows="2" style="resize:vertical;"></textarea>
         </div>
         <div class="price-block">
-          <div class="price-display">
-            <span class="label">Precio total</span>
-            <span class="amount" id="precioBambu">75 €</span>
-          </div>
+          <div class="price-display"><span class="label">Precio total</span><span class="amount" id="opt-huella-cart-total">75 €</span></div>
           <p class="price-note">✦ IVA incluido · Gastos de envío incluidos</p>
         </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">¿Nombre en la caja?</label>
-            <select id="opt-huella-cart" onchange="updatePackPrice('huella',75)">
-              <option value="0">Sin nombre — 75 €</option>
-              <option value="5">Con nombre en 3D — +5 €</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-huella-cart-total">75 €</strong></div>
-        </div>
         <button class="btn-add-cart" onclick="addCartPack('huella','Pack Huella · Caja de bambú',75)">Añadir al carrito</button>
-        <button class="btn-contact" onclick="pedirBambu()" style="margin-top:0.4rem;">Personalizar y pedir</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Pack%20Huella" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
-  </div>
 </div>
 
-<!-- PACK TESORO -->
+<!-- ── PACK TESORO ── -->
 <div class="product-page" id="page-tesoro">
   <button class="back-btn" onclick="backToNacimiento()">← Volver a Pack Nacimiento</button>
   <div style="max-width:700px;margin:0 auto;">
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/pack_baul.jpg')">
-        <img src="images/pack_baul.jpg" alt="Pack Canastilla Deluxe baúl bambú">
+        <img src="images/pack_baul.jpg" alt="Pack Tesoro baúl bambú">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Pack Nacimiento</p>
         <h3>Pack Tesoro · Baúl de bambú</h3>
-        <p class="product-desc">El pack más completo y especial. Todo lo del Pack Recuerdo más los extras más bonitos, presentado en un baúl de bambú que el bebé guardará toda la vida. Se puede incluir tarjeta con dedicatoria personalizada, listo para entregar.</p>
+        <p class="product-desc">El pack más completo y especial. Todo lo del Pack Huella más los extras más bonitos, presentado en un baúl de bambú que el bebé guardará toda la vida.</p>
         <div class="includes-list">
           <p>Incluye:</p>
           <ul>
@@ -385,69 +301,42 @@
             <li>Chocolate Simón Coll para la mamá</li>
             <li>Viruta de madera y papel de seda</li>
             <li>Tarjeta con dedicatoria personalizada (opcional)</li>
-            <li>Viruta de madera y papel de seda</li>
             <li>Presentado en papel celofán · listo para entregar en mano o enviar</li>
           </ul>
         </div>
         <div class="selector-block">
-          <p class="selector-label">Personaliza tu pack</p>
-          <select id="nombreSelect" onchange="updatePrice()" style="margin-bottom:0.5rem;">
-            <option value="no">Sin nombre en el baúl</option>
-            <option value="si">Con nombre en impresión 3D en el baúl (+5 €)</option>
+          <p class="selector-label">Datos para la placa de nacimiento</p>
+          <p class="req-note">⚠️ Los campos marcados con * son obligatorios para poder procesar tu pedido</p>
+          <select id="opt-tesoro-nombre-baul" onchange="updatePackPrice('tesoro',105)" style="width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1.5px solid var(--wood-mid);background:#fff;font-family:Nunito,sans-serif;font-size:0.85rem;margin-bottom:0.6rem;">
+            <option value="0">Sin nombre en el baúl — 105 €</option>
+            <option value="5">Con nombre en 3D en el baúl — +5 €</option>
           </select>
-          <p class="nombre-note" id="nombreNote">✦ Se añadirá el nombre del bebé en relieve 3D en el baúl</p>
-          <select id="tesoroRecogida" style="margin-bottom:0.5rem; margin-top:0.5rem;">
-            <option value="envio">Envío a domicilio</option>
-            <option value="tienda">Recogida en tienda</option>
+          <input type="text" id="dNombre" class="data-input" placeholder="* Nombre del bebé">
+          <input type="text" id="dMadre" class="data-input" placeholder="* Nombre de la madre">
+          <input type="text" id="dPadre" class="data-input" placeholder="* Nombre del padre">
+          <input type="text" id="dFecha" class="data-input" placeholder="* Fecha de nacimiento (ej. 22 de febrero de 2026)">
+          <input type="text" id="dHora" class="data-input" placeholder="* Hora del nacimiento (ej. 14:15h)">
+          <input type="text" id="dPeso" class="data-input" placeholder="* Peso al nacer (ej. 3.200 kg)">
+          <input type="text" id="dAltura" class="data-input" placeholder="* Altura al nacer (ej. 50 cm)">
+          <select id="tesoroColor" class="data-input" style="margin-bottom:0.4rem;">
+            <option value="">* Color del nombre en 3D (obligatorio)</option>
+            <option value="Verde menta">Verde menta</option>
+            <option value="Blanco">Blanco</option>
+            <option value="Negro">Negro</option>
+            <option value="Burdeos">Burdeos</option>
           </select>
-          <div id="tesoroDatosForm">
-            <p style="font-size:0.75rem;font-weight:700;color:var(--wood-dark);margin:0.6rem 0 0.3rem;">Datos para la placa de nacimiento:</p>
-            <input type="text" id="dNombre" placeholder="Nombre del bebé" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="dMadre" placeholder="Nombre de la madre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="dPadre" placeholder="Nombre del padre" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="dFecha" placeholder="Fecha completa de nacimiento (ej. 22 de febrero de 2026)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="dHora" placeholder="Hora del nacimiento (ej. 14:15h)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="dPeso" placeholder="Peso al nacer (ej. 3.200 kg)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <input type="text" id="dAltura" placeholder="Altura al nacer (ej. 50 cm)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;">
-            <textarea id="dDedicatoria" placeholder="Dedicatoria para la tarjeta (frase corta, opcional)" rows="2" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;resize:vertical;box-sizing:border-box;"></textarea>
-          <select id="tesoroColor" style="margin-bottom:0.4rem; margin-top:0.4rem;">
-            <option value="">Color del texto en la placa (elige uno)</option>
-            <option value="verde">Verde menta</option>
-            <option value="blanco">Blanco</option>
-            <option value="negro">Negro</option>
-            <option value="burdeos">Burdeos</option>
-            <option value="otro">Otro color (lo indico abajo)</option>
-          </select>
-          <input type="text" id="tesoroColorCustom" placeholder="Indica el color que deseas (si elegiste Otro)" style="width:100%;padding:0.4rem 0.6rem;border-radius:7px;border:1.5px solid var(--wood-mid);font-family:Nunito,sans-serif;font-size:0.82rem;margin-bottom:0.4rem;box-sizing:border-box;display:none;">
-          
+          <textarea id="dDedicatoria" class="data-input" placeholder="Dedicatoria para la tarjeta (opcional)" rows="2" style="resize:vertical;"></textarea>
         </div>
         <div class="price-block">
-          <div class="price-display">
-            <span class="label">Precio total</span>
-            <span class="amount" id="precioFinal">105 €</span>
-          </div>
+          <div class="price-display"><span class="label">Precio total</span><span class="amount" id="opt-tesoro-cart-total">105 €</span></div>
           <p class="price-note">✦ IVA incluido · Gastos de envío incluidos · Listo para entregar</p>
         </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">¿Nombre en el baúl?</label>
-            <select id="opt-tesoro-cart" onchange="updatePackPrice('tesoro',105)">
-              <option value="0">Sin nombre — 105 €</option>
-              <option value="5">Con nombre en 3D — +5 €</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-tesoro-cart-total">105 €</strong></div>
-        </div>
         <button class="btn-add-cart" onclick="addCartPack('tesoro','Pack Tesoro · Baúl de bambú',105)">Añadir al carrito</button>
-        <button class="btn-contact" onclick="pedirCajaTapa()" style="margin-top:0.4rem;">Personalizar y pedir</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Pack%20Tesoro" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
-
-  </div>
   </div>
 </div>
-
-
 
 <div class="info-banner">
   <p>✦ Todos los precios incluyen IVA · Realizo envíos a toda España ✦<br>
@@ -465,7 +354,6 @@
 </div>
 
 <script>
-  // ── NAVIGATION ──
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
@@ -473,7 +361,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · Pack Nacimiento';
   }
-
   function showPackPage(id) {
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
@@ -481,14 +368,12 @@
     const names = {ternura:'Pack Ternura', huella:'Pack Huella', tesoro:'Pack Tesoro'};
     document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · <a href="#" onclick="backToNacimiento();return false;">Pack Nacimiento</a> · ' + names[id];
   }
-
   function backToNacimiento() {
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-nacimiento').classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · Pack Nacimiento';
   }
-
   function showGrid() {
     document.getElementById('catGrid').style.display = 'block';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
@@ -496,153 +381,67 @@
     document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Packs para Regalar';
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('catGrid').style.display = 'block';
-    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
-  });
-
-  // ── PACK PRICES ──
-  function updatePrecioBambu() {
-    const sel = document.getElementById('nombreBambuSelect');
-    if (!sel) return;
-    document.getElementById('precioBambu').textContent = sel.value === 'si' ? '80 €' : '75 €';
-    document.getElementById('nombreBambuNote').classList.toggle('visible', sel.value === 'si');
-  }
-
-  function updatePrice() {
-    const sel = document.getElementById('nombreSelect');
-    if (!sel) return;
-    document.getElementById('precioFinal').textContent = sel.value === 'si' ? '110 €' : '105 €';
-    document.getElementById('nombreNote').classList.toggle('visible', sel.value === 'si');
-  }
-
   function updatePackPrice(prefix, base) {
-    const sel = document.getElementById('opt-' + prefix + '-cart');
+    const sel = document.getElementById('opt-' + prefix + '-nombre-baul') || document.getElementById('opt-' + prefix + '-nombre-caja');
     const extra = sel ? parseFloat(sel.value) || 0 : 0;
     const el = document.getElementById('opt-' + prefix + '-cart-total');
     if (el) el.textContent = (base + extra).toFixed(0) + ' €';
   }
 
-  function addCartPack(prefix, baseName, basePrice) {
-    const sel = document.getElementById('opt-' + prefix + '-cart');
-    const extra = sel ? parseFloat(sel.value) || 0 : 0;
-    const price = basePrice + extra;
-    const opts = extra > 0 ? {'Nombre en caja': 'Sí (+5 €)'} : {};
-    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
-  }
+  // ── VALIDACIÓN Y AÑADIR AL CARRITO ──
+  const packFields = {
+    ternura: { nombre:'tNombre', madre:'tMadre', padre:'tPadre', fecha:'tFecha', hora:'tHora', peso:'tPeso', altura:'tAltura', color:'ternuraColor' },
+    huella:  { nombre:'hNombre', madre:'hMadre', padre:'hPadre', fecha:'hFecha', hora:'hHora', peso:'hPeso', altura:'hAltura', color:'huellaColor' },
+    tesoro:  { nombre:'dNombre', madre:'dMadre', padre:'dPadre', fecha:'dFecha', hora:'dHora', peso:'dPeso', altura:'dAltura', color:'tesoroColor' }
+  };
 
-  // Color selectors
-  ['ternura','huella','tesoro'].forEach(function(pack) {
-    document.addEventListener('DOMContentLoaded', function() {
-      const sel = document.getElementById(pack + 'Color');
-      const custom = document.getElementById(pack + 'ColorCustom');
-      if (sel && custom) {
-        sel.addEventListener('change', function() {
-          custom.style.display = this.value === 'otro' ? 'block' : 'none';
-        });
+  function addCartPack(prefix, baseName, basePrice) {
+    const fields = packFields[prefix];
+    const vals = {};
+    let errors = [];
+
+    // Clear previous errors
+    Object.values(fields).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('error');
+    });
+
+    // Validate required fields
+    const labels = { nombre:'Nombre del bebé', madre:'Nombre de la madre', padre:'Nombre del padre', fecha:'Fecha de nacimiento', hora:'Hora de nacimiento', peso:'Peso al nacer', altura:'Altura al nacer', color:'Color del nombre en 3D' };
+    Object.entries(fields).forEach(([key, id]) => {
+      const el = document.getElementById(id);
+      const val = el ? el.value.trim() : '';
+      if (!val) {
+        errors.push(labels[key]);
+        if (el) el.classList.add('error');
+      } else {
+        vals[labels[key]] = val;
       }
     });
-  });
 
-  // ── PACK TERNURA ──
-  function pedirEsencial() {
-    const recogida = document.getElementById('esencialRecogida')?.value || 'envio';
-    const nombre = document.getElementById('tNombre')?.value || '';
-    const madre = document.getElementById('tMadre')?.value || '';
-    const padre = document.getElementById('tPadre')?.value || '';
-    const fecha = document.getElementById('tFecha')?.value || '';
-    const hora = document.getElementById('tHora')?.value || '';
-    const peso = document.getElementById('tPeso')?.value || '';
-    const altura = document.getElementById('tAltura')?.value || '';
-    const dedicatoria = document.getElementById('tDedicatoria')?.value || '';
-    const color = document.getElementById('ternuraColor')?.value || '';
-    const colorCustom = document.getElementById('ternuraColorCustom')?.value || '';
-    let msg = 'Hola!%20Me%20interesa%20el%20Pack%20Ternura%20en%20cesta%20de%20mimbre';
-    if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
-    if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
-    if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
-    if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
-    if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
-    if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
-    if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
-    const c = color !== 'otro' ? color : colorCustom;
-    if (c) msg += '%0AColor%203D%3A%20' + encodeURIComponent(c);
-    window.open('https://wa.me/34622562499?text=' + msg, '_blank');
+    if (errors.length > 0) {
+      alert('Por favor rellena los siguientes campos obligatorios:\n\n• ' + errors.join('\n• '));
+      return;
+    }
+
+    // Get optional dedicatoria
+    const dedicatoriaId = prefix === 'ternura' ? 'tDedicatoria' : prefix === 'huella' ? 'hDedicatoria' : 'dDedicatoria';
+    const dedicatoria = document.getElementById(dedicatoriaId)?.value.trim();
+    if (dedicatoria) vals['Dedicatoria'] = dedicatoria;
+
+    // Extra price for nombre en caja/baúl
+    const selExtra = document.getElementById('opt-' + prefix + '-nombre-baul') || document.getElementById('opt-' + prefix + '-nombre-caja');
+    const extra = selExtra ? parseFloat(selExtra.value) || 0 : 0;
+    const price = basePrice + extra;
+    if (extra > 0) vals['Nombre en ' + (prefix === 'tesoro' ? 'baúl' : 'caja')] = 'Sí (+5 €)';
+
+    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: vals });
   }
 
-  // ── PACK HUELLA ──
-  function pedirBambu() {
-    const conNombre = document.getElementById('nombreBambuSelect')?.value === 'si';
-    const recogida = document.getElementById('huellaRecogida')?.value || 'envio';
-    const nombre = document.getElementById('hNombre')?.value || '';
-    const madre = document.getElementById('hMadre')?.value || '';
-    const padre = document.getElementById('hPadre')?.value || '';
-    const fecha = document.getElementById('hFecha')?.value || '';
-    const hora = document.getElementById('hHora')?.value || '';
-    const peso = document.getElementById('hPeso')?.value || '';
-    const altura = document.getElementById('hAltura')?.value || '';
-    const dedicatoria = document.getElementById('hDedicatoria')?.value || '';
-    const color = document.getElementById('huellaColor')?.value || '';
-    const colorCustom = document.getElementById('huellaColorCustom')?.value || '';
-    let msg = conNombre ? 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20con%20nombre%20en%203D' : 'Hola!%20Me%20interesa%20el%20Pack%20Huella%20sin%20nombre';
-    if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
-    if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
-    if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
-    if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
-    if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
-    if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
-    if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
-    const c = color !== 'otro' ? color : colorCustom;
-    if (c) msg += '%0AColor%203D%3A%20' + encodeURIComponent(c);
-    window.open('https://wa.me/34622562499?text=' + msg, '_blank');
-  }
-
-  // ── PACK TESORO ──
-  function pedirCajaTapa() {
-    const conNombre = document.getElementById('nombreSelect')?.value === 'si';
-    const recogida = document.getElementById('tesoroRecogida')?.value || 'envio';
-    const nombre = document.getElementById('dNombre')?.value || '';
-    const madre = document.getElementById('dMadre')?.value || '';
-    const padre = document.getElementById('dPadre')?.value || '';
-    const fecha = document.getElementById('dFecha')?.value || '';
-    const hora = document.getElementById('dHora')?.value || '';
-    const peso = document.getElementById('dPeso')?.value || '';
-    const altura = document.getElementById('dAltura')?.value || '';
-    const dedicatoria = document.getElementById('dDedicatoria')?.value || '';
-    const color = document.getElementById('tesoroColor')?.value || '';
-    const colorCustom = document.getElementById('tesoroColorCustom')?.value || '';
-    let msg = conNombre ? 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20con%20nombre%20en%203D' : 'Hola!%20Me%20interesa%20el%20Pack%20Tesoro%20sin%20nombre';
-    if (recogida === 'tienda') msg += '%20-%20recojo%20en%20tienda';
-    if (nombre) msg += '%0ANombre%20del%20beb%C3%A9%3A%20' + encodeURIComponent(nombre);
-    if (madre) msg += '%0AMadre%3A%20' + encodeURIComponent(madre);
-    if (padre) msg += '%0APadre%3A%20' + encodeURIComponent(padre);
-    if (fecha) msg += '%0AFecha%3A%20' + encodeURIComponent(fecha);
-    if (hora) msg += '%0AHora%3A%20' + encodeURIComponent(hora);
-    if (peso) msg += '%0APeso%3A%20' + encodeURIComponent(peso);
-    if (altura) msg += '%0AAltura%3A%20' + encodeURIComponent(altura);
-    if (dedicatoria) msg += '%0ADedicatoria%3A%20' + encodeURIComponent(dedicatoria);
-    const c = color !== 'otro' ? color : colorCustom;
-    if (c) msg += '%0AColor%203D%3A%20' + encodeURIComponent(c);
-    window.open('https://wa.me/34622562499?text=' + msg, '_blank');
-  }
-
-  // ── LIGHTBOX ──
-  function openLightbox(src) {
-    document.getElementById('lightbox-img').src = src;
-    document.getElementById('lightbox').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
-    document.body.style.overflow = '';
-  }
+  function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-  // ── FADE IN ──
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
