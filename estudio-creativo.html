@@ -22,7 +22,6 @@
     .nav-cta { background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .nav-cta:hover { background: var(--mint-dark); }
 
-    /* HERO */
     .page-hero {
       padding: 110px 2rem 4rem;
       background: var(--mint-light);
@@ -39,10 +38,8 @@
     .hero-logo img { width: min(320px, 80%); height: auto; object-fit: contain; filter: drop-shadow(0 6px 20px rgba(90,58,26,0.15)); animation: floatLogo 4s ease-in-out infinite; }
     @keyframes floatLogo { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
 
-    .hero-strip { background: var(--mint-light); padding: 0 2rem 3rem; }
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem 0 1.5rem; border-radius: 2px; }
 
-    /* SOBRE */
     .sobre-section { background: var(--cream); padding: 4rem 2rem; }
     .sobre-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
     .sobre-img { border-radius: 20px; overflow: hidden; box-shadow: 0 6px 28px var(--shadow); }
@@ -52,14 +49,13 @@
     .sobre-text p { color: var(--text-mid); font-size: 0.92rem; line-height: 1.85; font-weight: 300; margin-bottom: 0.8rem; }
     .sobre-text strong { color: var(--wood-dark); font-weight: 700; }
 
-    /* SERVICIOS */
     .servicios-section { background: var(--cream2); padding: 4rem 2rem 5rem; }
     .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; }
     .sec-divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
     .servicios-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; max-width: 1100px; margin: 0 auto; }
 
-    .servicio-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; height: auto; }
+    .servicio-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .servicio-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
     .servicio-img { height: 220px; overflow: hidden; cursor: zoom-in; position: relative; }
     .servicio-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
@@ -78,11 +74,9 @@
     .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-contact:hover { background: var(--mint-dark); }
 
-    /* PLACEHOLDER */
     .img-placeholder { width: 100%; height: 220px; background: var(--wood-light); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--text-mid); font-size: 0.8rem; font-weight: 300; }
     .img-placeholder span { font-size: 2rem; }
 
-    /* GALLERY */
     .gallery-section { background: var(--cream); padding: 4rem 2rem 5rem; }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
     .gallery-item { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px var(--shadow); cursor: zoom-in; aspect-ratio: 1; }
@@ -116,7 +110,6 @@
   <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">Pedir ahora</a>
 </nav>
 
-<!-- HERO -->
 <div style="background: var(--mint-light);">
   <div class="page-hero">
     <div class="hero-text">
@@ -132,7 +125,6 @@
   </div>
 </div>
 
-<!-- SOBRE -->
 <section class="sobre-section">
   <div class="sobre-inner">
     <div class="sobre-img fade-in">
@@ -149,7 +141,6 @@
   </div>
 </section>
 
-<!-- SERVICIOS -->
 <section class="servicios-section">
   <p class="section-label">Lo que ofrezco</p>
   <h2 class="section-title">Servicios de diseño</h2>
@@ -157,7 +148,6 @@
 
   <div class="servicios-grid">
 
-    <!-- Tarjetas de visita -->
     <div class="servicio-card fade-in">
       <div class="servicio-img" onclick="openLightbox('images/estudio_tarjetas.jpg')">
         <img src="images/estudio_tarjetas.jpg" alt="Tarjetas de visita diseñadas por MAMEMI">
@@ -176,7 +166,6 @@
       </div>
     </div>
 
-    <!-- Logo e identidad -->
     <div class="servicio-card fade-in">
       <div class="servicio-img" onclick="openLightbox('images/estudio_tags.jpg')">
         <img src="images/estudio_tags.jpg" alt="Diseño de etiquetas y papelería MAMEMI">
@@ -194,7 +183,6 @@
       </div>
     </div>
 
-    <!-- Diseño web -->
     <div class="servicio-card fade-in">
       <div class="servicio-img">
         <div class="img-placeholder">
@@ -214,7 +202,6 @@
       </div>
     </div>
 
-    <!-- Papelería y otros -->
     <div class="servicio-card fade-in">
       <div class="servicio-img" onclick="openLightbox('images/estudio_caja.jpg')">
         <img src="images/estudio_caja.jpg" alt="Packaging y papelería diseñada por MAMEMI">
@@ -235,7 +222,6 @@
   </div>
 </section>
 
-<!-- GALERÍA -->
 <section class="gallery-section">
   <p class="section-label">Trabajos realizados</p>
   <h2 class="section-title">Algunos ejemplos</h2>
@@ -256,11 +242,10 @@
     <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_creativo.jpg')">
       <img src="images/estudio_creativo.jpg" alt="Tarjeta de visita MAMEMI Madera">
     </div>
-    <div class="gallery-item fade-in" onclick="openLightbox('images/logo_estudio.png')">
+    <div class="gallery-item fade-in" onclick="openLightbox('images/logo_estudio.png')" style="border:none; box-shadow:none;">
       <img src="images/logo_estudio.png" alt="Logo MAMEMI Estudio Creativo" style="object-fit:contain; background:var(--mint-light); padding:1rem;">
     </div>
   </div>
-  
 </section>
 
 <div class="info-banner">
