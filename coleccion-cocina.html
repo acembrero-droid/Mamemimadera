@@ -48,7 +48,7 @@
     .product-page.active { display: block; }
     .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
     .back-btn:hover { background: var(--wood-light); }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; align-items: start; }
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
     .product-card.mar { border-top: 3px solid var(--ocean); }
@@ -85,9 +85,6 @@
     .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
     .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
     .lightbox-close:hover { background: rgba(255,255,255,0.3); }
-    .info-banner { background: var(--wood-deep); color: var(--cream); padding: 2rem; text-align: center; }
-    .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
-    .info-banner strong { color: var(--wood-mid); }
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
     footer img { height: 36px; opacity: 0.6; filter: invert(1); }
     footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
@@ -125,8 +122,6 @@
     .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
     .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
     .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
-    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
-    .btn-add-cart:hover { background: var(--wood-dark); }
 
     .carousel { position: relative; overflow: hidden; border-radius: 14px; aspect-ratio: 1; }
     .carousel-track { display: flex; transition: transform 0.4s ease; height: 100%; }
@@ -143,7 +138,7 @@
 <body>
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
-  <a href="index.html" class="nav-back" id="navBack" onclick="return navBackClick()">← Inicio</a>
+  <a href="index.html" class="nav-back">← Inicio</a>
   <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
 </nav>
 
@@ -186,10 +181,28 @@
   <div class="products-grid">
 
     <div class="product-card mar fade-in">
-      <div class="product-img" onclick="openLightbox('images/tabla_mar.jpg')">
-        <img src="images/tabla_mar.jpg" alt="Tabla cocina Mar">
+      <div style="position:relative; height:300px;">
+        <div class="carousel" id="mar-carousel" style="height:300px; border-radius:0;">
+          <div class="carousel-track" id="mar-track">
+            <div class="carousel-slide" onclick="openLightbox('images/tabla_mar.jpg')">
+              <img src="images/tabla_mar.jpg" alt="Tabla cocina Mar">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('images/tabla_mar_packaging.jpg')">
+              <img src="images/tabla_mar_packaging.jpg" alt="Tabla Mar con packaging">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('images/tabla_mar_conjunto.jpg')">
+              <img src="images/tabla_mar_conjunto.jpg" alt="Tabla Mar conjunto">
+            </div>
+          </div>
+          <button class="carousel-btn prev" onclick="moveCarousel('mar', -1)">‹</button>
+          <button class="carousel-btn next" onclick="moveCarousel('mar', 1)">›</button>
+          <div class="carousel-dots">
+            <span class="carousel-dot active" onclick="goToSlide('mar', 0)"></span>
+            <span class="carousel-dot" onclick="goToSlide('mar', 1)"></span>
+            <span class="carousel-dot" onclick="goToSlide('mar', 2)"></span>
+          </div>
+        </div>
         <span class="mar-badge">🌊 Mar</span>
-        <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Colección Cocina · Mar y Montaña</p>
@@ -268,7 +281,6 @@
             <select id="opt-servilletero-qty" class="opt-input" onchange="updateServilletero()">
               <option value="5|1">1 unidad — 5 €</option>
               <option value="18|4">Pack de 4 unidades — 18 €</option>
-              <option value="26|6">Pack de 6 unidades — 26 €</option>
             </select>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="opt-servilletero-total">5 €</strong></div>
@@ -314,13 +326,11 @@
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
-  // Remember scroll position when navigating back
   window.addEventListener('beforeunload', () => {
     sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY);
   });
   const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
-
 
   function updateServilletero() {
     const sel = document.getElementById('opt-servilletero-qty');
@@ -332,12 +342,10 @@
     const sel = document.getElementById('opt-servilletero-qty');
     const [price, qty] = sel.value.split('|');
     const q = parseInt(qty);
-    const name = q === 1 ? 'Servilletero de mimbre' : q === 4 ? 'Pack 4 Servilleteros de mimbre' : 'Pack 6 Servilleteros de mimbre';
+    const name = q === 1 ? 'Servilletero de mimbre' : 'Pack 4 Servilleteros de mimbre';
     addToCart({ id: 'servilletero-' + Date.now(), name, price: parseFloat(price), qty: 1, options: { Cantidad: q + ' u' } });
   }
 
-
-  // ── CAROUSEL ──
   const carousels = {};
   function moveCarousel(id, dir) {
     if (!carousels[id]) carousels[id] = 0;
@@ -362,7 +370,6 @@
       d.classList.toggle('active', i === carousels[id]);
     });
   }
-
 </script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
