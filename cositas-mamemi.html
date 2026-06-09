@@ -223,6 +223,27 @@
             </select>
             <input type="text" id="opt-llav-mama-texto" placeholder="Escribe el nombre" class="opt-input" style="display:none;" oninput="updateOptPrice('llav-mama')">
           </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-llav-mama-caja" onchange="updateOptPrice('llav-mama')">
+              <option value="0">Bolsita rafia / algodón — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Color de la borla</label>
+            <select id="opt-llav-mama-borla">
+              <option value="Verde brillante">Verde brillante</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Marrón">Marrón</option>
+              <option value="Azul cielo">Azul cielo</option>
+              <option value="Morado">Morado</option>
+              <option value="Rosita palo">Rosita palo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Azul marino">Azul marino</option>
+            </select>
+          </div>
           <div class="opt-price-row">
             <span>Total:</span><strong id="opt-llav-mama-total">12 €</strong>
           </div>
@@ -256,12 +277,87 @@
             </select>
             <input type="text" id="opt-llav-mamemi-texto" placeholder="Escribe el nombre" class="opt-input" style="display:none;" oninput="updateOptPrice('llav-mamemi')">
           </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-llav-mamemi-caja" onchange="updateOptPrice('llav-mamemi')">
+              <option value="0">Bolsita rafia / algodón — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Color de la borla</label>
+            <select id="opt-llav-mamemi-borla">
+              <option value="Verde brillante">Verde brillante</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Marrón">Marrón</option>
+              <option value="Azul cielo">Azul cielo</option>
+              <option value="Morado">Morado</option>
+              <option value="Rosita palo">Rosita palo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Azul marino">Azul marino</option>
+            </select>
+          </div>
           <div class="opt-price-row">
             <span>Total:</span><strong id="opt-llav-mamemi-total">12 €</strong>
           </div>
         </div>
         <button class="btn-add-cart" onclick="addCartWithOpts('llav-mamemi','Llavero · MAMEMI Madera',12)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20llavero%20MAMEMI%20Madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/llavero_deportes.jpg')">
+        <img src="images/llavero_deportes.jpg" alt="Llavero Deportes">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi · Llaveros</p>
+        <h3>Llavero · Deportes</h3>
+        <p class="product-desc">Llavero redondo de madera natural grabado al láser con diseño deportivo: raqueta, balones y botella. Con anilla metálica y borla de gamuza en el color que prefieras. Disponible en cajita kraft o bolsa de rafia/algodón, listo para regalar.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">12 €</span></div>
+          <div class="price-row"><span>+ nombre en el otro lado</span><span class="amount">+ 3 €</span></div>
+          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Añadir nombre en el otro lado?</label>
+            <select id="opt-llav-deportes-nombre" onchange="updateOptPrice('llav-deportes')">
+              <option value="0">Sin nombre</option>
+              <option value="3">Sí, con nombre (+3 €)</option>
+            </select>
+            <input type="text" id="opt-llav-deportes-texto" placeholder="Escribe el nombre" class="opt-input" style="display:none;" oninput="updateOptPrice('llav-deportes')">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-llav-deportes-caja" onchange="updateOptPrice('llav-deportes')">
+              <option value="0">Bolsita rafia / algodón — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Color de la borla</label>
+            <select id="opt-llav-deportes-borla">
+              <option value="Verde brillante">Verde brillante</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Marrón">Marrón</option>
+              <option value="Azul cielo">Azul cielo</option>
+              <option value="Morado">Morado</option>
+              <option value="Rosita palo">Rosita palo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Azul marino">Azul marino</option>
+            </select>
+          </div>
+          <div class="opt-price-row">
+            <span>Total:</span><strong id="opt-llav-deportes-total">12 €</strong>
+          </div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartWithOpts('llav-deportes','Llavero · Deportes',12)">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20llavero%20Deportes" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -331,9 +427,9 @@
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">¿Añadir toque de color pintado a mano?</label>
-            <select id="opt-iman-elefante-color" onchange="updateImanPrice('iman-elefante',9)">
-              <option value="0">Sin color — 9 €</option>
-              <option value="6">Con toque de color — +6 €</option>
+            <select id="opt-iman-elefante-color" onchange="updateImanPrice('iman-elefante')">
+              <option value="9">Sin color — 9 €</option>
+              <option value="15">Con toque de color — 15 €</option>
             </select>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="opt-iman-elefante-total">9 €</strong></div>
@@ -360,9 +456,9 @@
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">¿Añadir toque de color pintado a mano?</label>
-            <select id="opt-iman-baides-color" onchange="updateImanPrice('iman-baides',9)">
-              <option value="0">Sin color — 9 €</option>
-              <option value="6">Con toque de color — +6 €</option>
+            <select id="opt-iman-baides-color" onchange="updateImanPrice('iman-baides')">
+              <option value="9">Sin color — 9 €</option>
+              <option value="15">Con toque de color — 15 €</option>
             </select>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="opt-iman-baides-total">9 €</strong></div>
@@ -530,12 +626,14 @@
 
   function updateOptPrice(prefix) {
     let base = 0;
-    if (prefix === 'llav-mama' || prefix === 'llav-mamemi') {
+    if (prefix === 'llav-mama' || prefix === 'llav-mamemi' || prefix === 'llav-deportes') {
       base = 12;
       const nombreExtra = getOptVal('opt-' + prefix + '-nombre');
       base += nombreExtra;
       const nombreInput = document.getElementById('opt-' + prefix + '-texto');
       if (nombreInput) nombreInput.style.display = nombreExtra > 0 ? 'block' : 'none';
+      const cajaExtra = getOptVal('opt-' + prefix + '-caja');
+      base += cajaExtra;
     }
     if (prefix === 'disco') {
       base = getOptVal('opt-disco-color') || 9;
@@ -551,7 +649,7 @@
   function addCartWithOpts(prefix, baseName, basePrice) {
     let price = basePrice;
     const opts = {};
-    if (prefix === 'llav-mama' || prefix === 'llav-mamemi') {
+    if (prefix === 'llav-mama' || prefix === 'llav-mamemi' || prefix === 'llav-deportes') {
       const nombreExtra = getOptVal('opt-' + prefix + '-nombre');
       if (nombreExtra > 0) {
         const nombre = getOptText('opt-' + prefix + '-texto');
@@ -559,6 +657,15 @@
         price += nombreExtra;
         opts['Nombre'] = nombre;
       }
+      const cajaExtra = getOptVal('opt-' + prefix + '-caja');
+      if (cajaExtra > 0) {
+        price += cajaExtra;
+        opts['Presentación'] = 'Cajita Kraft con papel de seda y viruta';
+      } else {
+        opts['Presentación'] = 'Bolsita rafia/algodón';
+      }
+      const borla = document.getElementById('opt-' + prefix + '-borla');
+      if (borla) opts['Borla'] = borla.value;
     }
     if (prefix === 'disco') {
       const colorPrice = getOptVal('opt-disco-color') || 9;
@@ -578,17 +685,16 @@
     addToCart({ id, name, price, options: opts });
   }
 
-  function updateImanPrice(prefix, base) {
+  function updateImanPrice(prefix) {
     const sel = document.getElementById('opt-' + prefix + '-color');
-    const extra = sel ? parseFloat(sel.value) || 0 : 0;
+    const price = sel ? parseFloat(sel.value) || 9 : 9;
     const el = document.getElementById('opt-' + prefix + '-total');
-    if (el) el.textContent = (base + extra).toFixed(0) + ' €';
+    if (el) el.textContent = price.toFixed(0) + ' €';
   }
   function addCartIman(prefix, baseName, basePrice) {
     const sel = document.getElementById('opt-' + prefix + '-color');
-    const extra = sel ? parseFloat(sel.value) || 0 : 0;
-    const price = basePrice + extra;
-    const opts = extra > 0 ? { 'Acabado': 'Con toque de color' } : { 'Acabado': 'Sin color' };
+    const price = sel ? parseFloat(sel.value) || basePrice : basePrice;
+    const opts = price > 9 ? { 'Acabado': 'Con toque de color' } : { 'Acabado': 'Sin color' };
     addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
   }
 </script>
