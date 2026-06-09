@@ -1,15 +1,18 @@
 // ── MAMEMI Madera · Carrito de compra ──
 (function() {
 
-  const SHIPPING_COST = 4.99;
+  const SHIPPING_COST = 6.00;
   const FREE_SHIPPING_THRESHOLD = 60;
+  const PICKUP_DISCOUNT = 2;
 
   // ── ESTADO ──
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
+  let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio'; // 'envio' | 'tienda'
 
   // ── GUARDAR ──
   function saveCart() {
     localStorage.setItem('mamemi_cart', JSON.stringify(cart));
+    localStorage.setItem('mamemi_delivery', deliveryMode);
     updateCartBadge();
     renderCartPanel();
   }
@@ -45,18 +48,30 @@
     saveCart();
   };
 
+  // ── CAMBIAR MODO ENTREGA ──
+  window.setDeliveryMode = function(mode) {
+    deliveryMode = mode;
+    saveCart();
+  };
+
   // ── TOTALES ──
   function cartSubtotal() {
     return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
   }
 
   function getShipping(subtotal) {
+    if (deliveryMode === 'tienda') return 0;
     return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  }
+
+  function getPickupDiscount() {
+    if (deliveryMode !== 'tienda' || cart.length === 0) return 0;
+    return PICKUP_DISCOUNT;
   }
 
   function cartTotal() {
     const subtotal = cartSubtotal();
-    return subtotal + getShipping(subtotal);
+    return subtotal + getShipping(subtotal) - getPickupDiscount();
   }
 
   function cartCount() {
@@ -96,7 +111,16 @@
 
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const finalTotal = subtotal + shipping;
+    const discount = getPickupDiscount();
+    const finalTotal = subtotal + shipping - discount;
+
+    // Actualizar selector de entrega
+    const envioBtn = panel.querySelector('.delivery-btn[data-mode="envio"]');
+    const tiendaBtn = panel.querySelector('.delivery-btn[data-mode="tienda"]');
+    if (envioBtn && tiendaBtn) {
+      envioBtn.classList.toggle('active', deliveryMode === 'envio');
+      tiendaBtn.classList.toggle('active', deliveryMode === 'tienda');
+    }
 
     if (cart.length === 0) {
       panel.querySelector('.cart-items').innerHTML = `
@@ -133,11 +157,27 @@
 
     panel.querySelector('.cart-items').innerHTML = html;
     panel.querySelector('.cart-subtotal').textContent = subtotal.toFixed(2) + ' €';
-    panel.querySelector('.cart-shipping').textContent = shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €';
+
+    const shippingRow = panel.querySelector('.cart-shipping-row');
+    const discountRow = panel.querySelector('.cart-discount-row');
+
+    if (deliveryMode === 'tienda') {
+      shippingRow.style.display = 'none';
+      discountRow.style.display = 'flex';
+      panel.querySelector('.cart-discount').textContent = '− ' + discount.toFixed(2) + ' €';
+    } else {
+      shippingRow.style.display = 'flex';
+      discountRow.style.display = 'none';
+      panel.querySelector('.cart-shipping').textContent = shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €';
+    }
+
     panel.querySelector('.cart-final').textContent = finalTotal.toFixed(2) + ' €';
 
     const note = panel.querySelector('.cart-shipping-note');
-    if (shipping === 0) {
+    if (deliveryMode === 'tienda') {
+      note.innerHTML = `✦ Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">El Estudi</a> · Bolsita incluida 🌿`;
+      note.style.color = '#6a9e8a';
+    } else if (shipping === 0) {
       note.textContent = '✦ ¡Envío gratis incluido!';
       note.style.color = '#6a9e8a';
     } else {
@@ -167,7 +207,8 @@
     if (cart.length === 0) return;
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const finalTotal = (subtotal + shipping) * 100; // en céntimos
+    const discount = getPickupDiscount();
+    const finalTotal = (subtotal + shipping - discount) * 100;
 
     const orderNum = Date.now().toString().slice(-10);
     const items = cart.map(i => `${i.qty}x ${i.name}`).join(', ');
@@ -181,7 +222,8 @@
       amount: Math.round(finalTotal),
       order: orderNum,
       description: items.substring(0, 125),
-      cart: JSON.stringify(cart)
+      cart: JSON.stringify(cart),
+      delivery: deliveryMode
     };
 
     Object.entries(fields).forEach(([k, v]) => {
@@ -236,6 +278,20 @@
       .cart-header-sub { font-size: 0.78rem; color: #6b4c2a; font-weight: 300; }
       .cart-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b4c2a; padding: 0.2rem 0.5rem; border-radius: 6px; transition: background 0.2s; }
       .cart-close:hover { background: #f5e9d6; }
+
+      /* Selector de entrega */
+      .delivery-selector { display: flex; gap: 0.5rem; padding: 0.8rem 1.5rem; background: #f9f2e4; border-bottom: 1.5px solid #f5e9d6; }
+      .delivery-btn {
+        flex: 1; padding: 0.5rem 0.6rem; border: 1.5px solid #f5e9d6; border-radius: 10px;
+        background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.72rem;
+        font-weight: 700; cursor: pointer; text-align: center; color: #6b4c2a;
+        transition: all 0.2s; letter-spacing: 0.04em; line-height: 1.4;
+      }
+      .delivery-btn:hover { border-color: #d4a96a; }
+      .delivery-btn.active { background: #8b5e3c; color: #fff; border-color: #8b5e3c; }
+      .delivery-btn .delivery-icon { font-size: 1rem; display: block; margin-bottom: 0.2rem; }
+      .delivery-btn .delivery-price { font-size: 0.68rem; font-weight: 400; opacity: 0.85; }
+
       .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
       .cart-empty { text-align: center; padding: 3rem 1rem; color: #6b4c2a; }
       .cart-empty span { font-size: 3rem; display: block; margin-bottom: 0.8rem; }
@@ -260,6 +316,7 @@
       .cart-footer { padding: 1.2rem 1.5rem; border-top: 1.5px solid #f5e9d6; background: #fdf8f0; }
       .cart-totals { margin-bottom: 0.8rem; }
       .cart-total-row { display: flex; justify-content: space-between; font-size: 0.84rem; color: #6b4c2a; padding: 0.2rem 0; }
+      .cart-total-row.discount { color: #6a9e8a; font-weight: 600; }
       .cart-total-row.final { font-size: 1rem; font-weight: 700; color: #5a3a1a; border-top: 1px solid #f5e9d6; padding-top: 0.6rem; margin-top: 0.3rem; }
       .cart-shipping-note { font-size: 0.74rem; font-style: italic; margin-bottom: 0.8rem; text-align: center; }
       .cart-pay-btn {
@@ -307,11 +364,24 @@
         </div>
         <button class="cart-close" onclick="closeCart()">✕</button>
       </div>
+      <div class="delivery-selector">
+        <button class="delivery-btn active" data-mode="envio" onclick="setDeliveryMode('envio')">
+          <span class="delivery-icon">🚚</span>
+          Envío a domicilio
+          <span class="delivery-price">6 € (gratis +60 €)</span>
+        </button>
+        <button class="delivery-btn" data-mode="tienda" onclick="setDeliveryMode('tienda')">
+          <span class="delivery-icon">🏪</span>
+          Entrega en persona
+          <span class="delivery-price">− 2 € · El Estudi</span>
+        </button>
+      </div>
       <div class="cart-items"><div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío</p><p class="cart-empty-sub">¡Añade algo bonito!</p></div></div>
       <div class="cart-footer" style="display:none;">
         <div class="cart-totals">
           <div class="cart-total-row"><span>Subtotal</span><span class="cart-subtotal">0,00 €</span></div>
-          <div class="cart-total-row"><span>Envío</span><span class="cart-shipping">4,99 €</span></div>
+          <div class="cart-total-row cart-shipping-row"><span>Envío</span><span class="cart-shipping">6,00 €</span></div>
+          <div class="cart-total-row discount cart-discount-row" style="display:none;"><span>Entrega en persona</span><span class="cart-discount">− 2,00 €</span></div>
           <div class="cart-total-row final"><span>Total</span><span class="cart-final">0,00 €</span></div>
         </div>
         <p class="cart-shipping-note"></p>
