@@ -175,15 +175,15 @@
 
     const note = panel.querySelector('.cart-shipping-note');
     if (deliveryMode === 'tienda') {
-      note.innerHTML = `✦ Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">El Estudi</a> · Bolsita incluida 🌿`;
+      note.innerHTML = `🎀 Listo para regalar · Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">l'Estudi | Caldes d'Estrac</a>`;
       note.style.color = '#6a9e8a';
     } else if (shipping === 0) {
-      note.textContent = '✦ ¡Envío gratis incluido!';
+      note.textContent = '🎀 Listo para regalar · Embalaje y envío certificado · ¡Envío gratis!';
       note.style.color = '#6a9e8a';
     } else {
       const remaining = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
-      note.textContent = `✦ Añade ${remaining} € más para envío gratis`;
-      note.style.color = '#d4a96a';
+      note.innerHTML = `🎀 Listo para regalar · Embalaje y envío certificado<br><span style="color:#d4a96a;">✦ Añade ${remaining} € más para envío gratis</span>`;
+      note.style.color = '#6b4c2a';
     }
   }
 
