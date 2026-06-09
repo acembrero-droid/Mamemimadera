@@ -229,16 +229,9 @@
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
       text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px;
     }
-    /* Tarjeta especial para El Estudio */
-    .cat-card.estudio-card .img-wrap {
-      background: var(--wood-deep);
-    }
-    .cat-card.estudio-card .cat-info {
-      background: linear-gradient(to top, rgba(90,58,26,0.95) 0%, rgba(90,58,26,0.5) 60%, transparent 100%);
-    }
-    .cat-card.estudio-card .cat-arrow {
-      background: rgba(168,197,181,0.3);
-    }
+    .cat-card.estudio-card .img-wrap { background: var(--wood-deep); }
+    .cat-card.estudio-card .cat-info { background: linear-gradient(to top, rgba(90,58,26,0.95) 0%, rgba(90,58,26,0.5) 60%, transparent 100%); }
+    .cat-card.estudio-card .cat-arrow { background: rgba(168,197,181,0.3); }
     .cat-card.estudio-card:hover .cat-arrow { background: var(--mint-dark); }
 
     /* ── SOBRE MÍ ── */
@@ -403,9 +396,13 @@
         <a href="estudio-creativo.html">Identidad visual</a>
       </div>
     </li>
-    <li><a href="el-estudio.html">El Estudio</a></li>
-    <li><a href="mamemi-en-vuestras-manos.html">En vuestras manos</a></li>
-    <li><a href="#sobre">Sobre mí</a></li>
+    <li><a href="el-estudio.html">El Estudio <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="el-estudio.html">Vídeos de proceso</a>
+        <a href="mamemi-en-vuestras-manos.html">Mamemi en vuestras manos</a>
+      </div>
+    </li>
+    <li><a href="javascript:void(0)" onclick="scrollToSobre()">Sobre mí</a></li>
     <li><a href="#contacto" class="nav-cta">¿Hablamos?</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
@@ -454,7 +451,6 @@
 
   <div class="cat-grid">
 
-    <!-- Cositas Mamemi -->
     <a href="cositas-mamemi.html" class="cat-card fade-in" id="cat-cositas">
       <div class="img-wrap"><img src="images/llavero.jpg" alt="Cositas Mamemi"></div>
       <div class="cat-info">
@@ -464,7 +460,6 @@
       </div>
     </a>
 
-    <!-- Regalos Personalizados -->
     <a href="regalos-personalizados.html" class="cat-card fade-in" id="cat-regalos">
       <div class="img-wrap"><img src="images/letra3d.jpg" alt="Regalos Personalizados"></div>
       <div class="cat-info">
@@ -474,7 +469,6 @@
       </div>
     </a>
 
-    <!-- Packs para Regalar -->
     <a href="packs-para-regalar.html" class="cat-card fade-in" id="cat-packs">
       <div class="img-wrap"><img src="images/pack_nac.jpg" alt="Packs para Regalar"></div>
       <div class="cat-info">
@@ -484,7 +478,6 @@
       </div>
     </a>
 
-    <!-- Detallitos para Eventos -->
     <a href="detallitos-eventos.html" class="cat-card fade-in" id="cat-eventos">
       <div class="img-wrap"><img src="images/libretas.jpg" alt="Detallitos para Eventos"></div>
       <div class="cat-info">
@@ -494,7 +487,6 @@
       </div>
     </a>
 
-    <!-- Colección Cocina -->
     <a href="coleccion-cocina.html" class="cat-card fade-in" id="cat-cocina">
       <span class="sub-badge">Mar y Montaña</span>
       <div class="img-wrap"><img src="images/tabla.jpg" alt="Colección Cocina"></div>
@@ -505,7 +497,6 @@
       </div>
     </a>
 
-    <!-- Estudio Creativo -->
     <a href="estudio-creativo.html" class="cat-card fade-in" id="cat-estudio">
       <div class="img-wrap"><img src="images/estudio_creativo.jpg" alt="Estudio Creativo"></div>
       <div class="cat-info">
@@ -515,7 +506,6 @@
       </div>
     </a>
 
-    <!-- El Estudio – Blog de proceso -->
     <a href="el-estudio.html" class="cat-card estudio-card fade-in" id="cat-el-estudio">
       <div class="img-wrap"><img src="images/estudio_proceso.jpg" alt="El Estudio" onerror="this.style.display='none'; this.parentNode.style.background='var(--wood-deep)'"></div>
       <div class="cat-info">
@@ -525,7 +515,6 @@
       </div>
     </a>
 
-    <!-- Mamemi en vuestras manos -->
     <a href="mamemi-en-vuestras-manos.html" class="cat-card fade-in" id="cat-manos">
       <div class="img-wrap"><img src="images/entrega_02.jpg" alt="Mamemi en vuestras manos"></div>
       <div class="cat-info">
@@ -612,6 +601,11 @@
   const savedIdx = sessionStorage.getItem('scrollPos_index');
   if (savedIdx && document.referrer.includes('mamemimadera')) {
     window.scrollTo(0, parseInt(savedIdx));
+  }
+
+  function scrollToSobre() {
+    document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('navLinks').classList.remove('open');
   }
 </script>
 <script src="cookies-banner.js"></script>
