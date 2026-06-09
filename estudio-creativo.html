@@ -23,11 +23,9 @@
     .nav-cta:hover { background: var(--mint-dark); }
 
     .page-hero {
-      padding: 110px 2rem 4rem;
-      background: var(--mint-light);
+      padding: 110px 2rem 4rem; background: var(--mint-light);
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 3rem; align-items: center;
-      max-width: 1200px; margin: 0 auto;
+      gap: 3rem; align-items: center; max-width: 1200px; margin: 0 auto;
     }
     .hero-text .breadcrumb { font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem; letter-spacing: 0.1em; }
     .hero-text .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
@@ -74,14 +72,15 @@
     .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-contact:hover { background: var(--mint-dark); }
 
-    .img-placeholder { width: 100%; height: 220px; background: var(--wood-light); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--text-mid); font-size: 0.8rem; font-weight: 300; }
-    .img-placeholder span { font-size: 2rem; }
-
-    .gallery-section { background: var(--cream); padding: 4rem 2rem 5rem; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
-    .gallery-item { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 16px var(--shadow); cursor: zoom-in; aspect-ratio: 1; }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .gallery-item:hover img { transform: scale(1.08); }
+    /* CARRUSEL */
+    .mini-carousel { position: relative; width: 100%; height: 220px; overflow: hidden; }
+    .mini-track { display: flex; height: 100%; transition: transform 0.4s ease; }
+    .mini-track img { width: 100%; height: 220px; object-fit: cover; flex-shrink: 0; cursor: zoom-in; }
+    .mc-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,248,240,0.9); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px var(--shadow); }
+    .mc-prev { left: 0.5rem; } .mc-next { right: 0.5rem; }
+    .mc-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.35rem; }
+    .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
+    .mc-dot.active { background: #fff; }
 
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
     .lightbox.active { display: flex; }
@@ -99,7 +98,7 @@
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 900px) { .page-hero, .sobre-inner { grid-template-columns: 1fr; } .hero-logo { display: none; } }
-    @media (max-width: 640px) { nav { padding: 0 1rem; } .servicios-grid, .gallery-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+    @media (max-width: 640px) { nav { padding: 0 1rem; } .servicios-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
   </style>
 </head>
 <body>
@@ -148,17 +147,28 @@
 
   <div class="servicios-grid">
 
+    <!-- Tarjetas de visita con carrusel -->
     <div class="servicio-card fade-in">
-      <div class="servicio-img" onclick="openLightbox('images/estudio_tarjetas.jpg')">
-        <img src="images/estudio_tarjetas.jpg" alt="Tarjetas de visita diseñadas por MAMEMI">
-        <span class="zoom-icon">🔍</span>
+      <div style="position:relative; height:220px;">
+        <div class="mini-carousel">
+          <div class="mini-track" id="tarjetasTrack">
+            <img src="images/estudio_creativo.jpg" alt="Tarjeta de visita MAMEMI" onclick="openLightbox(this.src)">
+            <img src="images/estudio_tarjetas.jpg" alt="Tarjetas de visita diseñadas por MAMEMI" onclick="openLightbox(this.src)">
+          </div>
+          <button class="mc-btn mc-prev" onclick="moveTarjetas(-1)">‹</button>
+          <button class="mc-btn mc-next" onclick="moveTarjetas(1)">›</button>
+          <div class="mc-dots">
+            <div class="mc-dot active" onclick="goTarjetas(0)"></div>
+            <div class="mc-dot" onclick="goTarjetas(1)"></div>
+          </div>
+        </div>
       </div>
       <div class="servicio-body">
         <p class="servicio-cat">Estudio Creativo</p>
         <h3>Tarjetas de visita</h3>
         <p class="servicio-desc">Diseño, maquetación y preparación del archivo listo para imprimir. Incluye hasta 2 revisiones. El archivo te queda en propiedad para que puedas imprimir cuando quieras y donde quieras. El coste de impresión no está incluido.</p>
         <div class="price-block">
-          <div class="price-row"><span>Diseño, maquetación y archivo</span><span class="amount">40 €</span></div>
+          <div class="price-row"><span>Diseño, maquetación y archivo</span><span class="amount">65 €</span></div>
           <div class="price-row"><span>Coste de impresión</span><span class="amount">a consultar</span></div>
           <p class="price-note">✦ IVA incluido · El archivo es tuyo para siempre</p>
         </div>
@@ -166,9 +176,10 @@
       </div>
     </div>
 
+    <!-- Logo e identidad visual -->
     <div class="servicio-card fade-in">
-      <div class="servicio-img" onclick="openLightbox('images/estudio_tags.jpg')">
-        <img src="images/estudio_tags.jpg" alt="Diseño de etiquetas y papelería MAMEMI">
+      <div class="servicio-img" onclick="openLightbox('images/logo_estudio.png')">
+        <img src="images/logo_estudio.png" alt="Logo MAMEMI Estudio Creativo" style="object-fit:contain; background:var(--mint-light); padding:1rem;">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="servicio-body">
@@ -183,6 +194,7 @@
       </div>
     </div>
 
+    <!-- Diseño web -->
     <div class="servicio-card fade-in">
       <div class="servicio-img" onclick="openLightbox('images/estudio_web.jpg')">
         <img src="images/estudio_web.jpg" alt="Diseño web MAMEMI">
@@ -200,9 +212,10 @@
       </div>
     </div>
 
+    <!-- Papelería y otros diseños -->
     <div class="servicio-card fade-in">
-      <div class="servicio-img" onclick="openLightbox('images/estudio_caja.jpg')">
-        <img src="images/estudio_caja.jpg" alt="Packaging y papelería diseñada por MAMEMI">
+      <div class="servicio-img" onclick="openLightbox('images/estudio_tags.jpg')">
+        <img src="images/estudio_tags.jpg" alt="Etiquetas y papelería MAMEMI">
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="servicio-body">
@@ -217,32 +230,6 @@
       </div>
     </div>
 
-  </div>
-</section>
-
-<section class="gallery-section">
-  <p class="section-label">Trabajos realizados</p>
-  <h2 class="section-title">Algunos ejemplos</h2>
-  <div class="sec-divider"></div>
-  <div class="gallery-grid">
-    <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_tarjetas.jpg')">
-      <img src="images/estudio_tarjetas.jpg" alt="Tarjetas de visita Estudi Caldes d'Estrac">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_caja.jpg')">
-      <img src="images/estudio_caja.jpg" alt="Caja packaging tarjetas de visita">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_tags.jpg')">
-      <img src="images/estudio_tags.jpg" alt="Etiquetas Colección Cocina MAMEMI">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox('images/bolsa_mamemi.jpg')">
-      <img src="images/bolsa_mamemi.jpg" alt="Bolsa MAMEMI Madera diseño propio">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox('images/estudio_creativo.jpg')">
-      <img src="images/estudio_creativo.jpg" alt="Tarjeta de visita MAMEMI Madera">
-    </div>
-    <div class="gallery-item fade-in" onclick="openLightbox('images/logo_estudio.png')" style="border:none; box-shadow:none;">
-      <img src="images/logo_estudio.png" alt="Logo MAMEMI Estudio Creativo" style="object-fit:contain; background:var(--mint-light); padding:1rem;">
-    </div>
   </div>
 </section>
 
@@ -262,6 +249,25 @@
 </div>
 
 <script>
+  // Carrusel tarjetas de visita
+  const tarjetasC = (function() {
+    let idx = 0;
+    const total = 2;
+    const track = document.getElementById('tarjetasTrack');
+    const dots = track?.closest('.mini-carousel').querySelectorAll('.mc-dot');
+    return {
+      move(dir) { idx = (idx + dir + total) % total; this.go(idx); },
+      go(i) {
+        idx = i;
+        if (track) track.style.transform = `translateX(-${i * 100}%)`;
+        dots?.forEach((d, j) => d.classList.toggle('active', j === i));
+      }
+    };
+  })();
+  function moveTarjetas(d) { tarjetasC.move(d); }
+  function goTarjetas(i) { tarjetasC.go(i); }
+  setInterval(() => tarjetasC.move(1), 3500);
+
   function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
   function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
