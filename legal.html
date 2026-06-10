@@ -19,9 +19,11 @@
     h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--wood-dark); margin: 2.5rem 0 0.8rem; }
     p { font-size: 0.92rem; color: var(--text-mid); line-height: 1.9; margin-bottom: 0.8rem; font-weight: 300; }
     ul { margin: 0.5rem 0 0.8rem 1.5rem; }
-    ul li { font-size: 0.9rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; }
+    ul li { font-size: 0.9rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; margin-bottom: 0.3rem; }
     strong { color: var(--wood-dark); font-weight: 700; }
     a { color: var(--mint-dark); }
+    .info-box { background: var(--mint-light); border-left: 3px solid var(--mint-dark); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin-bottom: 1.2rem; }
+    .info-box p { margin: 0; font-size: 0.9rem; }
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; }
     footer img { height: 36px; opacity: 0.6; filter: invert(1); }
     footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
@@ -39,9 +41,12 @@
   <div class="divider"></div>
 
   <h2>1. Titular del sitio web</h2>
-  <p><strong>Nombre comercial:</strong> MAMEMI Madera<br>
+  <p><strong>Nombre:</strong> Leticia Gómez de Francisco<br>
+  <strong>NIF:</strong> 70057016M<br>
+  <strong>Domicilio:</strong> C/ Santa Teresa 14, Caldes d'Estrac<br>
+  <strong>Nombre comercial:</strong> MAMEMI Madera<br>
   <strong>Web:</strong> www.mamemimadera.es<br>
-  <strong>Email:</strong> hola@mamemimadera.es</p>
+  <strong>Email:</strong> <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></p>
 
   <h2>2. Objeto</h2>
   <p>Este sitio web tiene como finalidad mostrar los productos artesanales de MAMEMI Madera y facilitar el contacto con la artesana para realizar pedidos personalizados. El uso de este sitio web implica la aceptación plena de las condiciones aquí establecidas.</p>
@@ -49,41 +54,50 @@
   <h2>3. Protección de datos personales (RGPD)</h2>
   <p>De conformidad con el <strong>Reglamento (UE) 2016/679 (RGPD)</strong> y la <strong>Ley Orgánica 3/2018 (LOPDGDD)</strong>, te informamos de lo siguiente:</p>
   <ul>
-    <li><strong>Responsable:</strong> MAMEMI Madera</li>
+    <li><strong>Responsable:</strong> Leticia Gómez de Francisco (MAMEMI Madera)</li>
     <li><strong>Finalidad:</strong> Gestionar los pedidos y consultas que realizas a través del sitio web o WhatsApp.</li>
     <li><strong>Legitimación:</strong> Ejecución de un contrato o consentimiento del interesado.</li>
-    <li><strong>Destinatarios:</strong> No se ceden datos a terceros, salvo obligación legal o proveedores de servicios de pago y envío necesarios para completar tu pedido.</li>
-    <li><strong>Conservación:</strong> Los datos se conservan durante el tiempo necesario para la gestión del pedido y el cumplimiento de obligaciones legales.</li>
-    <li><strong>Derechos:</strong> Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, portabilidad y limitación escribiendo a hola@mamemimadera.es.</li>
+    <li><strong>Destinatarios:</strong> No se ceden datos a terceros, salvo obligación legal o proveedores de servicios de pago (Redsys/CaixaBank) y envío necesarios para completar tu pedido.</li>
+    <li><strong>Conservación:</strong> Los datos se conservan durante el tiempo necesario para la gestión del pedido y el cumplimiento de obligaciones legales (generalmente 5 años en materia fiscal).</li>
+    <li><strong>Derechos:</strong> Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, portabilidad y limitación escribiendo a <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>. También puedes reclamar ante la AEPD en <a href="https://www.aepd.es" target="_blank">www.aepd.es</a>.</li>
   </ul>
 
   <h2>4. Política de cookies</h2>
-  <p>Este sitio web utiliza cookies técnicas estrictamente necesarias para su funcionamiento, así como cookies analíticas para mejorar la experiencia de navegación. No utilizamos cookies de terceros con fines publicitarios.</p>
-  <p><strong>Tipos de cookies que utilizamos:</strong></p>
+  <p>Este sitio web utiliza únicamente <strong>cookies técnicas estrictamente necesarias</strong> para su funcionamiento. No utilizamos cookies analíticas, de publicidad ni de terceros.</p>
   <ul>
-    <li><strong>Cookies técnicas:</strong> Necesarias para el funcionamiento del carrito y la navegación. No requieren consentimiento.</li>
-    <li><strong>Cookies de sesión:</strong> Se eliminan al cerrar el navegador.</li>
-    <li><strong>Cookies analíticas (opcionales):</strong> Nos ayudan a entender cómo se usa la web para mejorarla.</li>
+    <li><strong>mamemi_cart:</strong> guarda los productos añadidos al carrito de compra.</li>
+    <li><strong>mamemi_delivery:</strong> recuerda tu preferencia de entrega (envío o recogida en tienda).</li>
+    <li><strong>mamemi_orderref:</strong> referencia del pedido en curso.</li>
+    <li><strong>mamemi_address:</strong> guarda temporalmente la dirección de envío durante el proceso de compra.</li>
+    <li><strong>mamemi_datasent:</strong> indica si los datos del pedido han sido enviados correctamente.</li>
   </ul>
-  <p>Puedes configurar tu navegador para rechazar o eliminar las cookies en cualquier momento. Ten en cuenta que deshabilitar algunas cookies puede afectar al funcionamiento del sitio.</p>
+  <p>Estas cookies son necesarias para que el carrito funcione correctamente. Puedes configurar tu navegador para eliminarlas, aunque esto puede afectar al funcionamiento de la tienda.</p>
 
   <h2>5. Condiciones de compra</h2>
   <p>Al realizar un pedido en MAMEMI Madera, aceptas las siguientes condiciones:</p>
   <ul>
     <li>Los precios incluyen IVA.</li>
-    <li>Los gastos de envío son gratuitos en pedidos superiores a 60 €. Para pedidos inferiores, los gastos de envío se calcularán en el momento de la compra.</li>
-    <li>Los productos personalizados no admiten devolución salvo defecto de fabricación.</li>
-    <li>El plazo de producción varía según el producto. Se indicará al confirmar el pedido.</li>
-    <li>El pago se realiza de forma segura a través de la pasarela de pago habilitada. MAMEMI Madera no almacena datos bancarios.</li>
+    <li>Los gastos de envío son <strong>6 € por pedido</strong> y <strong>gratuitos en pedidos superiores a 60 €</strong>. La recogida en persona en l'Estudi (Caldes d'Estrac) tiene un descuento de 2 €.</li>
+    <li>El pago se realiza de forma segura a través de la pasarela Redsys/CaixaBank. MAMEMI Madera no almacena ni tiene acceso a tus datos bancarios.</li>
+    <li>El plazo de producción varía según el producto y se indicará al confirmar el pedido.</li>
   </ul>
 
-  <h2>6. Propiedad intelectual</h2>
-  <p>Todos los diseños, fotografías y contenidos de este sitio web son propiedad de MAMEMI Madera y están protegidos por la legislación de propiedad intelectual. Queda prohibida su reproducción sin autorización expresa.</p>
+  <h2>6. Devoluciones y derecho de desistimiento</h2>
+  <div class="info-box">
+    <p>✦ Si algo no va bien, escríbeme y lo resolvemos — <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></p>
+  </div>
+  <p>De acuerdo con el Real Decreto Legislativo 1/2007, tienes derecho a desistir de tu compra en un plazo de <strong>14 días naturales</strong> desde la recepción del pedido, sin necesidad de justificación.</p>
+  <p><strong>Excepción:</strong> El derecho de desistimiento <strong>no aplica a productos personalizados</strong> (placas de nacimiento, llaveros con nombre grabado, packs con datos personales, etc.), conforme al art. 103.c) de la citada ley, al ser fabricados expresamente según tus especificaciones.</p>
+  <p><strong>Productos que sí admiten devolución:</strong> ediciones limitadas sin personalización (llaveros de edición Mamemi sin nombre, imanes, discos sin nombre, tablas de cocina, servilleteros), siempre en perfectas condiciones y con embalaje original.</p>
+  <p>En caso de producto defectuoso o error en el pedido, me haré cargo de la reposición o reembolso sin coste adicional. El reembolso se realizará en un máximo de 14 días naturales por el mismo método de pago utilizado.</p>
 
-  <h2>7. Legislación aplicable</h2>
+  <h2>7. Propiedad intelectual</h2>
+  <p>Todos los diseños, fotografías y contenidos de este sitio web son propiedad de Leticia Gómez de Francisco y están protegidos por la legislación de propiedad intelectual. Queda prohibida su reproducción sin autorización expresa y por escrito.</p>
+
+  <h2>8. Legislación aplicable</h2>
   <p>Este aviso legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los Juzgados y Tribunales del domicilio del consumidor.</p>
 
-  <p style="margin-top:2rem; font-size:0.82rem; color: var(--text-mid); font-style:italic;">Última actualización: junio 2026</p>
+  <p style="margin-top:2rem; font-size:0.82rem; color: var(--text-mid); font-style:italic;">Última actualización: junio de 2026</p>
 </div>
 
 <footer>
