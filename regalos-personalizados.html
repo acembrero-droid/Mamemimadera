@@ -143,7 +143,6 @@
   <button class="back-btn" onclick="showGrid()">← Volver a Regalos Personalizados</button>
   <div class="products-grid">
 
-    <!-- Llavero personalizado -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
         <img src="images/llavero2.jpg" alt="Llavero personalizado">
@@ -203,7 +202,6 @@
       </div>
     </div>
 
-    <!-- Placa nacimiento -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/nacimiento.jpg')">
         <img src="images/nacimiento.jpg" alt="Placa nacimiento">
@@ -244,7 +242,6 @@
       </div>
     </div>
 
-    <!-- Placa profe -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_profe.jpg')">
         <img src="images/placa_profe.jpg" alt="Placa profe">
@@ -308,7 +305,6 @@
       </div>
     </div>
 
-    <!-- Placa cumpleaños -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_cumple.jpg')">
         <img src="images/placa_cumple.jpg" alt="Placa felicitación">
@@ -327,7 +323,6 @@
       </div>
     </div>
 
-    <!-- Nombre puerta -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/puerta.jpg')">
         <img src="images/puerta.jpg" alt="Nombre puerta">
@@ -372,7 +367,6 @@
       </div>
     </div>
 
-    <!-- Banderín -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/banderin.jpg')">
         <img src="images/banderin.jpg" alt="Banderín personalizado">
@@ -391,7 +385,6 @@
       </div>
     </div>
 
-    <!-- Placa especial -->
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_especial.jpg')">
         <img src="images/placa_especial.jpg" alt="Placa especial">
@@ -490,13 +483,31 @@
       <div class="product-body">
         <p class="product-cat">De cuero</p>
         <h3>Marcapáginas personalizado</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con el diseño que elijas. El precio de 15 € incluye diseño y grabado en una cara; por 18 € añades un diseño diferente en el otro lado.</p>
+        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con el diseño que elijas.</p>
         <div class="price-block">
-          <div class="price-row"><span>Diseño y grabado 1 cara</span><span class="amount">15 €</span></div>
-          <div class="price-row"><span>Diseño y grabado 2 caras</span><span class="amount">18 €</span></div>
+          <div class="price-row"><span>Diseño y grabado 1 cara</span><span class="amount">18 €</span></div>
+          <div class="price-row"><span>Diseño y grabado 2 caras</span><span class="amount">23 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20marcap%C3%A1ginas%20personalizado" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Grabado</label>
+            <select id="opt-marca-caras" onchange="updateMarca()">
+              <option value="18">Diseño y grabado 1 cara — 18 €</option>
+              <option value="23">Diseño y grabado 2 caras — 23 €</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-marca-caja" onchange="updateMarca()">
+              <option value="0">Bolsita rafia / algodón — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-total">18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartMarca()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20marcap%C3%A1ginas%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
@@ -541,10 +552,8 @@
   function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
   function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-
   window.addEventListener('beforeunload', () => { sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY); });
   const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
@@ -574,6 +583,21 @@
     const borla = document.getElementById('opt-llav-pers-borla');
     if (borla) opts['Borla'] = borla.value;
     addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price, options: opts });
+  }
+
+  // ── MARCAPÁGINAS ──
+  function updateMarca() {
+    const caras = parseFloat(document.getElementById('opt-marca-caras').value) || 18;
+    const caja = parseFloat(document.getElementById('opt-marca-caja').value) || 0;
+    document.getElementById('opt-marca-total').textContent = (caras + caja).toFixed(0) + ' €';
+  }
+  function addCartMarca() {
+    const caras = parseFloat(document.getElementById('opt-marca-caras').value) || 18;
+    const cajaExtra = parseFloat(document.getElementById('opt-marca-caja').value) || 0;
+    const price = caras + cajaExtra;
+    const opts = { 'Grabado': caras === 23 ? '2 caras' : '1 cara' };
+    opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita rafia/algodón';
+    addToCart({ id: 'marca-pers-' + Date.now(), name: 'Marcapáginas personalizado', price, options: opts });
   }
 
   // ── PLACA NACIMIENTO ──
