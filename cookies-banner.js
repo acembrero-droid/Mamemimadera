@@ -1,6 +1,5 @@
 // ── MAMEMI Madera · Banner de Cookies ──
 (function() {
-  // Solo mostrar si no ha aceptado/rechazado todavía
   if (localStorage.getItem('mamemi_cookies')) return;
 
   const banner = document.createElement('div');
@@ -10,11 +9,10 @@
       <div class="cookie-icon">🍪</div>
       <div class="cookie-text">
         <p class="cookie-title">¡Usamos cookies!</p>
-        <p class="cookie-desc">Usamos cookies técnicas necesarias para que la web funcione y cookies analíticas opcionales para mejorarla. No compartimos tus datos con nadie. <a href="legal.html" target="_blank">Más información</a></p>
+        <p class="cookie-desc">Usamos cookies técnicas necesarias para que el carrito y la navegación funcionen correctamente. No usamos cookies de publicidad ni analítica. <a href="legal.html" target="_blank">Más información</a></p>
       </div>
       <div class="cookie-btns">
-        <button class="cookie-btn accept" onclick="acceptCookies()">Aceptar todas</button>
-        <button class="cookie-btn reject" onclick="rejectCookies()">Solo necesarias</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()">Entendido</button>
       </div>
     </div>
   `;
@@ -27,7 +25,7 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 9999;
-      width: min(680px, calc(100vw - 2rem));
+      width: min(620px, calc(100vw - 2rem));
       background: #fff;
       border-radius: 20px;
       box-shadow: 0 8px 40px rgba(90,58,26,0.22);
@@ -74,14 +72,12 @@
     }
     .cookie-btns {
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
       flex-shrink: 0;
     }
     .cookie-btn {
       border: none;
       border-radius: 30px;
-      padding: 0.55rem 1.2rem;
+      padding: 0.55rem 1.4rem;
       font-family: 'Nunito', sans-serif;
       font-size: 0.78rem;
       font-weight: 700;
@@ -95,15 +91,9 @@
       color: #fff;
     }
     .cookie-btn.accept:hover { background: #6a9e8a; }
-    .cookie-btn.reject {
-      background: transparent;
-      color: #8b5e3c;
-      border: 1.5px solid #d4a96a;
-    }
-    .cookie-btn.reject:hover { background: #f5e9d6; }
     @media (max-width: 600px) {
       .cookie-inner { flex-direction: column; text-align: center; }
-      .cookie-btns { flex-direction: row; justify-content: center; }
+      .cookie-btns { justify-content: center; }
     }
   `;
 
@@ -111,12 +101,7 @@
   document.body.appendChild(banner);
 
   window.acceptCookies = function() {
-    localStorage.setItem('mamemi_cookies', 'all');
-    hideBanner();
-  };
-
-  window.rejectCookies = function() {
-    localStorage.setItem('mamemi_cookies', 'necessary');
+    localStorage.setItem('mamemi_cookies', 'accepted');
     hideBanner();
   };
 
