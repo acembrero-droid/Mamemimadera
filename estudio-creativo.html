@@ -21,12 +21,7 @@
     .nav-back:hover { color: var(--mint-dark); }
     .nav-cta { background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .nav-cta:hover { background: var(--mint-dark); }
-
-    .page-hero {
-      padding: 110px 2rem 4rem; background: var(--mint-light);
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 3rem; align-items: center; max-width: 1200px; margin: 0 auto;
-    }
+    .page-hero { padding: 110px 2rem 4rem; background: var(--mint-light); display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; max-width: 1200px; margin: 0 auto; }
     .hero-text .breadcrumb { font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem; letter-spacing: 0.1em; }
     .hero-text .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
     .hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--wood-deep); margin-bottom: 1rem; line-height: 1.2; }
@@ -35,9 +30,7 @@
     .hero-logo { display: flex; justify-content: center; align-items: center; }
     .hero-logo img { width: min(320px, 80%); height: auto; object-fit: contain; filter: drop-shadow(0 6px 20px rgba(90,58,26,0.15)); animation: floatLogo 4s ease-in-out infinite; }
     @keyframes floatLogo { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
-
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem 0 1.5rem; border-radius: 2px; }
-
     .sobre-section { background: var(--cream); padding: 4rem 2rem; }
     .sobre-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
     .sobre-img { border-radius: 20px; overflow: hidden; box-shadow: 0 6px 28px var(--shadow); }
@@ -46,13 +39,11 @@
     .sobre-text h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--wood-deep); margin-bottom: 1rem; line-height: 1.2; }
     .sobre-text p { color: var(--text-mid); font-size: 0.92rem; line-height: 1.85; font-weight: 300; margin-bottom: 0.8rem; }
     .sobre-text strong { color: var(--wood-dark); font-weight: 700; }
-
     .servicios-section { background: var(--cream2); padding: 4rem 2rem 5rem; }
     .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; }
     .sec-divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
     .servicios-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; max-width: 1100px; margin: 0 auto; }
-
     .servicio-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .servicio-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
     .servicio-img { height: 220px; overflow: hidden; cursor: zoom-in; position: relative; }
@@ -71,8 +62,6 @@
     .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
     .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-contact:hover { background: var(--mint-dark); }
-
-    /* CARRUSEL */
     .mini-carousel { position: relative; width: 100%; height: 220px; overflow: hidden; }
     .mini-track { display: flex; height: 100%; transition: transform 0.4s ease; }
     .mini-track img { width: 100%; height: 220px; object-fit: cover; flex-shrink: 0; cursor: zoom-in; }
@@ -81,13 +70,11 @@
     .mc-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.35rem; }
     .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
     .mc-dot.active { background: #fff; }
-
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
     .lightbox.active { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
     .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
     .lightbox-close:hover { background: rgba(255,255,255,0.3); }
-
     .info-banner { background: var(--wood-deep); color: var(--cream); padding: 2rem; text-align: center; }
     .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
     .info-banner strong { color: var(--wood-mid); }
@@ -132,8 +119,8 @@
     <div class="sobre-text fade-in">
       <p class="section-label">Quién hay detrás</p>
       <h2>Diseño con propósito</h2>
-      <p>Soy Leticia, y además de crear piezas en madera también <strong>diseño la identidad visual</strong> de proyectos y negocios. Creo en el diseño que cuenta una historia — que no solo se ve bien, sino que transmite exactamente lo que eres.</p>
-      <p>Trabajo con <strong>mimo y precisión</strong>, igual que con la madera. Cada proyecto es único y lo trato como si fuera el mío propio.</p>
+      <p>Soy Leticia. Estudié <strong>interiorismo en la Escuela de Arte y Diseño Deià de Barcelona</strong>, especializándome después en diseño de exteriores, y completé un <strong>máster en rehabilitación sostenible</strong>. Años trabajando en el ámbito del diseño y la construcción me enseñaron que lo que hace grande a un proyecto no es solo la técnica — es la coherencia visual, la atención al detalle y saber transmitir una identidad.</p>
+      <p>Eso es exactamente lo que aplico cuando diseño para ti: desde una tarjeta de visita hasta una web completa. Cada proyecto es único y lo trato como si fuera el mío propio.</p>
       <p>¿Tienes un negocio que necesita imagen? ¿Un proyecto que merece una identidad propia? Escríbeme y lo hablamos sin compromiso.</p>
       <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Estudio%20Creativo%20de%20MAMEMI" class="btn-contact" style="width:fit-content; display:inline-block;" target="_blank">Hablemos</a>
     </div>
@@ -147,7 +134,6 @@
 
   <div class="servicios-grid">
 
-    <!-- Tarjetas de visita con carrusel -->
     <div class="servicio-card fade-in">
       <div style="position:relative; height:220px;">
         <div class="mini-carousel">
@@ -176,7 +162,6 @@
       </div>
     </div>
 
-    <!-- Logo e identidad visual -->
     <div class="servicio-card fade-in">
       <div class="servicio-img" onclick="openLightbox('images/logo_estudio.png')">
         <img src="images/logo_estudio.png" alt="Logo MAMEMI Estudio Creativo" style="object-fit:contain; background:var(--mint-light); padding:1rem;">
@@ -194,7 +179,6 @@
       </div>
     </div>
 
-    <!-- Diseño web -->
     <div class="servicio-card fade-in">
       <div class="servicio-img" onclick="openLightbox('images/estudio_web.jpg')">
         <img src="images/estudio_web.jpg" alt="Diseño web MAMEMI">
@@ -212,7 +196,6 @@
       </div>
     </div>
 
-    <!-- Papelería y otros diseños -->
     <div class="servicio-card fade-in">
       <div class="servicio-img" onclick="openLightbox('images/estudio_tags.jpg')">
         <img src="images/estudio_tags.jpg" alt="Etiquetas y papelería MAMEMI">
@@ -249,7 +232,6 @@
 </div>
 
 <script>
-  // Carrusel tarjetas de visita
   const tarjetasC = (function() {
     let idx = 0;
     const total = 2;
