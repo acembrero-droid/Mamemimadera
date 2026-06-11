@@ -177,13 +177,15 @@
           <div class="opt-row">
             <label class="opt-label">Presentación</label>
             <select id="opt-llav-pers-caja" onchange="updateLlavPers()">
-              <option value="0">Bolsita rafia / algodón — incluida en el precio</option>
+              <option value="0">Bolsita de tela — incluida en el precio</option>
               <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
             </select>
           </div>
           <div class="opt-row">
-            <label class="opt-label">Color de la borla</label>
-            <select id="opt-llav-pers-borla">
+            <label class="opt-label">Borla</label>
+            <select id="opt-llav-pers-borla" onchange="updateLlavPers()">
+              <option value="Sin borla">Sin borla (−1 €)</option>
+              <option value="Me da igual">Me da igual el color</option>
               <option value="Verde brillante">Verde brillante</option>
               <option value="Amarillo">Amarillo</option>
               <option value="Marrón">Marrón</option>
@@ -500,7 +502,7 @@
           <div class="opt-row">
             <label class="opt-label">Presentación</label>
             <select id="opt-marca-caja" onchange="updateMarca()">
-              <option value="0">Bolsita rafia / algodón — incluida en el precio</option>
+              <option value="0">Bolsita de tela — incluida en el precio</option>
               <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
             </select>
           </div>
@@ -516,14 +518,7 @@
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
-  <span>
-    <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · 
-    <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a>
-  </span>
-  <span>
-    <a href="legal.html">Aviso Legal y Privacidad</a> · 
-    <a href="legal.html#devoluciones">Devoluciones</a>
-  </span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
 </footer>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -573,6 +568,8 @@
     const textoSel = document.getElementById('opt-llav-pers-nombre');
     const textoInput = document.getElementById('opt-llav-pers-texto');
     if (textoSel && textoInput) textoInput.style.display = textoSel.value === '1' ? 'block' : 'none';
+    const borlaVal = document.getElementById('opt-llav-pers-borla')?.value;
+    if (borlaVal === 'Sin borla') base -= 1;
     document.getElementById('opt-llav-pers-total').textContent = base.toFixed(0) + ' €';
   }
   function addCartLlavPers() {
@@ -586,9 +583,12 @@
       if (!texto) { alert('Por favor escribe el nombre o texto que quieres grabar.'); return; }
       opts['Texto'] = texto;
     }
-    opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita rafia/algodón';
+    opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
     const borla = document.getElementById('opt-llav-pers-borla');
-    if (borla) opts['Borla'] = borla.value;
+    if (borla) {
+      if (borla.value === 'Sin borla') { price -= 1; opts['Borla'] = 'Sin borla (−1 €)'; }
+      else { opts['Borla'] = borla.value; }
+    }
     addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price, options: opts });
   }
 
@@ -603,7 +603,7 @@
     const cajaExtra = parseFloat(document.getElementById('opt-marca-caja').value) || 0;
     const price = caras + cajaExtra;
     const opts = { 'Grabado': caras === 23 ? '2 caras' : '1 cara' };
-    opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita rafia/algodón';
+    opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
     addToCart({ id: 'marca-pers-' + Date.now(), name: 'Marcapáginas personalizado', price, options: opts });
   }
 
