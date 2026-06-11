@@ -332,10 +332,20 @@
         <h3>Marcapáginas magnético</h3>
         <p class="product-desc">Marcapáginas de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseños exclusivos Mamemi. Presentado en bolsita de tela, listo para regalar. Hasta agotar existencias.</p>
         <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">desde 15 €</span></div>
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
           <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'marcapag-mamemi',name:'Marcapáginas magnético Mamemi',price:15,options:{}})">Añadir al carrito</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-marca-cositas-caja" onchange="updateMarcaCositas()">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-cositas-total">18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartMarcaCositas()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20marcap%C3%A1ginas%20Mamemi" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -619,6 +629,17 @@
       }
     }
     addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
+  }
+
+  function updateMarcaCositas() {
+    const caja = parseFloat(document.getElementById('opt-marca-cositas-caja').value) || 0;
+    document.getElementById('opt-marca-cositas-total').textContent = (18 + caja).toFixed(0) + ' €';
+  }
+  function addCartMarcaCositas() {
+    const cajaExtra = parseFloat(document.getElementById('opt-marca-cositas-caja').value) || 0;
+    const price = 18 + cajaExtra;
+    const opts = { 'Presentación': cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela' };
+    addToCart({ id: 'marcapag-mamemi-' + Date.now(), name: 'Marcapáginas magnético Mamemi', price, options: opts });
   }
 
   function updateImanPrice(prefix) {
