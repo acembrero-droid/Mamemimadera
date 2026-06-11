@@ -192,7 +192,7 @@
               <option value="Azul marino">Azul marino</option>
             </select>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-mama-total">11 €</strong></div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-mama-total">12 €</strong></div>
         </div>
         <button class="btn-add-cart" onclick="addCartWithOpts('llav-mama','Llavero · Mamá',12)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20llavero%20Mam%C3%A1" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
@@ -246,7 +246,7 @@
               <option value="Azul marino">Azul marino</option>
             </select>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-mamemi-total">11 €</strong></div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-mamemi-total">12 €</strong></div>
         </div>
         <button class="btn-add-cart" onclick="addCartWithOpts('llav-mamemi','Llavero · MAMEMI Madera',12)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20llavero%20MAMEMI%20Madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
@@ -300,7 +300,7 @@
               <option value="Azul marino">Azul marino</option>
             </select>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-deportes-total">11 €</strong></div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-deportes-total">12 €</strong></div>
         </div>
         <button class="btn-add-cart" onclick="addCartWithOpts('llav-deportes','Llavero · Deportes',12)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20llavero%20Deportes" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
@@ -572,8 +572,6 @@
       if (nombreInput) nombreInput.style.display = nombreExtra > 0 ? 'block' : 'none';
       const cajaExtra = getOptVal('opt-' + prefix + '-caja');
       base += cajaExtra;
-      const borlaVal = document.getElementById('opt-' + prefix + '-borla')?.value;
-      // Sin descuento por sin borla
     }
     if (prefix === 'disco') {
       base = getOptVal('opt-disco-color') || 9;
