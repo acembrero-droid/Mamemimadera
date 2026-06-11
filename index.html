@@ -7,323 +7,113 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --wood-light: #f5e9d6;
-      --wood-mid:   #d4a96a;
-      --wood-dark:  #8b5e3c;
-      --wood-deep:  #5a3a1a;
-      --mint:       #a8c5b5;
-      --mint-light: #e0ede8;
-      --mint-dark:  #6a9e8a;
-      --cream:      #fdf8f0;
-      --cream2:     #f9f2e4;
-      --text:       #3a2510;
-      --text-mid:   #6b4c2a;
-      --shadow:     rgba(90,58,26,0.13);
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 200;
-      background: rgba(253,248,240,0.97);
-      backdrop-filter: blur(10px);
-      border-bottom: 1.5px solid var(--wood-light);
-      box-shadow: 0 2px 20px var(--shadow);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; height: 70px;
-    }
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
     .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
     .nav-links { display: flex; gap: 0; list-style: none; position: relative; }
     .nav-links > li { position: relative; }
-    .nav-links > li > a {
-      display: flex; align-items: center; gap: 4px;
-      padding: 0 1rem; height: 70px;
-      text-decoration: none; font-size: 0.8rem; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--text-mid); transition: color 0.2s;
-    }
+    .nav-links > li > a { display: flex; align-items: center; gap: 4px; padding: 0 1rem; height: 70px; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
     .nav-links > li > a:hover, .nav-links > li.active > a { color: var(--mint-dark); }
     .nav-links > li > a .arrow { font-size: 0.6rem; transition: transform 0.2s; }
     .nav-links > li:hover > a .arrow { transform: rotate(180deg); }
-
-    /* Dropdown */
-    .dropdown {
-      display: none; position: absolute; top: 70px; left: 0;
-      background: #fff; border: 1.5px solid var(--wood-light);
-      border-radius: 0 0 12px 12px;
-      box-shadow: 0 8px 30px var(--shadow);
-      min-width: 220px; z-index: 300;
-    }
+    .dropdown { display: none; position: absolute; top: 70px; left: 0; background: #fff; border: 1.5px solid var(--wood-light); border-radius: 0 0 12px 12px; box-shadow: 0 8px 30px var(--shadow); min-width: 220px; z-index: 300; }
     .nav-links > li:hover .dropdown { display: block; }
-    .dropdown a {
-      display: block; padding: 0.75rem 1.2rem;
-      text-decoration: none; font-size: 0.82rem; color: var(--text-mid);
-      font-weight: 600; border-bottom: 1px solid var(--wood-light);
-      transition: background 0.2s, color 0.2s;
-    }
+    .dropdown a { display: block; padding: 0.75rem 1.2rem; text-decoration: none; font-size: 0.82rem; color: var(--text-mid); font-weight: 600; border-bottom: 1px solid var(--wood-light); transition: background 0.2s, color 0.2s; }
     .dropdown a:last-child { border-bottom: none; border-radius: 0 0 12px 12px; }
     .dropdown a:hover { background: var(--mint-light); color: var(--mint-dark); }
-    .dropdown .sub-label {
-      padding: 0.4rem 1.2rem; font-size: 0.7rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.12em; color: var(--wood-mid);
-      border-bottom: 1px solid var(--wood-light); background: var(--cream2);
-    }
-
-    .nav-cta {
-      background: var(--wood-dark); color: #fff !important;
-      border-radius: 30px; padding: 0.5rem 1.2rem !important;
-      height: auto !important; margin-left: 0.5rem;
-      font-size: 0.78rem !important;
-      transition: background 0.25s !important;
-    }
+    .dropdown .sub-label { padding: 0.4rem 1.2rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--wood-mid); border-bottom: 1px solid var(--wood-light); background: var(--cream2); }
+    .nav-cta { background: var(--wood-dark); color: #fff !important; border-radius: 30px; padding: 0.5rem 1.2rem !important; height: auto !important; margin-left: 0.5rem; font-size: 0.78rem !important; transition: background 0.25s !important; }
     .nav-cta:hover { background: var(--mint-dark) !important; }
-
-    /* Hamburger */
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
     .mobile-logo { display: none; justify-content: center; margin-bottom: 1.5rem; }
     .mobile-logo img { width: 150px; height: 150px; object-fit: contain; }
     .hamburger span { width: 24px; height: 2px; background: var(--wood-dark); border-radius: 2px; transition: all 0.3s; }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 70px 0 0;
-      overflow: visible;
-      background: var(--mint-light);
-      position: relative;
-    }
-    .hero-left {
-      padding: 5rem 3rem 4rem 5rem;
-      display: flex; flex-direction: column; gap: 1.5rem;
-      background: var(--mint-light);
-    }
-    .hero-tag {
-      display: inline-block;
-      background: rgba(255,255,255,0.6); color: var(--wood-dark);
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 30px;
-      width: fit-content;
-    }
-    .hero-left h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
-      color: var(--wood-deep); line-height: 1.15;
-    }
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 70px 0 0; overflow: visible; background: var(--mint-light); position: relative; }
+    .hero-left { padding: 5rem 3rem 4rem 5rem; display: flex; flex-direction: column; gap: 1.5rem; background: var(--mint-light); }
+    .hero-tag { display: inline-block; background: rgba(255,255,255,0.6); color: var(--wood-dark); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 30px; width: fit-content; }
+    .hero-left h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.4rem); color: var(--wood-deep); line-height: 1.15; }
     .hero-left h1 em { color: var(--wood-dark); font-style: italic; }
-    .hero-left p {
-      font-size: 1.05rem; color: var(--text-mid);
-      line-height: 1.8; font-weight: 300; max-width: 480px;
-    }
+    .hero-left p { font-size: 1.05rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; max-width: 480px; }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary {
-      display: inline-block; padding: 0.85rem 2rem;
-      background: var(--wood-dark); color: #fff;
-      border-radius: 40px; text-decoration: none;
-      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; transition: all 0.3s;
-      box-shadow: 0 4px 16px rgba(139,94,60,0.35);
-    }
+    .btn-primary { display: inline-block; padding: 0.85rem 2rem; background: var(--wood-dark); color: #fff; border-radius: 40px; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; box-shadow: 0 4px 16px rgba(139,94,60,0.35); }
     .btn-primary:hover { background: var(--mint-dark); transform: translateY(-2px); }
-    .btn-secondary {
-      display: inline-block; padding: 0.85rem 2rem;
-      background: transparent; color: var(--wood-dark);
-      border: 2px solid var(--wood-dark); border-radius: 40px;
-      text-decoration: none; font-size: 0.85rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s;
-    }
+    .btn-secondary { display: inline-block; padding: 0.85rem 2rem; background: transparent; color: var(--wood-dark); border: 2px solid var(--wood-dark); border-radius: 40px; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; }
     .btn-secondary:hover { background: var(--wood-light); transform: translateY(-2px); }
-    .hero-right {
-      height: 100vh; position: relative; overflow: visible;
-    }
-    .hero-right img {
-      width: 100%; height: 100%; object-fit: cover;
-      object-position: center;
-    }
-    .hero-right::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to right, var(--mint-light) 0%, transparent 30%);
-    }
-    .hero-logo-float {
-      position: absolute; bottom: 2rem; right: 2rem; z-index: 50;
-      width: 160px; height: 160px;
-      background: rgba(253,248,240,0.95);
-      border-radius: 50%;
-      padding: 8px;
-      box-shadow: 0 6px 24px var(--shadow);
-      animation: floatLogo 4s ease-in-out infinite;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .hero-logo-float img {
-      width: 90%; height: 90%; object-fit: contain;
-    }
+    .hero-right { height: 100vh; position: relative; overflow: visible; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--mint-light) 0%, transparent 30%); }
+    .hero-logo-float { position: absolute; bottom: 2rem; right: 2rem; z-index: 50; width: 160px; height: 160px; background: rgba(253,248,240,0.95); border-radius: 50%; padding: 8px; box-shadow: 0 6px 24px var(--shadow); animation: floatLogo 4s ease-in-out infinite; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-logo-float img { width: 90%; height: 90%; object-fit: contain; }
     @keyframes floatLogo { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-    /* ── SECTION COMMONS ── */
     section { padding: 5rem 2rem; }
-    .section-label {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em;
-      text-transform: uppercase; color: var(--mint-dark);
-      text-align: center; margin-bottom: 0.5rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      color: var(--wood-deep); text-align: center;
-      margin-bottom: 0.5rem; line-height: 1.2;
-    }
+    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; line-height: 1.2; }
     .section-title em { color: var(--wood-dark); font-style: italic; }
-    .divider {
-      width: 50px; height: 2px; background: var(--wood-mid);
-      margin: 0.6rem auto 2.5rem; border-radius: 2px;
-    }
-
-    /* ── CATEGORÍAS ── */
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
     #categorias { background: var(--cream2); padding-bottom: 5rem; position: relative; z-index: 0; overflow: hidden; }
-    .cat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem; max-width: 1100px; margin: 0 auto;
-    }
-    .cat-card {
-      position: relative; border-radius: 20px; overflow: hidden; isolation: isolate;
-      cursor: pointer;
-      box-shadow: 0 4px 20px var(--shadow);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-decoration: none;
-    }
+    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
+    .cat-card { position: relative; border-radius: 20px; overflow: hidden; isolation: isolate; cursor: pointer; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; }
     .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
     .cat-card .img-wrap { width: 100%; height: 280px; overflow: hidden; }
-    .cat-card .img-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s ease;
-    }
+    .cat-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .cat-card:hover .img-wrap img { transform: scale(1.07); }
-    .cat-card .cat-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.5rem 1.5rem 1.2rem;
-      background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%);
-      color: #fff;
-    }
-    .cat-info h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
-    }
+    .cat-card .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.5rem 1.2rem; background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%); color: #fff; }
+    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
     .cat-info p { font-size: 0.8rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
-    .cat-info .cat-arrow {
-      display: inline-block; margin-top: 0.5rem;
-      background: rgba(255,255,255,0.2); border-radius: 30px;
-      padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.08em; backdrop-filter: blur(4px);
-      transition: background 0.25s;
-    }
+    .cat-info .cat-arrow { display: inline-block; margin-top: 0.5rem; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; backdrop-filter: blur(4px); transition: background 0.25s; }
     .cat-card:hover .cat-arrow { background: var(--mint-dark); }
-    .cat-card .sub-badge {
-      position: absolute; top: 1rem; left: 1rem;
-      background: var(--mint-dark); color: #fff;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px;
-    }
+    .cat-card .sub-badge { position: absolute; top: 1rem; left: 1rem; background: var(--mint-dark); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px; }
     .cat-card.estudio-card .img-wrap { background: var(--wood-deep); }
     .cat-card.estudio-card .cat-info { background: linear-gradient(to top, rgba(90,58,26,0.95) 0%, rgba(90,58,26,0.5) 60%, transparent 100%); }
     .cat-card.estudio-card .cat-arrow { background: rgba(168,197,181,0.3); }
     .cat-card.estudio-card:hover .cat-arrow { background: var(--mint-dark); }
-
-    /* ── SOBRE MÍ ── */
-    #sobre {
-      background: var(--cream);
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; padding: 0; align-items: stretch;
-    }
+    #sobre { background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; align-items: stretch; }
     .sobre-img { overflow: hidden; min-height: 480px; }
     .sobre-img img { width: 100%; height: 100%; object-fit: cover; }
-    .sobre-text {
-      padding: 5rem 4rem;
-      display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;
-    }
+    .sobre-text { padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; }
     .sobre-text .section-label { text-align: left; }
-    .sobre-text h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      color: var(--wood-deep); line-height: 1.2;
-    }
+    .sobre-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--wood-deep); line-height: 1.2; }
     .sobre-text p { color: var(--text-mid); line-height: 1.9; font-weight: 300; font-size: 0.98rem; }
     .sobre-text strong { color: var(--wood-dark); font-weight: 700; }
-
-    /* ── TESTIMONIOS ── */
     #testimonios { background: var(--wood-deep); color: var(--cream); }
     #testimonios .section-title { color: var(--wood-light); }
     #testimonios .section-label { color: var(--mint); }
     #testimonios .divider { background: var(--mint); }
-    .testi-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.4rem; max-width: 1000px; margin: 0 auto;
-    }
-    .testi-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px; padding: 1.8rem 1.5rem;
-      transition: background 0.25s;
-    }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.4rem; max-width: 1000px; margin: 0 auto; }
+    .testi-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; padding: 1.8rem 1.5rem; transition: background 0.25s; }
     .testi-card:hover { background: rgba(255,255,255,0.12); }
     .testi-stars { color: var(--wood-mid); font-size: 0.9rem; margin-bottom: 0.8rem; letter-spacing: 2px; }
     .testi-text { font-size: 0.9rem; line-height: 1.75; font-weight: 300; font-style: italic; margin-bottom: 1rem; }
     .testi-author { font-size: 0.8rem; font-weight: 700; color: var(--mint); letter-spacing: 0.05em; }
     .testi-product { font-size: 0.72rem; color: rgba(253,248,240,0.5); margin-top: 0.2rem; }
-
-    /* ── CONTACTO ── */
-    #contacto {
-      background: linear-gradient(135deg, var(--mint-light) 0%, var(--wood-light) 100%);
-      text-align: center;
-    }
+    #contacto { background: linear-gradient(135deg, var(--mint-light) 0%, var(--wood-light) 100%); text-align: center; }
     #contacto .section-title { color: var(--wood-deep); }
-    .contact-grid {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem;
-      margin-top: 2.5rem;
-    }
-    .contact-card {
-      background: #fff; border-radius: 16px; padding: 1.5rem 2rem;
-      box-shadow: 0 4px 20px var(--shadow); text-decoration: none;
-      color: var(--text); min-width: 200px;
-      transition: transform 0.25s, box-shadow 0.25s;
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-    }
+    .contact-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-top: 2.5rem; }
+    .contact-card { background: #fff; border-radius: 16px; padding: 1.5rem 2rem; box-shadow: 0 4px 20px var(--shadow); text-decoration: none; color: var(--text); min-width: 200px; transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
     .contact-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px var(--shadow); }
     .contact-card .icon { font-size: 1.8rem; }
     .contact-card .label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-mid); }
     .contact-card .value { font-size: 0.9rem; font-weight: 600; color: var(--wood-dark); }
     .contact-note { margin-top: 2rem; font-size: 0.85rem; color: var(--text-mid); font-weight: 300; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--wood-deep); color: rgba(253,248,240,0.5);
-      padding: 2rem 2.5rem;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1rem; font-size: 0.78rem;
-    }
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.5); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; }
     footer img { height: 40px; opacity: 0.7; filter: invert(1); }
     footer a { color: rgba(253,248,240,0.5); text-decoration: none; }
     footer a:hover { color: var(--mint); }
-
-    /* ── FADE IN ── */
     .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      #hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
+      #hero { grid-template-columns: 1fr; } .hero-right { display: none; }
       .hero-left { padding: 4rem 2rem 3rem; background: var(--mint-light); }
       .mobile-logo { display: flex !important; }
-      #sobre { grid-template-columns: 1fr; }
-      .sobre-img { min-height: 260px; }
-      .sobre-text { padding: 3rem 2rem; }
-      .cat-grid { grid-template-columns: 1fr 1fr; }
+      #sobre { grid-template-columns: 1fr; } .sobre-img { min-height: 260px; }
+      .sobre-text { padding: 3rem 2rem; } .cat-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
@@ -332,21 +122,10 @@
       .nav-links > li > a { height: 44px; font-size: 0.85rem; }
       .dropdown { display: block !important; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.5rem 1rem; }
       .dropdown a { font-size: 0.8rem; padding: 0.55rem 1rem; }
-      .hamburger { display: flex; }
-      .cat-grid { grid-template-columns: 1fr; }
+      .hamburger { display: flex; } .cat-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
-
-    .cart-btn {
-      background: #6a9e8a; color: #fff;
-      border: none !important; outline: none !important; border-radius: 30px;
-      padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif;
-      font-size: 0.78rem; font-weight: 700; cursor: pointer;
-      display: flex; align-items: center; gap: 0.4rem;
-      transition: background 0.25s; letter-spacing: 0.08em;
-      text-transform: uppercase; position: relative;
-      box-shadow: none !important; -webkit-appearance: none; appearance: none;
-    }
+    .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
     .cart-btn:hover { background: #4d8a72; }
     .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
     .cart-btn:active { outline: none !important; }
@@ -354,16 +133,9 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav>
   <a href="#" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="cositas-mamemi.html">Cositas Mamemi <span class="arrow">▾</span></a>
-      <div class="dropdown">
-        <a href="cositas-mamemi.html">Llaveros</a>
-        <a href="cositas-mamemi.html">Imanes</a>
-      </div>
-    </li>
     <li><a href="regalos-personalizados.html">Regalos Personalizados <span class="arrow">▾</span></a>
       <div class="dropdown">
         <a href="regalos-personalizados.html">Letra 3D autoportante</a>
@@ -373,20 +145,29 @@
         <a href="regalos-personalizados.html">Marcapáginas</a>
       </div>
     </li>
+    <li><a href="cositas-mamemi.html">Cositas Mamemi <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="cositas-mamemi.html">Llaveros</a>
+        <a href="cositas-mamemi.html">Imanes</a>
+      </div>
+    </li>
     <li><a href="packs-para-regalar.html">Packs para Regalar <span class="arrow">▾</span></a>
       <div class="dropdown">
         <a href="packs-para-regalar.html">Pack Nacimiento</a>
-      </div>
-    </li>
-    <li><a href="detallitos-eventos.html">Detallitos para Eventos <span class="arrow">▾</span></a>
-      <div class="dropdown">
-        <a href="detallitos-eventos.html">Libretas personalizadas</a>
       </div>
     </li>
     <li><a href="coleccion-cocina.html">Colección Cocina <span class="arrow">▾</span></a>
       <div class="dropdown">
         <div class="sub-label">Mar y Montaña</div>
         <a href="coleccion-cocina.html">Tabla de cocina</a>
+      </div>
+    </li>
+    <li><a href="detallitos-eventos.html">Detallitos para Eventos <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="detallitos-eventos.html">Bodas · Marcasitios</a>
+        <a href="detallitos-eventos.html">Imanes abrebotellas</a>
+        <a href="detallitos-eventos.html">Libretas personalizadas</a>
+        <a href="detallitos-eventos.html">Posavasos</a>
       </div>
     </li>
     <li><a href="estudio-creativo.html">Estudio Creativo <span class="arrow">▾</span></a>
@@ -410,13 +191,12 @@
   </div>
 </nav>
 
-<!-- ── HERO ── -->
 <section id="hero">
   <div class="hero-left fade-in">
     <div class="mobile-logo"><img src="images/logo.png" alt="MAMEMI Madera"></div>
     <span class="hero-tag">✦ Diseños con amor ✦</span>
     <h1>Regalos únicos<br>hechos con <em>mimo</em></h1>
-    <p>Diseño y creo piezas únicas combinando principalmente técnicas de grabado láser e impresión 3D con un proceso artesanal. Cada pieza es irrepetible, pensada exclusivamente para dar vida a esos momentos que merecen ser recordados para siempre.</p>
+    <p>Me apasiona experimentar, por eso combino herramientas actuales como el grabado láser y la impresión 3D con técnicas artesanales de toda la vida. Así doy vida a piezas únicas y personalizadas, pequeños tesoros irrepetibles creados para formar parte de las historias más bonitas.</p>
     <div class="hero-btns">
       <a href="#categorias" class="btn-primary">Ver productos</a>
       <a href="#contacto" class="btn-secondary">Contactar</a>
@@ -428,7 +208,6 @@
   </div>
 </section>
 
-<!-- ── SOBRE MÍ ── -->
 <section id="sobre">
   <div class="sobre-img">
     <img src="images/nacimiento.jpg" alt="Sobre MAMEMI Madera">
@@ -436,7 +215,7 @@
   <div class="sobre-text fade-in">
     <p class="section-label">El corazón de MAMEMI</p>
     <h2>Hola, soy <em style="font-style:italic; color:var(--mint-dark)">Leticia</em> y este es mi rincón creativo 👋</h2>
-    <p> Siempre me ha fascinado el diálogo entre los interiores y los exteriores: <strong>lo que protegemos en nuestro hogar y lo que dejamos crecer libremente en la naturaleza</strong>. Aprendí a observar ambos mundos con una mirada curiosa, buscando siempre la belleza <strong>en lo cotidiano, porque para mí, vivir en sintonía con lo natural es crear un espacio de bienestar donde el entorno y nosotros nos cuidamos mutuamente.</strong></p>
+    <p>Siempre me ha fascinado el diálogo entre los interiores y los exteriores: <strong>lo que protegemos en nuestro hogar y lo que dejamos crecer libremente en la naturaleza</strong>. Aprendí a observar ambos mundos con una mirada curiosa, buscando siempre la belleza <strong>en lo cotidiano, porque para mí, vivir en sintonía con lo natural es crear un espacio de bienestar donde el entorno y nosotros nos cuidamos mutuamente.</strong></p>
     <p>Me gusta tomar prestado un trozo de exterior y traerlo hacia dentro para crear <strong>rincones con alma de bosque</strong>, lugares que invitan a quedarse y que vuelvan especial cada momento a través de los olores, las texturas y el tacto bajo las manos.</p>
     <p>Por eso, cada pieza que diseño y creo lleva ese mismo mimo y ternura, porque no creo objetos vacíos, sino detalles que echan raíces y cuentan una historia: la de quien los recibe.</p>
     <p style="font-size:0.85rem; color:var(--text-mid);">✦ Todos los precios incluyen IVA</p>
@@ -444,22 +223,11 @@
   </div>
 </section>
 
-<!-- ── CATEGORÍAS ── -->
 <section id="categorias">
   <p class="section-label">Lo que creo</p>
   <h2 class="section-title">Mis <em>categorías</em></h2>
   <div class="divider"></div>
-
   <div class="cat-grid">
-
-    <a href="cositas-mamemi.html" class="cat-card fade-in" id="cat-cositas">
-      <div class="img-wrap"><img src="images/llavero.jpg" alt="Cositas Mamemi"></div>
-      <div class="cat-info">
-        <h3>Cositas Mamemi</h3>
-        <p>Ediciones limitadas · Diseños exclusivos Mamemi</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
-    </a>
 
     <a href="regalos-personalizados.html" class="cat-card fade-in" id="cat-regalos">
       <div class="img-wrap"><img src="images/letra3d.jpg" alt="Regalos Personalizados"></div>
@@ -470,20 +238,20 @@
       </div>
     </a>
 
+    <a href="cositas-mamemi.html" class="cat-card fade-in" id="cat-cositas">
+      <div class="img-wrap"><img src="images/llavero.jpg" alt="Cositas Mamemi"></div>
+      <div class="cat-info">
+        <h3>Cositas Mamemi</h3>
+        <p>Ediciones limitadas · Diseños exclusivos Mamemi</p>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
+
     <a href="packs-para-regalar.html" class="cat-card fade-in" id="cat-packs">
       <div class="img-wrap"><img src="images/pack_nac.jpg" alt="Packs para Regalar"></div>
       <div class="cat-info">
         <h3>Packs para Regalar</h3>
         <p>Cajas de nacimiento y más · Listos para sorprender</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
-    </a>
-
-    <a href="detallitos-eventos.html" class="cat-card fade-in" id="cat-eventos">
-      <div class="img-wrap"><img src="images/libretas.jpg" alt="Detallitos para Eventos"></div>
-      <div class="cat-info">
-        <h3>Detallitos para Eventos</h3>
-        <p>Libretas personalizadas · Detalles únicos</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -498,6 +266,15 @@
       </div>
     </a>
 
+    <a href="detallitos-eventos.html" class="cat-card fade-in" id="cat-eventos">
+      <div class="img-wrap"><img src="images/libretas.jpg" alt="Detallitos para Eventos"></div>
+      <div class="cat-info">
+        <h3>Detallitos para Eventos</h3>
+        <p>Bodas · Comuniones · Cumpleaños · Precio por volumen</p>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
+
     <a href="estudio-creativo.html" class="cat-card fade-in" id="cat-estudio">
       <div class="img-wrap"><img src="images/estudio_creativo.jpg" alt="Estudio Creativo"></div>
       <div class="cat-info">
@@ -508,7 +285,7 @@
     </a>
 
     <a href="el-taller.html" class="cat-card estudio-card fade-in" id="cat-el-estudio">
-      <div class="img-wrap"><img src="images/estudio_proceso.jpg" alt="El Estudio" onerror="this.style.display='none'; this.parentNode.style.background='var(--wood-deep)'"></div>
+      <div class="img-wrap"><img src="images/estudio_proceso.jpg" alt="El Taller" onerror="this.style.display='none'; this.parentNode.style.background='var(--wood-deep)'"></div>
       <div class="cat-info">
         <h3>¿Quieres entrar en mi taller?</h3>
         <p>Vídeos de proceso · Detrás de las piezas</p>
@@ -528,7 +305,6 @@
   </div>
 </section>
 
-<!-- ── TESTIMONIOS ── -->
 <section id="testimonios">
   <p class="section-label">Lo que dicen</p>
   <h2 class="section-title">Opiniones de <em style="color:var(--mint)">clientas</em></h2>
@@ -555,7 +331,6 @@
   </div>
 </section>
 
-<!-- ── CONTACTO ── -->
 <section id="contacto">
   <p class="section-label">¿Hablamos?</p>
   <h2 class="section-title">Escríbeme sin compromiso</h2>
@@ -563,36 +338,23 @@
   <p style="text-align:center; color:var(--text-mid); font-weight:300; max-width:500px; margin:0 auto;">¿Tienes dudas o quieres hacer un pedido personalizado? Contáctame por cualquiera de estos canales y te contesto lo antes posible.</p>
   <div class="contact-grid">
     <a href="https://instagram.com/mamemimadera" class="contact-card" target="_blank">
-      <span class="icon">📸</span>
-      <span class="label">Instagram</span>
-      <span class="value">@mamemimadera</span>
+      <span class="icon">📸</span><span class="label">Instagram</span><span class="value">@mamemimadera</span>
     </a>
     <a href="mailto:hola@mamemimadera.es" class="contact-card">
-      <span class="icon">✉️</span>
-      <span class="label">Email</span>
-      <span class="value">hola@mamemimadera.es</span>
+      <span class="icon">✉️</span><span class="label">Email</span><span class="value">hola@mamemimadera.es</span>
     </a>
     <a href="https://wa.me/34622562499" class="contact-card" target="_blank">
-      <span class="icon">💬</span>
-      <span class="label">WhatsApp</span>
-      <span class="value">Escríbeme</span>
+      <span class="icon">💬</span><span class="label">WhatsApp</span><span class="value">Escríbeme</span>
     </a>
   </div>
   <p class="contact-note">Respondo en 24–72 h · Realizo envíos a toda España</p>
 </section>
 
-<!-- ── FOOTER ── -->
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
-  <span>
-    <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · 
-    <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a>
-  </span>
-  <span>
-    <a href="legal.html">Aviso Legal y Privacidad</a> · 
-    <a href="legal.html#devoluciones">Devoluciones</a>
-  </span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  <span><a href="legal.html">Aviso Legal y Privacidad</a> · <a href="legal.html#devoluciones">Devoluciones</a></span>
 </footer>
 
 <script>
@@ -600,17 +362,11 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-
   document.querySelectorAll('.cat-card').forEach(card => {
-    card.addEventListener('click', () => {
-      sessionStorage.setItem('scrollPos_index', window.scrollY);
-    });
+    card.addEventListener('click', () => { sessionStorage.setItem('scrollPos_index', window.scrollY); });
   });
   const savedIdx = sessionStorage.getItem('scrollPos_index');
-  if (savedIdx && document.referrer.includes('mamemimadera')) {
-    window.scrollTo(0, parseInt(savedIdx));
-  }
-
+  if (savedIdx && document.referrer.includes('mamemimadera')) { window.scrollTo(0, parseInt(savedIdx)); }
   function scrollToSobre() {
     document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' });
     document.getElementById('navLinks').classList.remove('open');
