@@ -179,7 +179,7 @@
           <div class="opt-row">
             <label class="opt-label">Borla</label>
             <select id="opt-llav-mama-borla" onchange="updateOptPrice('llav-mama')">
-              <option value="Sin borla">Sin borla (−1 €)</option>
+              <option value="Sin borla">Sin borla</option>
               <option value="Me da igual">Me da igual el color</option>
               <option value="Verde brillante">Verde brillante</option>
               <option value="Amarillo">Amarillo</option>
@@ -233,7 +233,7 @@
           <div class="opt-row">
             <label class="opt-label">Borla</label>
             <select id="opt-llav-mamemi-borla" onchange="updateOptPrice('llav-mamemi')">
-              <option value="Sin borla">Sin borla (−1 €)</option>
+              <option value="Sin borla">Sin borla</option>
               <option value="Me da igual">Me da igual el color</option>
               <option value="Verde brillante">Verde brillante</option>
               <option value="Amarillo">Amarillo</option>
@@ -287,7 +287,7 @@
           <div class="opt-row">
             <label class="opt-label">Borla</label>
             <select id="opt-llav-deportes-borla" onchange="updateOptPrice('llav-deportes')">
-              <option value="Sin borla">Sin borla (−1 €)</option>
+              <option value="Sin borla">Sin borla</option>
               <option value="Me da igual">Me da igual el color</option>
               <option value="Verde brillante">Verde brillante</option>
               <option value="Amarillo">Amarillo</option>
@@ -573,7 +573,7 @@
       const cajaExtra = getOptVal('opt-' + prefix + '-caja');
       base += cajaExtra;
       const borlaVal = document.getElementById('opt-' + prefix + '-borla')?.value;
-      if (borlaVal === 'Sin borla') base -= 1;
+      // Sin descuento por sin borla
     }
     if (prefix === 'disco') {
       base = getOptVal('opt-disco-color') || 9;
@@ -602,7 +602,7 @@
       else { opts['Presentación'] = 'Bolsita de tela'; }
       const borla = document.getElementById('opt-' + prefix + '-borla');
       if (borla) {
-        if (borla.value === 'Sin borla') { price -= 1; opts['Borla'] = 'Sin borla (−1 €)'; }
+        if (borla.value === 'Sin borla') { opts['Borla'] = 'Sin borla'; }
         else { opts['Borla'] = borla.value; }
       }
     }
