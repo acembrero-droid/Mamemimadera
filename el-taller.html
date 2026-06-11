@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>El Taller – MAMEMI Madera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-back { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--mint-dark); }
+    .nav-cta { background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .nav-cta:hover { background: var(--mint-dark); }
+    .page-hero { padding: 110px 2rem 3rem; background: var(--mint-light); text-align: center; }
+    .breadcrumb { font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem; letter-spacing: 0.1em; }
+    .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); color: var(--wood-deep); margin-bottom: 0.8rem; }
+    .page-hero p { max-width: 580px; margin: 0 auto; color: var(--text-mid); font-size: 1rem; line-height: 1.8; font-weight: 300; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
+
+    /* GALERÍA */
+    .taller-section { padding: 4rem 2rem 5rem; max-width: 1100px; margin: 0 auto; }
+    .taller-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+    .taller-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; }
+    .taller-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
+    .taller-card img { width: 100%; height: 280px; object-fit: cover; cursor: zoom-in; transition: transform 0.4s; }
+    .taller-card:hover img { transform: scale(1.03); }
+    .taller-card-body { padding: 1.2rem 1.4rem 1.5rem; }
+    .taller-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); margin-bottom: 0.5rem; }
+    .taller-card-body p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+    .taller-card-date { font-size: 0.7rem; color: var(--wood-mid); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
+    .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+    .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
+    footer img { height: 36px; opacity: 0.6; filter: invert(1); }
+    footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 640px) { nav { padding: 0 1rem; } .taller-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <a href="index.html" class="nav-back">← Inicio</a>
+  <a href="https://wa.me/34622562499" class="nav-cta" target="_blank">Pedir ahora</a>
+</nav>
+
+<div class="page-hero">
+  <p class="breadcrumb"><a href="index.html">Inicio</a> · El Taller</p>
+  <h1>¿Quieres entrar en mi taller?</h1>
+  <div class="divider"></div>
+  <p>Este es mi rincón más personal: el lugar donde todo empieza. Entre diferentes materiales, procesos y momentos del día a día, te abro las puertas de mi espacio para que puedas asomarte y descubrir cómo nacen las piezas desde cero.</p>
+</div>
+
+<section class="taller-section">
+  <div class="taller-grid">
+
+    <!-- ── NUEVA ENTRADA — copia este bloque, cambia la imagen, el título, la fecha y el texto ── -->
+    <div class="taller-card fade-in">
+      <img src="images/IMG_5222.jpeg" alt="El espacio tomando forma" onclick="openLightbox(this.src)">
+      <div class="taller-card-body">
+        <p class="taller-card-date">Junio 2026</p>
+        <h3>El espacio está tomando forma</h3>
+        <p>Poco a poco va tomando vida mi propio rincón en el Estudi de Caldes d'Estrac. Un lugar lleno de encanto donde las ideas por fin se transforman en piezas reales creadas desde la calma, mimadas al detalle, envueltas con muchísima ilusión y a donde siempre podrás venir a visitarme.</p>
+      </div>
+    </div>
+    <!-- ── FIN ENTRADA ── -->
+
+  </div>
+</section>
+
+<div class="info-banner" style="background:var(--wood-deep);color:var(--cream);padding:2rem;text-align:center;">
+  <p style="font-size:0.88rem;font-weight:300;line-height:1.8;">✦ Todos los precios incluyen IVA · Realizo envíos a toda España ✦<br>
+  ¿Tienes dudas? Escríbeme a <strong style="color:var(--wood-mid);">hola@mamemimadera.es</strong> o por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-mid);font-weight:700;">WhatsApp</a></p>
+</div>
+
+<footer>
+  <img src="images/logo.png" alt="MAMEMI Madera">
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  <span><a href="legal.html">Aviso Legal y Privacidad</a> · <a href="legal.html#devoluciones">Devoluciones</a></span>
+</footer>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
