@@ -168,7 +168,7 @@
     text += `Subtotal: ${subtotal.toFixed(2)} €\n`;
     if (deliveryMode === 'tienda') {
       text += `Descuento entrega en persona: −${discount.toFixed(2)} €\n`;
-      text += `Entrega: l'Estudi | Caldes d'Estrac\n`;
+      text += `Entrega: Estudi | Caldes d'Estrac\n`;
     } else {
       text += `Envío: ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
       text += `────────────────────────\n`;
@@ -322,7 +322,7 @@
 
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
-      noteHtml = `🎀 Envoltorio mimado · Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">l'Estudi | Caldes d'Estrac</a>`;
+      noteHtml = `🎀 Envoltorio mimado · Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac</a>`;
     } else if (shipping === 0) {
       noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis!`;
     } else {
@@ -431,7 +431,7 @@
       addrSummary = `
         <div class="summary-block">
           <p class="summary-label">🏪 Entrega en persona</p>
-          <p><a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">l'Estudi | Caldes d'Estrac</a></p>
+          <p><a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac</a></p>
         </div>`;
     }
 
@@ -565,9 +565,9 @@
       .summary-label { font-size:0.7rem;font-weight:700;color:#5a3a1a;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.5rem; }
       .edit-link { background:none;border:none;color:#6a9e8a;font-size:0.7rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;text-decoration:underline; }
       .summary-block p { font-size:0.8rem;color:#6b4c2a;line-height:1.6; }
-      .cart-send-btn { display:block;width:100%;padding:0.85rem;background:#d4a96a;color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.25s;margin-bottom:0.5rem; }
-      .cart-send-btn:hover { background:#b8903a; }
-      .cart-send-btn.sent { background:#6a9e8a; }
+      .cart-send-btn { display:block;width:100%;padding:0.85rem;background:#6a9e8a;color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.25s;margin-bottom:0.5rem; }
+      .cart-send-btn:hover { background:#4d8a72; }
+      .cart-send-btn.sent { background:#4d8a72; }
       .cart-pay-btn { display:block;width:100%;padding:0.85rem;background:#8b5e3c;color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.25s;margin-bottom:0.5rem; }
       .cart-pay-btn:hover:not([disabled]) { background:#6a9e8a; }
       .cart-pay-sub { font-size:0.7rem;color:#6b4c2a;text-align:center; }
