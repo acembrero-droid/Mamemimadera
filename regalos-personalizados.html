@@ -568,8 +568,6 @@
     const textoSel = document.getElementById('opt-llav-pers-nombre');
     const textoInput = document.getElementById('opt-llav-pers-texto');
     if (textoSel && textoInput) textoInput.style.display = textoSel.value === '1' ? 'block' : 'none';
-    const borlaVal = document.getElementById('opt-llav-pers-borla')?.value;
-    // Sin descuento por sin borla
     document.getElementById('opt-llav-pers-total').textContent = base.toFixed(0) + ' €';
   }
   function addCartLlavPers() {
