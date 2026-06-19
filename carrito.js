@@ -3,7 +3,7 @@
 
   const SHIPPING_COST = 6.00;
   const FREE_SHIPPING_THRESHOLD = 60;
-  const PICKUP_DISCOUNT = 2;
+  const PICKUP_DISCOUNT_BASE = 1.66; // descuento aplicado a la base imponible
 
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio';
@@ -71,6 +71,10 @@
     return amount - getBaseImponible(amount);
   }
 
+  function getTotalSinDescuento(subtotal, shipping) {
+    return subtotal + shipping;
+  }
+
   function getShipping(subtotal) {
     if (deliveryMode === 'tienda') return 0;
     return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
@@ -78,7 +82,7 @@
 
   function getPickupDiscount() {
     if (deliveryMode !== 'tienda' || cart.length === 0) return 0;
-    return PICKUP_DISCOUNT;
+    return PICKUP_DISCOUNT_BASE * 1.21; // descuento sobre base imponible, reflejado en el total con IVA
   }
 
   function cartTotal() {
@@ -173,13 +177,16 @@
       }
     });
     text += `────────────────────────\n`;
-    text += `Base imponible: ${getBaseImponible(subtotal).toFixed(2)} €\n`;
-    text += `IVA (21%): ${getIVA(subtotal).toFixed(2)} €\n`;
     if (deliveryMode === 'tienda') {
-      text += `Descuento entrega en persona: −${discount.toFixed(2)} €\n`;
+      const baseConDescuento = subtotal - PICKUP_DISCOUNT_BASE;
+      text += `Base imponible: ${getBaseImponible(baseConDescuento).toFixed(2)} €\n`;
+      text += `IVA (21%): ${getIVA(baseConDescuento).toFixed(2)} € (incluye descuento de ${PICKUP_DISCOUNT_BASE.toFixed(2)} € en base por recogida)\n`;
       text += `Entrega: Estudi | Caldes d'Estrac\n`;
     } else {
+      const totalConEnvio = subtotal + shipping;
+      text += `Base imponible: ${getBaseImponible(subtotal).toFixed(2)} €\n`;
       text += `Envío: ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
+      text += `IVA (21%): ${getIVA(totalConEnvio).toFixed(2)} €\n`;
       text += `────────────────────────\n`;
       text += `DIRECCIÓN DE ENVÍO:\n`;
       text += `${addr.nombre}\n`;
@@ -349,15 +356,20 @@
         <button class="delivery-btn ${deliveryMode === 'tienda' ? 'active' : ''}" onclick="setDeliveryMode('tienda')">
           <span class="delivery-icon">🏪</span>
           Entrega en persona
-          <span class="delivery-price">− 2 € · El Estudi</span>
+          <span class="delivery-price">Descuento · El Estudi</span>
         </button>
       </div>
       <div class="cart-items-list">${itemsHtml}</div>
       <div class="cart-step-footer">
         <div class="cart-totals">
-          <div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
-          <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(subtotal).toFixed(2)} €</span></div>
-          ${shippingLine}
+          ${deliveryMode === 'tienda'
+            ? `<div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal - PICKUP_DISCOUNT_BASE).toFixed(2)} €</span></div>
+               <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(subtotal - PICKUP_DISCOUNT_BASE).toFixed(2)} €</span></div>
+               <div class="cart-total-row" style="font-size:0.7rem;opacity:0.7;"><span>· incluye descuento de ${PICKUP_DISCOUNT_BASE.toFixed(2)} € en base imponible por recogida</span><span></span></div>`
+            : `<div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
+               <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>
+               <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(getTotalSinDescuento(subtotal, shipping)).toFixed(2)} €</span></div>`
+          }
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
         <p class="cart-note">${noteHtml}</p>
@@ -458,9 +470,14 @@
       <div class="summary-items">${itemsSummary}</div>
       ${addrSummary}
       <div class="cart-totals" style="padding:0.8rem 0;border-top:1px dashed #f5e9d6;">
-        <div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
-        <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(subtotal).toFixed(2)} €</span></div>
-        ${shippingLine}
+        ${deliveryMode === 'tienda'
+          ? `<div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal - PICKUP_DISCOUNT_BASE).toFixed(2)} €</span></div>
+             <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(subtotal - PICKUP_DISCOUNT_BASE).toFixed(2)} €</span></div>
+             <div class="cart-total-row" style="font-size:0.7rem;opacity:0.7;"><span>· incluye descuento de ${PICKUP_DISCOUNT_BASE.toFixed(2)} € en base imponible por recogida</span><span></span></div>`
+          : `<div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
+             <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>
+             <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(getTotalSinDescuento(subtotal, shipping)).toFixed(2)} €</span></div>`
+        }
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
       <div class="cart-step-footer">
