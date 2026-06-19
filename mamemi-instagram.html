@@ -101,6 +101,7 @@
     <option value="proceso">Proceso completo</option>
     <option value="packaging">Packaging</option>
     <option value="diseno">Diseño digital</option>
+    <option value="estudio">Estudio Creativo</option>
     <option value="error">Las que no salieron a la primera</option>
   </select>
 </div>
@@ -114,6 +115,7 @@
   <button class="filter-btn" onclick="filterVideos('proceso', this)">Proceso completo</button>
   <button class="filter-btn" onclick="filterVideos('packaging', this)">Packaging</button>
   <button class="filter-btn" onclick="filterVideos('diseno', this)">Diseño digital</button>
+  <button class="filter-btn" onclick="filterVideos('estudio', this)">Estudio Creativo</button>
   <button class="filter-btn error-btn" onclick="filterVideos('error', this)">Las que no salieron a la primera</button>
   <button class="filter-reset-btn" onclick="filterVideos('todos', document.querySelector('.filter-btn'))">✕ Ver todos</button>
 </div>
@@ -326,6 +328,21 @@
         <h3>Packaging · Tabla colección Mar</h3>
         <div class="card-meta">
           <a href="https://www.instagram.com/reel/DZYKZVnIiU9/" class="btn-reel" target="_blank">📸 Ver en Instagram</a>
+          <span class="card-platform">Instagram</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card fade-in" data-cat="estudio">
+      <div class="video-thumb">
+        <img src="images/reel_estudio_web.jpg" alt="Mi propia web de MAMEMI Estudio Creativo">
+        <div class="thumb-overlay" onclick="window.open('https://www.instagram.com/reel/DZk-8YnI7aI/','_blank')" style="cursor:pointer;"><div class="play-circle">▶</div></div>
+      </div>
+      <div class="card-body">
+        <span class="card-tag">Estudio Creativo</span>
+        <h3>He diseñado mi propia web · ¡Pronto estará operativa!</h3>
+        <div class="card-meta">
+          <a href="https://www.instagram.com/reel/DZk-8YnI7aI/" class="btn-reel" target="_blank">📸 Ver en Instagram</a>
           <span class="card-platform">Instagram</span>
         </div>
       </div>
