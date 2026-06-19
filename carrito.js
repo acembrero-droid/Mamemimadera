@@ -63,6 +63,14 @@
     return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
   }
 
+  function getBaseImponible(amount) {
+    return amount / 1.21;
+  }
+
+  function getIVA(amount) {
+    return amount - getBaseImponible(amount);
+  }
+
   function getShipping(subtotal) {
     if (deliveryMode === 'tienda') return 0;
     return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
@@ -165,7 +173,8 @@
       }
     });
     text += `────────────────────────\n`;
-    text += `Subtotal: ${subtotal.toFixed(2)} €\n`;
+    text += `Base imponible: ${getBaseImponible(subtotal).toFixed(2)} €\n`;
+    text += `IVA (21%): ${getIVA(subtotal).toFixed(2)} €\n`;
     if (deliveryMode === 'tienda') {
       text += `Descuento entrega en persona: −${discount.toFixed(2)} €\n`;
       text += `Entrega: Estudi | Caldes d'Estrac\n`;
@@ -346,7 +355,8 @@
       <div class="cart-items-list">${itemsHtml}</div>
       <div class="cart-step-footer">
         <div class="cart-totals">
-          <div class="cart-total-row"><span>Subtotal</span><span>${subtotal.toFixed(2)} €</span></div>
+          <div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
+          <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(subtotal).toFixed(2)} €</span></div>
           ${shippingLine}
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
@@ -448,7 +458,8 @@
       <div class="summary-items">${itemsSummary}</div>
       ${addrSummary}
       <div class="cart-totals" style="padding:0.8rem 0;border-top:1px dashed #f5e9d6;">
-        <div class="cart-total-row"><span>Subtotal</span><span>${subtotal.toFixed(2)} €</span></div>
+        <div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
+        <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(subtotal).toFixed(2)} €</span></div>
         ${shippingLine}
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
