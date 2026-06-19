@@ -17,8 +17,8 @@
     body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
     nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
     .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
-    .nav-links { display: flex; gap: 0; list-style: none; position: relative; }
-    .nav-links > li { position: relative; }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; position: relative; }
+    .nav-links > li { position: relative; display: flex; align-items: center; }
     .nav-links > li > a { display: flex; align-items: center; gap: 4px; padding: 0 1rem; height: 70px; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
     .nav-links > li > a:hover, .nav-links > li.active > a { color: var(--mint-dark); }
     .nav-links > li > a .arrow { font-size: 0.6rem; transition: transform 0.2s; }
@@ -29,7 +29,7 @@
     .dropdown a:last-child { border-bottom: none; border-radius: 0 0 12px 12px; }
     .dropdown a:hover { background: var(--mint-light); color: var(--mint-dark); }
     .dropdown .sub-label { padding: 0.4rem 1.2rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--wood-mid); border-bottom: 1px solid var(--wood-light); background: var(--cream2); }
-    .nav-cta { background: var(--wood-dark); color: #fff !important; border-radius: 30px; padding: 0.5rem 1.2rem !important; height: auto !important; margin-left: 0.5rem; font-size: 0.78rem !important; transition: background 0.25s !important; }
+    .nav-cta { background: var(--wood-dark); color: #fff !important; border-radius: 30px; padding: 0.5rem 1.2rem !important; height: auto !important; margin-left: 0.5rem; font-size: 0.78rem !important; transition: background 0.25s !important; align-self: center; }
     .nav-cta:hover { background: var(--mint-dark) !important; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
     .mobile-logo { display: none; justify-content: center; margin-bottom: 1.5rem; }
