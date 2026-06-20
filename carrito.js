@@ -89,11 +89,7 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     if (deliveryMode === 'tienda') {
-      const baseImponible = getBaseImponible(subtotal);
-      const discount = getPickupDiscount();
-      const baseConDescuento = baseImponible - discount;
-      const iva = baseConDescuento * 0.21;
-      return baseConDescuento + iva;
+      return subtotal - getPickupDiscount();
     }
     return subtotal + shipping;
   }
@@ -186,17 +182,13 @@
     });
     text += `────────────────────────\n`;
     if (deliveryMode === 'tienda') {
-      const baseImponible = getBaseImponible(subtotal);
-      const baseConDescuento = baseImponible - discount;
-      text += `Base imponible: ${baseImponible.toFixed(2)} €\n`;
-      text += `Descuento por recogida en tienda: −${discount.toFixed(2)} €\n`;
-      text += `IVA (21%): ${(baseConDescuento * 0.21).toFixed(2)} €\n`;
+      text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
+      text += `Precio especial recogida en tienda: −${discount.toFixed(2)} €\n`;
+      text += `(Sin gastos de caja, precinto ni gestión de envío)\n`;
       text += `Entrega: Estudi | Caldes d'Estrac\n`;
     } else {
-      const totalConEnvio = subtotal + shipping;
-      text += `Base imponible: ${getBaseImponible(subtotal).toFixed(2)} €\n`;
+      text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
       text += `Envío: ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
-      text += `IVA (21%): ${getIVA(totalConEnvio).toFixed(2)} €\n`;
       text += `────────────────────────\n`;
       text += `DIRECCIÓN DE ENVÍO:\n`;
       text += `${addr.nombre}\n`;
@@ -361,24 +353,21 @@
         <button class="delivery-btn ${deliveryMode === 'envio' ? 'active' : ''}" onclick="setDeliveryMode('envio')">
           <span class="delivery-icon">🚚</span>
           Envío a domicilio
-          <span class="delivery-price">6 € (gratis +60 €)</span>
         </button>
         <button class="delivery-btn ${deliveryMode === 'tienda' ? 'active' : ''}" onclick="setDeliveryMode('tienda')">
-          <span class="delivery-icon">🏪</span>
+          <span class="delivery-icon">🤝</span>
           Entrega en persona
-          <span class="delivery-price">Precio especial recogida</span>
         </button>
       </div>
       <div class="cart-items-list">${itemsHtml}</div>
       <div class="cart-step-footer">
         <div class="cart-totals">
           ${deliveryMode === 'tienda'
-            ? `<div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
-               <div class="cart-total-row discount"><span>Descuento por recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>
-               <div class="cart-total-row"><span>IVA (21%)</span><span>${((getBaseImponible(subtotal) - discount) * 0.21).toFixed(2)} €</span></div>`
-            : `<div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
-               <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>
-               <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(getTotalSinDescuento(subtotal, shipping)).toFixed(2)} €</span></div>`
+            ? `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
+               <div class="cart-total-row discount"><span>Precio especial recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>
+               <div class="cart-total-row" style="font-size:0.7rem;opacity:0.75;font-style:italic;"><span>· Sin gastos de caja, precinto ni gestión de envío</span><span></span></div>`
+            : `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
+               <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
           }
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
@@ -479,14 +468,13 @@
       </div>
       <div class="summary-items">${itemsSummary}</div>
       ${addrSummary}
-      <div class="cart-totals" style="padding:0.8rem 0;border-top:1px dashed #f5e9d6;">
+      <div class="cart-totals" style="padding:0.8rem 1.5rem;border-top:1px dashed #f5e9d6;">
         ${deliveryMode === 'tienda'
-          ? `<div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
-             <div class="cart-total-row discount"><span>Descuento por recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>
-             <div class="cart-total-row"><span>IVA (21%)</span><span>${((getBaseImponible(subtotal) - discount) * 0.21).toFixed(2)} €</span></div>`
-          : `<div class="cart-total-row"><span>Base imponible</span><span>${getBaseImponible(subtotal).toFixed(2)} €</span></div>
-             <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>
-             <div class="cart-total-row"><span>IVA (21%)</span><span>${getIVA(getTotalSinDescuento(subtotal, shipping)).toFixed(2)} €</span></div>`
+          ? `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
+             <div class="cart-total-row discount"><span>Precio especial recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>
+             <div class="cart-total-row" style="font-size:0.7rem;opacity:0.75;font-style:italic;"><span>· Sin gastos de caja, precinto ni gestión de envío</span><span></span></div>`
+          : `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
+             <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
         }
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
