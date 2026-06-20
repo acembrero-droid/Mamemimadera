@@ -9,7 +9,7 @@
       <div class="cookie-icon">🍪</div>
       <div class="cookie-text">
         <p class="cookie-title">¡Usamos cookies!</p>
-        <p class="cookie-desc">Usamos cookies técnicas necesarias para que el carrito y la navegación funcionen correctamente. No usamos cookies de publicidad ni analítica. <a href="legal.html" target="_blank">Más información</a></p>
+        <p class="cookie-desc">Uso cookies técnicas necesarias para que el carrito y la navegación funcionen correctamente. No uso cookies de publicidad ni analítica. <a href="legal.html" target="_blank">Más información</a></p>
       </div>
       <div class="cookie-btns">
         <button class="cookie-btn accept" onclick="acceptCookies()">Entendido</button>
