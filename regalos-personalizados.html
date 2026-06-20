@@ -62,8 +62,10 @@
       .products-grid.is-carousel > .product-card { flex: 0 0 calc((100% - 1.8rem) / 2); }
     }
     @media (max-width: 640px) {
-      .products-grid.is-carousel > .product-card { flex: 0 0 85%; }
+      .products-grid.is-carousel { display: grid; grid-template-columns: 1fr; overflow-x: visible; }
+      .products-grid.is-carousel > .product-card { flex: initial; min-width: 0; }
       .carousel-nav-btn { display: none; }
+      .products-carousel-wrap::after { display: none; }
     }
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
