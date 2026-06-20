@@ -348,7 +348,7 @@
 
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
-      noteHtml = `🎀 Envoltorio mimado · Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac</a>`;
+      noteHtml = `🎀 Envoltorio mimado · Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac</a><br><span style="font-size:0.68rem;opacity:0.75;">✦ Al recoger en persona te ahorras los costes de envío (sobre, precinto, desplazamiento), por eso el precio es más bajo</span>`;
     } else if (shipping === 0) {
       noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis!`;
     } else {
@@ -366,7 +366,7 @@
         <button class="delivery-btn ${deliveryMode === 'tienda' ? 'active' : ''}" onclick="setDeliveryMode('tienda')">
           <span class="delivery-icon">🏪</span>
           Entrega en persona
-          <span class="delivery-price">Descuento · El Estudi</span>
+          <span class="delivery-price">Precio especial recogida</span>
         </button>
       </div>
       <div class="cart-items-list">${itemsHtml}</div>
