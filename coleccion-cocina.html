@@ -183,6 +183,7 @@
             <span class="carousel-dot" onclick="goToSlide('mar', 1)"></span>
           </div>
         </div>
+        <span class="zoom-icon">🔍</span>
         <span class="mar-badge">🌊 Mar</span>
       </div>
       <div class="product-body">
@@ -234,21 +235,24 @@
   <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
   <div class="products-grid">
     <div class="product-card fade-in">
-      <div class="carousel" id="serv-carousel">
-        <div class="carousel-track" id="serv-track">
-          <div class="carousel-slide" onclick="openLightbox('images/servilletero1.jpg')">
-            <img src="images/servilletero1.jpg" alt="Pack servilleteros de mimbre">
+      <div style="position:relative;">
+        <div class="carousel" id="serv-carousel">
+          <div class="carousel-track" id="serv-track">
+            <div class="carousel-slide" onclick="openLightbox('images/servilletero1.jpg')">
+              <img src="images/servilletero1.jpg" alt="Pack servilleteros de mimbre">
+            </div>
+            <div class="carousel-slide" onclick="openLightbox('images/servilletero2.jpg')">
+              <img src="images/servilletero2.jpg" alt="Servilletero de mimbre con servilleta">
+            </div>
           </div>
-          <div class="carousel-slide" onclick="openLightbox('images/servilletero2.jpg')">
-            <img src="images/servilletero2.jpg" alt="Servilletero de mimbre con servilleta">
+          <button class="carousel-btn prev" onclick="moveCarousel('serv', -1)">‹</button>
+          <button class="carousel-btn next" onclick="moveCarousel('serv', 1)">›</button>
+          <div class="carousel-dots">
+            <span class="carousel-dot active" onclick="goToSlide('serv', 0)"></span>
+            <span class="carousel-dot" onclick="goToSlide('serv', 1)"></span>
           </div>
         </div>
-        <button class="carousel-btn prev" onclick="moveCarousel('serv', -1)">‹</button>
-        <button class="carousel-btn next" onclick="moveCarousel('serv', 1)">›</button>
-        <div class="carousel-dots">
-          <span class="carousel-dot active" onclick="goToSlide('serv', 0)"></span>
-          <span class="carousel-dot" onclick="goToSlide('serv', 1)"></span>
-        </div>
+        <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
         <p class="product-cat">Mamemi en la mesa</p>
