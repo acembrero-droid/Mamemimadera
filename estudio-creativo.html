@@ -75,6 +75,11 @@
     .lightbox.active { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
     .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+    .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 2rem; width: 52px; height: 52px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1001; transition: background 0.2s; }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+    .lightbox-nav.prev { left: 1rem; }
+    .lightbox-nav.next { right: 1rem; }
+    @media (max-width: 640px) { .lightbox-nav { width: 42px; height: 42px; font-size: 1.6rem; } .lightbox-nav.prev { left: 0.4rem; } .lightbox-nav.next { right: 0.4rem; } }
     .lightbox-close:hover { background: rgba(255,255,255,0.3); }
     .info-banner { background: var(--wood-deep); color: var(--cream); padding: 2rem; text-align: center; }
     .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
@@ -144,8 +149,8 @@
       <div style="position:relative; height:220px;">
         <div class="mini-carousel">
           <div class="mini-track" id="tarjetasTrack">
-            <img src="images/estudio_creativo.jpg" alt="Tarjeta de visita MAMEMI" onclick="openLightbox(this.src)">
-            <img src="images/estudio_tarjetas.jpg" alt="Tarjetas de visita diseñadas por MAMEMI" onclick="openLightbox(this.src)">
+            <img src="images/estudio_creativo.jpg" alt="Tarjeta de visita MAMEMI" onclick="openLightbox(this.src, this)">
+            <img src="images/estudio_tarjetas.jpg" alt="Tarjetas de visita diseñadas por MAMEMI" onclick="openLightbox(this.src, this)">
           </div>
           <button class="mc-btn mc-prev" onclick="moveTarjetas(-1)">‹</button>
           <button class="mc-btn mc-next" onclick="moveTarjetas(1)">›</button>
@@ -233,9 +238,11 @@
   <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
 </footer>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
-  <img id="lightbox-img" src="" alt="">
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <span class="lightbox-close" onclick="closeLightbox(event)">✕</span>
+  <button class="lightbox-nav prev" id="lightbox-prev" onclick="lightboxMove(event, -1)" style="display:none;">‹</button>
+  <button class="lightbox-nav next" id="lightbox-next" onclick="lightboxMove(event, 1)" style="display:none;">›</button>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
 <script>
@@ -257,9 +264,39 @@
   function goTarjetas(i) { tarjetasC.go(i); }
   setInterval(() => tarjetasC.move(1), 3500);
 
-  function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  let lightboxImages = [];
+  let lightboxIdx = 0;
+  function openLightbox(src, el) {
+    const imgEl = el || (window.event && window.event.currentTarget);
+    const carousel = imgEl ? imgEl.closest('.mini-carousel') : null;
+    if (carousel) {
+      lightboxImages = Array.from(carousel.querySelectorAll('img')).map(i => i.src);
+      lightboxIdx = lightboxImages.indexOf(src);
+      if (lightboxIdx === -1) lightboxIdx = 0;
+    } else {
+      lightboxImages = [src];
+      lightboxIdx = 0;
+    }
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxIdx];
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    const showNav = lightboxImages.length > 1;
+    document.getElementById('lightbox-prev').style.display = showNav ? 'flex' : 'none';
+    document.getElementById('lightbox-next').style.display = showNav ? 'flex' : 'none';
+  }
+  function lightboxMove(e, dir) {
+    e.stopPropagation();
+    if (lightboxImages.length < 2) return;
+    lightboxIdx = (lightboxIdx + dir + lightboxImages.length) % lightboxImages.length;
+    document.getElementById('lightbox-img').src = lightboxImages[lightboxIdx];
+  }
+  function closeLightbox(e) { if (e) e.stopPropagation(); document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lightboxMove(e, -1);
+    if (e.key === 'ArrowRight') lightboxMove(e, 1);
+  });
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
