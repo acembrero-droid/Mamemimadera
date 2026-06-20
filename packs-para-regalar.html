@@ -50,8 +50,8 @@
     .back-btn:hover { background: var(--wood-light); }
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
-    .product-img { position: relative; height: 260px; overflow: hidden; cursor: zoom-in; }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .product-img { position: relative; height: 260px; overflow: hidden; cursor: zoom-in; background: var(--cream); }
+    .product-img img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s; }
     .product-card:hover .product-img img { transform: scale(1.05); }
     .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
     .product-card:hover .zoom-icon { opacity: 1; }
