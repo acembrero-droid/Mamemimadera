@@ -47,7 +47,24 @@
     .product-page.active { display: block; }
     .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
     .back-btn:hover { background: var(--wood-light); }
+    .products-carousel-wrap { position: relative; max-width: 1100px; margin: 0 auto; }
+    .products-carousel-wrap::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0.5rem; width: 60px; background: linear-gradient(to right, transparent, var(--cream)); pointer-events: none; z-index: 5; }
     .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; align-items: start; }
+    .products-grid.is-carousel { display: flex; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; -ms-overflow-style: none; }
+    .products-grid.is-carousel::-webkit-scrollbar { display: none; }
+    .products-grid.is-carousel { scrollbar-width: none; }
+    .products-grid.is-carousel > .product-card { flex: 0 0 calc((100% - 3.6rem) / 3); scroll-snap-align: start; min-width: 280px; }
+    .carousel-nav-btn { position: absolute; top: 35%; transform: translateY(-50%); background: #fff; border: 1.5px solid var(--wood-light); color: var(--wood-dark); border-radius: 50%; width: 44px; height: 44px; font-size: 1.3rem; cursor: pointer; box-shadow: 0 4px 14px var(--shadow); z-index: 10; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .carousel-nav-btn:hover { background: var(--wood-light); }
+    .carousel-nav-btn.prev { left: -22px; }
+    .carousel-nav-btn.next { right: -22px; }
+    @media (max-width: 900px) {
+      .products-grid.is-carousel > .product-card { flex: 0 0 calc((100% - 1.8rem) / 2); }
+    }
+    @media (max-width: 640px) {
+      .products-grid.is-carousel > .product-card { flex: 0 0 85%; }
+      .carousel-nav-btn { display: none; }
+    }
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
     .product-img { position: relative; height: 250px; overflow: hidden; cursor: zoom-in; }
@@ -87,7 +104,7 @@
     footer a:hover { color: var(--mint); }
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .products-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+    @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .products-grid:not(.is-carousel) { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
     .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-add-cart:hover { background: var(--wood-dark); }
     .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
@@ -141,7 +158,10 @@
 <!-- ── EN MADERA ── -->
 <div class="product-page" id="page-madera">
   <button class="back-btn" onclick="showGrid()">← Volver a Regalos Personalizados</button>
-  <div class="products-grid">
+  <div class="products-carousel-wrap">
+    <button class="carousel-nav-btn prev" onclick="scrollProducts('madera', -1)">‹</button>
+    <button class="carousel-nav-btn next" onclick="scrollProducts('madera', 1)">›</button>
+    <div class="products-grid is-carousel" id="grid-madera">
 
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
@@ -405,6 +425,7 @@
       </div>
     </div>
 
+    </div>
   </div>
 </div>
 
@@ -535,6 +556,14 @@
 </div>
 
 <script>
+  function scrollProducts(page, dir) {
+    const grid = document.getElementById('grid-' + page);
+    if (!grid) return;
+    const card = grid.querySelector('.product-card');
+    const cardWidth = card ? card.getBoundingClientRect().width + 28.8 : 300;
+    grid.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+  }
+
   const pageNames = { madera: 'En madera', '3d': 'Con impresión 3D', cuero: 'De cuero' };
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
