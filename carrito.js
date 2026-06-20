@@ -3,7 +3,7 @@
 
   const SHIPPING_COST = 6.00;
   const FREE_SHIPPING_THRESHOLD = 60;
-  const PICKUP_DISCOUNT = 1.66; // descuento aplicado a la base imponible antes de IVA
+  const PICKUP_DISCOUNT = 2.00; // descuento por recogida en tienda
 
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio';
