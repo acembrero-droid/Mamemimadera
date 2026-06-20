@@ -16,6 +16,7 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
     nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
     .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
     .nav-back { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--mint-dark); }
@@ -91,7 +92,16 @@
     footer a:hover { color: var(--mint); }
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 640px) { nav { padding: 0 1rem; } .cat-grid, .products-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+    @media (max-width: 640px) {
+      nav { padding: 0 0.8rem; }
+      .nav-actions { gap: 0.4rem; }
+      .nav-back { font-size: 0.7rem; }
+      .nav-cta { padding: 0.45rem 0.8rem !important; font-size: 0.68rem !important; }
+      .cart-btn { padding: 0.45rem 0.8rem; font-size: 0.68rem; }
+      .cat-grid, .products-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 380px) { .nav-back { display: none; } }
     .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-add-cart:hover { background: var(--wood-dark); }
     .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
@@ -113,8 +123,10 @@
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <a href="index.html" class="nav-back">← Inicio</a>
-  <a href="https://wa.me/34622562499?text=Hola!%20Tengo%20una%20duda" target="_blank" class="nav-cta">¿Hablamos?</a>
-  <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
+  <div class="nav-actions">
+    <a href="https://wa.me/34622562499?text=Hola!%20Tengo%20una%20duda" target="_blank" class="nav-cta">¿Hablamos?</a>
+    <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
+  </div>
 </nav>
 
 <div class="page-hero">
