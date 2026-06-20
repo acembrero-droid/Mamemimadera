@@ -3,7 +3,7 @@
 
   const SHIPPING_COST = 6.00;
   const FREE_SHIPPING_THRESHOLD = 60;
-  const PICKUP_DISCOUNT = 1.655; // descuento aplicado a la base imponible antes de IVA
+  const PICKUP_DISCOUNT = 1.66; // descuento aplicado a la base imponible antes de IVA
 
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio';
@@ -172,7 +172,7 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const discount = getPickupDiscount();
-    const total = subtotal + shipping - discount;
+    const total = cartTotal();
 
     let text = `🛍️ NUEVO PEDIDO MAMEMI MADERA\n`;
     text += `Referencia: ${orderRef}\n`;
@@ -310,7 +310,7 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const discount = getPickupDiscount();
-    const total = subtotal + shipping - discount;
+    const total = cartTotal();
 
     if (cart.length === 0) {
       body.innerHTML = `
@@ -441,7 +441,7 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const discount = getPickupDiscount();
-    const total = subtotal + shipping - discount;
+    const total = cartTotal();
     const dataSent = localStorage.getItem('mamemi_datasent') === orderRef;
     const addr = deliveryMode === 'envio'
       ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
