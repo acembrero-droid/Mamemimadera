@@ -75,6 +75,12 @@
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 640px) { nav { padding: 0 1rem; } .blog-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
+    .nav-cta { background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .nav-cta:hover { background: var(--mint-dark); }
+    .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
+    .cart-btn:hover { background: #4d8a72; }
+    .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
+    .cart-btn:active { outline: none !important; }
   </style>
 </head>
 <body>
@@ -82,6 +88,8 @@
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <a href="index.html" class="nav-back">← Inicio</a>
+  <a href="https://wa.me/34622562499?text=Hola!%20Tengo%20una%20duda" class="nav-cta" target="_blank">¿Hablamos?</a>
+  <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
 </nav>
 
 <div class="page-hero">
@@ -398,5 +406,6 @@
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script>
 <script src="cookies-banner.js"></script>
+<script src="carrito.js"></script>
 </body>
 </html>
