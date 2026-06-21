@@ -233,7 +233,10 @@
     renderStep();
   };
 
-  window.checkout = function() {
+  // ═══════════════════════════════════════════════════════
+  // LÓGICA DE PAGO ACTUALIZADA (CONECTADA A CLOUDFLARE)
+  // ═══════════════════════════════════════════════════════
+  window.checkout = async function() {
     if (cart.length === 0) return;
 
     const dataSent = localStorage.getItem('mamemi_datasent');
@@ -245,33 +248,74 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const discount = getPickupDiscount();
-    const finalTotal = (subtotal + shipping - discount) * 100;
-    const items = cart.map(i => `${i.qty}x ${i.name}`).join(', ');
-    const addr = deliveryMode === 'envio' ? getShippingAddress() : {};
+    // Redsys exige el importe en céntimos
+    const finalTotalCentimos = Math.round((subtotal + shipping - discount) * 100); 
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'pago.php';
-    form.style.display = 'none';
+    // OBTENER EL BOTÓN Y CAMBIAR SU ESTADO
+    const payBtn = document.querySelector('.cart-pay-btn');
+    const textoOriginalBoton = payBtn ? payBtn.innerHTML : '';
+    if (payBtn) {
+        payBtn.innerText = "⏳ Conectando con el banco...";
+        payBtn.style.opacity = '0.7';
+        payBtn.style.cursor = 'wait';
+        payBtn.disabled = true;
+    }
 
-    const fields = {
-      amount:      Math.round(finalTotal),
-      order:       orderRef,
-      description: items.substring(0, 125),
-      cart:        JSON.stringify(cart),
-      delivery:    deliveryMode,
-      address:     JSON.stringify(addr),
-    };
+    // REDSYS: El número de pedido debe empezar por al menos 4 dígitos numéricos.
+    // Como tu orderRef es "MM12345678", extraemos solo los números para evitar bloqueos del banco.
+    const redsysOrder = orderRef.replace(/\D/g, ''); 
 
-    Object.entries(fields).forEach(([k, v]) => {
-      const input = document.createElement('input');
-      input.type = 'hidden'; input.name = k; input.value = v;
-      form.appendChild(input);
-    });
+    try {
+        // 1. LLAMADA A TU WORKER DE CLOUDFLARE
+        const respuesta = await fetch('https://api-pagos.a-cembrero.workers.dev/api/generar-firma', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                importe: finalTotalCentimos,
+                pedido: redsysOrder 
+            }) 
+        });
 
-    document.body.appendChild(form);
-    form.submit();
+        if (!respuesta.ok) throw new Error("Error en la conexión con el servidor seguro");
+        const datosFirma = await respuesta.json();
+
+        // 2. CREACIÓN DEL FORMULARIO INVISIBLE
+        const form = document.createElement('form');
+        form.method = 'POST';
+        // URL de pruebas de Redsys
+        form.action = 'https://sis-t.redsys.es:25443/sis/realizarPago'; 
+
+        const addInput = (name, value) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        };
+
+        addInput('Ds_MerchantParameters', datosFirma.Ds_MerchantParameters);
+        addInput('Ds_SignatureVersion', 'HMAC_SHA256_V1');
+        addInput('Ds_Signature', datosFirma.Ds_Signature);
+
+        // 3. ENVÍO AL BANCO
+        document.body.appendChild(form);
+        form.submit();
+
+    } catch (error) {
+        console.error("Error al procesar el pago:", error);
+        alert("Hubo un problema de conexión con la pasarela segura. Por favor, inténtelo de nuevo.");
+        
+        // Si hay error, restauramos el botón
+        if (payBtn) {
+            payBtn.innerHTML = textoOriginalBoton;
+            payBtn.style.opacity = '1';
+            payBtn.style.cursor = 'pointer';
+            payBtn.disabled = false;
+        }
+    }
   };
+  // ═══════════════════════════════════════════════════════
+
 
   // ── RENDER STEPS ──
   function renderStep() {
