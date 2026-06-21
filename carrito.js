@@ -278,8 +278,9 @@
 
         if (!respuesta.ok) throw new Error("Error en la conexión con el servidor seguro");
         const datosFirma = await respuesta.json();
-
-        // 2. CREACIÓN DEL FORMULARIO INVISIBLE
+        alert(JSON.stringify(datosFirma, null, 2));
+        
+      // 2. CREACIÓN DEL FORMULARIO INVISIBLE
         const form = document.createElement('form');
         form.method = 'POST';
         // URL de pruebas de Redsys
