@@ -263,7 +263,8 @@
 
     // REDSYS: El número de pedido debe empezar por al menos 4 dígitos numéricos.
     // Como tu orderRef es "MM12345678", extraemos solo los números para evitar bloqueos del banco.
-    const redsysOrder = orderRef.replace(/\D/g, ''); 
+    // Número de pedido único para Redsys en cada intento (independiente del orderRef de WhatsApp/email)
+const redsysOrder = Date.now().toString().slice(-12);
 
     try {
         // 1. LLAMADA A TU WORKER DE CLOUDFLARE
