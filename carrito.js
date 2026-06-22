@@ -278,7 +278,6 @@
 
         if (!respuesta.ok) throw new Error("Error en la conexión con el servidor seguro");
         const datosFirma = await respuesta.json();
-        prompt('Copia esto:', JSON.stringify(datosFirma));
         
       // 2. CREACIÓN DEL FORMULARIO INVISIBLE
         const form = document.createElement('form');
