@@ -31,7 +31,6 @@
       cart.push({ ...product, qty: product.qty || 1 });
     }
     orderRef = generateRef();
-    localStorage.removeItem('mamemi_datasent');
     saveCart();
     showCartNotification(product.name);
   };
@@ -50,7 +49,6 @@
   window.clearCart = function() {
     cart = [];
     orderRef = generateRef();
-    localStorage.removeItem('mamemi_datasent');
     saveCart();
   };
 
@@ -215,65 +213,57 @@
     renderStep();
   };
 
-  window.sendOrderData = function() {
-    const addr = deliveryMode === 'envio' ? getShippingAddress() : {};
-    const summary = buildOrderSummary(addr);
-
-    // WhatsApp
-    window.open('https://wa.me/34622562499?text=' + encodeURIComponent(summary), '_blank');
-
-    // Email con delay
-    setTimeout(() => {
-      const mailSubject = encodeURIComponent('Pedido MAMEMI Madera · Ref: ' + orderRef);
-      const mailBody = encodeURIComponent(summary);
-      window.open('mailto:hola@mamemimadera.es?subject=' + mailSubject + '&body=' + mailBody, '_blank');
-    }, 1000);
-
-    localStorage.setItem('mamemi_datasent', orderRef);
-    renderStep();
-  };
-
   // ═══════════════════════════════════════════════════════
-  // LÓGICA DE PAGO ACTUALIZADA (CONECTADA A CLOUDFLARE)
+  // PAGAR · envía el pedido por email Y va a Redsys, todo junto
   // ═══════════════════════════════════════════════════════
   window.checkout = async function() {
     if (cart.length === 0) return;
 
-    const dataSent = localStorage.getItem('mamemi_datasent');
-    if (dataSent !== orderRef) {
-      alert('Por favor envía primero los datos del pedido a Leticia.');
-      return;
+    // Si es envío a domicilio, nos asegurarnos de que la dirección esté completa
+    if (deliveryMode === 'envio') {
+      const missing = validateShippingAddress();
+      if (missing.length > 0) {
+        currentStep = 2;
+        renderStep();
+        alert('Por favor completa la dirección de envío:\n\n• ' + missing.join('\n• '));
+        return;
+      }
     }
+
+    const addr = deliveryMode === 'envio' ? getShippingAddress() : {};
+    const summary = buildOrderSummary(addr);
 
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const discount = getPickupDiscount();
     // Redsys exige el importe en céntimos
-    const finalTotalCentimos = Math.round((subtotal + shipping - discount) * 100); 
+    const finalTotalCentimos = Math.round((subtotal + shipping - discount) * 100);
 
-    // OBTENER EL BOTÓN Y CAMBIAR SU ESTADO
     const payBtn = document.querySelector('.cart-pay-btn');
     const textoOriginalBoton = payBtn ? payBtn.innerHTML : '';
     if (payBtn) {
-        payBtn.innerText = "⏳ Conectando con el banco...";
+        payBtn.innerText = "⏳ Enviando pedido y conectando con el banco...";
         payBtn.style.opacity = '0.7';
         payBtn.style.cursor = 'wait';
         payBtn.disabled = true;
     }
 
     // Número de pedido único para Redsys en CADA intento de pago
-    // (independiente del orderRef de WhatsApp/email, que no cambia)
     const redsysOrder = Date.now().toString().slice(-12);
 
     try {
-        // 1. LLAMADA A TU WORKER DE CLOUDFLARE
-        const respuesta = await fetch('https://api-pagos.a-cembrero.workers.dev/api/generar-firma', {
+        // Llamada a nuestro propio backend: envía el email del pedido
+        // Y genera la firma de Redsys, todo en una sola petición
+        const respuesta = await fetch('https://mamemimadera.es/procesar-pago.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 importe: finalTotalCentimos,
-                pedido: redsysOrder 
-            }) 
+                pedido: redsysOrder,
+                referencia: orderRef,
+                resumen: summary,
+                emailCliente: addr.email || ''
+            })
         });
 
         if (!respuesta.ok) {
@@ -282,11 +272,11 @@
         }
         const datosFirma = await respuesta.json();
 
-        // 2. CREACIÓN DEL FORMULARIO INVISIBLE
+        // Creación del formulario invisible hacia Redsys
         const form = document.createElement('form');
         form.method = 'POST';
-        // URL de pruebas de Redsys
-        form.action = 'https://sis-t.redsys.es:25443/sis/realizarPago'; 
+        // URL de pruebas de Redsys — cambiar a la real cuando paséis a producción
+        form.action = 'https://sis-t.redsys.es:25443/sis/realizarPago';
 
         const addInput = (name, value) => {
             const input = document.createElement('input');
@@ -300,15 +290,13 @@
         addInput('Ds_SignatureVersion', 'HMAC_SHA256_V1');
         addInput('Ds_Signature', datosFirma.Ds_Signature);
 
-        // 3. ENVÍO AL BANCO
         document.body.appendChild(form);
         form.submit();
 
     } catch (error) {
         console.error("Error al procesar el pago:", error);
         alert("Hubo un problema de conexión con la pasarela segura. Por favor, inténtelo de nuevo.");
-        
-        // Si hay error, restauramos el botón
+
         if (payBtn) {
             payBtn.innerHTML = textoOriginalBoton;
             payBtn.style.opacity = '1';
@@ -478,7 +466,6 @@
     const shipping = getShipping(subtotal);
     const discount = getPickupDiscount();
     const total = cartTotal();
-    const dataSent = localStorage.getItem('mamemi_datasent') === orderRef;
     const addr = deliveryMode === 'envio'
       ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
       : {};
@@ -503,10 +490,6 @@
         </div>`;
     }
 
-    const shippingLine = deliveryMode === 'tienda'
-      ? `<div class="cart-total-row discount"><span>Entrega en persona</span><span>− ${discount.toFixed(2)} €</span></div>`
-      : `<div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`;
-
     body.innerHTML = `
       <div class="cart-step-header">
         <button class="cart-back-step" onclick="goToStep(${deliveryMode === 'tienda' ? 1 : 2})">← Volver</button>
@@ -526,11 +509,8 @@
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
       <div class="cart-step-footer">
-        <p style="font-size:0.72rem;color:#6b4c2a;text-align:center;margin-bottom:0.6rem;">Primero envía los datos a Leticia, luego procede al pago</p>
-        <button class="cart-send-btn ${dataSent ? 'sent' : ''}" onclick="sendOrderData()">
-          ${dataSent ? '✅ Datos enviados · Volver a enviar' : '📩 Enviar datos del pedido a Leticia'}
-        </button>
-        <button class="cart-pay-btn" onclick="checkout()" ${!dataSent ? 'disabled' : ''} style="opacity:${dataSent ? 1 : 0.4};cursor:${dataSent ? 'pointer' : 'not-allowed'};">
+        <p style="font-size:0.72rem;color:#6b4c2a;text-align:center;margin-bottom:0.6rem;">Al pulsar "Pagar" recibirás el pedido por email automáticamente y accederás a la pasarela segura del banco</p>
+        <button class="cart-pay-btn" onclick="checkout()">
           🔒 Pagar ahora — ${total.toFixed(2)} €
         </button>
         <div class="cart-pay-sub">
@@ -638,9 +618,6 @@
       .summary-label { font-size:0.7rem;font-weight:700;color:#5a3a1a;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.5rem; }
       .edit-link { background:none;border:none;color:#6a9e8a;font-size:0.7rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;text-decoration:underline; }
       .summary-block p { font-size:0.8rem;color:#6b4c2a;line-height:1.6; }
-      .cart-send-btn { display:block;width:100%;padding:0.85rem;background:#6a9e8a;color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.25s;margin-bottom:0.5rem; }
-      .cart-send-btn:hover { background:#4d8a72; }
-      .cart-send-btn.sent { background:#4d8a72; }
       .cart-pay-btn { display:block;width:100%;padding:0.85rem;background:#8b5e3c;color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.25s;margin-bottom:0.5rem; }
       .cart-pay-btn:hover:not([disabled]) { background:#6a9e8a; }
       .cart-pay-sub { font-size:0.7rem;color:#6b4c2a;text-align:center; }
