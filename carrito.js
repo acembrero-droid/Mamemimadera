@@ -261,10 +261,9 @@
         payBtn.disabled = true;
     }
 
-    // REDSYS: El número de pedido debe empezar por al menos 4 dígitos numéricos.
-    // Como tu orderRef es "MM12345678", extraemos solo los números para evitar bloqueos del banco.
-    // Número de pedido único para Redsys en cada intento (independiente del orderRef de WhatsApp/email)
-const redsysOrder = Date.now().toString().slice(-12);
+    // Número de pedido único para Redsys en CADA intento de pago
+    // (independiente del orderRef de WhatsApp/email, que no cambia)
+    const redsysOrder = Date.now().toString().slice(-12);
 
     try {
         // 1. LLAMADA A TU WORKER DE CLOUDFLARE
@@ -277,10 +276,13 @@ const redsysOrder = Date.now().toString().slice(-12);
             }) 
         });
 
-        if (!respuesta.ok) throw new Error("Error en la conexión con el servidor seguro");
+        if (!respuesta.ok) {
+            const textoError = await respuesta.text();
+            throw new Error(textoError);
+        }
         const datosFirma = await respuesta.json();
-        
-      // 2. CREACIÓN DEL FORMULARIO INVISIBLE
+
+        // 2. CREACIÓN DEL FORMULARIO INVISIBLE
         const form = document.createElement('form');
         form.method = 'POST';
         // URL de pruebas de Redsys
@@ -692,10 +694,21 @@ const redsysOrder = Date.now().toString().slice(-12);
     updateCartBadge();
   }
 
+  // Si venimos de la página de "pago no completado" con ?reintentar=pago,
+  // abrimos el carrito directo en el paso de pago para reintentar.
+  function checkRetryParam() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('reintentar') === 'pago' && cart.length > 0) {
+        currentStep = 3;
+        setTimeout(() => { toggleCart(); }, 400);
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectCartUI);
+    document.addEventListener('DOMContentLoaded', () => { injectCartUI(); checkRetryParam(); });
   } else {
     injectCartUI();
+    checkRetryParam();
   }
 
 })();
