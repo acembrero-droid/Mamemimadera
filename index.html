@@ -454,6 +454,14 @@
       btn.setAttribute('aria-expanded', 'true');
     }
   }
+  // Cierra el menú móvil al pulsar cualquier enlace directo de navegación
+  // (anclas dentro de la página como #contacto, o enlaces a otras páginas).
+  // No afecta a los botones de flecha (dropdown-toggle), que gestionan el acordeón.
+  document.querySelectorAll('.nav-links > li > a, .nav-links > li > .nav-item-row > a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
 </script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
