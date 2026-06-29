@@ -153,7 +153,7 @@
       'addr-numero':    'Número',
       'addr-cp':        'Código postal',
       'addr-poblacion': 'Población',
-      'addr-ciudad':    'Ciudad',
+      'addr-ciudad':    'Provincia',
       'addr-telefono':  'Teléfono',
       'addr-email':     'Email de contacto',
     };
@@ -446,7 +446,7 @@
         </div>
         <div class="addr-row" style="margin-top:0.4rem;">
           <input id="addr-poblacion" class="addr-input" type="text" ${v('poblacion','* Población')} style="margin:0;">
-          <input id="addr-ciudad" class="addr-input" type="text" ${v('ciudad','* Ciudad')} style="margin:0;">
+          <input id="addr-ciudad" class="addr-input" type="text" ${v('ciudad','* Provincia')} style="margin:0;">
         </div>
         <input id="addr-telefono" class="addr-input" type="tel" ${v('telefono','* Teléfono de contacto')} style="margin-top:0.4rem;">
         <input id="addr-email" class="addr-input" type="email" ${v('email','* Email de contacto')} style="margin-top:0.4rem;">
