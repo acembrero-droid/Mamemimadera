@@ -599,8 +599,19 @@
           <div class="price-row"><span>Diseño y grabado 1 cara</span><span class="amount">20 €</span></div>
           <div class="price-row"><span>Diseño y grabado 2 caras</span><span class="amount">25 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">✦ Al ser un diseño 100% personalizado, me pondré en contacto contigo después de la compra para concretar juntas el diseño exacto que necesitas.</div>
         </div>
         <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Color del marcapáginas</label>
+            <select id="opt-marca-color">
+              <option value="Blanco">Blanco</option>
+              <option value="Rojo vivo">Rojo vivo</option>
+              <option value="Verde botella">Verde botella</option>
+              <option value="Gris oscuro">Gris oscuro</option>
+              <option value="Marrón">Marrón</option>
+            </select>
+          </div>
           <div class="opt-row">
             <label class="opt-label">Grabado</label>
             <select id="opt-marca-caras" onchange="updateMarca()">
@@ -757,7 +768,8 @@
     const caras = parseFloat(document.getElementById('opt-marca-caras').value) || 20;
     const cajaExtra = parseFloat(document.getElementById('opt-marca-caja').value) || 0;
     const price = caras + cajaExtra;
-    const opts = { 'Grabado': caras === 25 ? '2 caras' : '1 cara' };
+    const color = document.getElementById('opt-marca-color')?.value || 'Blanco';
+    const opts = { 'Color': color, 'Grabado': caras === 25 ? '2 caras' : '1 cara' };
     opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
     addToCart({ id: 'marca-pers-' + Date.now(), name: 'Marcapáginas personalizado', price, options: opts });
   }
