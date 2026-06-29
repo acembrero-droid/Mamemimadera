@@ -914,6 +914,39 @@
   }
 </script>
 <script src="cookies-banner.js"></script>
+<script>
+  // ── BOTÓN FLOTANTE VOLVER (solo móvil) ──
+  const floatPages = ['page-madera','page-3d','page-cuero'];
+  const floatBtn = document.createElement('button');
+  floatBtn.id = 'float-back-btn';
+  floatBtn.innerHTML = '← Volver';
+  floatBtn.style.cssText = `
+    display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;
+    background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;
+    border-radius:30px;padding:0.5rem 1.1rem;font-family:'Nunito',sans-serif;
+    font-size:0.78rem;font-weight:700;cursor:pointer;
+    box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;
+  `;
+  floatBtn.onclick = () => showGrid();
+  document.body.appendChild(floatBtn);
+
+  function updateFloatBtn() {
+    const isMobile = window.innerWidth <= 640;
+    const anyActive = floatPages.some(id => {
+      const el = document.getElementById(id);
+      return el && el.classList.contains('active');
+    });
+    floatBtn.style.display = (isMobile && anyActive) ? 'block' : 'none';
+  }
+
+  const observer = new MutationObserver(updateFloatBtn);
+  floatPages.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el, { attributes: true, attributeFilter: ['class'] });
+  });
+  window.addEventListener('resize', updateFloatBtn);
+  updateFloatBtn();
+</script>
 <script src="carrito.js"></script>
 </body>
 </html>
