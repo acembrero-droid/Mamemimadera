@@ -119,8 +119,6 @@
     .opt-input { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
     .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
     .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
-
-    /* Carrusel corregido */
     .carousel { position: relative; overflow: hidden; height: 300px; width: 100%; }
     .carousel-track { display: flex; height: 100%; transition: transform 0.4s ease; will-change: transform; }
     .carousel-slide { min-width: 100%; width: 100%; flex-shrink: 0; position: relative; cursor: zoom-in; height: 300px; overflow: hidden; }
@@ -182,7 +180,6 @@
 <div class="product-page" id="page-mar-montana">
   <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
   <div class="products-grid">
-
     <div class="product-card mar fade-in">
       <div style="position:relative;">
         <div class="carousel" id="mar-carousel">
@@ -235,7 +232,6 @@
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Monta%C3%B1a" class="btn-contact btn-montana" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
-
   </div>
 
   <div class="cs-section" style="padding: 2rem 0 0;">
@@ -302,14 +298,8 @@
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
-  <span>
-    <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · 
-    <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a>
-  </span>
-  <span>
-    <a href="legal.html">Aviso Legal y Privacidad</a> · 
-    <a href="legal.html#devoluciones">Devoluciones</a>
-  </span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  <span><a href="legal.html">Aviso Legal y Privacidad</a> · <a href="legal.html#devoluciones">Devoluciones</a></span>
 </footer>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
@@ -409,6 +399,26 @@
       d.classList.toggle('active', i === (carousels[id] || 0));
     });
   }
+</script>
+<script>
+  // ── BOTÓN FLOTANTE VOLVER (solo móvil) ──
+  (function() {
+    var floatBtn = document.createElement('button');
+    floatBtn.id = 'float-back-btn';
+    floatBtn.innerHTML = '← Volver';
+    floatBtn.style.cssText = 'display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;border-radius:30px;padding:0.5rem 1.1rem;font-family:Nunito,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;';
+    floatBtn.onclick = function() { showGrid(); };
+    document.body.appendChild(floatBtn);
+    var floatPages = ['page-mar-montana','page-mesa'];
+    function upd() {
+      var ok = window.innerWidth <= 640 && floatPages.some(function(id){var e=document.getElementById(id);return e&&e.classList.contains('active');});
+      floatBtn.style.display = ok ? 'block' : 'none';
+    }
+    var obs2 = new MutationObserver(upd);
+    floatPages.forEach(function(id){var e=document.getElementById(id);if(e)obs2.observe(e,{attributes:true,attributeFilter:['class']});});
+    window.addEventListener('resize', upd);
+    upd();
+  })();
 </script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
