@@ -435,12 +435,43 @@
       <div class="product-body">
         <p class="product-cat">En madera</p>
         <h3>Banderín de madera</h3>
-        <p class="product-desc">Banderín de madera cortado al láser con las letras del nombre en relieve con impresión 3D. Perfecto para decorar la habitación del bebé o celebrar cualquier ocasión especial. El precio depende de la longitud del nombre.</p>
+        <p class="product-desc">Guirnalda de banderines de madera cortados al láser con las letras del nombre en relieve con impresión 3D. Perfecto para decorar la habitación del bebé o celebrar cualquier ocasión especial. Puedes añadir también banderines decorativos sin letra en los extremos o como separadores.</p>
         <div class="price-block">
-          <div class="price-row"><span>Según longitud del nombre</span><span class="amount">a consultar</span></div>
-          <p class="price-note">✦ IVA incluido · Escríbeme con el nombre para presupuesto</p>
+          <div class="price-row"><span>Banderín con letra (impresión 3D)</span><span class="amount">4 € / u</span></div>
+          <div class="price-row"><span>Banderín decorativo sin letra</span><span class="amount">2,50 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Mínimo 15 € por guirnalda</p>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20banderín%20de%20madera" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <div class="opt-row"><label class="opt-label">Nombre a formar</label><input type="text" class="opt-input" id="banderin-nombre" placeholder="Escribe el nombre" oninput="updateBanderin()"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color de las letras</label>
+            <select class="opt-input" id="banderin-color">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Rosa pastel">Rosa pastel</option>
+              <option value="Azul clarito">Azul clarito</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Naranja">Naranja</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Banderines decorativos sin letra (extremos, separadores...)</label>
+            <select class="opt-input" id="banderin-decorativos" onchange="updateBanderin()">
+              <option value="0">Ninguno</option>
+              <option value="1">1 banderín</option>
+              <option value="2">2 banderines</option>
+              <option value="3">3 banderines</option>
+              <option value="4">4 banderines</option>
+            </select>
+          </div>
+          <p class="price-note" id="banderin-desglose" style="margin-top:0.2rem;">Escribe el nombre para ver el desglose del precio</p>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-banderin-total">15 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartBanderin()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20banderín%20de%20madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -710,6 +741,43 @@
     const opts = { 'Grabado': caras === 25 ? '2 caras' : '1 cara' };
     opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
     addToCart({ id: 'marca-pers-' + Date.now(), name: 'Marcapáginas personalizado', price, options: opts });
+  }
+
+  // ── BANDERÍN DE MADERA ──
+  function calcBanderin() {
+    const nombre = document.getElementById('banderin-nombre')?.value.trim() || '';
+    const numLetras = nombre.replace(/\s+/g, '').length;
+    const decorativos = parseInt(document.getElementById('banderin-decorativos')?.value) || 0;
+    const subtotal = numLetras * 4 + decorativos * 2.5;
+    const total = Math.max(subtotal, 15);
+    return { nombre, numLetras, decorativos, subtotal, total };
+  }
+  function formatEuros(n) {
+    return (Math.round(n * 100) / 100).toString().replace('.', ',') + ' €';
+  }
+  function updateBanderin() {
+    const { numLetras, decorativos, subtotal, total } = calcBanderin();
+    const totalEl = document.getElementById('opt-banderin-total');
+    if (totalEl) totalEl.textContent = formatEuros(total);
+    const desgloseEl = document.getElementById('banderin-desglose');
+    if (!desgloseEl) return;
+    if (numLetras === 0 && decorativos === 0) {
+      desgloseEl.textContent = 'Escribe el nombre para ver el desglose del precio';
+      return;
+    }
+    let txt = numLetras + ' letra' + (numLetras === 1 ? '' : 's') + ' × 4 € = ' + formatEuros(numLetras * 4);
+    if (decorativos > 0) txt += ' + ' + decorativos + ' decorativo' + (decorativos === 1 ? '' : 's') + ' × 2,50 € = ' + formatEuros(decorativos * 2.5);
+    if (subtotal < 15) txt += ' · se aplica el mínimo de 15 € por guirnalda';
+    desgloseEl.textContent = txt;
+  }
+  function addCartBanderin() {
+    const { nombre, numLetras, decorativos, total } = calcBanderin();
+    const color = document.getElementById('banderin-color')?.value;
+    if (!nombre) { alert('Por favor escribe el nombre que quieres formar.'); return; }
+    if (!color) { alert('Por favor elige el color de las letras.'); return; }
+    const opts = { 'Nombre': nombre, 'Color': color, 'Letras': String(numLetras) };
+    if (decorativos > 0) opts['Banderines decorativos'] = String(decorativos);
+    addToCart({ id: 'banderin-' + Date.now(), name: 'Banderín de madera', price: total, options: opts });
   }
 
   // ── PLACA DE FELICITACIÓN ──
