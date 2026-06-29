@@ -6,12 +6,7 @@
   <title>Detallitos para Eventos – MAMEMI Madera</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
-      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
-      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
-      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
-    }
+    :root { --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c; --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8; --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4; --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13); }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
@@ -82,8 +77,7 @@
     .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
     .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 2rem; width: 52px; height: 52px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1001; transition: background 0.2s; }
     .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
-    .lightbox-nav.prev { left: 1rem; }
-    .lightbox-nav.next { right: 1rem; }
+    .lightbox-nav.prev { left: 1rem; } .lightbox-nav.next { right: 1rem; }
     @media (max-width: 640px) { .lightbox-nav { width: 42px; height: 42px; font-size: 1.6rem; } .lightbox-nav.prev { left: 0.4rem; } .lightbox-nav.next { right: 0.4rem; } }
     .lightbox-close:hover { background: rgba(255,255,255,0.3); }
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
@@ -92,15 +86,7 @@
     footer a:hover { color: var(--mint); }
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 640px) {
-      nav { padding: 0 0.8rem; }
-      .nav-actions { gap: 0.4rem; }
-      .nav-back { font-size: 0.7rem; }
-      .nav-cta { padding: 0.45rem 0.8rem !important; font-size: 0.68rem !important; }
-      .cart-btn { padding: 0.45rem 0.8rem; font-size: 0.68rem; }
-      .cat-grid, .products-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
-    }
+    @media (max-width: 640px) { nav { padding: 0 0.8rem; } .nav-actions { gap: 0.4rem; } .nav-back { font-size: 0.7rem; } .nav-cta { padding: 0.45rem 0.8rem !important; font-size: 0.68rem !important; } .cart-btn { padding: 0.45rem 0.8rem; font-size: 0.68rem; } .cat-grid, .products-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
     @media (max-width: 380px) { .nav-back { display: none; } }
     .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
     .cart-btn:hover { background: #4d8a72; }
@@ -130,43 +116,22 @@
   <h2 class="section-title">¿Qué detalle estás buscando?</h2>
   <div class="cat-divider"></div>
   <div class="cat-grid">
-
     <a class="cat-card fade-in" onclick="showPage('marcasitios'); return false;" href="#">
       <div class="img-wrap"><img src="images/marcasitio1.jpg" alt="Marcasitios boda"></div>
-      <div class="cat-info">
-        <h3>Marcasitios para boda</h3>
-        <p>Madera natural · Varios estilos · Precio a consultar</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
+      <div class="cat-info"><h3>Marcasitios para boda</h3><p>Madera natural · Varios estilos · Precio a consultar</p><span class="cat-arrow">Ver más →</span></div>
     </a>
-
     <a class="cat-card fade-in" onclick="showPage('imanes'); return false;" href="#">
       <div class="img-wrap"><img src="images/iman.jpg" alt="Imanes abrebotellas"></div>
-      <div class="cat-info">
-        <h3>Imanes abrebotellas</h3>
-        <p>Bambú · Grabado láser · Detalle práctico y original</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
+      <div class="cat-info"><h3>Imanes abrebotellas</h3><p>Bambú · Grabado láser · Detalle práctico y original</p><span class="cat-arrow">Ver más →</span></div>
     </a>
-
     <a class="cat-card fade-in" onclick="showPage('libretas'); return false;" href="#">
       <div class="img-wrap"><img src="images/libretas.jpg" alt="Libretas personalizadas"></div>
-      <div class="cat-info">
-        <h3>Libretas personalizadas</h3>
-        <p>Grabado láser · Desde 1 unidad · Precios por volumen</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
+      <div class="cat-info"><h3>Libretas personalizadas</h3><p>Grabado láser · Desde 1 unidad · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
     </a>
-
     <a class="cat-card fade-in" onclick="showPage('posavasos'); return false;" href="#">
       <div class="img-wrap"><img src="images/pasavasos.jpg" alt="Posavasos"></div>
-      <div class="cat-info">
-        <h3>Posavasos madera y porcelana</h3>
-        <p>Combinación exclusiva · Grabado láser · Precio a consultar</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
+      <div class="cat-info"><h3>Posavasos madera y porcelana</h3><p>Combinación exclusiva · Grabado láser · Precio a consultar</p><span class="cat-arrow">Ver más →</span></div>
     </a>
-
   </div>
 </section>
 
@@ -366,6 +331,26 @@
   });
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+<script>
+  // ── BOTÓN FLOTANTE VOLVER (solo móvil) ──
+  (function() {
+    var floatBtn = document.createElement('button');
+    floatBtn.id = 'float-back-btn';
+    floatBtn.innerHTML = '← Volver';
+    floatBtn.style.cssText = 'display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;border-radius:30px;padding:0.5rem 1.1rem;font-family:Nunito,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;';
+    floatBtn.onclick = function() { showGrid(); };
+    document.body.appendChild(floatBtn);
+    var floatPages = ['page-marcasitios','page-imanes','page-libretas','page-posavasos'];
+    function upd() {
+      var ok = window.innerWidth <= 640 && floatPages.some(function(id){var e=document.getElementById(id);return e&&e.classList.contains('active');});
+      floatBtn.style.display = ok ? 'block' : 'none';
+    }
+    var obs2 = new MutationObserver(upd);
+    floatPages.forEach(function(id){var e=document.getElementById(id);if(e)obs2.observe(e,{attributes:true,attributeFilter:['class']});});
+    window.addEventListener('resize', upd);
+    upd();
+  })();
 </script>
 <script src="carrito.js"></script>
 </body>
