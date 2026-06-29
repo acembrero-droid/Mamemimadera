@@ -96,6 +96,14 @@
     return cart.reduce((sum, i) => sum + i.qty, 0);
   }
 
+  function getEstimatedDelivery() {
+    const totalQty = cartCount();
+    const hasPersonalizacion = cart.some(item => item.options && item.options['Nombre']);
+    if (totalQty > 20) return '15-20 días laborables';
+    if (hasPersonalizacion || totalQty > 10) return '7-10 días laborables';
+    return '3-5 días laborables';
+  }
+
   function updateCartBadge() {
     const count = cartCount();
     document.querySelectorAll('.cart-badge').forEach(b => {
@@ -382,6 +390,7 @@
       const remaining = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
       noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="color:#d4a96a;">✦ Añade ${remaining} € más para envío gratis</span>`;
     }
+    noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">📦 Plazo de entrega estimado: <strong>${getEstimatedDelivery()}</strong> (puede ampliarse en fechas de alta demanda)</span>`;
 
     body.innerHTML = `
       <div class="delivery-selector">
@@ -495,6 +504,7 @@
         <button class="cart-back-step" onclick="goToStep(${deliveryMode === 'tienda' ? 1 : 2})">← Volver</button>
         <p class="cart-step-title">✦ Resumen del pedido</p>
         <p class="cart-ref-line">Ref. ${orderRef}</p>
+        <p class="cart-ref-line">📦 Entrega estimada: <strong>${getEstimatedDelivery()}</strong></p>
       </div>
       <div class="summary-items">${itemsSummary}</div>
       ${addrSummary}
