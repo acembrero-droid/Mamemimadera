@@ -189,8 +189,7 @@
     text += `────────────────────────\n`;
     if (deliveryMode === 'tienda') {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
-      text += `Precio especial recogida en tienda: −${discount.toFixed(2)} €\n`;
-      text += `(Sin gastos añadidos del embalaje y la gestión de la contratación del envío)\n`;
+      text += `Descuento por recogida en tienda: −${discount.toFixed(2)} €\n`;
       text += `Recogida en: Estudi | Caldes d'Estrac (Barcelona)\n`;
     } else {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
@@ -383,14 +382,14 @@
 
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
-      noteHtml = `🎀 Envoltorio mimado · Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a><br><span style="font-size:0.68rem;opacity:0.75;">✦ Al recoger en persona te ahorras los gastos añadidos del embalaje y la gestión de la contratación del envío, por eso el precio es más bajo</span>`;
+      noteHtml = `🎀 Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a><br><span style="font-size:0.68rem;opacity:0.75;">✦ ¡Gracias por venir al taller! Al elegir recogida en persona, te descontamos 2 € de gastos de gestión de envío.</span>`;
     } else if (shipping === 0) {
       noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis!`;
     } else {
       const remaining = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
       noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="color:#d4a96a;">✦ Añade ${remaining} € más para envío gratis</span>`;
     }
-    noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">📦 Plazo de entrega estimado: <strong>${getEstimatedDelivery()}</strong> (puede ampliarse en fechas de alta demanda)</span>`;
+    noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">${deliveryMode === 'tienda' ? '📦 Listo para recoger en' : '📦 Plazo de entrega estimado'}: <strong>${getEstimatedDelivery()}</strong>${deliveryMode === 'tienda' ? ' (te avisaré por WhatsApp/email)' : ' (puede ampliarse en fechas de alta demanda)'}</span>`;
 
     body.innerHTML = `
       <div class="delivery-selector">
@@ -408,8 +407,7 @@
         <div class="cart-totals">
           ${deliveryMode === 'tienda'
             ? `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-               <div class="cart-total-row discount"><span>Precio especial recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>
-               <div class="cart-total-row" style="font-size:0.7rem;opacity:0.75;font-style:italic;"><span>· Sin gastos añadidos del embalaje y la gestión de la contratación del envío</span><span></span></div>`
+               <div class="cart-total-row discount"><span>Descuento por recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>`
             : `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
                <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
           }
@@ -511,8 +509,7 @@
       <div class="cart-totals" style="padding:0.8rem 1.5rem;border-top:1px dashed #f5e9d6;">
         ${deliveryMode === 'tienda'
           ? `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-             <div class="cart-total-row discount"><span>Precio especial recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>
-             <div class="cart-total-row" style="font-size:0.7rem;opacity:0.75;font-style:italic;"><span>· Sin gastos añadidos del embalaje y la gestión de la contratación del envío</span><span></span></div>`
+             <div class="cart-total-row discount"><span>Descuento por recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>`
           : `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
              <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
         }
