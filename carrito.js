@@ -183,7 +183,7 @@
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
       text += `Precio especial recogida en tienda: −${discount.toFixed(2)} €\n`;
       text += `(Sin gastos añadidos del embalaje y la gestión de la contratación del envío)\n`;
-      text += `Entrega: Estudi | Caldes d'Estrac\n`;
+      text += `Recogida en: Estudi | Caldes d'Estrac (Barcelona)\n`;
     } else {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
       text += `Envío: ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
@@ -375,7 +375,7 @@
 
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
-      noteHtml = `🎀 Envoltorio mimado · Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac</a><br><span style="font-size:0.68rem;opacity:0.75;">✦ Al recoger en persona te ahorras los gastos añadidos del embalaje y la gestión de la contratación del envío, por eso el precio es más bajo</span>`;
+      noteHtml = `🎀 Envoltorio mimado · Recogida en <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a><br><span style="font-size:0.68rem;opacity:0.75;">✦ Al recoger en persona te ahorras los gastos añadidos del embalaje y la gestión de la contratación del envío, por eso el precio es más bajo</span>`;
     } else if (shipping === 0) {
       noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis!`;
     } else {
@@ -391,7 +391,7 @@
         </button>
         <button class="delivery-btn ${deliveryMode === 'tienda' ? 'active' : ''}" onclick="setDeliveryMode('tienda')">
           <span class="delivery-icon">🤝</span>
-          Entrega en persona
+          Recogida en tienda
         </button>
       </div>
       <div class="cart-items-list">${itemsHtml}</div>
@@ -485,8 +485,8 @@
     } else if (deliveryMode === 'tienda') {
       addrSummary = `
         <div class="summary-block">
-          <p class="summary-label">🏪 Entrega en persona</p>
-          <p><a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac</a></p>
+          <p class="summary-label">🏪 Recogida en tienda</p>
+          <p><a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a></p>
         </div>`;
     }
 
