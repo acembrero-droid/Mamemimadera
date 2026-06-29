@@ -19,10 +19,14 @@
     .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
     .nav-links { display: flex; align-items: center; gap: 0; list-style: none; position: relative; }
     .nav-links > li { position: relative; display: flex; align-items: center; }
+    .nav-item-row { display: flex; align-items: center; }
+    .nav-links > li > .nav-item-row > a { padding: 0 0.4rem 0 1rem; height: 70px; display: flex; align-items: center; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
     .nav-links > li > a { display: flex; align-items: center; gap: 4px; padding: 0 1rem; height: 70px; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
-    .nav-links > li > a:hover, .nav-links > li.active > a { color: var(--mint-dark); }
-    .nav-links > li > a .arrow { font-size: 0.6rem; transition: transform 0.2s; }
-    .nav-links > li:hover > a .arrow { transform: rotate(180deg); }
+    .nav-links > li > a:hover, .nav-links > li.active > a,
+    .nav-item-row > a:hover { color: var(--mint-dark); }
+    .dropdown-toggle { background: none; border: none; cursor: pointer; height: 70px; padding: 0 1rem 0 0.2rem; display: flex; align-items: center; color: var(--text-mid); }
+    .nav-links > li > a .arrow, .dropdown-toggle .arrow { font-size: 0.6rem; transition: transform 0.2s; }
+    .nav-links > li:hover > a .arrow, .nav-links > li:hover .dropdown-toggle .arrow { transform: rotate(180deg); }
     .dropdown { display: none; position: absolute; top: 70px; left: 0; background: #fff; border: 1.5px solid var(--wood-light); border-radius: 0 0 12px 12px; box-shadow: 0 8px 30px var(--shadow); min-width: 220px; z-index: 300; }
     .nav-links > li:hover .dropdown { display: block; }
     .dropdown a { display: block; padding: 0.75rem 1.2rem; text-decoration: none; font-size: 0.82rem; color: var(--text-mid); font-weight: 600; border-bottom: 1px solid var(--wood-light); transition: background 0.2s, color 0.2s; }
@@ -117,11 +121,18 @@
     }
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
-      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 0.4rem 1rem 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
       .nav-links.open { display: flex; }
-      .nav-links > li > a { height: 44px; font-size: 0.85rem; }
-      .dropdown { display: block !important; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.5rem 1rem; }
-      .dropdown a { font-size: 0.8rem; padding: 0.55rem 1rem; }
+      .nav-links > li { flex-direction: column; align-items: stretch; border-bottom: 1px solid var(--wood-light); }
+      .nav-links > li:last-child { border-bottom: none; }
+      .nav-item-row { justify-content: space-between; }
+      .nav-links > li > .nav-item-row > a, .nav-links > li > a { height: 48px; font-size: 0.85rem; }
+      .dropdown-toggle { height: 48px; }
+      .dropdown { display: none; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.6rem 0.8rem; }
+      .has-dropdown.open .dropdown { display: block; }
+      .has-dropdown.open .dropdown-toggle .arrow { transform: rotate(180deg); }
+      .dropdown a { font-size: 0.8rem; padding: 0.6rem 1rem; }
+      .dropdown .sub-label { padding: 0.5rem 1rem; }
       .hamburger { display: flex; } .cat-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
@@ -136,7 +147,11 @@
 <nav>
   <a href="#" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="regalos-personalizados.html">Regalos Personalizados <span class="arrow">▾</span></a>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="regalos-personalizados.html">Regalos Personalizados</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Regalos Personalizados"><span class="arrow">▾</span></button>
+      </div>
       <div class="dropdown">
         <a href="regalos-personalizados.html">Letra 3D autoportante</a>
         <a href="regalos-personalizados.html">Placa de nacimiento</a>
@@ -145,24 +160,40 @@
         <a href="regalos-personalizados.html">Marcapáginas</a>
       </div>
     </li>
-    <li><a href="cositas-mamemi.html">Cositas Mamemi <span class="arrow">▾</span></a>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="cositas-mamemi.html">Cositas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Cositas Mamemi"><span class="arrow">▾</span></button>
+      </div>
       <div class="dropdown">
         <a href="cositas-mamemi.html">Llaveros</a>
         <a href="cositas-mamemi.html">Imanes</a>
       </div>
     </li>
-    <li><a href="packs-para-regalar.html">Packs para Regalar <span class="arrow">▾</span></a>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="packs-para-regalar.html">Packs para Regalar</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Packs para Regalar"><span class="arrow">▾</span></button>
+      </div>
       <div class="dropdown">
         <a href="packs-para-regalar.html">Pack Nacimiento</a>
       </div>
     </li>
-    <li><a href="coleccion-cocina.html">Colección Cocina <span class="arrow">▾</span></a>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="coleccion-cocina.html">Colección Cocina</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Colección Cocina"><span class="arrow">▾</span></button>
+      </div>
       <div class="dropdown">
         <div class="sub-label">Mar y Montaña</div>
         <a href="coleccion-cocina.html">Tabla de cocina</a>
       </div>
     </li>
-    <li><a href="detallitos-eventos.html">Detallitos para Eventos <span class="arrow">▾</span></a>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="detallitos-eventos.html">Detallitos para Eventos</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Detallitos para Eventos"><span class="arrow">▾</span></button>
+      </div>
       <div class="dropdown">
         <a href="detallitos-eventos.html">Bodas · Marcasitios</a>
         <a href="detallitos-eventos.html">Imanes abrebotellas</a>
@@ -170,7 +201,11 @@
         <a href="detallitos-eventos.html">Posavasos</a>
       </div>
     </li>
-    <li><a href="estudio-creativo.html">Estudio Creativo <span class="arrow">▾</span></a>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="estudio-creativo.html">Estudio Creativo</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Estudio Creativo"><span class="arrow">▾</span></button>
+      </div>
       <div class="dropdown">
         <a href="estudio-creativo.html">Tarjetas de visita</a>
         <a href="estudio-creativo.html">Logos e identidad visual</a>
@@ -178,12 +213,20 @@
         <a href="estudio-creativo.html">Elementos de papelería y otros diseños</a>
       </div>
     </li>
-    <li><a href="mamemi-instagram.html">Mamemi en Instagram <span class="arrow">▾</span></a>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="mamemi-instagram.html">Mamemi en Instagram</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Mamemi en Instagram"><span class="arrow">▾</span></button>
+      </div>
       <div class="dropdown">
         <a href="mamemi-instagram.html">Reels y publicaciones</a>
       </div>
     </li>
-    <li><a href="el-taller.html">El Taller <span class="arrow">▾</span></a>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="el-taller.html">El Taller</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de El Taller"><span class="arrow">▾</span></button>
+      </div>
       <div class="dropdown">
         <a href="el-taller.html">¿Quieres entrar en mi taller?</a>
       </div>
@@ -394,6 +437,22 @@
   function scrollToSobre() {
     document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' });
     document.getElementById('navLinks').classList.remove('open');
+  }
+  function toggleSubmenu(e, btn) {
+    if (window.innerWidth > 640) return; // en escritorio el hover ya lo gestiona
+    e.preventDefault();
+    e.stopPropagation();
+    const li = btn.closest('li');
+    const wasOpen = li.classList.contains('open');
+    document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(item => {
+      item.classList.remove('open');
+      const t = item.querySelector('.dropdown-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      li.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
   }
 </script>
 <script src="cookies-banner.js"></script>
