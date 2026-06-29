@@ -447,6 +447,7 @@
         <div class="price-block">
           <div class="price-row"><span>Banderín con letra (impresión 3D)</span><span class="amount">4 € / u</span></div>
           <div class="price-row"><span>Banderín decorativo sin letra</span><span class="amount">2,50 € / u</span></div>
+          <div class="price-row"><span>Banderín con estrella (impresión 3D)</span><span class="amount">4 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Mínimo 15 € por guirnalda</p>
         </div>
         <div class="product-options">
@@ -468,6 +469,16 @@
           <div class="opt-row">
             <label class="opt-label">Banderines decorativos sin letra (extremos, separadores...)</label>
             <select class="opt-input" id="banderin-decorativos" onchange="updateBanderin()">
+              <option value="0">Ninguno</option>
+              <option value="1">1 banderín</option>
+              <option value="2">2 banderines</option>
+              <option value="3">3 banderines</option>
+              <option value="4">4 banderines</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Banderines con estrella (impresión 3D)</label>
+            <select class="opt-input" id="banderin-estrellas" onchange="updateBanderin()">
               <option value="0">Ninguno</option>
               <option value="1">1 banderín</option>
               <option value="2">2 banderines</option>
@@ -758,34 +769,38 @@
     const nombre = document.getElementById('banderin-nombre')?.value.trim() || '';
     const numLetras = nombre.replace(/\s+/g, '').length;
     const decorativos = parseInt(document.getElementById('banderin-decorativos')?.value) || 0;
-    const subtotal = numLetras * 4 + decorativos * 2.5;
+    const estrellas = parseInt(document.getElementById('banderin-estrellas')?.value) || 0;
+    const subtotal = numLetras * 4 + decorativos * 2.5 + estrellas * 4;
     const total = Math.max(subtotal, 15);
-    return { nombre, numLetras, decorativos, subtotal, total };
+    return { nombre, numLetras, decorativos, estrellas, subtotal, total };
   }
   function formatEuros(n) {
     return (Math.round(n * 100) / 100).toString().replace('.', ',') + ' €';
   }
   function updateBanderin() {
-    const { numLetras, decorativos, subtotal, total } = calcBanderin();
+    const { numLetras, decorativos, estrellas, subtotal, total } = calcBanderin();
     const totalEl = document.getElementById('opt-banderin-total');
     if (totalEl) totalEl.textContent = formatEuros(total);
     const desgloseEl = document.getElementById('banderin-desglose');
     if (!desgloseEl) return;
-    if (numLetras === 0 && decorativos === 0) {
+    if (numLetras === 0 && decorativos === 0 && estrellas === 0) {
       desgloseEl.textContent = 'Escribe el nombre para ver el desglose del precio';
       return;
     }
-    let txt = numLetras + ' letra' + (numLetras === 1 ? '' : 's') + ' × 4 € = ' + formatEuros(numLetras * 4);
-    if (decorativos > 0) txt += ' + ' + decorativos + ' decorativo' + (decorativos === 1 ? '' : 's') + ' × 2,50 € = ' + formatEuros(decorativos * 2.5);
+    let partes = [numLetras + ' letra' + (numLetras === 1 ? '' : 's') + ' × 4 € = ' + formatEuros(numLetras * 4)];
+    if (estrellas > 0) partes.push(estrellas + ' estrella' + (estrellas === 1 ? '' : 's') + ' × 4 € = ' + formatEuros(estrellas * 4));
+    if (decorativos > 0) partes.push(decorativos + ' decorativo' + (decorativos === 1 ? '' : 's') + ' × 2,50 € = ' + formatEuros(decorativos * 2.5));
+    let txt = partes.join(' + ');
     if (subtotal < 15) txt += ' · se aplica el mínimo de 15 € por guirnalda';
     desgloseEl.textContent = txt;
   }
   function addCartBanderin() {
-    const { nombre, numLetras, decorativos, total } = calcBanderin();
+    const { nombre, numLetras, decorativos, estrellas, total } = calcBanderin();
     const color = document.getElementById('banderin-color')?.value;
     if (!nombre) { alert('Por favor escribe el nombre que quieres formar.'); return; }
     if (!color) { alert('Por favor elige el color de las letras.'); return; }
     const opts = { 'Nombre': nombre, 'Color': color, 'Letras': String(numLetras) };
+    if (estrellas > 0) opts['Banderines con estrella'] = String(estrellas);
     if (decorativos > 0) opts['Banderines decorativos'] = String(decorativos);
     addToCart({ id: 'banderin-' + Date.now(), name: 'Banderín de madera', price: total, options: opts });
   }
