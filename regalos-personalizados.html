@@ -275,7 +275,9 @@
               <option value="Blanco">Blanco</option>
               <option value="Negro">Negro</option>
               <option value="Burdeos">Burdeos</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
             </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong>38 €</strong></div>
         </div>
@@ -313,7 +315,9 @@
               <option value="Blanco">Blanco</option>
               <option value="Negro">Negro</option>
               <option value="Burdeos">Burdeos</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
             </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
           </div>
           <div class="opt-row"><label class="opt-label">Curso escolar</label><input type="text" class="opt-input" id="profe-curso" placeholder="ej. 2025-2026"></div>
           <p class="opt-label" style="margin:0.6rem 0 0.4rem;">Nombres de los alumn@s (máximo 21):</p>
@@ -372,7 +376,9 @@
               <option value="Blanco">Blanco</option>
               <option value="Negro">Negro</option>
               <option value="Burdeos">Burdeos</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
             </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
           </div>
           <div class="opt-row"><label class="opt-label">Frase corta (máx. 10 palabras)</label><input type="text" class="opt-input" id="placa-felicit-frase" placeholder="ej. ¡Salud por tus 70 años!"></div>
           <div class="opt-price-row"><span>Total:</span><strong>35 €</strong></div>
@@ -406,6 +412,7 @@
             </select>
           </div>
           <p class="opt-label" style="margin:0.6rem 0 0.3rem;">Nombre(s) y color de cada uno:</p>
+          <p style="font-size:0.7rem;margin:0 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
           <div id="puerta-nombres-wrap">
             <div class="puerta-nombre-row" style="display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;">
               <input type="text" class="opt-input puerta-nombre" placeholder="Nombre 1" style="margin:0;">
@@ -415,6 +422,7 @@
                 <option value="Blanco">Blanco</option>
                 <option value="Negro">Negro</option>
                 <option value="Burdeos">Burdeos</option>
+                <option value="Otro (a confirmar por WhatsApp)">Otro (consultar)</option>
               </select>
             </div>
           </div>
@@ -538,7 +546,9 @@
               <option value="">Elige un color</option>
               <option value="Blanco">Blanco</option>
               <option value="Negro">Negro</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
             </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong>42 €</strong></div>
         </div>
@@ -849,7 +859,7 @@
     row.style.cssText = 'display:grid;grid-template-columns:1fr auto auto;gap:0.4rem;margin-bottom:0.4rem;';
     const inp = document.createElement('input'); inp.type = 'text'; inp.className = 'opt-input puerta-nombre'; inp.placeholder = 'Nombre ' + count; inp.style.margin = '0';
     const sel = document.createElement('select'); sel.className = 'opt-input puerta-color'; sel.style.cssText = 'margin:0;width:130px;';
-    ['','Verde menta','Blanco','Negro','Burdeos'].forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v || 'Color'; sel.appendChild(o); });
+    ['','Verde menta','Blanco','Negro','Burdeos','Otro (a confirmar por WhatsApp)'].forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v === 'Otro (a confirmar por WhatsApp)' ? 'Otro (consultar)' : (v || 'Color'); sel.appendChild(o); });
     const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = '✕'; btn.style.cssText = 'background:#fee;border:none;border-radius:6px;width:28px;cursor:pointer;color:#c0392b;font-weight:700;'; btn.onclick = function() { this.parentNode.remove(); };
     row.appendChild(inp); row.appendChild(sel); row.appendChild(btn);
     wrap.appendChild(row);
