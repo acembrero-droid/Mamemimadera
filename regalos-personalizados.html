@@ -181,7 +181,42 @@
   <div class="products-carousel-wrap">
     <button class="carousel-nav-btn prev" onclick="scrollProducts('madera', -1)">‹</button>
     <button class="carousel-nav-btn next" onclick="scrollProducts('madera', 1)">›</button>
-    <div class="products-grid is-carousel" id="grid-madera">
+    <div class="products-grid is-carousel" id="grid-madera"><div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/placa_cumple.jpg')">
+        <img src="images/placa_cumple.jpg" alt="Placa felicitación">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Placa de felicitación</h3>
+        <p class="product-desc">Placa circular de pino de 18cm de diámetro y 1cm de grosor, grabada al láser con la temática que elijas (brindis, coches, campo, animales...) y el nombre en relieve con impresión 3D. Puedes añadir también una frase corta. Perfecta para cumpleaños, aniversarios u ocasiones especiales.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con nombre en 3D, temática y frase corta</span><span class="amount">35 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row"><label class="opt-label">Temática / ilustración que quieres</label><input type="text" class="opt-input" id="placa-felicit-tematica" placeholder="ej. coches, campo, animales, brindis..."></div>
+          <div class="opt-row"><label class="opt-label">Nombre a grabar en 3D</label><input type="text" class="opt-input" id="placa-felicit-nombre" placeholder="Nombre del destinatario"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre en 3D</label>
+            <select class="opt-input" id="placa-felicit-color">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
+            </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
+          </div>
+          <div class="opt-row"><label class="opt-label">Frase corta (máx. 10 palabras)</label><input type="text" class="opt-input" id="placa-felicit-frase" placeholder="ej. ¡Salud por tus 70 años!"></div>
+          <div class="opt-price-row"><span>Total:</span><strong>35 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPlacaFelicit()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20felicitaci%C3%B3n" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
 
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
@@ -295,7 +330,7 @@
       <div class="product-body">
         <p class="product-cat">En madera</p>
         <h3>Placa de profe</h3>
-        <p class="product-desc">Disco de madera grabado al láser con el nombre del profe o profesora en 3D y el curso escolar. Te envío también unos pequeños botes de pintura de varios colores para que cada alumn@ deje su huella nada más recibirlo, junto con una bolsita con lazo de yute donde guardar la placa una vez seca, lista para entregar como regalo de fin de curso.</p>
+        <p class="product-desc">Disco de madera grabado al láser con el nombre del profe o profesora en 3D y el curso escolar, con un hueco preparado para la huella de cada alumn@. Un regalo de fin de curso listo para entregar sin complicaciones — te explico cómo funciona justo aquí abajo.</p>
         <div class="price-block">
           <div class="price-row"><span>Con nombre en 3D · 15–21 alumn@s</span><span class="amount">40 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
@@ -348,43 +383,6 @@
         </div>
         <button class="btn-add-cart" onclick="addCartProfe()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20profe" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/placa_cumple.jpg')">
-        <img src="images/placa_cumple.jpg" alt="Placa felicitación">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">En madera</p>
-        <h3>Placa de felicitación</h3>
-        <p class="product-desc">Placa circular de pino de 18cm de diámetro y 1cm de grosor, grabada al láser con la temática que elijas (brindis, coches, campo, animales...) y el nombre en relieve con impresión 3D. Puedes añadir también una frase corta. Perfecta para cumpleaños, aniversarios u ocasiones especiales.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Con nombre en 3D, temática y frase corta</span><span class="amount">35 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row"><label class="opt-label">Temática / ilustración que quieres</label><input type="text" class="opt-input" id="placa-felicit-tematica" placeholder="ej. coches, campo, animales, brindis..."></div>
-          <div class="opt-row"><label class="opt-label">Nombre a grabar en 3D</label><input type="text" class="opt-input" id="placa-felicit-nombre" placeholder="Nombre del destinatario"></div>
-          <div class="opt-row">
-            <label class="opt-label">Color del nombre en 3D</label>
-            <select class="opt-input" id="placa-felicit-color">
-              <option value="">Elige un color</option>
-              <option value="Verde menta">Verde menta</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Burdeos">Burdeos</option>
-              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-            </select>
-            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          </div>
-          <div class="opt-row"><label class="opt-label">Frase corta (máx. 10 palabras)</label><input type="text" class="opt-input" id="placa-felicit-frase" placeholder="ej. ¡Salud por tus 70 años!"></div>
-          <div class="opt-price-row"><span>Total:</span><strong>35 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartPlacaFelicit()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20felicitaci%C3%B3n" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
