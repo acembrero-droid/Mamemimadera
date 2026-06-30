@@ -261,7 +261,7 @@
     try {
         // Llamada a nuestro propio backend: envía el email del pedido
         // Y genera la firma de Redsys, todo en una sola petición
-        const respuesta = await fetch('https://mamemimadera.es/procesar-pago.php', {
+        const respuesta = await fetch('https://mamemimadera.es/pago.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
