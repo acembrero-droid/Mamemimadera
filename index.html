@@ -484,6 +484,30 @@
       document.getElementById('navLinks').classList.remove('open');
     });
   });
+
+  // Cierra el menú móvil si el usuario hace scroll (subir o bajar)
+  let lastScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const navLinks = document.getElementById('navLinks');
+    if (navLinks.classList.contains('open') && Math.abs(window.scrollY - lastScrollY) > 5) {
+      navLinks.classList.remove('open');
+    }
+    lastScrollY = window.scrollY;
+  }, { passive: true });
+
+  // Cierra el menú móvil al pulsar el logo
+  document.querySelector('.nav-logo')?.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+
+  // Cierra el menú móvil al tocar fuera de él (fuera del menú y de la hamburguesa)
+  document.addEventListener('click', (e) => {
+    const navLinks = document.getElementById('navLinks');
+    const hamburger = document.getElementById('hamburger');
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+      navLinks.classList.remove('open');
+    }
+  });
 </script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
