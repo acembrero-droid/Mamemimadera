@@ -170,6 +170,24 @@
     return missing;
   }
 
+  function validateSavedAddress(addr) {
+    const required = {
+      nombre:    'Nombre y apellidos',
+      calle:     'Calle / Avenida',
+      numero:    'Número',
+      cp:        'Código postal',
+      poblacion: 'Población',
+      ciudad:    'Provincia',
+      telefono:  'Teléfono',
+      email:     'Email de contacto',
+    };
+    const missing = [];
+    Object.entries(required).forEach(([key, label]) => {
+      if (!addr[key] || !addr[key].trim()) missing.push(label);
+    });
+    return missing;
+  }
+
   function buildOrderSummary(addr) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
@@ -226,9 +244,15 @@
   window.checkout = async function() {
     if (cart.length === 0) return;
 
-    // Si es envío a domicilio, nos asegurarnos de que la dirección esté completa
+    // Recuperamos la dirección ya guardada (los campos del formulario del Paso 2
+    // ya no existen en pantalla si estamos en el Paso 3, así que NO podemos
+    // volver a leerlos del DOM aquí — hay que validar el objeto guardado).
+    const addr = deliveryMode === 'envio'
+      ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
+      : {};
+
     if (deliveryMode === 'envio') {
-      const missing = validateShippingAddress();
+      const missing = validateSavedAddress(addr);
       if (missing.length > 0) {
         currentStep = 2;
         renderStep();
@@ -237,7 +261,6 @@
       }
     }
 
-    const addr = deliveryMode === 'envio' ? getShippingAddress() : {};
     const summary = buildOrderSummary(addr);
 
     const subtotal = cartSubtotal();
