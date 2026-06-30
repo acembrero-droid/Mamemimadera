@@ -78,14 +78,22 @@
     .cat-card.estudio-card .cat-info { background: linear-gradient(to top, rgba(90,58,26,0.95) 0%, rgba(90,58,26,0.5) 60%, transparent 100%); }
     .cat-card.estudio-card .cat-arrow { background: rgba(168,197,181,0.3); }
     .cat-card.estudio-card:hover .cat-arrow { background: var(--mint-dark); }
-    #sobre { background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; align-items: stretch; }
-    .sobre-img { overflow: hidden; min-height: 480px; }
+    #sobre { background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; align-items: start; }
+    .sobre-img { overflow: hidden; height: 480px; position: sticky; top: 70px; }
     .sobre-img img { width: 100%; height: 100%; object-fit: cover; }
     .sobre-text { padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; }
     .sobre-text .section-label { text-align: left; }
     .sobre-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--wood-deep); line-height: 1.2; }
     .sobre-text p { color: var(--text-mid); line-height: 1.9; font-weight: 300; font-size: 0.98rem; }
     .sobre-text strong { color: var(--wood-dark); font-weight: 700; }
+    .sobre-extra { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.5s ease, opacity 0.4s ease; }
+    .sobre-extra.open { grid-template-rows: 1fr; opacity: 1; }
+    .sobre-extra-inner { overflow: hidden; display: flex; flex-direction: column; gap: 1.2rem; }
+    .sobre-extra-inner > p:first-child { margin-top: 0.2rem; }
+    .btn-leer-mas { display: inline-flex; align-items: center; gap: 0.4rem; background: none; border: none; padding: 0; margin-top: -0.4rem; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--mint-dark); cursor: pointer; letter-spacing: 0.02em; width: fit-content; transition: color 0.2s, gap 0.2s; }
+    .btn-leer-mas:hover { color: var(--wood-dark); gap: 0.6rem; }
+    .btn-leer-mas .chev { display: inline-block; transition: transform 0.3s; font-size: 0.75rem; }
+    .btn-leer-mas.expanded .chev { transform: rotate(180deg); }
     #testimonios { background: var(--wood-deep); color: var(--cream); }
     #testimonios .section-title { color: var(--wood-light); }
     #testimonios .section-label { color: var(--mint); }
@@ -116,7 +124,7 @@
       #hero { grid-template-columns: 1fr; } .hero-right { display: none; }
       .hero-left { padding: 4rem 2rem 3rem; background: var(--mint-light); }
       .mobile-logo { display: flex !important; }
-      #sobre { grid-template-columns: 1fr; } .sobre-img { min-height: 260px; }
+      #sobre { grid-template-columns: 1fr; } .sobre-img { min-height: 260px; height: 260px; position: static; }
       .sobre-text { padding: 3rem 2rem; } .cat-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
@@ -264,11 +272,16 @@
   <div class="sobre-text fade-in">
     <p class="section-label">El corazón de MAMEMI</p>
     <h2>Hola, soy <em style="font-style:italic; color:var(--mint-dark)">Leticia</em> y este es mi rincón creativo 👋</h2>
-    <p>Siempre me ha fascinado el diálogo entre los interiores y los exteriores: <strong>lo que protegemos en nuestro hogar y lo que dejamos crecer libremente en la naturaleza</strong>. Aprendí a observar ambos mundos con una mirada curiosa, buscando siempre la belleza <strong>en lo cotidiano, porque para mí, vivir en sintonía con lo natural es crear un espacio de bienestar donde el entorno y nosotros nos cuidamos mutuamente.</strong></p>
-    <p>Me gusta tomar prestado un trozo de exterior y traerlo hacia dentro para crear <strong>rincones con alma de bosque</strong>, lugares que invitan a quedarse y que vuelvan especial cada momento a través de los olores, las texturas y el tacto bajo las manos.</p>
-    <p>Por eso, cada pieza que diseño y creo lleva ese mismo mimo y ternura, porque no creo objetos vacíos, sino detalles que echan raíces y cuentan una historia: la de quien los recibe.</p>
-    <p>Trabajo con madera y materiales naturales, así que cada pieza tiene su propio carácter: vetas, tonos y pequeñas variaciones que la hacen irrepetible. Las fotos muestran piezas reales, pero ten en cuenta que la que recibas será única, como todo lo que nace de la naturaleza, no hay dos exactamente iguales.</p>
-    <p style="font-size:0.85rem; color:var(--text-mid);">✦ Todos los precios incluyen IVA</p>
+    <p>Siempre me ha fascinado el diálogo entre los interiores y los exteriores: <strong>lo que protegemos en nuestro hogar y lo que dejamos crecer libremente en la naturaleza</strong>. Aprendí a observar ambos mundos con una mirada curiosa, buscando siempre la belleza en lo cotidiano.</p>
+    <button class="btn-leer-mas" id="btnLeerMas" onclick="toggleSobreExtra()">Leer mi historia completa <span class="chev">▾</span></button>
+    <div class="sobre-extra" id="sobreExtra">
+      <div class="sobre-extra-inner">
+        <p>Para mí, vivir en sintonía con lo natural es crear un espacio de bienestar donde el entorno y nosotros nos cuidamos mutuamente. Me gusta tomar prestado un trozo de exterior y traerlo hacia dentro para crear <strong>rincones con alma de bosque</strong>, lugares que invitan a quedarse y que vuelvan especial cada momento a través de los olores, las texturas y el tacto bajo las manos.</p>
+        <p>Por eso, cada pieza que diseño y creo lleva ese mismo mimo y ternura, porque no creo objetos vacíos, sino detalles que echan raíces y cuentan una historia: la de quien los recibe.</p>
+        <p>Trabajo con madera y materiales naturales, así que cada pieza tiene su propio carácter: vetas, tonos y pequeñas variaciones que la hacen irrepetible. Las fotos muestran piezas reales, pero ten en cuenta que la que recibas será única, como todo lo que nace de la naturaleza, no hay dos exactamente iguales.</p>
+        <p style="font-size:0.85rem; color:var(--text-mid);">✦ Todos los precios incluyen IVA</p>
+      </div>
+    </div>
     <a href="#contacto" class="btn-primary" style="width:fit-content; margin-top:0.5rem;">Escríbeme</a>
   </div>
 </section>
@@ -437,6 +450,15 @@
   function scrollToSobre() {
     document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' });
     document.getElementById('navLinks').classList.remove('open');
+  }
+  function toggleSobreExtra() {
+    const extra = document.getElementById('sobreExtra');
+    const btn = document.getElementById('btnLeerMas');
+    const isOpen = extra.classList.toggle('open');
+    btn.classList.toggle('expanded', isOpen);
+    btn.innerHTML = isOpen
+      ? 'Leer menos <span class="chev">▾</span>'
+      : 'Leer mi historia completa <span class="chev">▾</span>';
   }
   function toggleSubmenu(e, btn) {
     if (window.innerWidth > 640) return; // en escritorio el hover ya lo gestiona
