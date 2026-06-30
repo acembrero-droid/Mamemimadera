@@ -39,21 +39,21 @@
     .mobile-logo { display: none; justify-content: center; margin-bottom: 1.5rem; }
     .mobile-logo img { width: 150px; height: 150px; object-fit: contain; }
     .hamburger span { width: 24px; height: 2px; background: var(--wood-dark); border-radius: 2px; transition: all 0.3s; }
-    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 70px 0 0; overflow: visible; background: var(--mint-light); position: relative; }
-    .hero-left { padding: 5rem 3rem 4rem 5rem; display: flex; flex-direction: column; gap: 1.5rem; background: var(--mint-light); }
+    #hero { min-height: 88vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 70px 0 0; overflow: visible; background: var(--mint-light); position: relative; }
+    .hero-left { padding: 3.5rem 3rem 3rem 5rem; display: flex; flex-direction: column; gap: 1.3rem; background: var(--mint-light); }
     .hero-tag { display: inline-block; background: rgba(255,255,255,0.6); color: var(--wood-dark); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 30px; width: fit-content; }
-    .hero-left h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.4rem); color: var(--wood-deep); line-height: 1.15; }
+    .hero-left h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.4vw, 2.9rem); color: var(--wood-deep); line-height: 1.15; }
     .hero-left h1 em { color: var(--wood-dark); font-style: italic; }
-    .hero-left p { font-size: 1.05rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; max-width: 480px; }
+    .hero-left p { font-size: 1rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; max-width: 460px; }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary { display: inline-block; padding: 0.85rem 2rem; background: var(--wood-dark); color: #fff; border-radius: 40px; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; box-shadow: 0 4px 16px rgba(139,94,60,0.35); }
     .btn-primary:hover { background: var(--mint-dark); transform: translateY(-2px); }
     .btn-secondary { display: inline-block; padding: 0.85rem 2rem; background: transparent; color: var(--wood-dark); border: 2px solid var(--wood-dark); border-radius: 40px; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; }
     .btn-secondary:hover { background: var(--wood-light); transform: translateY(-2px); }
-    .hero-right { height: 100vh; position: relative; overflow: visible; }
+    .hero-right { height: 88vh; position: relative; overflow: visible; }
     .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
     .hero-right::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--mint-light) 0%, transparent 30%); }
-    .hero-logo-float { position: absolute; bottom: 2rem; right: 2rem; z-index: 50; width: 160px; height: 160px; background: rgba(253,248,240,0.95); border-radius: 50%; padding: 8px; box-shadow: 0 6px 24px var(--shadow); animation: floatLogo 4s ease-in-out infinite; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero-logo-float { position: absolute; bottom: 1.6rem; right: 1.6rem; z-index: 50; width: 120px; height: 120px; background: rgba(253,248,240,0.95); border-radius: 50%; padding: 7px; box-shadow: 0 6px 24px var(--shadow); animation: floatLogo 4s ease-in-out infinite; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .hero-logo-float img { width: 90%; height: 90%; object-fit: contain; }
     @keyframes floatLogo { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     section { padding: 5rem 2rem; }
