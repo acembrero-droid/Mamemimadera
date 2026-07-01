@@ -470,21 +470,21 @@
 
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
-      noteHtml = `🎀 Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a>`;
+      noteHtml = `✨ Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a>`;
       if (subtotal < FREE_SHIPPING_THRESHOLD) {
         const wouldBeShipping = getShippingTier(cartWeightGrams()).price;
         noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Gracias a que vienes a la tienda a recoger tu pedido te ahorras ${wouldBeShipping.toFixed(2)} € de los gastos de envío</span>`;
       }
     } else if (shipping === 0) {
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€, solo Península)`;
+      noteHtml = `✨ Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€, solo Península)`;
       noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
     } else {
       const remainingEur = FREE_SHIPPING_THRESHOLD - subtotal;
       const closeToFree = remainingEur <= 25;
       if (closeToFree) {
-        noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ ¡Solo te faltan ${remainingEur.toFixed(2)} € para conseguir el envío gratis!</span>`;
+        noteHtml = `✨ Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ ¡Solo te faltan ${remainingEur.toFixed(2)} € para conseguir el envío gratis!</span>`;
       } else {
-        noteHtml = `🎀 Envoltorio mimado para entregar como regalo`;
+        noteHtml = `✨ Envoltorio mimado para entregar como regalo`;
       }
       noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
       const currentWeight = cartWeightGrams();
