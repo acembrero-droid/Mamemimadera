@@ -435,14 +435,19 @@
       noteHtml = `🎀 Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a>`;
       if (subtotal < FREE_SHIPPING_THRESHOLD) {
         const wouldBeShipping = getShippingTier(cartWeightGrams()).price;
-        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Te ahorras ${wouldBeShipping.toFixed(2)} € al no tener que incluir los gastos de envío por venir a recogerlo a la tienda</span>`;
+        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Gracias a que vienes a la tienda a recoger tu pedido te ahorras ${wouldBeShipping.toFixed(2)} € de los gastos de envío</span>`;
       }
     } else if (shipping === 0) {
       noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€)`;
       noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
     } else {
-      const remainingEur = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ Añade ${remainingEur} € más y consigues el envío gratis</span>`;
+      const remainingEur = FREE_SHIPPING_THRESHOLD - subtotal;
+      const closeToFree = remainingEur <= 25;
+      if (closeToFree) {
+        noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ ¡Solo te faltan ${remainingEur.toFixed(2)} € para conseguir el envío gratis!</span>`;
+      } else {
+        noteHtml = `🎀 Envoltorio mimado para entregar como regalo`;
+      }
       noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
       const currentWeight = cartWeightGrams();
       const currentTier = getShippingTier(currentWeight);
@@ -473,7 +478,7 @@
           <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
           ${deliveryMode === 'tienda'
             ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
-            : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" target="_blank" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+            : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
           }
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
@@ -574,7 +579,7 @@
         <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
         ${deliveryMode === 'tienda'
           ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
-          : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" target="_blank" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+          : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
         }
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
