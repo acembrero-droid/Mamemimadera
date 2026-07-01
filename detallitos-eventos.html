@@ -141,10 +141,6 @@
       <div class="img-wrap"><img src="images/libretas.jpg" alt="Libretas personalizadas"></div>
       <div class="cat-info"><h3>Libretas personalizadas</h3><p>Grabado láser · Desde 1 unidad · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
     </a>
-    <a class="cat-card fade-in" onclick="showPage('posavasos'); return false;" href="#">
-      <div class="img-wrap"><img src="images/pasavasos.jpg" alt="Posavasos"></div>
-      <div class="cat-info"><h3>Posavasos madera y porcelana</h3><p>Combinación exclusiva · Grabado láser · Precio a consultar</p><span class="cat-arrow">Ver más →</span></div>
-    </a>
   </div>
 </section>
 
@@ -178,14 +174,48 @@
       <div class="product-body">
         <p class="product-cat">Detallitos para Eventos</p>
         <h3>Marcasitios para boda</h3>
-        <p class="product-desc">Marcasitios de madera natural grabados al láser con el nombre de cada invitado. Disponibles en varios acabados: madera natural, pintados a color, con nombre en 3D o con flores secas. Cada estilo da un toque diferente a tu celebración — consúltame y encontramos el diseño perfecto.</p>
+        <p class="product-desc">Marcasitios de madera contrachapada grabados al láser con el nombre de cada invitado, disponibles en varios modelos: redondo pequeño, ovalado, ovalado con nombre en 3D o totalmente impreso en 3D. ¿Buscas otro diseño, modelo o calidad de madera distinta a las que ves aquí? Escríbeme y preparamos juntos un presupuesto a medida.</p>
         <div class="price-block">
-          <div class="price-row"><span>Según diseño y cantidad</span><span class="amount">a consultar</span></div>
-          <p class="price-note">✦ IVA incluido · El precio varía según acabado y número de unidades</p>
+          <div class="price-row"><span>Según modelo · 10–24 uds</span><span class="amount">desde 2,50 €/u</span></div>
+          <div class="price-row"><span>Según modelo · 25–60 uds</span><span class="amount">desde 1,60 €/u</span></div>
+          <div class="price-row"><span>Según modelo · 61–120 uds</span><span class="amount">desde 1,35 €/u</span></div>
+          <div class="price-row"><span>Según modelo · más de 120 uds</span><span class="amount">desde 1,15 €/u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio exacto según el modelo elegido y la cantidad (ver desglose abajo) · Pedido mínimo online: 10 unidades</p>
           <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+          <div class="price-alert">✦ El precio indicado es únicamente por la pieza del marcasitio. Si quieres completarlo con ramillete de flores, cuerda para la servilleta u otros detalles, coméntamelo en "Detalles del diseño" o por WhatsApp y te paso presupuesto aparte para esos extras.</div>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Ya%20tengo%20una%20idea%20de%20dise%C3%B1o%20para%20los%20marcasitios%20de%20mi%20boda%2C%20te%20cuento" class="btn-contact" target="_blank">Ya tengo una idea, te escribo</a>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20marcasitios%20para%20mi%20boda%2C%20me%20gustar%C3%ADa%20que%20me%20ayud%C3%A9is%20a%20definir%20el%20dise%C3%B1o" class="btn-contact-secondary" target="_blank">Quiero que me ayudéis a diseñarlo</a>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Modelo</label>
+            <select class="opt-input" id="marcasitios-modelo" onchange="updateMarcasitios()">
+              <option value="redondo">Marcasitio redondo pequeño</option>
+              <option value="ovalado">Marcasitio ovalado</option>
+              <option value="ovalado3d">Óvalo con nombre en 3D</option>
+              <option value="todo3d">Todo impreso en 3D</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="marcasitios-cantidad" min="1" placeholder="Nº de unidades" oninput="updateMarcasitios()">
+            <p class="price-note" id="marcasitios-desglose" style="margin-top:0.3rem;">Elige modelo y cantidad para ver el precio</p>
+          </div>
+          <div id="marcasitios-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            El pedido mínimo online es de 10 unidades. Para cantidades menores, escríbeme y lo vemos juntas.
+            <a id="marcasitios-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
+          </div>
+          <div class="opt-row"><label class="opt-label">Detalles del diseño (nombres a grabar, estilo, extras...)</label><input type="text" class="opt-input" id="marcasitios-diseno" placeholder="ej. nombres de los invitados, estilo, si quieres flores o cuerda añadidas..."></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="marcasitios-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="marcasitios-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" id="marcasitios-add-btn" onclick="addCartMarcasitios()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20marcasitios%20para%20mi%20boda" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
@@ -282,32 +312,6 @@
   </div>
 </div>
 
-<!-- ── POSAVASOS ── -->
-<div class="product-page" id="page-posavasos">
-  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
-  <div class="products-grid">
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pasavasos.jpg')">
-        <img src="images/pasavasos.jpg" alt="Posavasos madera y porcelana">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Detallitos para Eventos</p>
-        <h3>Posavasos madera y porcelana</h3>
-        <p class="product-desc">Posavasos redondos con una preciosa combinación de madera natural y porcelana blanca, grabados al láser con el diseño, nombres o fecha que elijas. Un detalle elegante y práctico que tus invitados llevarán a casa con mucho cariño. Perfectos para bodas, aniversarios o cualquier celebración especial.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Según diseño y cantidad</span><span class="amount">a consultar</span></div>
-          <p class="price-note">✦ IVA incluido · El precio varía según diseño y número de unidades</p>
-          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Ya%20tengo%20una%20idea%20de%20dise%C3%B1o%20para%20los%20posavasos%2C%20te%20cuento" class="btn-contact" target="_blank">Ya tengo una idea, te escribo</a>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20posavasos%20de%20madera%20y%20porcelana%2C%20me%20gustar%C3%ADa%20que%20me%20ayud%C3%A9is%20a%20definir%20el%20dise%C3%B1o" class="btn-contact-secondary" target="_blank">Quiero que me ayudéis a diseñarlo</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="info-banner" style="background:var(--wood-deep);color:var(--cream);padding:2rem;text-align:center;">
   <p style="font-size:0.88rem;font-weight:300;line-height:1.8;">✦ Todos los precios incluyen IVA · Realizo envíos a toda España ✦<br>
   ¿Tienes dudas? Escríbeme a <strong style="color:var(--wood-mid);">hola@mamemimadera.es</strong> o por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-mid);font-weight:700;">WhatsApp</a></p>
@@ -329,7 +333,7 @@
 </div>
 
 <script>
-  const pageNames = { imanes: 'Imanes abrebotellas', libretas: 'Libretas', marcasitios: 'Marcasitios', posavasos: 'Posavasos' };
+  const pageNames = { imanes: 'Imanes abrebotellas', libretas: 'Libretas', marcasitios: 'Marcasitios' };
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
@@ -424,6 +428,66 @@
     addToCart({ id: 'imanes-' + Date.now(), name: 'Imán abrebotellas de bambú', price: precioU, qty: cantidad, options: opts });
   }
 
+  // ── MARCASITIOS PARA BODA ──
+  const marcasitiosModelos = {
+    'redondo':   { label: 'Marcasitio redondo pequeño', precios: [2.50, 1.60, 1.35, 1.15] },
+    'ovalado':   { label: 'Marcasitio ovalado', precios: [2.80, 1.85, 1.60, 1.35] },
+    'ovalado3d': { label: 'Óvalo con nombre en 3D', precios: [3.70, 2.60, 2.30, 2.00] },
+    'todo3d':    { label: 'Todo impreso en 3D', precios: [4.00, 2.90, 2.55, 2.25] },
+  };
+  function marcasitiosPrecioUnidad(key, cantidad) {
+    const precios = marcasitiosModelos[key].precios;
+    if (cantidad > 120) return precios[3];
+    if (cantidad >= 61) return precios[2];
+    if (cantidad >= 25) return precios[1];
+    if (cantidad >= 10) return precios[0];
+    return null;
+  }
+  function updateMarcasitios() {
+    const modelo = document.getElementById('marcasitios-modelo')?.value || 'redondo';
+    const cantidad = parseInt(document.getElementById('marcasitios-cantidad')?.value) || 0;
+    const desglose = document.getElementById('marcasitios-desglose');
+    const totalEl = document.getElementById('marcasitios-total');
+    const lowqty = document.getElementById('marcasitios-lowqty');
+    const lowqtyLink = document.getElementById('marcasitios-lowqty-link');
+    const addBtn = document.getElementById('marcasitios-add-btn');
+
+    if (cantidad < 1) {
+      desglose.textContent = 'Elige modelo y cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
+      return;
+    }
+    if (cantidad < 10) {
+      desglose.textContent = 'Pedido mínimo online: 10 unidades';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      const nombreModelo = marcasitiosModelos[modelo].label;
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' marcasitios (' + nombreModelo + '), ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
+    const precioU = marcasitiosPrecioUnidad(modelo, cantidad);
+    const total = precioU * cantidad;
+    desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
+    totalEl.textContent = formatEuros(total);
+  }
+  function addCartMarcasitios() {
+    const modelo = document.getElementById('marcasitios-modelo')?.value || 'redondo';
+    const cantidad = parseInt(document.getElementById('marcasitios-cantidad')?.value) || 0;
+    const diseno = document.getElementById('marcasitios-diseno')?.value.trim();
+    const enfoque = document.getElementById('marcasitios-enfoque')?.value;
+    if (cantidad < 10) { alert('El pedido mínimo online es de 10 unidades. Para menos, escríbeme por WhatsApp.'); return; }
+    if (!diseno) { alert('Por favor indica algún detalle del diseño (nombres, estilo...).'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const precioU = marcasitiosPrecioUnidad(modelo, cantidad);
+    const opts = { 'Modelo': marcasitiosModelos[modelo].label, 'Detalles diseño': diseno, 'Enfoque diseño': enfoque };
+    addToCart({ id: 'marcasitios-' + Date.now(), name: 'Marcasitio para boda', price: precioU, qty: cantidad, options: opts });
+  }
+
   // ── LIBRETAS PERSONALIZADAS ──
   function libretasPrecioUnidad(cantidad) {
     if (cantidad > 50) return 6.00;
@@ -466,7 +530,7 @@
     floatBtn.style.cssText = 'display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;border-radius:30px;padding:0.5rem 1.1rem;font-family:Nunito,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;';
     floatBtn.onclick = function() { showGrid(); };
     document.body.appendChild(floatBtn);
-    var floatPages = ['page-marcasitios','page-imanes','page-libretas','page-posavasos'];
+    var floatPages = ['page-marcasitios','page-imanes','page-libretas'];
     function upd() {
       var ok = window.innerWidth <= 640 && floatPages.some(function(id){var e=document.getElementById(id);return e&&e.classList.contains('active');});
       floatBtn.style.display = ok ? 'block' : 'none';
