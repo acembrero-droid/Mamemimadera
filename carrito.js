@@ -1,16 +1,16 @@
 // ── MAMEMI Madera · Carrito de compra ──
 (function() {
 
-  // ── Tabla de envío por peso (Correos Paq Ligero / Paq Premium + embalaje) ──
+  // ── Tabla de envío por peso (tarifa Correos Paq Ligero/Premium + embalaje) ──
   const SHIPPING_TIERS = [
-    { maxGrams: 250,  price: 6.96  },
-    { maxGrams: 500,  price: 9.16  },
-    { maxGrams: 1000, price: 12.51 },
-    { maxGrams: 2000, price: 14.84 },
-    { maxGrams: 5000, price: 21.70 },
+    { maxGrams: 250,      price: 6.96,  label: 'Envío Mini' },
+    { maxGrams: 500,      price: 9.16,  label: 'Envío Estándar' },
+    { maxGrams: 1000,     price: 12.51, label: 'Envío Mediano' },
+    { maxGrams: 2000,     price: 14.84, label: 'Envío Voluminoso' },
+    { maxGrams: Infinity, price: 21.70, label: 'Envío Paquete Grande' },
   ];
-  const FREE_SHIPPING_THRESHOLD = 60;   // € · a partir de este importe
-  const FREE_SHIPPING_MAX_GRAMS = 1000; // g · solo si el pedido no supera este peso
+  const FREE_SHIPPING_THRESHOLD = 75;   // € · a partir de este importe, envío gratis (sin límite de peso)
+  const ENVIOS_INFO_URL = 'envios.html';
 
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio';
@@ -85,21 +85,18 @@
     return cart.reduce((sum, i) => sum + (i.peso || 0) * i.qty, 0);
   }
 
-  // ── Precio de envío según el tramo de peso que corresponda ──
-  function getShippingTierPrice(weightGrams) {
+  // ── Tramo de envío según el peso que corresponda (devuelve precio + etiqueta) ──
+  function getShippingTier(weightGrams) {
     for (const tier of SHIPPING_TIERS) {
-      if (weightGrams <= tier.maxGrams) return tier.price;
+      if (weightGrams <= tier.maxGrams) return tier;
     }
-    // Por encima del tramo máximo (5kg): se aplica el precio del último tramo
-    // y se contacta con el cliente para confirmar el envío exacto.
-    return SHIPPING_TIERS[SHIPPING_TIERS.length - 1].price;
+    return SHIPPING_TIERS[SHIPPING_TIERS.length - 1];
   }
 
   function getShipping(subtotal) {
     if (deliveryMode === 'tienda') return 0;
-    const weight = cartWeightGrams();
-    if (subtotal >= FREE_SHIPPING_THRESHOLD && weight <= FREE_SHIPPING_MAX_GRAMS) return 0;
-    return getShippingTierPrice(weight);
+    if (subtotal >= FREE_SHIPPING_THRESHOLD) return 0;
+    return getShippingTier(cartWeightGrams()).price;
   }
 
   function cartTotal() {
@@ -383,7 +380,7 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const total = cartTotal();
-    const weight = cartWeightGrams();
+    const tier = getShippingTier(cartWeightGrams());
 
     if (cart.length === 0) {
       body.innerHTML = `
@@ -418,10 +415,17 @@
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
       noteHtml = `🎀 Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a>`;
+      if (subtotal < FREE_SHIPPING_THRESHOLD) {
+        const wouldBeShipping = getShippingTier(cartWeightGrams()).price;
+        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Te ahorras ${wouldBeShipping.toFixed(2)} € al no tener que incluir los gastos de envío por venir a recogerlo a la tienda</span>`;
+      }
     } else if (shipping === 0) {
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€ y hasta 1kg)`;
+      noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€)`;
+      noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
     } else {
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">📦 Los gastos de envío varían según el peso del pedido (ahora mismo: ${weight} g)${subtotal < FREE_SHIPPING_THRESHOLD ? '<br>✦ Envío gratis en pedidos de más de ' + FREE_SHIPPING_THRESHOLD + '€ que no superen 1kg' : ''}</span>`;
+      const remaining = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
+      noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ Añade ${remaining} € más y consigues el envío gratis</span>`;
+      noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
     }
     noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">${deliveryMode === 'tienda' ? '📦 Listo para recoger en' : '📦 Plazo de entrega estimado'}: <strong>${getEstimatedDelivery()}</strong>${deliveryMode === 'tienda' ? ' (te avisaré por WhatsApp/email)' : ' (puede ampliarse en fechas de alta demanda)'}</span>`;
 
@@ -442,7 +446,7 @@
           <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
           ${deliveryMode === 'tienda'
             ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
-            : `<div class="cart-total-row"><span>Envío (${weight} g)</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+            : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" target="_blank" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
           }
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
@@ -505,7 +509,7 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const total = cartTotal();
-    const weight = cartWeightGrams();
+    const tier = getShippingTier(cartWeightGrams());
     const addr = deliveryMode === 'envio'
       ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
       : {};
@@ -543,7 +547,7 @@
         <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
         ${deliveryMode === 'tienda'
           ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
-          : `<div class="cart-total-row"><span>Envío (${weight} g)</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+          : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" target="_blank" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
         }
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
