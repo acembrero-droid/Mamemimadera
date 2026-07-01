@@ -1,15 +1,29 @@
 // ── MAMEMI Madera · Carrito de compra ──
 (function() {
 
-  // ── Tabla de envío por peso (tarifa Correos Paq Ligero/Premium + embalaje) ──
-  const SHIPPING_TIERS = [
-    { maxGrams: 250,      price: 6.96,  label: 'Envío Mini' },
-    { maxGrams: 500,      price: 9.16,  label: 'Envío Estándar' },
+  // ── Tabla de envío por peso, según zona (tarifa Correos Paq Ligero/Premium + embalaje) ──
+  const SHIPPING_TIERS_PENINSULA = [
+    { maxGrams: 250,      price: 5.98,  label: 'Envío Mini' },
+    { maxGrams: 500,      price: 9.00,  label: 'Envío Estándar' },
     { maxGrams: 1000,     price: 12.51, label: 'Envío Mediano' },
     { maxGrams: 2000,     price: 14.84, label: 'Envío Voluminoso' },
     { maxGrams: Infinity, price: 21.70, label: 'Envío Paquete Grande' },
   ];
-  const FREE_SHIPPING_THRESHOLD = 75;   // € · a partir de este importe, envío gratis (sin límite de peso)
+  const SHIPPING_TIERS_BALEARES_CEUTA_MELILLA = [
+    { maxGrams: 250,      price: 7.72,  label: 'Envío Mini' },
+    { maxGrams: 500,      price: 10.29, label: 'Envío Estándar' },
+    { maxGrams: 1000,     price: 14.19, label: 'Envío Mediano' },
+    { maxGrams: 2000,     price: 16.24, label: 'Envío Voluminoso' },
+    { maxGrams: Infinity, price: 24.25, label: 'Envío Paquete Grande' },
+  ];
+  const SHIPPING_TIERS_CANARIAS = [
+    { maxGrams: 250,      price: 11.85, label: 'Envío Mini' },
+    { maxGrams: 500,      price: 13.82, label: 'Envío Estándar' },
+    { maxGrams: 1000,     price: 15.59, label: 'Envío Mediano' },
+    { maxGrams: 2000,     price: 19.02, label: 'Envío Voluminoso' },
+    { maxGrams: Infinity, price: 36.05, label: 'Envío Paquete Grande' },
+  ];
+  const FREE_SHIPPING_THRESHOLD = 75;   // € · a partir de este importe, envío gratis (sin límite de peso, solo Península)
   const ENVIOS_INFO_URL = 'envios.html';
 
   // ── Catálogo de piezas ligeras para sugerir sin cambiar de tramo de envío ──
@@ -103,18 +117,42 @@
     return cart.reduce((sum, i) => sum + (i.peso || 0) * i.qty, 0);
   }
 
-  // ── Tramo de envío según el peso que corresponda (devuelve precio + etiqueta) ──
-  function getShippingTier(weightGrams) {
-    for (const tier of SHIPPING_TIERS) {
+  // ── Determina la zona de envío a partir del código postal ──
+  // Baleares/Ceuta/Melilla: 07, 51, 52 · Canarias: 35, 38 · Resto: Península
+  function getRegionFromCP(cp) {
+    if (!cp) return 'peninsula'; // sin dirección todavía: asumimos península por defecto
+    const prefix = parseInt(String(cp).trim().slice(0, 2), 10);
+    if (isNaN(prefix)) return 'peninsula';
+    if (prefix === 35 || prefix === 38) return 'canarias';
+    if (prefix === 7 || prefix === 51 || prefix === 52) return 'baleares_ceuta_melilla';
+    return 'peninsula';
+  }
+
+  function getShippingTiersForRegion(region) {
+    if (region === 'canarias') return SHIPPING_TIERS_CANARIAS;
+    if (region === 'baleares_ceuta_melilla') return SHIPPING_TIERS_BALEARES_CEUTA_MELILLA;
+    return SHIPPING_TIERS_PENINSULA;
+  }
+
+  function getCurrentRegion() {
+    const savedAddress = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
+    return getRegionFromCP(savedAddress.cp);
+  }
+
+  // ── Tramo de envío según el peso y la zona (devuelve precio + etiqueta) ──
+  function getShippingTier(weightGrams, region) {
+    const tiers = getShippingTiersForRegion(region || getCurrentRegion());
+    for (const tier of tiers) {
       if (weightGrams <= tier.maxGrams) return tier;
     }
-    return SHIPPING_TIERS[SHIPPING_TIERS.length - 1];
+    return tiers[tiers.length - 1];
   }
 
   function getShipping(subtotal) {
     if (deliveryMode === 'tienda') return 0;
-    if (subtotal >= FREE_SHIPPING_THRESHOLD) return 0;
-    return getShippingTier(cartWeightGrams()).price;
+    const region = getCurrentRegion();
+    if (subtotal >= FREE_SHIPPING_THRESHOLD && region === 'peninsula') return 0;
+    return getShippingTier(cartWeightGrams(), region).price;
   }
 
   function cartTotal() {
@@ -438,7 +476,7 @@
         noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Gracias a que vienes a la tienda a recoger tu pedido te ahorras ${wouldBeShipping.toFixed(2)} € de los gastos de envío</span>`;
       }
     } else if (shipping === 0) {
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€)`;
+      noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€, solo Península)`;
       noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
     } else {
       const remainingEur = FREE_SHIPPING_THRESHOLD - subtotal;
@@ -499,6 +537,7 @@
         <button class="cart-back-step" onclick="goToStep(1)">← Volver al carrito</button>
         <p class="cart-step-title">📦 Dirección de envío</p>
         <p class="cart-step-sub">* Campos obligatorios</p>
+        <p class="cart-step-sub">✦ El envío gratis a partir de ${FREE_SHIPPING_THRESHOLD}€ aplica solo a envíos dentro de la España peninsular</p>
       </div>
       <div class="cart-addr-form">
         <input id="addr-nombre" class="addr-input" type="text" ${v('nombre','* Nombre y apellidos')}>
