@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Envíos – MAMEMI Madera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-back { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-back:hover { color: var(--mint-dark); }
+    @media (max-width: 380px) { .nav-back { display: none; } }
+    .page-hero { padding: 130px 2rem 2.5rem; background: var(--mint-light); text-align: center; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 2.8rem); color: var(--wood-deep); margin-bottom: 0.6rem; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
+    main { max-width: 640px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .free-banner { background: var(--mint-light); border: 1.5px solid var(--mint); border-radius: 16px; padding: 1.2rem 1.5rem; text-align: center; font-size: 1.05rem; color: var(--wood-deep); font-weight: 700; margin-bottom: 2rem; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px var(--shadow); }
+    th, td { padding: 0.75rem 1rem; text-align: left; font-size: 0.85rem; }
+    th { background: var(--wood-light); color: var(--wood-deep); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem; }
+    td { color: var(--text-mid); border-bottom: 1px solid var(--wood-light); }
+    tr:last-child td { border-bottom: none; }
+    td.price { color: var(--wood-dark); font-weight: 700; white-space: nowrap; }
+    .note-final { font-size: 0.78rem; color: var(--text-mid); font-style: italic; text-align: center; margin-top: 1.5rem; line-height: 1.6; }
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; }
+    footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      main { padding: 2rem 1.2rem 3rem; }
+      th, td { padding: 0.6rem 0.6rem; font-size: 0.78rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <a href="index.html" class="nav-back">← Inicio</a>
+</nav>
+
+<div class="page-hero">
+  <h1>📦 Nuestros Envíos</h1>
+  <div class="divider"></div>
+</div>
+
+<main>
+  <div class="free-banner">🎉 Envío GRATIS en compras superiores a 75 € (solo Península)</div>
+
+  <table>
+    <thead>
+      <tr><th>Peso del pedido</th><th>Tarifa</th><th>Precio</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>0 g – 250 g</td><td>Envío Mini</td><td class="price">6,96 €</td></tr>
+      <tr><td>251 g – 500 g</td><td>Envío Estándar</td><td class="price">9,16 €</td></tr>
+      <tr><td>501 g – 1.000 g</td><td>Envío Mediano</td><td class="price">12,51 €</td></tr>
+      <tr><td>1 kg – 2 kg</td><td>Envío Voluminoso</td><td class="price">14,84 €</td></tr>
+      <tr><td>Más de 2 kg</td><td>Envío Paquete Grande</td><td class="price">21,70 €</td></tr>
+    </tbody>
+  </table>
+
+  <p class="note-final">✦ El peso se calcula automáticamente sumando todos los productos de tu pedido ✦</p>
+</main>
+
+<footer>
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  <span><a href="legal.html">Aviso Legal y Privacidad</a> · <a href="legal.html#devoluciones">Devoluciones</a></span>
+</footer>
+
+</body>
+</html>
