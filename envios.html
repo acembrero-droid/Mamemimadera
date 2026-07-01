@@ -19,7 +19,7 @@
     .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
     .nav-back { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
     .nav-back:hover { color: var(--mint-dark); }
-    @media (max-width: 380px) { .nav-back { display: none; } }
+    @media (max-width: 380px) { .nav-back.nav-inicio { display: none; } }
     .page-hero { padding: 130px 2rem 2.5rem; background: var(--mint-light); text-align: center; }
     .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 2.8rem); color: var(--wood-deep); margin-bottom: 0.6rem; }
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
@@ -46,7 +46,10 @@
 <body>
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
-  <a href="index.html" class="nav-back">← Inicio</a>
+  <div style="display:flex;align-items:center;gap:1.2rem;">
+    <a href="javascript:void(0)" onclick="history.back()" class="nav-back">← Volver</a>
+    <a href="index.html" class="nav-back nav-inicio">Inicio</a>
+  </div>
 </nav>
 
 <div class="page-hero">
