@@ -61,8 +61,21 @@
     .price-row:last-of-type { border-bottom: none; }
     .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.92rem; }
     .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; line-height: 1.5; }
+    .price-alert { font-size: 0.78rem; color: var(--wood-dark); font-weight: 600; background: var(--wood-light); border-radius: 8px; padding: 0.5rem 0.75rem; margin-top: 0.5rem; line-height: 1.5; }
     .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-contact:hover { background: var(--mint-dark); }
+    .btn-contact-secondary { display: block; text-align: center; margin-top: 0.6rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.6rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.25s; }
+    .btn-contact-secondary:hover { background: var(--wood-light); }
+    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
+    .opt-row { margin-bottom: 0.5rem; }
+    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
+    .opt-row select:focus { border-color: var(--mint-dark); }
+    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
+    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
+    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
+    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .btn-add-cart:hover { background: var(--wood-dark); }
     .mini-carousel { position: relative; width: 100%; overflow: hidden; }
     .mini-track { display: flex; transition: transform 0.4s ease; }
     .mini-track img { width: 100%; height: 250px; object-fit: cover; flex-shrink: 0; cursor: zoom-in; }
@@ -169,8 +182,10 @@
         <div class="price-block">
           <div class="price-row"><span>Según diseño y cantidad</span><span class="amount">a consultar</span></div>
           <p class="price-note">✦ IVA incluido · El precio varía según acabado y número de unidades</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20marcasitios%20para%20mi%20boda" class="btn-contact" target="_blank">Quiero este</a>
+        <a href="https://wa.me/34622562499?text=Hola!%20Ya%20tengo%20una%20idea%20de%20dise%C3%B1o%20para%20los%20marcasitios%20de%20mi%20boda%2C%20te%20cuento" class="btn-contact" target="_blank">Ya tengo una idea, te escribo</a>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20marcasitios%20para%20mi%20boda%2C%20me%20gustar%C3%ADa%20que%20me%20ayud%C3%A9is%20a%20definir%20el%20dise%C3%B1o" class="btn-contact-secondary" target="_blank">Quiero que me ayudéis a diseñarlo</a>
       </div>
     </div>
   </div>
@@ -195,8 +210,27 @@
           <div class="price-row"><span>26–50 unidades</span><span class="amount">3,50 € / u</span></div>
           <div class="price-row"><span>Más de 50 unidades</span><span class="amount">2,90 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Consulta para pedidos mixtos</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20imanes%20abrebotellas" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="imanes-cantidad" min="1" placeholder="Nº de unidades" oninput="updateImanes()">
+            <p class="price-note" id="imanes-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="imanes-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="imanes-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="imanes-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartImanes()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20imanes%20abrebotellas" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
@@ -222,8 +256,27 @@
           <div class="price-row"><span>25–49 unidades</span><span class="amount">7,50 € / u</span></div>
           <div class="price-row"><span>Más de 50 unidades</span><span class="amount">6,00 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">✦ Antes de fabricarlas, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20las%20libretas%20personalizadas" class="btn-contact" target="_blank">Quiero este</a>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="libretas-cantidad" min="1" placeholder="Nº de unidades" oninput="updateLibretas()">
+            <p class="price-note" id="libretas-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="libretas-diseno" placeholder="ej. nombre, logo, iniciales..."></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="libretas-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="libretas-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartLibretas()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20las%20libretas%20personalizadas" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
@@ -246,8 +299,10 @@
         <div class="price-block">
           <div class="price-row"><span>Según diseño y cantidad</span><span class="amount">a consultar</span></div>
           <p class="price-note">✦ IVA incluido · El precio varía según diseño y número de unidades</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20posavasos%20de%20madera%20y%20porcelana" class="btn-contact" target="_blank">Quiero este</a>
+        <a href="https://wa.me/34622562499?text=Hola!%20Ya%20tengo%20una%20idea%20de%20dise%C3%B1o%20para%20los%20posavasos%2C%20te%20cuento" class="btn-contact" target="_blank">Ya tengo una idea, te escribo</a>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20posavasos%20de%20madera%20y%20porcelana%2C%20me%20gustar%C3%ADa%20que%20me%20ayud%C3%A9is%20a%20definir%20el%20dise%C3%B1o" class="btn-contact-secondary" target="_blank">Quiero que me ayudéis a diseñarlo</a>
       </div>
     </div>
   </div>
@@ -331,6 +386,76 @@
   });
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // ── HELPERS DE PRECIO ──
+  function formatEuros(n) {
+    return (Math.round(n * 100) / 100).toFixed(2).replace('.', ',') + ' €';
+  }
+
+  // ── IMANES ABREBOTELLAS ──
+  function imanesPrecioUnidad(cantidad) {
+    if (cantidad > 50) return 2.90;
+    if (cantidad >= 26) return 3.50;
+    return 4.50;
+  }
+  function updateImanes() {
+    const cantidad = parseInt(document.getElementById('imanes-cantidad')?.value) || 0;
+    const desglose = document.getElementById('imanes-desglose');
+    const totalEl = document.getElementById('imanes-total');
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      return;
+    }
+    const precioU = imanesPrecioUnidad(cantidad);
+    const total = precioU * cantidad;
+    desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
+    totalEl.textContent = formatEuros(total);
+  }
+  function addCartImanes() {
+    const cantidad = parseInt(document.getElementById('imanes-cantidad')?.value) || 0;
+    const diseno = document.getElementById('imanes-diseno')?.value.trim();
+    const enfoque = document.getElementById('imanes-enfoque')?.value;
+    if (cantidad < 1) { alert('Por favor indica la cantidad de imanes que quieres.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const precioU = imanesPrecioUnidad(cantidad);
+    const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
+    addToCart({ id: 'imanes-' + Date.now(), name: 'Imán abrebotellas de bambú', price: precioU, qty: cantidad, options: opts });
+  }
+
+  // ── LIBRETAS PERSONALIZADAS ──
+  function libretasPrecioUnidad(cantidad) {
+    if (cantidad > 50) return 6.00;
+    if (cantidad >= 25) return 7.50;
+    if (cantidad >= 10) return 9.50;
+    return 15.00;
+  }
+  function updateLibretas() {
+    const cantidad = parseInt(document.getElementById('libretas-cantidad')?.value) || 0;
+    const desglose = document.getElementById('libretas-desglose');
+    const totalEl = document.getElementById('libretas-total');
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      return;
+    }
+    const precioU = libretasPrecioUnidad(cantidad);
+    const total = precioU * cantidad;
+    desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
+    totalEl.textContent = formatEuros(total);
+  }
+  function addCartLibretas() {
+    const cantidad = parseInt(document.getElementById('libretas-cantidad')?.value) || 0;
+    const diseno = document.getElementById('libretas-diseno')?.value.trim();
+    const enfoque = document.getElementById('libretas-enfoque')?.value;
+    if (cantidad < 1) { alert('Por favor indica la cantidad de libretas que quieres.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const precioU = libretasPrecioUnidad(cantidad);
+    const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
+    addToCart({ id: 'libretas-' + Date.now(), name: 'Libreta personalizada', price: precioU, qty: cantidad, options: opts });
+  }
 </script>
 <script>
   // ── BOTÓN FLOTANTE VOLVER (solo móvil) ──
