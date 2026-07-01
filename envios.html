@@ -23,7 +23,7 @@
     .page-hero { padding: 130px 2rem 2.5rem; background: var(--mint-light); text-align: center; }
     .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 2.8rem); color: var(--wood-deep); margin-bottom: 0.6rem; }
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
-    main { max-width: 640px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    main { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 4rem; }
     .free-banner { background: var(--mint-light); border: 1.5px solid var(--mint); border-radius: 16px; padding: 1.2rem 1.5rem; text-align: center; font-size: 1.05rem; color: var(--wood-deep); font-weight: 700; margin-bottom: 2rem; }
     table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px var(--shadow); }
     th, td { padding: 0.75rem 1rem; text-align: left; font-size: 0.85rem; }
@@ -38,7 +38,8 @@
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
       main { padding: 2rem 1.2rem 3rem; }
-      th, td { padding: 0.6rem 0.6rem; font-size: 0.78rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+      th, td { padding: 0.6rem 0.7rem; font-size: 0.76rem; }
       footer { flex-direction: column; text-align: center; }
     }
   </style>
@@ -62,18 +63,18 @@
 
   <table>
     <thead>
-      <tr><th>Peso del pedido</th><th>Tarifa</th><th>Precio</th></tr>
+      <tr><th>Peso del pedido</th><th>Península</th><th>Baleares / Ceuta / Melilla</th><th>Canarias</th></tr>
     </thead>
     <tbody>
-      <tr><td>0 g – 250 g</td><td>Envío Mini</td><td class="price">5,98 €</td></tr>
-      <tr><td>251 g – 500 g</td><td>Envío Estándar</td><td class="price">9,00 €</td></tr>
-      <tr><td>501 g – 1.000 g</td><td>Envío Mediano</td><td class="price">12,51 €</td></tr>
-      <tr><td>1 kg – 2 kg</td><td>Envío Voluminoso</td><td class="price">14,84 €</td></tr>
-      <tr><td>Más de 2 kg</td><td>Envío Paquete Grande</td><td class="price">21,70 €</td></tr>
+      <tr><td>0 g – 250 g</td><td class="price">5,98 €</td><td class="price">7,72 €</td><td class="price">11,85 €</td></tr>
+      <tr><td>251 g – 500 g</td><td class="price">9,00 €</td><td class="price">10,29 €</td><td class="price">13,82 €</td></tr>
+      <tr><td>501 g – 1.000 g</td><td class="price">12,51 €</td><td class="price">14,19 €</td><td class="price">15,59 €</td></tr>
+      <tr><td>1 kg – 2 kg</td><td class="price">14,84 €</td><td class="price">16,24 €</td><td class="price">19,02 €</td></tr>
+      <tr><td>Más de 2 kg</td><td class="price">21,70 €</td><td class="price">24,25 €</td><td class="price">36,05 €</td></tr>
     </tbody>
   </table>
 
-  <p class="note-final">✦ El peso se calcula automáticamente sumando todos los productos de tu pedido ✦</p>
+  <p class="note-final">✦ El peso se calcula automáticamente sumando todos los productos de tu pedido<br>✦ Los envíos a Canarias pueden estar sujetos a aduana e IGIC en lugar de IVA, lo que puede implicar trámites y plazos adicionales ✦</p>
 </main>
 
 <footer>
