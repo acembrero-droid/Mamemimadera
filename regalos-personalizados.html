@@ -194,6 +194,7 @@
         <div class="price-block">
           <div class="price-row"><span>Con nombre en 3D, temática y frase corta</span><span class="amount">35 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
           <div class="opt-row"><label class="opt-label">Temática / ilustración que quieres</label><input type="text" class="opt-input" id="placa-felicit-tematica" placeholder="ej. coches, campo, animales, brindis..."></div>
@@ -211,71 +212,18 @@
             <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
           </div>
           <div class="opt-row"><label class="opt-label">Frase corta (máx. 10 palabras)</label><input type="text" class="opt-input" id="placa-felicit-frase" placeholder="ej. ¡Salud por tus 70 años!"></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="placa-felicit-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
           <div class="opt-price-row"><span>Total:</span><strong>35 €</strong></div>
         </div>
         <button class="btn-add-cart" onclick="addCartPlacaFelicit()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20felicitaci%C3%B3n" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
-        <img src="images/llavero2.jpg" alt="Llavero personalizado">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">En madera</p>
-        <h3>Llavero grabado en madera</h3>
-        <p class="product-desc">Llavero redondo de madera natural grabado al láser con el diseño, nombre o texto que elijas. Diseño exclusivo creado para ti. Con anilla metálica y borla de gamuza en el color que prefieras.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Diseño y grabado por 1 cara</span><span class="amount">20 €</span></div>
-          <div class="price-row"><span>Diseño y grabado por 2 caras</span><span class="amount">25 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Grabado</label>
-            <select id="opt-llav-pers-caras" onchange="updateLlavPers()">
-              <option value="20">Diseño y grabado 1 cara — 20 €</option>
-              <option value="25">Diseño y grabado 2 caras — 25 €</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">¿Añadir nombre o texto?</label>
-            <select id="opt-llav-pers-nombre" onchange="updateLlavPers()">
-              <option value="0">Sin texto personalizado</option>
-              <option value="1">Sí, con texto personalizado</option>
-            </select>
-            <input type="text" id="opt-llav-pers-texto" placeholder="Escribe el nombre o texto" class="opt-input" style="display:none;" oninput="updateLlavPers()">
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-llav-pers-caja" onchange="updateLlavPers()">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Borla</label>
-            <select id="opt-llav-pers-borla" onchange="updateLlavPers()">
-              <option value="Sin borla">Sin borla</option>
-              <option value="Me da igual">Me da igual el color</option>
-              <option value="Verde brillante">Verde brillante</option>
-              <option value="Amarillo">Amarillo</option>
-              <option value="Marrón">Marrón</option>
-              <option value="Azul cielo">Azul cielo</option>
-              <option value="Morado">Morado</option>
-              <option value="Rosita palo">Rosita palo</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Azul marino">Azul marino</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-pers-total">20 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartLlavPers()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20llavero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
@@ -292,6 +240,7 @@
         <div class="price-block">
           <div class="price-row"><span>Con nombre en 3D y decoración</span><span class="amount">38 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
           <p class="opt-label" style="margin-bottom:0.6rem;">Datos para la placa:</p>
@@ -339,7 +288,8 @@
         <div class="product-options">
           <div style="background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.8rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
             ✦ <strong>¿Cómo funciona?</strong> Yo dejo el hueco para cada huella y grabo el nombre del profe y el curso. Te envío junto con la placa unos pequeños botes de pintura de varios colores para que los peques pongan el dedo 🖐️ en cuanto la recibáis, y una bolsita con lazo de yute para guardar la placa una vez seca y entregarla como regalo sin pensar en envolverla.<br>
-            ✦ Si el grupo tiene <strong>menos de 15 o más de 21 alumn@s</strong>, escríbeme para crear un diseño a tu medida.
+            ✦ Si el grupo tiene <strong>menos de 15 o más de 21 alumn@s</strong>, escríbeme para crear un diseño a tu medida.<br>
+            ✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.
           </div>
           <div class="opt-row"><label class="opt-label">Nombre del profe / profesora</label><input type="text" class="opt-input" id="profe-nombre" placeholder="Nombre del profe"></div>
           <div class="opt-row">
@@ -387,6 +337,76 @@
     </div>
 
     <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
+        <img src="images/llavero2.jpg" alt="Llavero personalizado">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Llavero grabado en madera</h3>
+        <p class="product-desc">Llavero redondo de madera natural grabado al láser con el diseño, nombre o texto que elijas. Diseño exclusivo creado para ti. Con anilla metálica y borla de gamuza en el color que prefieras.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Diseño y grabado por 1 cara</span><span class="amount">20 €</span></div>
+          <div class="price-row"><span>Diseño y grabado por 2 caras</span><span class="amount">25 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Grabado</label>
+            <select id="opt-llav-pers-caras" onchange="updateLlavPers()">
+              <option value="20">Diseño y grabado 1 cara — 20 €</option>
+              <option value="25">Diseño y grabado 2 caras — 25 €</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Añadir nombre o texto?</label>
+            <select id="opt-llav-pers-nombre" onchange="updateLlavPers()">
+              <option value="0">Sin texto personalizado</option>
+              <option value="1">Sí, con texto personalizado</option>
+            </select>
+            <input type="text" id="opt-llav-pers-texto" placeholder="Escribe el nombre o texto" class="opt-input" style="display:none;" oninput="updateLlavPers()">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-llav-pers-caja" onchange="updateLlavPers()">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Borla</label>
+            <select id="opt-llav-pers-borla" onchange="updateLlavPers()">
+              <option value="Sin borla">Sin borla</option>
+              <option value="Me da igual">Me da igual el color</option>
+              <option value="Verde brillante">Verde brillante</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Marrón">Marrón</option>
+              <option value="Azul cielo">Azul cielo</option>
+              <option value="Morado">Morado</option>
+              <option value="Rosita palo">Rosita palo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Azul marino">Azul marino</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select id="opt-llav-pers-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-pers-total">20 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartLlavPers()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20llavero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/puerta.jpg')">
         <img src="images/puerta.jpg" alt="Nombre puerta">
         <span class="personalizable-badge">Personalizable</span>
@@ -400,6 +420,7 @@
           <div class="price-row"><span>1 unidad</span><span class="amount">20 €</span></div>
           <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">16 € / u</span></div>
           <p class="price-note">✦ IVA incluido</p>
+          <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
           <div class="opt-row">
@@ -447,6 +468,7 @@
           <div class="price-row"><span>Banderín decorativo sin letra</span><span class="amount">2,50 € / u</span></div>
           <div class="price-row"><span>Banderín con estrella (impresión 3D)</span><span class="amount">4 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Mínimo 15 € por guirnalda</p>
+          <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
           <div class="opt-row"><label class="opt-label">Nombre a formar</label><input type="text" class="opt-input" id="banderin-nombre" placeholder="Escribe el nombre" oninput="updateBanderin()"></div>
@@ -531,6 +553,7 @@
         <div class="price-block">
           <div class="price-row"><span>Con nombre y decoración en otro color</span><span class="amount">42 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
           <div class="opt-row"><label class="opt-label">Letra inicial</label><input type="text" class="opt-input" id="letra3d-inicial" placeholder="Escribe la letra inicial" maxlength="1" style="text-transform:uppercase;"></div>
@@ -599,7 +622,7 @@
           <div class="price-row"><span>Diseño y grabado 1 cara</span><span class="amount">20 €</span></div>
           <div class="price-row"><span>Diseño y grabado 2 caras</span><span class="amount">25 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-          <div class="price-alert">✦ Al ser un diseño 100% personalizado, me pondré en contacto contigo después de la compra para concretar juntas el diseño exacto que necesitas.</div>
+          <div class="price-alert">✦ Al ser un diseño 100% personalizado, me pondré en contacto contigo después de la compra para concretar juntas el diseño exacto que necesitas. Antes de fabricarlo, te envío una propuesta digital para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
           <div class="opt-row">
@@ -742,6 +765,8 @@
     const caras = parseFloat(document.getElementById('opt-llav-pers-caras').value) || 20;
     const cajaExtra = parseFloat(document.getElementById('opt-llav-pers-caja').value) || 0;
     const price = caras + cajaExtra;
+    const enfoque = document.getElementById('opt-llav-pers-enfoque')?.value;
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
     const opts = { 'Grabado': caras === 25 ? '2 caras' : '1 cara' };
     const textoSel = document.getElementById('opt-llav-pers-nombre');
     if (textoSel && textoSel.value === '1') {
@@ -755,6 +780,7 @@
       if (borla.value === 'Sin borla') { opts['Borla'] = 'Sin borla'; }
       else { opts['Borla'] = borla.value; }
     }
+    opts['Enfoque diseño'] = enfoque;
     addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price, options: opts });
   }
 
@@ -821,15 +847,18 @@
     const nombre = document.getElementById('placa-felicit-nombre')?.value.trim();
     const color = document.getElementById('placa-felicit-color')?.value;
     const frase = document.getElementById('placa-felicit-frase')?.value.trim();
+    const enfoque = document.getElementById('placa-felicit-enfoque')?.value;
     if (!tematica) { alert('Por favor indica la temática o ilustración que quieres.'); return; }
     if (!nombre) { alert('Por favor escribe el nombre a grabar.'); return; }
     if (!color) { alert('Por favor elige el color del nombre en 3D.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
     if (frase) {
       const numPalabras = frase.split(/\s+/).filter(Boolean).length;
       if (numPalabras > 10) { alert('La frase no puede superar las 10 palabras (ahora tiene ' + numPalabras + ').'); return; }
     }
     const opts = { 'Temática': tematica, 'Nombre 3D': nombre + ' (' + color + ')' };
     if (frase) opts['Frase'] = frase;
+    opts['Enfoque diseño'] = enfoque;
     addToCart({ id: 'placa-felicit-' + Date.now(), name: 'Placa de felicitación', price: 35, options: opts });
   }
 
