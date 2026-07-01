@@ -170,7 +170,7 @@
     </a>
     <a class="cat-card fade-in" onclick="showPage('cuero'); return false;" href="#">
       <div class="img-wrap"><img src="images/marcapag.jpg" alt="De cuero"></div>
-      <div class="cat-info"><h3>De cuero</h3><p>Marcapáginas magnético · Piel sintética de calidad</p><span class="cat-arrow">Ver más →</span></div>
+      <div class="cat-info"><h3>De cuero</h3><p>Marcapáginas magnético · Piel vegana de calidad</p><span class="cat-arrow">Ver más →</span></div>
     </a>
   </div>
 </section>
@@ -617,7 +617,7 @@
       <div class="product-body">
         <p class="product-cat">De cuero</p>
         <h3>Marcapáginas personalizado</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con el diseño que elijas.</p>
+        <p class="product-desc">Marcapáginas magnético de piel vegana de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con el diseño que elijas.</p>
         <div class="price-block">
           <div class="price-row"><span>Diseño y grabado 1 cara</span><span class="amount">20 €</span></div>
           <div class="price-row"><span>Diseño y grabado 2 caras</span><span class="amount">25 €</span></div>
@@ -781,7 +781,7 @@
       else { opts['Borla'] = borla.value; }
     }
     opts['Enfoque diseño'] = enfoque;
-    addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price, options: opts });
+    addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price, peso: 8, options: opts });
   }
 
   // ── MARCAPÁGINAS ──
@@ -797,7 +797,7 @@
     const color = document.getElementById('opt-marca-color')?.value || 'Blanco';
     const opts = { 'Color': color, 'Grabado': caras === 25 ? '2 caras' : '1 cara' };
     opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
-    addToCart({ id: 'marca-pers-' + Date.now(), name: 'Marcapáginas personalizado', price, options: opts });
+    addToCart({ id: 'marca-pers-' + Date.now(), name: 'Marcapáginas personalizado', price, peso: 12, options: opts });
   }
 
   // ── BANDERÍN DE MADERA ──
@@ -838,7 +838,8 @@
     const opts = { 'Nombre': nombre, 'Color': color, 'Letras': String(numLetras) };
     if (estrellas > 0) opts['Banderines con estrella'] = String(estrellas);
     if (decorativos > 0) opts['Banderines decorativos'] = String(decorativos);
-    addToCart({ id: 'banderin-' + Date.now(), name: 'Banderín de madera', price: total, options: opts });
+    const pesoTotal = (numLetras + decorativos + estrellas) * 5;
+    addToCart({ id: 'banderin-' + Date.now(), name: 'Banderín de madera', price: total, peso: pesoTotal, options: opts });
   }
 
   // ── PLACA DE FELICITACIÓN ──
@@ -859,7 +860,7 @@
     const opts = { 'Temática': tematica, 'Nombre 3D': nombre + ' (' + color + ')' };
     if (frase) opts['Frase'] = frase;
     opts['Enfoque diseño'] = enfoque;
-    addToCart({ id: 'placa-felicit-' + Date.now(), name: 'Placa de felicitación', price: 35, options: opts });
+    addToCart({ id: 'placa-felicit-' + Date.now(), name: 'Placa de felicitación', price: 35, peso: 130, options: opts });
   }
 
   // ── PLACA DE NACIMIENTO ──
@@ -873,7 +874,7 @@
     });
     const color = document.getElementById(prefix + '-color')?.value;
     if (color) opts['Color 3D'] = color;
-    addToCart({ id: 'placa-nac-' + Date.now(), name: 'Placa de nacimiento', price: 38, options: opts });
+    addToCart({ id: 'placa-nac-' + Date.now(), name: 'Placa de nacimiento', price: 38, peso: 160, options: opts });
   }
 
   // ── PLACA PROFE ──
@@ -891,7 +892,7 @@
     const opts = { 'Profe': nombreProfe + (color ? ' · Color: ' + color : '') };
     if (curso) opts['Curso'] = curso;
     opts['Alumnos (' + alumnos.length + ')'] = alumnos.join(', ');
-    addToCart({ id: 'placa-profe-' + Date.now(), name: 'Placa de profe', price: 40, options: opts });
+    addToCart({ id: 'placa-profe-' + Date.now(), name: 'Placa de profe', price: 40, peso: 160, options: opts });
   }
 
   // ── NOMBRE PUERTA ──
@@ -926,7 +927,7 @@
     if (nombres.length === 0) { alert('Por favor escribe al menos un nombre.'); return; }
     const opts = {};
     nombres.forEach((n, i) => { opts['Nombre ' + (i+1)] = n + (colores[i] ? ' (' + colores[i] + ')' : ''); });
-    addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: parseFloat(price), qty: parseInt(qty), options: opts });
+    addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: parseFloat(price), qty: parseInt(qty), peso: 55, options: opts });
   }
 
   // ── LETRA 3D ──
@@ -939,7 +940,7 @@
     if (!colorInicial) { alert('Por favor elige el color de la letra inicial.'); return; }
     if (!nombre) { alert('Por favor escribe el nombre completo.'); return; }
     if (!colorNombre) { alert('Por favor elige el color del nombre.'); return; }
-    addToCart({ id: 'letra3d-' + Date.now(), name: 'Letra 3D autoportante', price: 42, options: { 'Letra inicial': inicial + ' (' + colorInicial + ')', 'Nombre': nombre + ' (' + colorNombre + ')' } });
+    addToCart({ id: 'letra3d-' + Date.now(), name: 'Letra 3D autoportante', price: 42, peso: 40, options: { 'Letra inicial': inicial + ' (' + colorInicial + ')', 'Nombre': nombre + ' (' + colorNombre + ')' } });
   }
 </script>
 <script src="cookies-banner.js"></script>
