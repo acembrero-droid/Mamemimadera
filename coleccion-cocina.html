@@ -209,7 +209,7 @@
           <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'tabla-mar',name:'Tabla de cocina · Mar',price:32,options:{}})">Añadir al carrito</button>
+        <button class="btn-add-cart" onclick="addToCart({id:'tabla-mar',name:'Tabla de cocina · Mar',price:32,peso:680,options:{}})">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Mar" class="btn-contact btn-mar" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -228,7 +228,7 @@
           <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'tabla-montana',name:'Tabla de cocina · Montaña',price:32,options:{}})">Añadir al carrito</button>
+        <button class="btn-add-cart" onclick="addToCart({id:'tabla-montana',name:'Tabla de cocina · Montaña',price:32,peso:680,options:{}})">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Monta%C3%B1a" class="btn-contact btn-montana" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -277,7 +277,7 @@
             <label class="opt-label">Cantidad:</label>
             <select id="opt-servilletero-qty" class="opt-input" onchange="updateServilletero()">
               <option value="5|1">1 unidad — 5 €</option>
-              <option value="18|4">Pack de 4 unidades — 18 €</option>
+              <option value="16|4">Pack de 4 unidades — 16 €</option>
             </select>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="opt-servilletero-total">5 €</strong></div>
@@ -374,7 +374,8 @@
     const [price, qty] = sel.value.split('|');
     const q = parseInt(qty);
     const name = q === 1 ? 'Servilletero de mimbre' : 'Pack 4 Servilleteros de mimbre';
-    addToCart({ id: 'servilletero-' + Date.now(), name, price: parseFloat(price), qty: 1, options: { Cantidad: q + ' u' } });
+    const peso = q === 1 ? 8 : 32;
+    addToCart({ id: 'servilletero-' + Date.now(), name, price: parseFloat(price), qty: 1, peso, options: { Cantidad: q + ' u' } });
   }
 
   const carousels = {};
