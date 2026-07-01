@@ -182,7 +182,7 @@
           <div class="price-row"><span>Según modelo · más de 120 uds</span><span class="amount">desde 1,15 €/u</span></div>
           <p class="price-note">✦ IVA incluido · Precio exacto según el modelo elegido y la cantidad (ver desglose abajo) · Pedido mínimo online: 10 unidades</p>
           <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-          <div class="price-alert">✦ El precio indicado es únicamente por la pieza del marcasitio. Si quieres completarlo con ramillete de flores, cuerda para la servilleta u otros detalles, coméntamelo en "Detalles del diseño" o por WhatsApp y te paso presupuesto aparte para esos extras.</div>
+          <div class="price-alert">✦ El precio indicado es únicamente por la pieza del marcasitio. Si quieres completarlo con ramillete de flores, cuerda para la servilleta u otros detalles, coméntamelo en "Extras" o por WhatsApp y te paso presupuesto aparte para esos extras.</div>
         </div>
         <div class="product-options">
           <div class="opt-row">
@@ -203,7 +203,14 @@
             El pedido mínimo online es de 10 unidades. Para cantidades menores, escríbeme y lo vemos juntas.
             <a id="marcasitios-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
           </div>
-          <div class="opt-row"><label class="opt-label">Detalles del diseño (nombres a grabar, estilo, extras...)</label><input type="text" class="opt-input" id="marcasitios-diseno" placeholder="ej. nombres de los invitados, estilo, si quieres flores o cuerda añadidas..."></div>
+          <div class="opt-row"><label class="opt-label">Extras (opcional): ramillete de flores, cuerda para servilleta...</label><input type="text" class="opt-input" id="marcasitios-extras" placeholder="ej. con ramillete de flores secas, con cuerda de yute..."></div>
+          <div class="opt-row">
+            <label class="opt-label">Nombres de los invitados (uno por marcasitio)</label>
+            <p style="font-size:0.7rem;margin:0 0 0.4rem;color:var(--text-mid);">Se genera una fila por cada unidad que hayas puesto en "Cantidad". Puedes rellenarlos ahora o dejarlos para cuando te contacte.</p>
+            <div id="marcasitios-nombres-wrap" style="max-height:220px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+              <p id="marcasitios-nombres-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas de nombres.</p>
+            </div>
+          </div>
           <div class="opt-row">
             <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
             <select class="opt-input" id="marcasitios-enfoque">
@@ -457,6 +464,7 @@
       totalEl.textContent = '— €';
       lowqty.style.display = 'none';
       addBtn.style.display = 'block';
+      renderMarcasitiosNombres(0);
       return;
     }
     if (cantidad < 10) {
@@ -466,6 +474,7 @@
       const nombreModelo = marcasitiosModelos[modelo].label;
       lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' marcasitios (' + nombreModelo + '), ¿cómo lo gestionamos al ser menos de 10 unidades?');
       addBtn.style.display = 'none';
+      renderMarcasitiosNombres(0);
       return;
     }
     lowqty.style.display = 'none';
@@ -474,17 +483,53 @@
     const total = precioU * cantidad;
     desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
     totalEl.textContent = formatEuros(total);
+    renderMarcasitiosNombres(cantidad);
   }
+
+  const MARCASITIOS_MAX_FILAS = 150;
+  function renderMarcasitiosNombres(cantidad) {
+    const wrap = document.getElementById('marcasitios-nombres-wrap');
+    if (!wrap) return;
+    // Guardamos los valores ya escritos para no perderlos al redibujar
+    const valoresActuales = Array.from(wrap.querySelectorAll('.marcasitios-nombre')).map(i => i.value);
+
+    if (cantidad < 1) {
+      wrap.innerHTML = '<p id="marcasitios-nombres-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas de nombres.</p>';
+      return;
+    }
+
+    const filas = Math.min(cantidad, MARCASITIOS_MAX_FILAS);
+    wrap.innerHTML = '';
+    for (let i = 1; i <= filas; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'opt-input marcasitios-nombre';
+      inp.placeholder = 'Invitado ' + i;
+      inp.style.margin = '0 0 0.4rem 0';
+      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
+      wrap.appendChild(inp);
+    }
+    if (cantidad > MARCASITIOS_MAX_FILAS) {
+      const aviso = document.createElement('p');
+      aviso.style.cssText = 'font-size:0.72rem;color:var(--wood-dark);font-style:italic;margin-top:0.3rem;';
+      aviso.textContent = 'Para pedidos de más de ' + MARCASITIOS_MAX_FILAS + ' invitados, mejor pásame la lista completa por WhatsApp o email cuando te contacte — aquí puedes dejar solo algunos de ejemplo.';
+      wrap.appendChild(aviso);
+    }
+  }
+
   function addCartMarcasitios() {
     const modelo = document.getElementById('marcasitios-modelo')?.value || 'redondo';
     const cantidad = parseInt(document.getElementById('marcasitios-cantidad')?.value) || 0;
-    const diseno = document.getElementById('marcasitios-diseno')?.value.trim();
+    const extras = document.getElementById('marcasitios-extras')?.value.trim();
     const enfoque = document.getElementById('marcasitios-enfoque')?.value;
     if (cantidad < 10) { alert('El pedido mínimo online es de 10 unidades. Para menos, escríbeme por WhatsApp.'); return; }
-    if (!diseno) { alert('Por favor indica algún detalle del diseño (nombres, estilo...).'); return; }
     if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
     const precioU = marcasitiosPrecioUnidad(modelo, cantidad);
-    const opts = { 'Modelo': marcasitiosModelos[modelo].label, 'Detalles diseño': diseno, 'Enfoque diseño': enfoque };
+    const nombres = Array.from(document.querySelectorAll('.marcasitios-nombre')).map(i => i.value.trim()).filter(Boolean);
+    const opts = { 'Modelo': marcasitiosModelos[modelo].label, 'Enfoque diseño': enfoque };
+    if (extras) opts['Extras'] = extras;
+    if (nombres.length > 0) opts['Nombres (' + nombres.length + ' de ' + cantidad + ')'] = nombres.join(', ');
+    else opts['Nombres'] = 'Pendiente de confirmar por WhatsApp';
     addToCart({ id: 'marcasitios-' + Date.now(), name: 'Marcasitio para boda', price: precioU, qty: cantidad, options: opts });
   }
 
