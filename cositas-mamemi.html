@@ -759,20 +759,20 @@
         <h3>Imán · Mandala Elefante</h3>
         <p class="product-desc">Imán cuadrado de 10×10cm en madera contrachapada con grabado al láser de elefante mandala con flores de loto. Diseño exclusivo Mamemi. Presentado envuelto en papel celofán con lazo, listo para regalar.</p>
         <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">9 €</span></div>
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">11 €</span></div>
           <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
         </div>
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">¿Añadir toque de color pintado a mano?</label>
             <select id="opt-iman-elefante-color" onchange="updateImanPrice('iman-elefante')">
-              <option value="9">Sin color — 9 €</option>
-              <option value="15">Con toque de color — 15 €</option>
+              <option value="11">Sin color — 11 €</option>
+              <option value="16">Con toque de color — 16 €</option>
             </select>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-iman-elefante-total">9 €</strong></div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-iman-elefante-total">11 €</strong></div>
         </div>
-        <button class="btn-add-cart" onclick="addCartIman('iman-elefante','Imán · Mandala Elefante',9)">Añadir al carrito</button>
+        <button class="btn-add-cart" onclick="addCartIman('iman-elefante','Imán · Mandala Elefante',11)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20im%C3%A1n%20Mandala%20Elefante" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -788,20 +788,20 @@
         <h3>Imán · Baides está en mi corazón</h3>
         <p class="product-desc">Imán cuadrado de 10×10cm en madera contrachapada grabado al láser con girasol, abeja y la frase "Baides está en mi corazón". Diseño exclusivo Mamemi. Presentado envuelto en papel celofán con lazo, listo para regalar.</p>
         <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">9 €</span></div>
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">11 €</span></div>
           <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
         </div>
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">¿Añadir toque de color pintado a mano?</label>
             <select id="opt-iman-baides-color" onchange="updateImanPrice('iman-baides')">
-              <option value="9">Sin color — 9 €</option>
-              <option value="15">Con toque de color — 15 €</option>
+              <option value="11">Sin color — 11 €</option>
+              <option value="16">Con toque de color — 16 €</option>
             </select>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-iman-baides-total">9 €</strong></div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-iman-baides-total">11 €</strong></div>
         </div>
-        <button class="btn-add-cart" onclick="addCartIman('iman-baides','Imán · Baides está en mi corazón',9)">Añadir al carrito</button>
+        <button class="btn-add-cart" onclick="addCartIman('iman-baides','Imán · Baides está en mi corazón',11)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20im%C3%A1n%20Baides" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -1099,10 +1099,18 @@
     if (totalEl) totalEl.textContent = base.toFixed(0) + ' €';
   }
 
+  // ── Pesos por tipo de producto (en gramos) ──
+  const PESO_LLAVERO = 8;
+  const PESO_MARCAPAGINAS = 12;
+  const PESO_IMAN = 20;
+  const PESO_DISCO = 15;
+
   function addCartWithOpts(prefix, baseName, basePrice) {
     let price = basePrice;
     const opts = {};
+    let peso = 0;
     if (prefix.startsWith('llav-')) {
+      peso = PESO_LLAVERO;
       const nombreExtra = getOptVal('opt-' + prefix + '-nombre');
       if (nombreExtra > 0) {
         const nombre = getOptText('opt-' + prefix + '-texto');
@@ -1120,6 +1128,7 @@
       }
     }
     if (prefix.startsWith('disco-')) {
+      peso = PESO_DISCO;
       const colorPrice = getOptVal('opt-' + prefix + '-color') || 9;
       price = colorPrice;
       opts['Acabado'] = colorPrice === 12 ? 'Con color' : 'Solo grabado';
@@ -1135,7 +1144,7 @@
         opts['Nombre'] = nombre;
       }
     }
-    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
+    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, peso, options: opts });
   }
 
   function updateMarcaCositas(prefix) {
@@ -1148,20 +1157,20 @@
     const price = 18 + cajaExtra;
     const opts = { 'Color': color };
     opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
-    addToCart({ id: 'marcapag-' + prefix + '-' + Date.now(), name, price, options: opts });
+    addToCart({ id: 'marcapag-' + prefix + '-' + Date.now(), name, price, peso: PESO_MARCAPAGINAS, options: opts });
   }
 
   function updateImanPrice(prefix) {
     const sel = document.getElementById('opt-' + prefix + '-color');
-    const price = sel ? parseFloat(sel.value) || 9 : 9;
+    const price = sel ? parseFloat(sel.value) || 11 : 11;
     const el = document.getElementById('opt-' + prefix + '-total');
     if (el) el.textContent = price.toFixed(0) + ' €';
   }
   function addCartIman(prefix, baseName, basePrice) {
     const sel = document.getElementById('opt-' + prefix + '-color');
     const price = sel ? parseFloat(sel.value) || basePrice : basePrice;
-    const opts = price > 9 ? { 'Acabado': 'Con toque de color' } : { 'Acabado': 'Sin color' };
-    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
+    const opts = price > 11 ? { 'Acabado': 'Con toque de color' } : { 'Acabado': 'Sin color' };
+    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, peso: PESO_IMAN, options: opts });
   }
 </script>
 <script src="cookies-banner.js"></script>
