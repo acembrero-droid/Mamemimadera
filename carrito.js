@@ -1,9 +1,16 @@
 // ── MAMEMI Madera · Carrito de compra ──
 (function() {
 
-  const SHIPPING_COST = 6.00;
-  const FREE_SHIPPING_THRESHOLD = 60;
-  const PICKUP_DISCOUNT = 2.00; // descuento por recogida en tienda
+  // ── Tabla de envío por peso (Correos Paq Ligero / Paq Premium + embalaje) ──
+  const SHIPPING_TIERS = [
+    { maxGrams: 250,  price: 6.96  },
+    { maxGrams: 500,  price: 9.16  },
+    { maxGrams: 1000, price: 12.51 },
+    { maxGrams: 2000, price: 14.84 },
+    { maxGrams: 5000, price: 21.70 },
+  ];
+  const FREE_SHIPPING_THRESHOLD = 60;   // € · a partir de este importe
+  const FREE_SHIPPING_MAX_GRAMS = 1000; // g · solo si el pedido no supera este peso
 
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio';
@@ -73,22 +80,32 @@
     return subtotal + shipping;
   }
 
-  function getShipping(subtotal) {
-    if (deliveryMode === 'tienda') return 0;
-    return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+  // ── Peso total del carrito (en gramos) ──
+  function cartWeightGrams() {
+    return cart.reduce((sum, i) => sum + (i.peso || 0) * i.qty, 0);
   }
 
-  function getPickupDiscount() {
-    if (deliveryMode !== 'tienda' || cart.length === 0) return 0;
-    return PICKUP_DISCOUNT;
+  // ── Precio de envío según el tramo de peso que corresponda ──
+  function getShippingTierPrice(weightGrams) {
+    for (const tier of SHIPPING_TIERS) {
+      if (weightGrams <= tier.maxGrams) return tier.price;
+    }
+    // Por encima del tramo máximo (5kg): se aplica el precio del último tramo
+    // y se contacta con el cliente para confirmar el envío exacto.
+    return SHIPPING_TIERS[SHIPPING_TIERS.length - 1].price;
+  }
+
+  function getShipping(subtotal) {
+    if (deliveryMode === 'tienda') return 0;
+    const weight = cartWeightGrams();
+    if (subtotal >= FREE_SHIPPING_THRESHOLD && weight <= FREE_SHIPPING_MAX_GRAMS) return 0;
+    return getShippingTierPrice(weight);
   }
 
   function cartTotal() {
     const subtotal = cartSubtotal();
+    if (deliveryMode === 'tienda') return subtotal;
     const shipping = getShipping(subtotal);
-    if (deliveryMode === 'tienda') {
-      return subtotal - getPickupDiscount();
-    }
     return subtotal + shipping;
   }
 
@@ -191,8 +208,8 @@
   function buildOrderSummary(addr) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const discount = getPickupDiscount();
     const total = cartTotal();
+    const weight = cartWeightGrams();
 
     let text = `🛍️ NUEVO PEDIDO MAMEMI MADERA\n`;
     text += `Referencia: ${orderRef}\n`;
@@ -207,10 +224,10 @@
     text += `────────────────────────\n`;
     if (deliveryMode === 'tienda') {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
-      text += `Descuento por recogida en tienda: −${discount.toFixed(2)} €\n`;
       text += `Recogida en: Estudi | Caldes d'Estrac (Barcelona)\n`;
     } else {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
+      text += `Peso total del pedido: ${weight} g\n`;
       text += `Envío: ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
       text += `────────────────────────\n`;
       text += `DIRECCIÓN DE ENVÍO:\n`;
@@ -265,9 +282,8 @@
 
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const discount = getPickupDiscount();
     // Redsys exige el importe en céntimos
-    const finalTotalCentimos = Math.round((subtotal + shipping - discount) * 100);
+    const finalTotalCentimos = Math.round((subtotal + shipping) * 100);
 
     const payBtn = document.querySelector('.cart-pay-btn');
     const textoOriginalBoton = payBtn ? payBtn.innerHTML : '';
@@ -366,8 +382,8 @@
   function renderStep1(body) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const discount = getPickupDiscount();
     const total = cartTotal();
+    const weight = cartWeightGrams();
 
     if (cart.length === 0) {
       body.innerHTML = `
@@ -399,18 +415,13 @@
         </div>`;
     });
 
-    const shippingLine = deliveryMode === 'tienda'
-      ? `<div class="cart-total-row discount"><span>Entrega en persona</span><span>− ${discount.toFixed(2)} €</span></div>`
-      : `<div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`;
-
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
-      noteHtml = `🎀 Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a><br><span style="font-size:0.68rem;opacity:0.75;">✦ ¡Gracias por venir al taller! Al elegir recogida en persona, te descontamos 2 € de gastos de gestión de envío.</span>`;
+      noteHtml = `🎀 Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a>`;
     } else if (shipping === 0) {
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis!`;
+      noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€ y hasta 1kg)`;
     } else {
-      const remaining = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="color:#d4a96a;">✦ Añade ${remaining} € más para envío gratis</span>`;
+      noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">📦 Los gastos de envío varían según el peso del pedido (ahora mismo: ${weight} g)${subtotal < FREE_SHIPPING_THRESHOLD ? '<br>✦ Envío gratis en pedidos de más de ' + FREE_SHIPPING_THRESHOLD + '€ que no superen 1kg' : ''}</span>`;
     }
     noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">${deliveryMode === 'tienda' ? '📦 Listo para recoger en' : '📦 Plazo de entrega estimado'}: <strong>${getEstimatedDelivery()}</strong>${deliveryMode === 'tienda' ? ' (te avisaré por WhatsApp/email)' : ' (puede ampliarse en fechas de alta demanda)'}</span>`;
 
@@ -428,11 +439,10 @@
       <div class="cart-items-list">${itemsHtml}</div>
       <div class="cart-step-footer">
         <div class="cart-totals">
+          <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
           ${deliveryMode === 'tienda'
-            ? `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-               <div class="cart-total-row discount"><span>Descuento por recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>`
-            : `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-               <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+            ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
+            : `<div class="cart-total-row"><span>Envío (${weight} g)</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
           }
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
@@ -494,8 +504,8 @@
   function renderStep3(body) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const discount = getPickupDiscount();
     const total = cartTotal();
+    const weight = cartWeightGrams();
     const addr = deliveryMode === 'envio'
       ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
       : {};
@@ -530,11 +540,10 @@
       <div class="summary-items">${itemsSummary}</div>
       ${addrSummary}
       <div class="cart-totals" style="padding:0.8rem 1.5rem;border-top:1px dashed #f5e9d6;">
+        <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
         ${deliveryMode === 'tienda'
-          ? `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-             <div class="cart-total-row discount"><span>Descuento por recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>`
-          : `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-             <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+          ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
+          : `<div class="cart-total-row"><span>Envío (${weight} g)</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
         }
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
