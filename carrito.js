@@ -12,6 +12,24 @@
   const FREE_SHIPPING_THRESHOLD = 75;   // € · a partir de este importe, envío gratis (sin límite de peso)
   const ENVIOS_INFO_URL = 'envios.html';
 
+  // ── Catálogo de piezas ligeras para sugerir sin cambiar de tramo de envío ──
+  // Ordenado de más pesado a más ligero, para sugerir siempre el que mejor aprovecha el margen disponible.
+  // Solo productos de compra simple por unidad (sin precios por tramos de cantidad).
+  const LIGHT_ITEMS = [
+    { name: 'un imán grabado al láser', weight: 20, url: 'cositas-mamemi.html' },
+    { name: 'un disco de madera', weight: 15, url: 'cositas-mamemi.html' },
+    { name: 'un marcapáginas', weight: 12, url: 'regalos-personalizados.html' },
+    { name: 'un llavero grabado', weight: 8, url: 'regalos-personalizados.html' },
+  ];
+
+  // Devuelve el producto más "aprovechado" que aún cabe sin subir de tramo, o null si no hay margen
+  function suggestLightItem(remainingGrams) {
+    for (const item of LIGHT_ITEMS) {
+      if (item.weight <= remainingGrams) return item;
+    }
+    return null;
+  }
+
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio';
   let orderRef = localStorage.getItem('mamemi_orderref') || generateRef();
@@ -423,9 +441,18 @@
       noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€)`;
       noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
     } else {
-      const remaining = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ Añade ${remaining} € más y consigues el envío gratis</span>`;
+      const remainingEur = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
+      noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ Añade ${remainingEur} € más y consigues el envío gratis</span>`;
       noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
+      const currentWeight = cartWeightGrams();
+      const currentTier = getShippingTier(currentWeight);
+      if (currentTier.maxGrams !== Infinity) {
+        const remainingGrams = currentTier.maxGrams - currentWeight;
+        const suggestion = suggestLightItem(remainingGrams);
+        if (suggestion) {
+          noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Todavía te caben ${remainingGrams} g más en el mismo tramo de envío — por ejemplo, <a href="${suggestion.url}" style="color:#6a9e8a;font-weight:700;">${suggestion.name}</a> sin que suba el precio del envío</span>`;
+        }
+      }
     }
     noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">${deliveryMode === 'tienda' ? '📦 Listo para recoger en' : '📦 Plazo de entrega estimado'}: <strong>${getEstimatedDelivery()}</strong>${deliveryMode === 'tienda' ? ' (te avisaré por WhatsApp/email)' : ' (puede ampliarse en fechas de alta demanda)'}</span>`;
 
