@@ -24,6 +24,10 @@
     a { color: var(--mint-dark); }
     .info-box { background: var(--mint-light); border-left: 3px solid var(--mint-dark); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin-bottom: 1.2rem; }
     .info-box p { margin: 0; font-size: 0.9rem; }
+    th, td { padding: 0.6rem 0.8rem; text-align: left; font-size: 0.85rem; }
+    th { background: var(--wood-light); color: var(--wood-deep); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.68rem; }
+    td { color: var(--text-mid); border-bottom: 1px solid var(--wood-light); }
+    tr:last-child td { border-bottom: none; }
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; }
     footer img { height: 36px; opacity: 0.6; filter: invert(1); }
     footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
@@ -71,7 +75,7 @@
     <li><strong>mamemi_delivery:</strong> recuerda tu preferencia de entrega (envío o recogida en tienda).</li>
     <li><strong>mamemi_orderref:</strong> referencia del pedido en curso.</li>
     <li><strong>mamemi_address:</strong> guarda temporalmente la dirección de envío durante el proceso de compra.</li>
-    <li><strong>mamemi_cookie_consent:</strong> recuerda si has aceptado o rechazado las cookies de análisis, para no preguntarte cada vez.</li>
+    <li><strong>mamemi_cookies_v2:</strong> recuerda si has aceptado o rechazado las cookies de análisis, para no preguntarte cada vez.</li>
   </ul>
 
   <p><strong>b) Cookies de análisis (requieren tu consentimiento)</strong><br>Utilizamos <strong>Google Analytics</strong> para entender cómo se navega por la web y poder mejorarla. Estas cookies solo se instalan si pulsas "Aceptar" en el aviso de cookies que aparece al entrar en la web. Puedes rechazarlas sin que esto afecte al funcionamiento de la tienda.</p>
@@ -79,13 +83,16 @@
     <li><strong>_ga:</strong> identifica de forma anónima tu visita. Caduca a los 2 años.</li>
     <li><strong>_ga_9MM0BBNL5N:</strong> guarda el estado de tu sesión de Analytics. Caduca a los 2 años.</li>
   </ul>
-  <p>Puedes cambiar tu decisión sobre las cookies de análisis en cualquier momento borrando la cookie <strong>mamemi_cookie_consent</strong> de tu navegador (desde los ajustes de privacidad de tu navegador); el aviso de cookies volverá a aparecer.</p>
+  <p>Puedes cambiar tu decisión sobre las cookies de análisis en cualquier momento borrando la cookie <strong>mamemi_cookies_v2</strong> de tu navegador (desde los ajustes de privacidad de tu navegador); el aviso de cookies volverá a aparecer.</p>
 
   <h2>5. Condiciones de compra</h2>
   <p>Al realizar un pedido en MAMEMI Madera, aceptas las siguientes condiciones:</p>
   <ul>
     <li>Los precios incluyen IVA.</li>
-    <li>Los gastos de envío son <strong>6 € por pedido</strong> y <strong>gratuitos en pedidos superiores a 60 €</strong>. La recogida en persona en l'Estudi (Caldes d'Estrac) tiene un descuento de 2 €.</li>
+    <li>Los gastos de envío se calculan automáticamente en el carrito según el <strong>peso del pedido</strong> y la <strong>zona de entrega</strong>. Puedes consultar la tabla completa de tarifas en nuestra <a href="envios.html">página de Envíos</a>.</li>
+    <li>El envío es <strong>gratuito en pedidos superiores a 75 €</strong>, exclusivamente para entregas en la <strong>España peninsular</strong>. Este descuento no aplica a envíos a Baleares, Canarias, Ceuta o Melilla.</li>
+    <li>La <strong>recogida en persona</strong> en l'Estudi (Caldes d'Estrac) no tiene coste de envío.</li>
+    <li>Los envíos a Canarias pueden estar sujetos a aduana e IGIC en lugar de IVA, lo que puede implicar trámites y plazos adicionales ajenos a MAMEMI Madera.</li>
     <li>El pago se realiza de forma segura a través de la pasarela Redsys/CaixaBank. MAMEMI Madera no almacena ni tiene acceso a tus datos bancarios.</li>
     <li>Plazos de entrega orientativos: <strong>3-5 días laborables</strong> en pedidos sin personalizar de hasta 10 unidades · <strong>7-10 días laborables</strong> en pedidos personalizados o de más de 10 unidades · <strong>15-20 días laborables</strong> en pedidos de más de 20 unidades. Estos plazos pueden ampliarse en fechas de alta demanda (Navidad, Sant Jordi, San Valentín, etc.).</li>
   </ul>
@@ -123,7 +130,7 @@
   <h2>10. Legislación aplicable</h2>
   <p>Este aviso legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los Juzgados y Tribunales del domicilio del consumidor.</p>
 
-  <p style="margin-top:2rem; font-size:0.82rem; color: var(--text-mid); font-style:italic;">Última actualización: junio de 2026</p>
+  <p style="margin-top:2rem; font-size:0.82rem; color: var(--text-mid); font-style:italic;">Última actualización: julio de 2026</p>
 </div>
 
 <footer>
