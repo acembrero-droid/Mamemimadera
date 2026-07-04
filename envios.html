@@ -38,8 +38,9 @@
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
       main { padding: 2rem 1.2rem 3rem; }
-      table { display: block; overflow-x: auto; white-space: nowrap; }
-      th, td { padding: 0.6rem 0.7rem; font-size: 0.76rem; }
+      table { width: 100%; }
+      th, td { padding: 0.5rem 0.5rem; font-size: 0.7rem; white-space: normal; word-break: break-word; }
+      td.price { white-space: nowrap; }
       footer { flex-direction: column; text-align: center; }
     }
   </style>
@@ -63,14 +64,14 @@
 
   <table>
     <thead>
-      <tr><th>Peso del pedido</th><th>Península</th><th>Baleares / Ceuta / Melilla</th><th>Canarias</th></tr>
+      <tr><th>Peso</th><th>Península</th><th>Baleares / Ceuta / Melilla</th><th>Canarias</th></tr>
     </thead>
     <tbody>
-      <tr><td>0 g – 250 g</td><td class="price">5,98 €</td><td class="price">7,72 €</td><td class="price">11,85 €</td></tr>
-      <tr><td>251 g – 500 g</td><td class="price">9,00 €</td><td class="price">10,29 €</td><td class="price">13,82 €</td></tr>
-      <tr><td>501 g – 1.000 g</td><td class="price">12,51 €</td><td class="price">14,19 €</td><td class="price">15,59 €</td></tr>
-      <tr><td>1 kg – 2 kg</td><td class="price">14,84 €</td><td class="price">16,24 €</td><td class="price">19,02 €</td></tr>
-      <tr><td>Más de 2 kg</td><td class="price">21,70 €</td><td class="price">24,25 €</td><td class="price">36,05 €</td></tr>
+      <tr><td>0 – 250 g</td><td class="price">5,98 €</td><td class="price">7,72 €</td><td class="price">11,85 €</td></tr>
+      <tr><td>251 – 500 g</td><td class="price">9,00 €</td><td class="price">10,29 €</td><td class="price">13,82 €</td></tr>
+      <tr><td>501 g – 1 kg</td><td class="price">12,51 €</td><td class="price">14,19 €</td><td class="price">15,59 €</td></tr>
+      <tr><td>1 – 2 kg</td><td class="price">14,84 €</td><td class="price">16,24 €</td><td class="price">19,02 €</td></tr>
+      <tr><td>+ 2 kg</td><td class="price">21,70 €</td><td class="price">24,25 €</td><td class="price">36,05 €</td></tr>
     </tbody>
   </table>
 
