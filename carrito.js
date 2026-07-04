@@ -1,14 +1,49 @@
 // ── MAMEMI Madera · Carrito de compra ──
 (function() {
 
-  const SHIPPING_COST = 6.00;
-  const FREE_SHIPPING_THRESHOLD = 60;
-  const PICKUP_DISCOUNT = 2.00; // descuento por recogida en tienda
+  // ── Tabla de envío por peso, según zona (tarifa Correos Paq Ligero/Premium + embalaje) ──
+  const SHIPPING_TIERS_PENINSULA = [
+    { maxGrams: 250,      price: 5.98,  label: 'Envío Mini' },
+    { maxGrams: 500,      price: 9.00,  label: 'Envío Estándar' },
+    { maxGrams: 1000,     price: 12.51, label: 'Envío Mediano' },
+    { maxGrams: 2000,     price: 14.84, label: 'Envío Voluminoso' },
+    { maxGrams: Infinity, price: 21.70, label: 'Envío Paquete Grande' },
+  ];
+  const SHIPPING_TIERS_BALEARES_CEUTA_MELILLA = [
+    { maxGrams: 250,      price: 7.72,  label: 'Envío Mini' },
+    { maxGrams: 500,      price: 10.29, label: 'Envío Estándar' },
+    { maxGrams: 1000,     price: 14.19, label: 'Envío Mediano' },
+    { maxGrams: 2000,     price: 16.24, label: 'Envío Voluminoso' },
+    { maxGrams: Infinity, price: 24.25, label: 'Envío Paquete Grande' },
+  ];
+  const SHIPPING_TIERS_CANARIAS = [
+    { maxGrams: 250,      price: 11.85, label: 'Envío Mini' },
+    { maxGrams: 500,      price: 13.82, label: 'Envío Estándar' },
+    { maxGrams: 1000,     price: 15.59, label: 'Envío Mediano' },
+    { maxGrams: 2000,     price: 19.02, label: 'Envío Voluminoso' },
+    { maxGrams: Infinity, price: 36.05, label: 'Envío Paquete Grande' },
+  ];
+  const FREE_SHIPPING_THRESHOLD = 75;
+  const ENVIOS_INFO_URL = 'envios.html';
+
+  const LIGHT_ITEMS = [
+    { name: 'un imán grabado al láser', weight: 20, url: 'cositas-mamemi.html' },
+    { name: 'un disco de madera', weight: 15, url: 'cositas-mamemi.html' },
+    { name: 'un marcapáginas', weight: 12, url: 'regalos-personalizados.html' },
+    { name: 'un llavero grabado', weight: 8, url: 'regalos-personalizados.html' },
+  ];
+
+  function suggestLightItem(remainingGrams) {
+    for (const item of LIGHT_ITEMS) {
+      if (item.weight <= remainingGrams) return item;
+    }
+    return null;
+  }
 
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio';
   let orderRef = localStorage.getItem('mamemi_orderref') || generateRef();
-  let currentStep = 1; // 1: carrito, 2: dirección, 3: resumen
+  let currentStep = 1;
 
   function generateRef() {
     const ref = 'MM' + Date.now().toString().slice(-8);
@@ -61,35 +96,49 @@
     return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
   }
 
-  function getBaseImponible(amount) {
-    return amount / 1.21;
+  function cartWeightGrams() {
+    return cart.reduce((sum, i) => sum + (i.peso || 0) * i.qty, 0);
   }
 
-  function getIVA(amount) {
-    return amount - getBaseImponible(amount);
+  function getRegionFromCP(cp) {
+    if (!cp) return 'peninsula';
+    const prefix = parseInt(String(cp).trim().slice(0, 2), 10);
+    if (isNaN(prefix)) return 'peninsula';
+    if (prefix === 35 || prefix === 38) return 'canarias';
+    if (prefix === 7 || prefix === 51 || prefix === 52) return 'baleares_ceuta_melilla';
+    return 'peninsula';
   }
 
-  function getTotalSinDescuento(subtotal, shipping) {
-    return subtotal + shipping;
+  function getShippingTiersForRegion(region) {
+    if (region === 'canarias') return SHIPPING_TIERS_CANARIAS;
+    if (region === 'baleares_ceuta_melilla') return SHIPPING_TIERS_BALEARES_CEUTA_MELILLA;
+    return SHIPPING_TIERS_PENINSULA;
+  }
+
+  function getCurrentRegion() {
+    const savedAddress = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
+    return getRegionFromCP(savedAddress.cp);
+  }
+
+  function getShippingTier(weightGrams, region) {
+    const tiers = getShippingTiersForRegion(region || getCurrentRegion());
+    for (const tier of tiers) {
+      if (weightGrams <= tier.maxGrams) return tier;
+    }
+    return tiers[tiers.length - 1];
   }
 
   function getShipping(subtotal) {
     if (deliveryMode === 'tienda') return 0;
-    return subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
-  }
-
-  function getPickupDiscount() {
-    if (deliveryMode !== 'tienda' || cart.length === 0) return 0;
-    return PICKUP_DISCOUNT;
+    const region = getCurrentRegion();
+    if (subtotal >= FREE_SHIPPING_THRESHOLD && region === 'peninsula') return 0;
+    return getShippingTier(cartWeightGrams(), region).price;
   }
 
   function cartTotal() {
     const subtotal = cartSubtotal();
-    const shipping = getShipping(subtotal);
-    if (deliveryMode === 'tienda') {
-      return subtotal - getPickupDiscount();
-    }
-    return subtotal + shipping;
+    if (deliveryMode === 'tienda') return subtotal;
+    return subtotal + getShipping(subtotal);
   }
 
   function cartCount() {
@@ -101,7 +150,7 @@
     const hasPersonalizacion = cart.some(item => item.options && item.options['Nombre']);
     if (totalQty > 20) return '15-20 días laborables';
     if (hasPersonalizacion || totalQty > 10) return '7-10 días laborables';
-    return '5-8 días laborables';
+    return '3-5 días laborables en piezas sin personalizar';
   }
 
   function updateCartBadge() {
@@ -191,8 +240,8 @@
   function buildOrderSummary(addr) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const discount = getPickupDiscount();
     const total = cartTotal();
+    const weight = cartWeightGrams();
 
     let text = `🛍️ NUEVO PEDIDO MAMEMI MADERA\n`;
     text += `Referencia: ${orderRef}\n`;
@@ -207,10 +256,10 @@
     text += `────────────────────────\n`;
     if (deliveryMode === 'tienda') {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
-      text += `Descuento por recogida en tienda: −${discount.toFixed(2)} €\n`;
       text += `Recogida en: Estudi | Caldes d'Estrac (Barcelona)\n`;
     } else {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
+      text += `Peso total del pedido: ${weight} g\n`;
       text += `Envío: ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
       text += `────────────────────────\n`;
       text += `DIRECCIÓN DE ENVÍO:\n`;
@@ -230,7 +279,6 @@
 
   window.goToStep = function(step) {
     if (step === 2 && deliveryMode === 'tienda') {
-      // Saltamos dirección si es recogida en tienda
       currentStep = 3;
     } else {
       currentStep = step;
@@ -238,15 +286,9 @@
     renderStep();
   };
 
-  // ═══════════════════════════════════════════════════════
-  // PAGAR · envía el pedido por email Y va a Redsys, todo junto
-  // ═══════════════════════════════════════════════════════
   window.checkout = async function() {
     if (cart.length === 0) return;
 
-    // Recuperamos la dirección ya guardada (los campos del formulario del Paso 2
-    // ya no existen en pantalla si estamos en el Paso 3, así que NO podemos
-    // volver a leerlos del DOM aquí — hay que validar el objeto guardado).
     const addr = deliveryMode === 'envio'
       ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
       : {};
@@ -262,12 +304,9 @@
     }
 
     const summary = buildOrderSummary(addr);
-
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const discount = getPickupDiscount();
-    // Redsys exige el importe en céntimos
-    const finalTotalCentimos = Math.round((subtotal + shipping - discount) * 100);
+    const finalTotalCentimos = Math.round((subtotal + shipping) * 100);
 
     const payBtn = document.querySelector('.cart-pay-btn');
     const textoOriginalBoton = payBtn ? payBtn.innerHTML : '';
@@ -278,12 +317,9 @@
         payBtn.disabled = true;
     }
 
-    // Número de pedido único para Redsys en CADA intento de pago
     const redsysOrder = Date.now().toString().slice(-12);
 
     try {
-        // Llamada a nuestro propio backend: envía el email del pedido
-        // Y genera la firma de Redsys, todo en una sola petición
         const respuesta = await fetch('https://mamemimadera.es/pago.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -302,10 +338,8 @@
         }
         const datosFirma = await respuesta.json();
 
-        // Creación del formulario invisible hacia Redsys
         const form = document.createElement('form');
         form.method = 'POST';
-        // URL de pruebas de Redsys — cambiar a la real cuando paséis a producción
         form.action = 'https://sis-t.redsys.es:25443/sis/realizarPago';
 
         const addInput = (name, value) => {
@@ -335,27 +369,17 @@
         }
     }
   };
-  // ═══════════════════════════════════════════════════════
 
-
-  // ── RENDER STEPS ──
   function renderStep() {
     const panel = document.getElementById('cart-panel');
     if (!panel) return;
-
     const body = panel.querySelector('.cart-body');
     if (!body) return;
-
-    if (cart.length === 0) {
-      currentStep = 1;
-    }
-
-    // Update step indicators
+    if (cart.length === 0) currentStep = 1;
     panel.querySelectorAll('.step-dot').forEach((dot, i) => {
       dot.classList.toggle('active', i + 1 === currentStep);
       dot.classList.toggle('done', i + 1 < currentStep);
     });
-
     switch(currentStep) {
       case 1: renderStep1(body); break;
       case 2: renderStep2(body); break;
@@ -366,8 +390,8 @@
   function renderStep1(body) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const discount = getPickupDiscount();
     const total = cartTotal();
+    const tier = getShippingTier(cartWeightGrams());
 
     if (cart.length === 0) {
       body.innerHTML = `
@@ -399,20 +423,36 @@
         </div>`;
     });
 
-    const shippingLine = deliveryMode === 'tienda'
-      ? `<div class="cart-total-row discount"><span>Entrega en persona</span><span>− ${discount.toFixed(2)} €</span></div>`
-      : `<div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`;
-
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
-      noteHtml = `🎀 Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a><br><span style="font-size:0.68rem;opacity:0.75;">✦ ¡Gracias por venir al taller! Al elegir recogida en persona, te descontamos 2 € de gastos de gestión de envío.</span>`;
+      noteHtml = `✨ Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a>`;
+      if (subtotal < FREE_SHIPPING_THRESHOLD) {
+        const wouldBeShipping = getShippingTier(cartWeightGrams()).price;
+        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Gracias a que vienes a la tienda a recoger tu pedido te ahorras ${wouldBeShipping.toFixed(2)} € de los gastos de envío</span>`;
+      }
     } else if (shipping === 0) {
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo · ¡Envío gratis!`;
+      noteHtml = `✨ Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€, solo Península)`;
+      noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
     } else {
-      const remaining = (FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2);
-      noteHtml = `🎀 Envoltorio mimado para entregar como regalo<br><span style="color:#d4a96a;">✦ Añade ${remaining} € más para envío gratis</span>`;
+      const remainingEur = FREE_SHIPPING_THRESHOLD - subtotal;
+      const closeToFree = remainingEur <= 25;
+      if (closeToFree) {
+        noteHtml = `✨ Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ ¡Solo te faltan ${remainingEur.toFixed(2)} € para conseguir el envío gratis!</span>`;
+      } else {
+        noteHtml = `✨ Envoltorio mimado para entregar como regalo`;
+      }
+      noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
+      const currentWeight = cartWeightGrams();
+      const currentTier = getShippingTier(currentWeight);
+      if (currentTier.maxGrams !== Infinity) {
+        const remainingGrams = currentTier.maxGrams - currentWeight;
+        const suggestion = suggestLightItem(remainingGrams);
+        if (suggestion) {
+          noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Todavía te caben ${remainingGrams} g más en el mismo tramo de envío — por ejemplo, <a href="${suggestion.url}" style="color:#6a9e8a;font-weight:700;">${suggestion.name}</a> sin que suba el precio del envío</span>`;
+        }
+      }
     }
-    noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">${deliveryMode === 'tienda' ? '📦 Listo para recoger en' : '📦 Plazo de entrega estimado'}: <strong>${getEstimatedDelivery()}</strong>${deliveryMode === 'tienda' ? ' (te avisaré por WhatsApp/email)' : ' (puede ampliarse en fechas de alta demanda)'}</span>`;
+    noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">📦 Plazo de envío estimado: <strong>${getEstimatedDelivery()}</strong> · Todos los envíos son certificados con seguimiento${deliveryMode === 'tienda' ? ' (te avisaré por WhatsApp/email)' : ' (puede ampliarse en fechas de alta demanda)'}</span>`;
 
     body.innerHTML = `
       <div class="delivery-selector">
@@ -428,11 +468,10 @@
       <div class="cart-items-list">${itemsHtml}</div>
       <div class="cart-step-footer">
         <div class="cart-totals">
+          <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
           ${deliveryMode === 'tienda'
-            ? `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-               <div class="cart-total-row discount"><span>Descuento por recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>`
-            : `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-               <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+            ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
+            : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
           }
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
@@ -444,7 +483,6 @@
   }
 
   function renderStep2(body) {
-    // Recover saved values if any
     const saved = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
     const v = (key, placeholder) => `value="${saved[key] || ''}" placeholder="${placeholder}"`;
 
@@ -453,6 +491,7 @@
         <button class="cart-back-step" onclick="goToStep(1)">← Volver al carrito</button>
         <p class="cart-step-title">📦 Dirección de envío</p>
         <p class="cart-step-sub">* Campos obligatorios</p>
+        <p class="cart-step-sub">✦ El envío gratis a partir de ${FREE_SHIPPING_THRESHOLD}€ aplica solo a envíos dentro de la España peninsular</p>
       </div>
       <div class="cart-addr-form">
         <input id="addr-nombre" class="addr-input" type="text" ${v('nombre','* Nombre y apellidos')}>
@@ -484,7 +523,6 @@
       alert('Por favor rellena los siguientes campos:\n\n• ' + missing.join('\n• '));
       return;
     }
-    // Save address to localStorage so it persists
     const addr = getShippingAddress();
     localStorage.setItem('mamemi_address', JSON.stringify(addr));
     currentStep = 3;
@@ -494,8 +532,8 @@
   function renderStep3(body) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
-    const discount = getPickupDiscount();
     const total = cartTotal();
+    const tier = getShippingTier(cartWeightGrams());
     const addr = deliveryMode === 'envio'
       ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
       : {};
@@ -525,16 +563,15 @@
         <button class="cart-back-step" onclick="goToStep(${deliveryMode === 'tienda' ? 1 : 2})">← Volver</button>
         <p class="cart-step-title">✦ Resumen del pedido</p>
         <p class="cart-ref-line">Ref. ${orderRef}</p>
-        <p class="cart-ref-line">📦 Entrega estimada: <strong>${getEstimatedDelivery()}</strong></p>
+        <p class="cart-ref-line">📦 Plazo de envío estimado: <strong>${getEstimatedDelivery()}</strong></p>
       </div>
       <div class="summary-items">${itemsSummary}</div>
       ${addrSummary}
       <div class="cart-totals" style="padding:0.8rem 1.5rem;border-top:1px dashed #f5e9d6;">
+        <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
         ${deliveryMode === 'tienda'
-          ? `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-             <div class="cart-total-row discount"><span>Descuento por recogida en tienda</span><span>− ${discount.toFixed(2)} €</span></div>`
-          : `<div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
-             <div class="cart-total-row"><span>Envío</span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+          ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
+          : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
         }
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
@@ -575,35 +612,24 @@
       .cart-badge { background:#e74c3c;color:#fff;border-radius:50%;width:20px;height:20px;font-size:0.72rem;font-weight:700;display:none;align-items:center;justify-content:center; }
       .cart-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:950;backdrop-filter:blur(3px); }
       .cart-overlay.open { display:block; }
-
       #cart-panel { position:fixed;right:-420px;top:0;bottom:0;width:min(420px,100vw);background:#fff;z-index:1000;box-shadow:-4px 0 30px rgba(90,58,26,0.15);display:flex;flex-direction:column;transition:right 0.35s ease;font-family:'Nunito',sans-serif; }
       #cart-panel.open { right:0; }
-
       .cart-header { padding:1rem 1.5rem;border-bottom:1.5px solid #f5e9d6;display:flex;align-items:center;justify-content:space-between;background:#fdf8f0;flex-shrink:0; }
       .cart-header h2 { font-family:'Playfair Display',serif;font-size:1.1rem;color:#5a3a1a; }
       .cart-close { background:none;border:none;font-size:1.5rem;cursor:pointer;color:#6b4c2a;padding:0.2rem 0.5rem;border-radius:6px; }
       .cart-close:hover { background:#f5e9d6; }
-
-      /* Steps indicator */
       .cart-steps { display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.6rem 1.5rem;background:#f9f2e4;border-bottom:1.5px solid #f5e9d6;flex-shrink:0; }
       .step-dot { width:28px;height:28px;border-radius:50%;border:2px solid #d4a96a;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#d4a96a;transition:all 0.2s; }
       .step-dot.active { background:#8b5e3c;border-color:#8b5e3c;color:#fff; }
       .step-dot.done { background:#6a9e8a;border-color:#6a9e8a;color:#fff; }
       .step-line { width:24px;height:2px;background:#f5e9d6; }
       .step-label { font-size:0.62rem;color:#6b4c2a;text-align:center;margin-top:0.2rem; }
-
-      /* Body scrollable */
       .cart-body { flex:1;overflow-y:auto;display:flex;flex-direction:column; }
-
-      /* Delivery selector */
       .delivery-selector { display:flex;gap:0.5rem;padding:0.8rem 1.5rem;background:#f9f2e4;flex-shrink:0; }
       .delivery-btn { flex:1;padding:0.5rem 0.5rem;border:1.5px solid #f5e9d6;border-radius:10px;background:#fff;font-family:'Nunito',sans-serif;font-size:0.7rem;font-weight:700;cursor:pointer;text-align:center;color:#6b4c2a;transition:all 0.2s;line-height:1.4; }
       .delivery-btn:hover { border-color:#d4a96a; }
       .delivery-btn.active { background:#8b5e3c;color:#fff;border-color:#8b5e3c; }
       .delivery-icon { font-size:1rem;display:block;margin-bottom:0.2rem; }
-      .delivery-price { font-size:0.65rem;font-weight:400;opacity:0.85; }
-
-      /* Items list */
       .cart-items-list { padding:0.8rem 1.5rem;flex:1; }
       .cart-item { display:grid;grid-template-columns:1fr auto auto;gap:0.5rem;align-items:start;padding:0.8rem 0;border-bottom:1px dashed #f5e9d6; }
       .cart-item:last-child { border-bottom:none; }
@@ -617,18 +643,13 @@
       .cart-item-controls span { font-size:0.85rem;font-weight:700;min-width:20px;text-align:center; }
       .cart-remove { color:#e74c3c !important; }
       .cart-item-subtotal { font-size:0.88rem;font-weight:700;color:#8b5e3c;text-align:right;white-space:nowrap; }
-
-      /* Footer sticky en cada paso */
       .cart-step-footer { padding:1rem 1.5rem;border-top:1.5px solid #f5e9d6;background:#fdf8f0;flex-shrink:0; }
       .cart-totals { margin-bottom:0.6rem; }
       .cart-total-row { display:flex;justify-content:space-between;font-size:0.82rem;color:#6b4c2a;padding:0.18rem 0; }
-      .cart-total-row.discount { color:#6a9e8a;font-weight:600; }
       .cart-total-row.final { font-size:1rem;font-weight:700;color:#5a3a1a;border-top:1px solid #f5e9d6;padding-top:0.5rem;margin-top:0.2rem; }
       .cart-note { font-size:0.72rem;font-style:italic;margin-bottom:0.7rem;text-align:center;color:#6b4c2a; }
       .cart-next-btn { display:block;width:100%;padding:0.85rem;background:#8b5e3c;color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.25s;margin-bottom:0.4rem; }
       .cart-next-btn:hover { background:#6a9e8a; }
-
-      /* Step 2 - address */
       .cart-step-header { padding:0.8rem 1.5rem;border-bottom:1px solid #f5e9d6;background:#fdf8f0;flex-shrink:0; }
       .cart-back-step { background:none;border:none;color:#6a9e8a;font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;padding:0;margin-bottom:0.3rem; }
       .cart-step-title { font-family:'Playfair Display',serif;font-size:1rem;color:#5a3a1a;font-weight:600; }
@@ -638,8 +659,6 @@
       .addr-input:focus { border-color:#6a9e8a; }
       .addr-row { display:grid;grid-template-columns:1fr 1fr;gap:0.4rem; }
       .addr-row-3 { display:grid;grid-template-columns:2fr 1fr 1fr;gap:0.4rem; }
-
-      /* Step 3 - summary */
       .cart-ref-line { font-size:0.7rem;color:#8b5e3c;font-style:italic;margin-top:0.1rem; }
       .summary-items { padding:0.8rem 1.5rem;flex:1; }
       .summary-item { display:flex;justify-content:space-between;align-items:start;padding:0.5rem 0;border-bottom:1px dashed #f5e9d6;font-size:0.82rem;color:#3a2510;gap:0.5rem; }
@@ -653,12 +672,10 @@
       .cart-pay-sub { font-size:0.7rem;color:#6b4c2a;text-align:center; }
       .cart-pay-methods { display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.3rem; }
       .cart-pay-methods span { font-size:0.68rem;background:#f5e9d6;padding:0.2rem 0.6rem;border-radius:10px;color:#5a3a1a;font-weight:600; }
-
       .cart-empty { text-align:center;padding:3rem 1rem;color:#6b4c2a;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center; }
       .cart-empty span { font-size:3rem;display:block;margin-bottom:0.8rem; }
       .cart-empty p { font-size:0.95rem;font-weight:600;margin-bottom:0.3rem; }
       .cart-empty-sub { font-size:0.82rem;font-weight:300 !important; }
-
       #cart-notif { position:fixed;bottom:6rem;right:1.5rem;z-index:1100;background:#5a3a1a;color:#fff;padding:0.7rem 1.2rem;border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:600;opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none; }
       #cart-notif.show { opacity:1;transform:translateY(0); }
       .btn-add-cart { display:block;width:100%;margin-top:0.6rem;padding:0.65rem 1rem;background:var(--mint-dark,#6a9e8a);color:#fff;border:none;border-radius:30px;font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;transition:background 0.25s; }
@@ -701,8 +718,6 @@
     updateCartBadge();
   }
 
-  // Si venimos de la página de "pago no completado" con ?reintentar=pago,
-  // abrimos el carrito directo en el paso de pago para reintentar.
   function checkRetryParam() {
     const params = new URLSearchParams(window.location.search);
     if (params.get('reintentar') === 'pago' && cart.length > 0) {
