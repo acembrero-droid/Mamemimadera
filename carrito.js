@@ -320,7 +320,7 @@
     const redsysOrder = Date.now().toString().slice(-12);
 
     try {
-        const respuesta = await fetch('https://mamemimadera.es/pago.php', {
+        const respuesta = await fetch('/pago.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
