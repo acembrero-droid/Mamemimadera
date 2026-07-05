@@ -320,15 +320,14 @@
     const redsysOrder = Date.now().toString().slice(-12);
 
     try {
-        const respuesta = await fetch('/pago.php', {
+        // Tu backend de pago es un Worker de Cloudflare que escucha en
+        // /api/generar-firma y solo necesita { importe, pedido }.
+        const respuesta = await fetch('https://mamemimadera.es/api/generar-firma', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 importe: finalTotalCentimos,
-                pedido: redsysOrder,
-                referencia: orderRef,
-                resumen: summary,
-                emailCliente: addr.email || ''
+                pedido: redsysOrder
             })
         });
 
@@ -337,6 +336,10 @@
             throw new Error(textoError);
         }
         const datosFirma = await respuesta.json();
+
+        if (datosFirma.error) {
+            throw new Error(datosFirma.error);
+        }
 
         const form = document.createElement('form');
         form.method = 'POST';
@@ -351,7 +354,7 @@
         };
 
         addInput('Ds_MerchantParameters', datosFirma.Ds_MerchantParameters);
-        addInput('Ds_SignatureVersion', 'HMAC_SHA256_V1');
+        addInput('Ds_SignatureVersion', datosFirma.Ds_SignatureVersion || 'HMAC_SHA256_V1');
         addInput('Ds_Signature', datosFirma.Ds_Signature);
 
         document.body.appendChild(form);
