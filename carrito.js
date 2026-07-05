@@ -322,7 +322,9 @@
     try {
         // Tu backend de pago es un Worker de Cloudflare que escucha en
         // /api/generar-firma y solo necesita { importe, pedido }.
-        const respuesta = await fetch('https://mamemimadera.es/api/generar-firma', {
+        // Usamos ruta relativa para que funcione tanto con www como sin www
+        // (evita el bloqueo CORS entre mamemimadera.es y www.mamemimadera.es).
+        const respuesta = await fetch('/api/generar-firma', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
