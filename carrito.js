@@ -320,18 +320,20 @@
     const redsysOrder = Date.now().toString().slice(-12);
 
     try {
-        // Tu backend de pago es un Worker de Cloudflare que escucha en
-        // /api/generar-firma y solo necesita { importe, pedido }.
-        // Usamos ruta relativa para que funcione tanto con www como sin www
-        // (evita el bloqueo CORS entre mamemimadera.es y www.mamemimadera.es).
+        // --- AQUÍ EMPIEZAN LOS CAMBIOS ---
+        const emailCliente = addr.email || ""; 
+
         const respuesta = await fetch('/api/generar-firma', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 importe: finalTotalCentimos,
-                pedido: redsysOrder
+                pedido: redsysOrder,
+                email: emailCliente,    // Enviamos el email para guardarlo en KV
+                resumen: summary        // Enviamos el resumen para guardarlo en KV
             })
         });
+        // --- AQUÍ TERMINAN LOS CAMBIOS ---
 
         if (!respuesta.ok) {
             const textoError = await respuesta.text();
