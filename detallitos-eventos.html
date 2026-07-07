@@ -141,6 +141,10 @@
       <div class="img-wrap"><img src="images/libretas.jpg" alt="Libretas personalizadas"></div>
       <div class="cat-info"><h3>Libretas personalizadas</h3><p>Grabado láser · Desde 1 unidad · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
     </a>
+    <a class="cat-card fade-in" onclick="showPage('cajavino'); return false;" href="#">
+      <div class="img-wrap"><img src="images/cajavino.jpg" alt="Cajas de vino personalizadas"></div>
+      <div class="cat-info"><h3>Cajas de vino personalizadas</h3><p>Madera de kiri · Grabado láser · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
   </div>
 </section>
 
@@ -319,6 +323,52 @@
   </div>
 </div>
 
+<!-- ── CAJAS DE VINO ── -->
+<div class="product-page" id="page-cajavino">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
+  <div class="products-grid">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/cajavino.jpg')">
+        <img src="images/cajavino.jpg" alt="Caja de vino personalizada">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Caja de vino personalizada</h3>
+        <p class="product-desc">Caja de madera de kiri para una botella de vino, grabada al láser con los nombres, la fecha o el mensaje que elijas. Un detalle especial y duradero para bodas, comuniones o cualquier celebración. Cuantas más pidas, mejor precio.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1–9 unidades</span><span class="amount">39,00 € / u</span></div>
+          <div class="price-row"><span>10–24 unidades</span><span class="amount">34,00 € / u</span></div>
+          <div class="price-row"><span>25–50 unidades</span><span class="amount">31,00 € / u</span></div>
+          <div class="price-row"><span>Más de 50 unidades</span><span class="amount">28,00 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Botella no incluida</p>
+          <div class="price-alert">✦ Antes de fabricarlas, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="cajavino-cantidad" min="1" placeholder="Nº de unidades" oninput="updateCajavino()">
+            <p class="price-note" id="cajavino-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="cajavino-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="cajavino-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="cajavino-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartCajavino()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20las%20cajas%20de%20vino%20personalizadas" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="info-banner" style="background:var(--wood-deep);color:var(--cream);padding:2rem;text-align:center;">
   <p style="font-size:0.88rem;font-weight:300;line-height:1.8;">✦ Todos los precios incluyen IVA · Realizo envíos a toda España ✦<br>
   ¿Tienes dudas? Escríbeme a <strong style="color:var(--wood-mid);">hola@mamemimadera.es</strong> o por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-mid);font-weight:700;">WhatsApp</a></p>
@@ -340,7 +390,7 @@
 </div>
 
 <script>
-  const pageNames = { imanes: 'Imanes abrebotellas', libretas: 'Libretas', marcasitios: 'Marcasitios' };
+  const pageNames = { imanes: 'Imanes abrebotellas', libretas: 'Libretas', marcasitios: 'Marcasitios', cajavino: 'Cajas de vino' };
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
@@ -565,6 +615,39 @@
     const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
     addToCart({ id: 'libretas-' + Date.now(), name: 'Libreta personalizada', price: precioU, qty: cantidad, options: opts });
   }
+
+  // ── CAJAS DE VINO ──
+  function cajavinoPrecioUnidad(cantidad) {
+    if (cantidad > 50) return 28.00;
+    if (cantidad >= 25) return 31.00;
+    if (cantidad >= 10) return 34.00;
+    return 39.00;
+  }
+  function updateCajavino() {
+    const cantidad = parseInt(document.getElementById('cajavino-cantidad')?.value) || 0;
+    const desglose = document.getElementById('cajavino-desglose');
+    const totalEl = document.getElementById('cajavino-total');
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      return;
+    }
+    const precioU = cajavinoPrecioUnidad(cantidad);
+    const total = precioU * cantidad;
+    desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
+    totalEl.textContent = formatEuros(total);
+  }
+  function addCartCajavino() {
+    const cantidad = parseInt(document.getElementById('cajavino-cantidad')?.value) || 0;
+    const diseno = document.getElementById('cajavino-diseno')?.value.trim();
+    const enfoque = document.getElementById('cajavino-enfoque')?.value;
+    if (cantidad < 1) { alert('Por favor indica la cantidad de cajas de vino que quieres.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const precioU = cajavinoPrecioUnidad(cantidad);
+    const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
+    addToCart({ id: 'cajavino-' + Date.now(), name: 'Caja de vino personalizada', price: precioU, qty: cantidad, options: opts });
+  }
 </script>
 <script>
   // ── BOTÓN FLOTANTE VOLVER (solo móvil) ──
@@ -575,7 +658,7 @@
     floatBtn.style.cssText = 'display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;border-radius:30px;padding:0.5rem 1.1rem;font-family:Nunito,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;';
     floatBtn.onclick = function() { showGrid(); };
     document.body.appendChild(floatBtn);
-    var floatPages = ['page-marcasitios','page-imanes','page-libretas'];
+    var floatPages = ['page-marcasitios','page-imanes','page-libretas','page-cajavino'];
     function upd() {
       var ok = window.innerWidth <= 640 && floatPages.some(function(id){var e=document.getElementById(id);return e&&e.classList.contains('active');});
       floatBtn.style.display = ok ? 'block' : 'none';
