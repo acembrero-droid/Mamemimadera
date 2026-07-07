@@ -337,6 +337,39 @@
     </div>
 
     <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/cajavino.jpg')">
+        <img src="images/cajavino.jpg" alt="Caja de vino personalizada">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Caja de vino personalizada</h3>
+        <p class="product-desc">Caja de madera de kiri para una botella de vino, grabada al láser con el nombre, la fecha o el mensaje que elijas. Un regalo especial para el Día del Padre, un cumpleaños, Reyes o cualquier ocasión que lo merezca.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Grabado personalizado</span><span class="amount">39 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Botella no incluida</p>
+          <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+          <p class="price-note">¿La necesitas para una boda o evento? <a href="detallitos-eventos.html" style="color:var(--mint-dark);font-weight:700;">Mira los precios por cantidad →</a></p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="cajavino-pers-diseno" placeholder="ej. nombre, fecha, mensaje..."></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="cajavino-pers-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>39 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartCajaVinoPers()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20caja%20de%20vino%20personalizada" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
         <img src="images/llavero2.jpg" alt="Llavero personalizado">
         <span class="personalizable-badge">Personalizable</span>
@@ -893,6 +926,16 @@
     if (curso) opts['Curso'] = curso;
     opts['Alumnos (' + alumnos.length + ')'] = alumnos.join(', ');
     addToCart({ id: 'placa-profe-' + Date.now(), name: 'Placa de profe', price: 40, peso: 160, options: opts });
+  }
+
+  // ── CAJA DE VINO PERSONALIZADA (precio único) ──
+  function addCartCajaVinoPers() {
+    const diseno = document.getElementById('cajavino-pers-diseno')?.value.trim();
+    const enfoque = document.getElementById('cajavino-pers-enfoque')?.value;
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
+    addToCart({ id: 'cajavino-pers-' + Date.now(), name: 'Caja de vino personalizada', price: 39, peso: 430, options: opts });
   }
 
   // ── NOMBRE PUERTA ──
