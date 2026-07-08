@@ -137,6 +137,10 @@
       <div class="img-wrap"><img src="images/iman.jpg" alt="Imanes abrebotellas"></div>
       <div class="cat-info"><h3>Imanes abrebotellas</h3><p>Bambú · Grabado láser · Detalle práctico y original</p><span class="cat-arrow">Ver más →</span></div>
     </a>
+    <a class="cat-card fade-in" onclick="showPage('llaveros'); return false;" href="#">
+      <div class="img-wrap"><img src="images/llavero2.jpg" alt="Llaveros para eventos"></div>
+      <div class="cat-info"><h3>Llaveros para eventos</h3><p>Madera natural · Grabado láser · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
     <a class="cat-card fade-in" onclick="showPage('libretas'); return false;" href="#">
       <div class="img-wrap"><img src="images/libretas.jpg" alt="Libretas personalizadas"></div>
       <div class="cat-info"><h3>Libretas personalizadas</h3><p>Grabado láser · Desde 1 unidad · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
@@ -245,7 +249,7 @@
       <div class="product-body">
         <p class="product-cat">Detallitos para Eventos</p>
         <h3>Imán abrebotellas de bambú</h3>
-        <p class="product-desc">Imán abrebotellas de bambú grabado al láser con el diseño, nombre o fecha que elijas. Un detalle práctico y original que tus invitados guardarán con cariño. Ideal para bodas, comuniones, bautizos y cualquier celebración especial. A más cantidad, mejor precio.</p>
+        <p class="product-desc">Imán abrebotellas de bambú grabado al láser con el diseño, nombre o fecha que elijas. Un detalle práctico y original que tus invitados guardarán con cariño. Ideal para bodas, comuniones, bautizos y cualquier celebración especial.</p>
         <div class="price-block">
           <div class="price-row"><span>Menos de 25 unidades</span><span class="amount">4,50 € / u</span></div>
           <div class="price-row"><span>26–50 unidades</span><span class="amount">3,50 € / u</span></div>
@@ -277,6 +281,88 @@
   </div>
 </div>
 
+<!-- ── LLAVEROS PARA EVENTOS ── -->
+<div class="product-page" id="page-llaveros">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
+  <div class="products-grid">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
+        <img src="images/llavero2.jpg" alt="Llavero para eventos">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Llaveros para eventos</h3>
+        <p class="product-desc">Llaveros redondos de madera natural grabados al láser con el diseño, nombres o fecha que elijas. Un detalle práctico y con encanto para que tus invitados se lo lleven a casa. Cada llavero se desmonta, se graba, y se vuelve a montar a mano junto con su borla, por lo que lleva más trabajo que otros detallitos.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Menos de 25 unidades</span><span class="amount">12,00 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">10,00 € / u</span></div>
+          <div class="price-row"><span>Más de 50 unidades</span><span class="amount">8,00 € / u</span></div>
+          <div class="price-row"><span>+ otro lado, mismo diseño para todos</span><span class="amount">+ 2,00 € / u</span></div>
+          <div class="price-row"><span>+ otro lado, diseño distinto por llavero</span><span class="amount">+ 3,00 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="llaveventos-cantidad" min="1" placeholder="Nº de unidades" oninput="updateLlaverosEventos()">
+            <p class="price-note" id="llaveventos-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado (lado principal)</label><input type="text" class="opt-input" id="llaveventos-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Grabado también por el otro lado?</label>
+            <select class="opt-input" id="llaveventos-otrolado" onchange="updateLlaverosEventos()">
+              <option value="no">No, un solo lado</option>
+              <option value="mismo">Sí, el mismo diseño para todos (+2 €/u)</option>
+              <option value="distinto">Sí, un diseño distinto por llavero (+3 €/u)</option>
+            </select>
+          </div>
+          <div class="opt-row" id="llaveventos-mismo-wrap" style="display:none;">
+            <label class="opt-label">Qué quieres que lleve grabado en el otro lado</label>
+            <input type="text" class="opt-input" id="llaveventos-mismo-texto" placeholder="ej. fecha de la boda">
+          </div>
+          <div class="opt-row" id="llaveventos-distinto-wrap" style="display:none;">
+            <label class="opt-label">Diseño del otro lado para cada llavero</label>
+            <p style="font-size:0.7rem;margin:0 0 0.4rem;color:var(--text-mid);">Se genera una fila por cada unidad que hayas puesto en "Cantidad". Puedes rellenarlas ahora o dejarlas para cuando te contacte.</p>
+            <div id="llaveventos-distinto-nombres-wrap" style="max-height:220px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+              <p id="llaveventos-distinto-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas.</p>
+            </div>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Borla</label>
+            <select class="opt-input" id="llaveventos-borla">
+              <option value="Sin borla">Sin borla</option>
+              <option value="Me da igual">Me da igual el color</option>
+              <option value="Verde brillante">Verde brillante</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Marrón">Marrón</option>
+              <option value="Azul cielo">Azul cielo</option>
+              <option value="Morado">Morado</option>
+              <option value="Rosita palo">Rosita palo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Azul marino">Azul marino</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="llaveventos-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="llaveventos-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartLlaverosEventos()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20llaveros%20para%20mi%20evento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ── LIBRETAS ── -->
 <div class="product-page" id="page-libretas">
   <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
@@ -290,7 +376,7 @@
       <div class="product-body">
         <p class="product-cat">Detallitos para Eventos</p>
         <h3>Libreta personalizada</h3>
-        <p class="product-desc">Libreta con diseño grabado al láser en la portada, personalizada con el nombre, ilustración o texto que quieras. Perfectas como detalle de fin de curso, regalo corporativo o recuerdo de evento. Cuantas más pidas, mejor precio.</p>
+        <p class="product-desc">Libreta con diseño grabado al láser en la portada, personalizada con el nombre, ilustración o texto que quieras. Perfectas como detalle de fin de curso, regalo corporativo o recuerdo de evento.</p>
         <div class="price-block">
           <div class="price-row"><span>1–9 unidades</span><span class="amount">15,00 € / u</span></div>
           <div class="price-row"><span>10–24 unidades</span><span class="amount">9,50 € / u</span></div>
@@ -336,7 +422,7 @@
       <div class="product-body">
         <p class="product-cat">Detallitos para Eventos</p>
         <h3>Caja de vino personalizada</h3>
-        <p class="product-desc">Caja de madera de kiri para una botella de vino, grabada al láser con los nombres, la fecha o el mensaje que elijas. Un detalle especial y duradero para bodas, comuniones o cualquier celebración. Cuantas más pidas, mejor precio.</p>
+        <p class="product-desc">Caja de madera de kiri para una botella de vino, grabada al láser con los nombres, la fecha o el mensaje que elijas. Un detalle especial y duradero para bodas, comuniones o cualquier celebración.</p>
         <div class="price-block">
           <div class="price-row"><span>1–9 unidades</span><span class="amount">39,00 € / u</span></div>
           <div class="price-row"><span>10–24 unidades</span><span class="amount">34,00 € / u</span></div>
@@ -390,7 +476,7 @@
 </div>
 
 <script>
-  const pageNames = { imanes: 'Imanes abrebotellas', libretas: 'Libretas', marcasitios: 'Marcasitios', cajavino: 'Cajas de vino' };
+  const pageNames = { imanes: 'Imanes abrebotellas', llaveros: 'Llaveros para eventos', libretas: 'Libretas', marcasitios: 'Marcasitios', cajavino: 'Cajas de vino' };
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
@@ -483,6 +569,101 @@
     const precioU = imanesPrecioUnidad(cantidad);
     const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
     addToCart({ id: 'imanes-' + Date.now(), name: 'Imán abrebotellas de bambú', price: precioU, qty: cantidad, options: opts });
+  }
+
+  // ── LLAVEROS PARA EVENTOS ──
+  function llaveventosPrecioUnidad(cantidad) {
+    if (cantidad > 50) return 8.00;
+    if (cantidad >= 26) return 10.00;
+    return 12.00;
+  }
+  function llaveventosOtroladoExtra() {
+    const v = document.getElementById('llaveventos-otrolado')?.value;
+    if (v === 'mismo') return 2.00;
+    if (v === 'distinto') return 3.00;
+    return 0;
+  }
+  function updateLlaverosEventos() {
+    const cantidad = parseInt(document.getElementById('llaveventos-cantidad')?.value) || 0;
+    const desglose = document.getElementById('llaveventos-desglose');
+    const totalEl = document.getElementById('llaveventos-total');
+    const otrolado = document.getElementById('llaveventos-otrolado')?.value || 'no';
+    document.getElementById('llaveventos-mismo-wrap').style.display = otrolado === 'mismo' ? 'block' : 'none';
+    document.getElementById('llaveventos-distinto-wrap').style.display = otrolado === 'distinto' ? 'block' : 'none';
+    if (otrolado === 'distinto') renderLlaveventosDistintoNombres(cantidad);
+
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      return;
+    }
+    const base = llaveventosPrecioUnidad(cantidad);
+    const extra = llaveventosOtroladoExtra();
+    const precioU = base + extra;
+    const total = precioU * cantidad;
+    let txt = cantidad + ' uds × ' + formatEuros(precioU);
+    if (extra > 0) txt += ' (' + formatEuros(base) + ' + ' + formatEuros(extra) + ' otro lado)';
+    txt += ' = ' + formatEuros(total);
+    desglose.textContent = txt;
+    totalEl.textContent = formatEuros(total);
+  }
+
+  const LLAVEVENTOS_MAX_FILAS = 150;
+  function renderLlaveventosDistintoNombres(cantidad) {
+    const wrap = document.getElementById('llaveventos-distinto-nombres-wrap');
+    if (!wrap) return;
+    const valoresActuales = Array.from(wrap.querySelectorAll('.llaveventos-distinto-nombre')).map(i => i.value);
+    if (cantidad < 1) {
+      wrap.innerHTML = '<p id="llaveventos-distinto-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas.</p>';
+      return;
+    }
+    const filas = Math.min(cantidad, LLAVEVENTOS_MAX_FILAS);
+    wrap.innerHTML = '';
+    for (let i = 1; i <= filas; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'opt-input llaveventos-distinto-nombre';
+      inp.placeholder = 'Llavero ' + i + ' — diseño otro lado';
+      inp.style.margin = '0 0 0.4rem 0';
+      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
+      wrap.appendChild(inp);
+    }
+    if (cantidad > LLAVEVENTOS_MAX_FILAS) {
+      const aviso = document.createElement('p');
+      aviso.style.cssText = 'font-size:0.72rem;color:var(--wood-dark);font-style:italic;margin-top:0.3rem;';
+      aviso.textContent = 'Para pedidos de más de ' + LLAVEVENTOS_MAX_FILAS + ' llaveros, mejor pásame la lista completa por WhatsApp o email cuando te contacte — aquí puedes dejar solo algunos de ejemplo.';
+      wrap.appendChild(aviso);
+    }
+  }
+
+  function addCartLlaverosEventos() {
+    const cantidad = parseInt(document.getElementById('llaveventos-cantidad')?.value) || 0;
+    const diseno = document.getElementById('llaveventos-diseno')?.value.trim();
+    const enfoque = document.getElementById('llaveventos-enfoque')?.value;
+    const otrolado = document.getElementById('llaveventos-otrolado')?.value || 'no';
+    if (cantidad < 1) { alert('Por favor indica la cantidad de llaveros que quieres.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado en el lado principal.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+
+    const base = llaveventosPrecioUnidad(cantidad);
+    const extra = llaveventosOtroladoExtra();
+    const precioU = base + extra;
+
+    const opts = { 'Grabado lado principal': diseno, 'Enfoque diseño': enfoque };
+    const borla = document.getElementById('llaveventos-borla')?.value;
+    if (borla) opts['Borla'] = borla;
+
+    if (otrolado === 'mismo') {
+      const texto = document.getElementById('llaveventos-mismo-texto')?.value.trim();
+      if (!texto) { alert('Por favor indica qué quieres grabar en el otro lado.'); return; }
+      opts['Otro lado (mismo diseño para todos)'] = texto;
+    } else if (otrolado === 'distinto') {
+      const disenos = Array.from(document.querySelectorAll('.llaveventos-distinto-nombre')).map(i => i.value.trim()).filter(Boolean);
+      if (disenos.length > 0) opts['Otro lado (' + disenos.length + ' de ' + cantidad + ')'] = disenos.join(' | ');
+      else opts['Otro lado'] = 'Diseños pendientes de confirmar por WhatsApp';
+    }
+
+    addToCart({ id: 'llaveventos-' + Date.now(), name: 'Llavero para eventos', price: precioU, qty: cantidad, options: opts });
   }
 
   // ── MARCASITIOS PARA BODA ──
@@ -658,7 +839,7 @@
     floatBtn.style.cssText = 'display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;border-radius:30px;padding:0.5rem 1.1rem;font-family:Nunito,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;';
     floatBtn.onclick = function() { showGrid(); };
     document.body.appendChild(floatBtn);
-    var floatPages = ['page-marcasitios','page-imanes','page-libretas','page-cajavino'];
+    var floatPages = ['page-marcasitios','page-imanes','page-llaveros','page-libretas','page-cajavino'];
     function upd() {
       var ok = window.innerWidth <= 640 && floatPages.some(function(id){var e=document.getElementById(id);return e&&e.classList.contains('active');});
       floatBtn.style.display = ok ? 'block' : 'none';
