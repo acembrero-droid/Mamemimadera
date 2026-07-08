@@ -378,28 +378,41 @@
       <div class="product-body">
         <p class="product-cat">En madera</p>
         <h3>Llavero grabado en madera</h3>
-        <p class="product-desc">Llavero redondo de madera natural grabado al láser con el diseño, nombre o texto que elijas. Diseño exclusivo creado para ti. Con anilla metálica y borla de gamuza en el color que prefieras.</p>
+        <p class="product-desc">Llavero redondo de madera natural grabado al láser con el diseño, nombre o iniciales que elijas. Diseño exclusivo creado para ti. Con anilla metálica y borla de gamuza en el color que prefieras.</p>
         <div class="price-block">
-          <div class="price-row"><span>Diseño y grabado por 1 cara</span><span class="amount">20 €</span></div>
-          <div class="price-row"><span>Diseño y grabado por 2 caras</span><span class="amount">25 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-row"><span>1 unidad</span><span class="amount">18 €</span></div>
+          <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">15 € / u</span></div>
+          <div class="price-row"><span>+ diseño o nombre por el otro lado</span><span class="amount">+ 5 € / u</span></div>
+          <p class="price-note">✦ IVA incluido</p>
           <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
           <div class="opt-row">
-            <label class="opt-label">Grabado</label>
-            <select id="opt-llav-pers-caras" onchange="updateLlavPers()">
-              <option value="20">Diseño y grabado 1 cara — 20 €</option>
-              <option value="25">Diseño y grabado 2 caras — 25 €</option>
+            <label class="opt-label">Cantidad:</label>
+            <select id="opt-llav-pers-qty" onchange="updateLlavPers()">
+              <option value="18|1">1 unidad — 18 €</option>
+              <option value="15|3">Pack 3 unidades — 15 € / u (45 € total)</option>
             </select>
           </div>
           <div class="opt-row">
-            <label class="opt-label">¿Añadir nombre o texto?</label>
-            <select id="opt-llav-pers-nombre" onchange="updateLlavPers()">
-              <option value="0">Sin texto personalizado</option>
-              <option value="1">Sí, con texto personalizado</option>
+            <label class="opt-label">¿Qué buscas para tu llavero?</label>
+            <select id="opt-llav-pers-tipo" onchange="updateLlavPers()">
+              <option value="">Elige una opción</option>
+              <option value="unico">Busco crear algo único</option>
+              <option value="nombre">Quiero grabar un nombre o iniciales</option>
             </select>
-            <input type="text" id="opt-llav-pers-texto" placeholder="Escribe el nombre o texto" class="opt-input" style="display:none;" oninput="updateLlavPers()">
+          </div>
+          <div class="opt-row" id="llav-pers-enfoque-wrap" style="display:none;">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select id="opt-llav-pers-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-row" id="llav-pers-nombre-wrap" style="display:none;">
+            <label class="opt-label">Nombre o iniciales (máx. 10 caracteres)</label>
+            <input type="text" id="opt-llav-pers-texto-principal" class="opt-input" maxlength="10" placeholder="ej. MARÍA o M&J">
           </div>
           <div class="opt-row">
             <label class="opt-label">Presentación</label>
@@ -425,14 +438,17 @@
             </select>
           </div>
           <div class="opt-row">
-            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
-            <select id="opt-llav-pers-enfoque">
-              <option value="">Elige una opción</option>
-              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
-              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            <label class="opt-label">¿Diseño o nombre por el otro lado? (+5 € / unidad)</label>
+            <select id="opt-llav-pers-otrolado" onchange="updateLlavPers()">
+              <option value="no">No, un solo lado</option>
+              <option value="si">Sí, quiero grabar también el otro lado (+5 €/u)</option>
             </select>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-pers-total">20 €</strong></div>
+          <div class="opt-row" id="llav-pers-otrolado-texto-wrap" style="display:none;">
+            <label class="opt-label">¿Qué quieres grabar en el otro lado?</label>
+            <input type="text" id="opt-llav-pers-otrolado-texto" class="opt-input" placeholder="Describe el diseño o nombre del otro lado">
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-pers-total">18 €</strong></div>
         </div>
         <button class="btn-add-cart" onclick="addCartLlavPers()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20llavero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
@@ -450,8 +466,8 @@
         <h3>Nombre para puerta</h3>
         <p class="product-desc">Nombre en 3D para colgar en la puerta de la habitación. Impreso y acabado a mano, disponible en distintos colores. Un detalle precioso para personalizar cualquier espacio.</p>
         <div class="price-block">
-          <div class="price-row"><span>1 unidad</span><span class="amount">20 €</span></div>
-          <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">16 € / u</span></div>
+          <div class="price-row"><span>1 unidad</span><span class="amount">23 €</span></div>
+          <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">17 € / u</span></div>
           <p class="price-note">✦ IVA incluido</p>
           <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
@@ -459,8 +475,8 @@
           <div class="opt-row">
             <label class="opt-label">Cantidad:</label>
             <select id="opt-puerta-qty" onchange="updatePuerta()">
-              <option value="20|1">1 unidad — 20 €</option>
-              <option value="16|3">Pack 3 unidades — 16 € / u (48 € total)</option>
+              <option value="23|1">1 unidad — 23 €</option>
+              <option value="17|3">Pack 3 unidades — 17 € / u (51 € total)</option>
             </select>
           </div>
           <p class="opt-label" style="margin:0.6rem 0 0.3rem;">Nombre(s) y color de cada uno:</p>
@@ -479,7 +495,7 @@
             </div>
           </div>
           <button type="button" onclick="addPuertaRow()" style="background:none;border:1.5px dashed var(--wood-mid);border-radius:8px;padding:0.35rem 0.8rem;font-size:0.78rem;color:var(--wood-dark);cursor:pointer;margin-top:0.3rem;font-family:Nunito,sans-serif;">+ Añadir otro nombre</button>
-          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">20 €</strong></div>
+          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">23 €</strong></div>
         </div>
         <button class="btn-add-cart" onclick="addCartPuertaV2()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
@@ -786,35 +802,58 @@
 
   // ── LLAVERO PERSONALIZADO ──
   function updateLlavPers() {
-    let base = parseFloat(document.getElementById('opt-llav-pers-caras').value) || 20;
+    const qtySel = document.getElementById('opt-llav-pers-qty');
+    const [priceStr, qtyStr] = qtySel.value.split('|');
+    const basePrice = parseFloat(priceStr) || 18;
+    const qty = parseInt(qtyStr) || 1;
     const cajaExtra = parseFloat(document.getElementById('opt-llav-pers-caja').value) || 0;
-    base += cajaExtra;
-    const textoSel = document.getElementById('opt-llav-pers-nombre');
-    const textoInput = document.getElementById('opt-llav-pers-texto');
-    if (textoSel && textoInput) textoInput.style.display = textoSel.value === '1' ? 'block' : 'none';
-    document.getElementById('opt-llav-pers-total').textContent = base.toFixed(0) + ' €';
+    const otrolado = document.getElementById('opt-llav-pers-otrolado').value;
+    const otroladoExtra = otrolado === 'si' ? 5 : 0;
+
+    const tipo = document.getElementById('opt-llav-pers-tipo').value;
+    document.getElementById('llav-pers-enfoque-wrap').style.display = tipo === 'unico' ? 'block' : 'none';
+    document.getElementById('llav-pers-nombre-wrap').style.display = tipo === 'nombre' ? 'block' : 'none';
+    document.getElementById('llav-pers-otrolado-texto-wrap').style.display = otrolado === 'si' ? 'block' : 'none';
+
+    const unitPrice = basePrice + cajaExtra + otroladoExtra;
+    document.getElementById('opt-llav-pers-total').textContent = (unitPrice * qty).toFixed(0) + ' €';
   }
   function addCartLlavPers() {
-    const caras = parseFloat(document.getElementById('opt-llav-pers-caras').value) || 20;
+    const qtySel = document.getElementById('opt-llav-pers-qty');
+    const [priceStr, qtyStr] = qtySel.value.split('|');
+    const basePrice = parseFloat(priceStr) || 18;
+    const qty = parseInt(qtyStr) || 1;
     const cajaExtra = parseFloat(document.getElementById('opt-llav-pers-caja').value) || 0;
-    const price = caras + cajaExtra;
-    const enfoque = document.getElementById('opt-llav-pers-enfoque')?.value;
-    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
-    const opts = { 'Grabado': caras === 25 ? '2 caras' : '1 cara' };
-    const textoSel = document.getElementById('opt-llav-pers-nombre');
-    if (textoSel && textoSel.value === '1') {
-      const texto = document.getElementById('opt-llav-pers-texto')?.value.trim();
-      if (!texto) { alert('Por favor escribe el nombre o texto que quieres grabar.'); return; }
-      opts['Texto'] = texto;
+    const otrolado = document.getElementById('opt-llav-pers-otrolado').value;
+    const otroladoExtra = otrolado === 'si' ? 5 : 0;
+    const unitPrice = basePrice + cajaExtra + otroladoExtra;
+
+    const tipo = document.getElementById('opt-llav-pers-tipo').value;
+    if (!tipo) { alert('Por favor indica qué buscas para tu llavero.'); return; }
+
+    const opts = {};
+    if (tipo === 'unico') {
+      const enfoque = document.getElementById('opt-llav-pers-enfoque')?.value;
+      if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+      opts['Tipo de diseño'] = 'Ilustración única';
+      opts['Enfoque diseño'] = enfoque;
+    } else {
+      const texto = document.getElementById('opt-llav-pers-texto-principal')?.value.trim();
+      if (!texto) { alert('Por favor escribe el nombre o iniciales que quieres grabar (máx. 10 caracteres).'); return; }
+      opts['Nombre / iniciales'] = texto;
     }
+
+    if (otrolado === 'si') {
+      const otroladoTexto = document.getElementById('opt-llav-pers-otrolado-texto')?.value.trim();
+      if (!otroladoTexto) { alert('Por favor indica qué quieres grabar en el otro lado.'); return; }
+      opts['Otro lado'] = otroladoTexto;
+    }
+
     opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
     const borla = document.getElementById('opt-llav-pers-borla');
-    if (borla) {
-      if (borla.value === 'Sin borla') { opts['Borla'] = 'Sin borla'; }
-      else { opts['Borla'] = borla.value; }
-    }
-    opts['Enfoque diseño'] = enfoque;
-    addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price, peso: 8, options: opts });
+    if (borla) { opts['Borla'] = borla.value; }
+
+    addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price: unitPrice, qty, peso: 8, options: opts });
   }
 
   // ── MARCAPÁGINAS ──
