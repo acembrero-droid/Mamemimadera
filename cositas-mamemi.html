@@ -145,10 +145,6 @@
       <div class="img-wrap"><img src="images/llavero.jpg" alt="Llaveros"></div>
       <div class="cat-info"><h3>Llaveros</h3><p>Ediciones exclusivas · Borla de gamuza</p><span class="cat-arrow">Ver más →</span></div>
     </a>
-    <a class="cat-card fade-in" onclick="showPage('marcapaginas'); return false;" href="#">
-      <div class="img-wrap"><img src="images/marcapag_cafe.jpg" alt="Marcapáginas"></div>
-      <div class="cat-info"><h3>Marcapáginas</h3><p>Piel sintética · Imán integrado · Grabado láser</p><span class="cat-arrow">Ver más →</span></div>
-    </a>
     <a class="cat-card fade-in" onclick="showPage('imanes'); return false;" href="#">
       <div class="img-wrap"><img src="images/iman_elefante.jpg" alt="Imanes"></div>
       <div class="cat-info"><h3>Imanes</h3><p>10×10cm · Madera contrachapada · Diseños propios</p><span class="cat-arrow">Ver más →</span></div>
@@ -156,6 +152,10 @@
     <a class="cat-card fade-in" onclick="showPage('discos'); return false;" href="#">
       <div class="img-wrap"><img src="images/disco_flores.jpg" alt="Discos de madera"></div>
       <div class="cat-info"><h3>Discos de madera</h3><p>Grabado láser · Pintados a mano · Ediciones limitadas</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
+    <a class="cat-card fade-in" onclick="showPage('marcapaginas'); return false;" href="#">
+      <div class="img-wrap"><img src="images/marcapag_cafe.jpg" alt="Marcapáginas"></div>
+      <div class="cat-info"><h3>Marcapáginas</h3><p>Piel sintética · Imán integrado · Grabado láser</p><span class="cat-arrow">Ver más →</span></div>
     </a>
   </div>
 </section>
@@ -492,250 +492,6 @@
   </div>
 </div>
 
-<!-- ── MARCAPÁGINAS ── -->
-<div class="product-page" id="page-marcapaginas">
-  <button class="back-btn" onclick="showGrid()">← Volver a Cositas Mamemi</button>
-  <div class="products-grid">
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_cafe.jpg')">
-        <img src="images/marcapag_cafe.jpg" alt="Marcapáginas Café entre libros">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
-        <h3>Marcapáginas · Café entre libros</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de taza de café humeante sobre una pila de libros. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-cafe-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-cafe-caja" onchange="updateMarcaCositas('cafe')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-cafe-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('cafe','Marcapáginas · Café entre libros')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Caf%C3%A9%20entre%20libros" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_floreciente.jpg')">
-        <img src="images/marcapag_floreciente.jpg" alt="Marcapáginas Libro floreciente">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
-        <h3>Marcapáginas · Libro floreciente</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de libro abierto del que crece una planta. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-floreciente-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-floreciente-caja" onchange="updateMarcaCositas('floreciente')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-floreciente-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('floreciente','Marcapáginas · Libro floreciente')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Libro%20floreciente" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_corazones.jpg')">
-        <img src="images/marcapag_corazones.jpg" alt="Marcapáginas Libro y corazones">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
-        <h3>Marcapáginas · Libro y corazones</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de libro abierto del que salen volando corazones. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-corazones-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-corazones-caja" onchange="updateMarcaCositas('corazones')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-corazones-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('corazones','Marcapáginas · Libro y corazones')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Libro%20y%20corazones" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_margarita.jpg')">
-        <img src="images/marcapag_margarita.jpg" alt="Marcapáginas Margarita">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
-        <h3>Marcapáginas · Margarita</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de margarita. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-margarita-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-margarita-caja" onchange="updateMarcaCositas('margarita')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-margarita-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('margarita','Marcapáginas · Margarita')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Margarita" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_ramo.jpg')">
-        <img src="images/marcapag_ramo.jpg" alt="Marcapáginas Ramo de regalo">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
-        <h3>Marcapáginas · Ramo de regalo</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de ramo de flores envuelto para regalar. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-ramo-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-ramo-caja" onchange="updateMarcaCositas('ramo')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-ramo-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('ramo','Marcapáginas · Ramo de regalo')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Ramo%20de%20regalo" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_pata.jpg')">
-        <img src="images/marcapag_pata.jpg" alt="Marcapáginas Pata lectora">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
-        <h3>Marcapáginas · Pata lectora</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de pata cargando una pila de libros. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-pata-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-pata-caja" onchange="updateMarcaCositas('pata')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-pata-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('pata','Marcapáginas · Pata lectora')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Pata%20lectora" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-  </div>
-</div>
-  </div>
-</div>
-
 <!-- ── IMANES ── -->
 <div class="product-page" id="page-imanes">
   <button class="back-btn" onclick="showGrid()">← Volver a Cositas Mamemi</button>
@@ -972,6 +728,248 @@
         </div>
         <button class="btn-add-cart" onclick="addCartWithOpts('disco-santjordi','Disco de madera · Sant Jordi 2026',9)">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20disco%20Sant%20Jordi%202026" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── MARCAPÁGINAS ── -->
+<div class="product-page" id="page-marcapaginas">
+  <button class="back-btn" onclick="showGrid()">← Volver a Cositas Mamemi</button>
+  <div class="products-grid">
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/marcapag_cafe.jpg')">
+        <img src="images/marcapag_cafe.jpg" alt="Marcapáginas Café entre libros">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
+        <h3>Marcapáginas · Café entre libros</h3>
+        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de taza de café humeante sobre una pila de libros. Presentado en bolsita de tela, listo para regalar.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
+          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Color del marcapáginas</label>
+            <select id="opt-marca-cafe-color">
+              <option value="Blanco">Blanco</option>
+              <option value="Rojo vivo">Rojo vivo</option>
+              <option value="Verde botella">Verde botella</option>
+              <option value="Gris oscuro">Gris oscuro</option>
+              <option value="Marrón">Marrón</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-marca-cafe-caja" onchange="updateMarcaCositas('cafe')">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-cafe-total">18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartMarcaCositas('cafe','Marcapáginas · Café entre libros')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Caf%C3%A9%20entre%20libros" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/marcapag_floreciente.jpg')">
+        <img src="images/marcapag_floreciente.jpg" alt="Marcapáginas Libro floreciente">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
+        <h3>Marcapáginas · Libro floreciente</h3>
+        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de libro abierto del que crece una planta. Presentado en bolsita de tela, listo para regalar.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
+          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Color del marcapáginas</label>
+            <select id="opt-marca-floreciente-color">
+              <option value="Blanco">Blanco</option>
+              <option value="Rojo vivo">Rojo vivo</option>
+              <option value="Verde botella">Verde botella</option>
+              <option value="Gris oscuro">Gris oscuro</option>
+              <option value="Marrón">Marrón</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-marca-floreciente-caja" onchange="updateMarcaCositas('floreciente')">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-floreciente-total">18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartMarcaCositas('floreciente','Marcapáginas · Libro floreciente')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Libro%20floreciente" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/marcapag_corazones.jpg')">
+        <img src="images/marcapag_corazones.jpg" alt="Marcapáginas Libro y corazones">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
+        <h3>Marcapáginas · Libro y corazones</h3>
+        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de libro abierto del que salen volando corazones. Presentado en bolsita de tela, listo para regalar.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
+          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Color del marcapáginas</label>
+            <select id="opt-marca-corazones-color">
+              <option value="Blanco">Blanco</option>
+              <option value="Rojo vivo">Rojo vivo</option>
+              <option value="Verde botella">Verde botella</option>
+              <option value="Gris oscuro">Gris oscuro</option>
+              <option value="Marrón">Marrón</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-marca-corazones-caja" onchange="updateMarcaCositas('corazones')">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-corazones-total">18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartMarcaCositas('corazones','Marcapáginas · Libro y corazones')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Libro%20y%20corazones" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/marcapag_margarita.jpg')">
+        <img src="images/marcapag_margarita.jpg" alt="Marcapáginas Margarita">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
+        <h3>Marcapáginas · Margarita</h3>
+        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de margarita. Presentado en bolsita de tela, listo para regalar.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
+          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Color del marcapáginas</label>
+            <select id="opt-marca-margarita-color">
+              <option value="Blanco">Blanco</option>
+              <option value="Rojo vivo">Rojo vivo</option>
+              <option value="Verde botella">Verde botella</option>
+              <option value="Gris oscuro">Gris oscuro</option>
+              <option value="Marrón">Marrón</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-marca-margarita-caja" onchange="updateMarcaCositas('margarita')">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-margarita-total">18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartMarcaCositas('margarita','Marcapáginas · Margarita')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Margarita" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/marcapag_ramo.jpg')">
+        <img src="images/marcapag_ramo.jpg" alt="Marcapáginas Ramo de regalo">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
+        <h3>Marcapáginas · Ramo de regalo</h3>
+        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de ramo de flores envuelto para regalar. Presentado en bolsita de tela, listo para regalar.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
+          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Color del marcapáginas</label>
+            <select id="opt-marca-ramo-color">
+              <option value="Blanco">Blanco</option>
+              <option value="Rojo vivo">Rojo vivo</option>
+              <option value="Verde botella">Verde botella</option>
+              <option value="Gris oscuro">Gris oscuro</option>
+              <option value="Marrón">Marrón</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-marca-ramo-caja" onchange="updateMarcaCositas('ramo')">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-ramo-total">18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartMarcaCositas('ramo','Marcapáginas · Ramo de regalo')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Ramo%20de%20regalo" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/marcapag_pata.jpg')">
+        <img src="images/marcapag_pata.jpg" alt="Marcapáginas Pata lectora">
+        <span class="limited-badge">Edición Mamemi</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Cositas Mamemi · Marcapáginas</p>
+        <h3>Marcapáginas · Pata lectora</h3>
+        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de pata cargando una pila de libros. Presentado en bolsita de tela, listo para regalar.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
+          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Color del marcapáginas</label>
+            <select id="opt-marca-pata-color">
+              <option value="Blanco">Blanco</option>
+              <option value="Rojo vivo">Rojo vivo</option>
+              <option value="Verde botella">Verde botella</option>
+              <option value="Gris oscuro">Gris oscuro</option>
+              <option value="Marrón">Marrón</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-marca-pata-caja" onchange="updateMarcaCositas('pata')">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-pata-total">18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartMarcaCositas('pata','Marcapáginas · Pata lectora')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Pata%20lectora" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
 
