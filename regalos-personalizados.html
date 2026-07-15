@@ -503,6 +503,72 @@
     </div>
 
     <div class="product-card fade-in">
+      <div class="product-img" style="position:relative; height:250px;">
+        <div class="mini-carousel">
+          <div class="mini-track" id="chupeteTrack">
+            <img src="images/chupetero1.jpg" alt="Chupetero personalizado oso" onclick="openLightbox(this.src, this)">
+            <img src="images/chupetero2.jpg" alt="Chupetero personalizado estrella" onclick="openLightbox(this.src, this)">
+          </div>
+          <button class="mc-btn mc-prev" onclick="moveChupete(-1)">‹</button>
+          <button class="mc-btn mc-next" onclick="moveChupete(1)">›</button>
+          <div class="mc-dots">
+            <div class="mc-dot active" onclick="goChupete(0)"></div>
+            <div class="mc-dot" onclick="goChupete(1)"></div>
+          </div>
+        </div>
+        <span class="zoom-icon">🔍</span>
+        <span class="personalizable-badge">Personalizable</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Chupetero personalizado</h3>
+        <p class="product-desc">Sujeta chupetes con combinación de cuentas de silicona y pinza de madera grabada al láser con el nombre o iniciales. Elige la forma de la pinza y la gama cromática de las cuentas para un diseño único.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con nombre grabado en la pinza</span><span class="amount">18 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Forma de la pinza de madera</label>
+            <select class="opt-input" id="chupetero-forma">
+              <option value="">Elige una forma</option>
+              <option value="Estrella">Estrella</option>
+              <option value="Oso">Oso</option>
+              <option value="Círculo">Círculo</option>
+              <option value="Corazón">Corazón</option>
+              <option value="Pájaro">Pájaro</option>
+              <option value="Erizo">Erizo</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Nombre o iniciales (máx. 7 caracteres)</label>
+            <input type="text" class="opt-input" id="chupetero-nombre" maxlength="7" placeholder="ej. LUCÍA o M&J">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Gama cromática de las cuentas</label>
+            <select class="opt-input" id="chupetero-gama">
+              <option value="">Elige una gama</option>
+              <option value="Tierra">Tierra</option>
+              <option value="Verdes">Verdes</option>
+              <option value="Amarillos">Amarillos</option>
+              <option value="Azules">Azules</option>
+              <option value="Rosas">Rosas</option>
+              <option value="Naranjas">Naranjas</option>
+              <option value="Morados">Morados</option>
+              <option value="Grises">Grises</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
+            </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20una%20gama%20crom%C3%A1tica%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras la gama que buscas? Escríbeme por WhatsApp y miro si la tengo disponible.</a></p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>18 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartChupetero()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20chupetero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/banderin.jpg')">
         <img src="images/banderin.jpg" alt="Banderín personalizado">
         <span class="personalizable-badge">Personalizable</span>
@@ -562,6 +628,8 @@
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20banderín%20de%20madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
+
+
 
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_especial.jpg')">
@@ -761,6 +829,15 @@
   }
   setInterval(() => moveMarca(1), 3500);
 
+  let chupeteIdx = 0;
+  function moveChupete(dir) { chupeteIdx = (chupeteIdx + dir + 2) % 2; goChupete(chupeteIdx); }
+  function goChupete(i) {
+    chupeteIdx = i;
+    document.getElementById('chupeteTrack').style.transform = `translateX(-${i * 100}%)`;
+    document.getElementById('chupeteTrack').closest('.mini-carousel').querySelectorAll('.mc-dot').forEach((d,j) => d.classList.toggle('active', j===i));
+  }
+  setInterval(() => moveChupete(1), 3500);
+
   let lightboxImages = [];
   let lightboxIdx = 0;
   function openLightbox(src, el) {
@@ -870,6 +947,18 @@
     const opts = { 'Color': color, 'Grabado': caras === 25 ? '2 caras' : '1 cara' };
     opts['Presentación'] = cajaExtra > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
     addToCart({ id: 'marca-pers-' + Date.now(), name: 'Marcapáginas personalizado', price, peso: 12, options: opts });
+  }
+
+  // ── CHUPETERO PERSONALIZADO ──
+  function addCartChupetero() {
+    const forma = document.getElementById('chupetero-forma')?.value;
+    const nombre = document.getElementById('chupetero-nombre')?.value.trim();
+    const gama = document.getElementById('chupetero-gama')?.value;
+    if (!forma) { alert('Por favor elige la forma de la pinza de madera.'); return; }
+    if (!nombre) { alert('Por favor escribe el nombre o iniciales (máx. 7 caracteres).'); return; }
+    if (!gama) { alert('Por favor elige la gama cromática de las cuentas.'); return; }
+    const opts = { 'Forma de la pinza': forma, 'Nombre / iniciales': nombre, 'Gama cromática': gama };
+    addToCart({ id: 'chupetero-' + Date.now(), name: 'Chupetero personalizado', price: 18, peso: 25, options: opts });
   }
 
   // ── BANDERÍN DE MADERA ──
