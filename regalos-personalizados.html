@@ -48,25 +48,9 @@
     .product-page.active { display: block; }
     .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
     .back-btn:hover { background: var(--wood-light); }
-    .products-carousel-wrap { position: relative; max-width: 1100px; margin: 0 auto; }
-    .products-carousel-wrap::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0.5rem; width: 60px; background: linear-gradient(to right, transparent, var(--cream)); pointer-events: none; z-index: 5; }
     .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; align-items: start; }
-    .products-grid.is-carousel { display: flex; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding-bottom: 0.5rem; -ms-overflow-style: none; }
-    .products-grid.is-carousel::-webkit-scrollbar { display: none; }
-    .products-grid.is-carousel { scrollbar-width: none; }
-    .products-grid.is-carousel > .product-card { flex: 0 0 calc((100% - 3.6rem) / 3); scroll-snap-align: start; min-width: 280px; }
-    .carousel-nav-btn { position: absolute; top: 35%; transform: translateY(-50%); background: #fff; border: 1.5px solid var(--wood-light); color: var(--wood-dark); border-radius: 50%; width: 44px; height: 44px; font-size: 1.3rem; cursor: pointer; box-shadow: 0 4px 14px var(--shadow); z-index: 10; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-    .carousel-nav-btn:hover { background: var(--wood-light); }
-    .carousel-nav-btn.prev { left: -22px; }
-    .carousel-nav-btn.next { right: -22px; }
-    @media (max-width: 900px) {
-      .products-grid.is-carousel > .product-card { flex: 0 0 calc((100% - 1.8rem) / 2); }
-    }
     @media (max-width: 640px) {
-      .products-grid.is-carousel { display: grid; grid-template-columns: 1fr; overflow-x: visible; }
-      .products-grid.is-carousel > .product-card { flex: initial; min-width: 0; }
-      .carousel-nav-btn { display: none; }
-      .products-carousel-wrap::after { display: none; }
+      .products-grid { grid-template-columns: 1fr; }
     }
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
@@ -118,7 +102,7 @@
       .nav-back { font-size: 0.7rem; }
       .nav-cta { padding: 0.45rem 0.8rem !important; font-size: 0.68rem !important; }
       .cart-btn { padding: 0.45rem 0.8rem; font-size: 0.68rem; }
-      .cat-grid, .products-grid:not(.is-carousel) { grid-template-columns: 1fr; }
+      .cat-grid, .products-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
     @media (max-width: 380px) { .nav-back { display: none; } }
@@ -136,6 +120,14 @@
     .cart-btn:hover { background: #4d8a72; }
     .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
     .cart-btn:active { outline: none !important; }
+    .btn-personalize { display: flex; align-items: center; justify-content: center; gap: 0.4rem; width: 100%; margin-top: 0.7rem; padding: 0.65rem 1rem; background: #fff; color: var(--wood-dark); border: 1.5px solid var(--wood-mid); border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+    .btn-personalize:hover { background: var(--wood-light); }
+    .btn-personalize .chev { display: inline-block; transition: transform 0.3s ease; font-size: 0.7rem; }
+    .product-card.expanded .btn-personalize .chev { transform: rotate(180deg); }
+    .product-card.expanded .btn-personalize { background: var(--wood-light); }
+    .product-collapsible { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s ease, opacity 0.3s ease; }
+    .product-collapsible > div { overflow: hidden; }
+    .product-card.expanded .product-collapsible { grid-template-rows: 1fr; opacity: 1; }
   </style>
 </head>
 <body>
@@ -178,10 +170,7 @@
 <!-- ── EN MADERA ── -->
 <div class="product-page" id="page-madera">
   <button class="back-btn" onclick="showGrid()">← Volver a Regalos Personalizados</button>
-  <div class="products-carousel-wrap">
-    <button class="carousel-nav-btn prev" onclick="scrollProducts('madera', -1)">‹</button>
-    <button class="carousel-nav-btn next" onclick="scrollProducts('madera', 1)">›</button>
-    <div class="products-grid is-carousel" id="grid-madera"><div class="product-card fade-in">
+  <div class="products-grid" id="grid-madera"><div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_cumple.jpg')">
         <img src="images/placa_cumple.jpg" alt="Placa felicitación">
         <span class="personalizable-badge">Personalizable</span>
@@ -194,8 +183,10 @@
         <div class="price-block">
           <div class="price-row"><span>Con nombre en 3D, temática y frase corta</span><span class="amount">35 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-          <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row"><label class="opt-label">Temática / ilustración que quieres</label><input type="text" class="opt-input" id="placa-felicit-tematica" placeholder="ej. coches, campo, animales, brindis..."></div>
           <div class="opt-row"><label class="opt-label">Nombre a grabar en 3D</label><input type="text" class="opt-input" id="placa-felicit-nombre" placeholder="Nombre del destinatario"></div>
@@ -224,6 +215,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartPlacaFelicit()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20felicitaci%C3%B3n" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
@@ -240,8 +232,10 @@
         <div class="price-block">
           <div class="price-row"><span>Con nombre en 3D y decoración</span><span class="amount">38 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-          <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <p class="opt-label" style="margin-bottom:0.6rem;">Datos para la placa:</p>
           <div class="opt-row"><label class="opt-label">Nombre del bebé</label><input type="text" class="opt-input" id="pnac-m-nombre" placeholder="Nombre del bebé"></div>
@@ -267,6 +261,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartPlacaNac('pnac-m')">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
@@ -285,6 +280,8 @@
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
           <div class="price-alert">⚠️ Si el grupo tiene menos de 15 o más de 21 alumn@s, consúltame — el precio puede variar según el tamaño del disco.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
         <div class="product-options">
           <div style="background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.8rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
             ✦ <strong>¿Cómo funciona?</strong> Yo dejo el hueco para cada huella y grabo el nombre del profe y el curso. Te envío junto con la placa unos pequeños botes de pintura de varios colores para que los peques pongan el dedo 🖐️ en cuanto la recibáis, y una bolsita con lazo de yute para guardar la placa una vez seca y entregarla como regalo sin pensar en envolverla.<br>
@@ -333,6 +330,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartProfe()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20profe" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
@@ -349,9 +347,11 @@
         <div class="price-block">
           <div class="price-row"><span>Grabado personalizado</span><span class="amount">39 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad · Botella no incluida</p>
-          <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
           <p class="price-note">¿La necesitas para una boda o evento? <a href="detallitos-eventos.html" style="color:var(--mint-dark);font-weight:700;">Mira los precios por cantidad →</a></p>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="cajavino-pers-diseno" placeholder="ej. nombre, fecha, mensaje..."></div>
           <div class="opt-row">
@@ -366,6 +366,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartCajaVinoPers()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20caja%20de%20vino%20personalizada" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
@@ -382,10 +383,11 @@
         <div class="price-block">
           <div class="price-row"><span>1 unidad</span><span class="amount">18 €</span></div>
           <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">15 € / u</span></div>
-          <div class="price-row"><span>+ diseño o nombre por el otro lado</span><span class="amount">+ 5 € / u</span></div>
           <p class="price-note">✦ IVA incluido</p>
-          <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">Cantidad:</label>
@@ -452,6 +454,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartLlavPers()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20llavero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
@@ -469,8 +472,10 @@
           <div class="price-row"><span>1 unidad</span><span class="amount">23 €</span></div>
           <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">17 € / u</span></div>
           <p class="price-note">✦ IVA incluido</p>
-          <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">Cantidad:</label>
@@ -499,6 +504,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartPuertaV2()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
@@ -526,8 +532,10 @@
         <div class="price-block">
           <div class="price-row"><span>Con nombre grabado en la pinza</span><span class="amount">18 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-          <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">Forma de la pinza de madera</label>
@@ -565,6 +573,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartChupetero()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20chupetero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
@@ -581,10 +590,11 @@
         <div class="price-block">
           <div class="price-row"><span>Banderín con letra (impresión 3D)</span><span class="amount">4 € / u</span></div>
           <div class="price-row"><span>Banderín decorativo sin letra</span><span class="amount">2,50 € / u</span></div>
-          <div class="price-row"><span>Banderín con estrella (impresión 3D)</span><span class="amount">4 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Mínimo 15 € por guirnalda</p>
-          <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row"><label class="opt-label">Nombre a formar</label><input type="text" class="opt-input" id="banderin-nombre" placeholder="Escribe el nombre" oninput="updateBanderin()"></div>
           <div class="opt-row">
@@ -626,6 +636,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartBanderin()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20banderín%20de%20madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
@@ -650,7 +661,6 @@
     </div>
 
     </div>
-  </div>
 </div>
 
 <!-- ── CON IMPRESIÓN 3D ── -->
@@ -670,8 +680,10 @@
         <div class="price-block">
           <div class="price-row"><span>Con nombre y decoración en otro color</span><span class="amount">42 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-          <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row"><label class="opt-label">Letra inicial</label><input type="text" class="opt-input" id="letra3d-inicial" placeholder="Escribe la letra inicial" maxlength="1" style="text-transform:uppercase;"></div>
           <div class="opt-row">
@@ -703,6 +715,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartLetra3d()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20letra%203D%20autoportante" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
   </div>
@@ -739,8 +752,10 @@
           <div class="price-row"><span>Diseño y grabado 1 cara</span><span class="amount">20 €</span></div>
           <div class="price-row"><span>Diseño y grabado 2 caras</span><span class="amount">25 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-          <div class="price-alert">✦ Al ser un diseño 100% personalizado, me pondré en contacto contigo después de la compra para concretar juntas el diseño exacto que necesitas. Antes de fabricarlo, te envío una propuesta digital para que me confirmes que es tal y como lo quieres.</div>
         </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Al ser un diseño 100% personalizado, me pondré en contacto contigo después de la compra para concretar juntas el diseño exacto que necesitas. Antes de fabricarlo, te envío una propuesta digital para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">Color del marcapáginas</label>
@@ -770,6 +785,7 @@
         </div>
         <button class="btn-add-cart" onclick="addCartMarca()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20marcap%C3%A1ginas%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
   </div>
@@ -797,12 +813,15 @@
 </div>
 
 <script>
-  function scrollProducts(page, dir) {
-    const grid = document.getElementById('grid-' + page);
-    if (!grid) return;
-    const card = grid.querySelector('.product-card');
-    const cardWidth = card ? card.getBoundingClientRect().width + 28.8 : 300;
-    grid.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+  function togglePersonalize(btn) {
+    const card = btn.closest('.product-card');
+    card.classList.toggle('expanded');
+    if (card.classList.contains('expanded')) {
+      btn.childNodes[0].textContent = 'Ocultar personalización ';
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      btn.childNodes[0].textContent = 'Personalizar ';
+    }
   }
 
   const pageNames = { madera: 'En madera', '3d': 'Con impresión 3D', cuero: 'De cuero' };
