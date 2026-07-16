@@ -100,6 +100,10 @@
     return cart.reduce((sum, i) => sum + (i.peso || 0) * i.qty, 0);
   }
 
+  function cartHasPersonalizacion() {
+    return cart.some(item => item.options && Object.keys(item.options).length > 0);
+  }
+
   function getRegionFromCP(cp) {
     if (!cp) return 'peninsula';
     const prefix = parseInt(String(cp).trim().slice(0, 2), 10);
@@ -174,6 +178,7 @@
     notif._t = setTimeout(() => notif.classList.remove('show'), 2500);
   }
 
+  // ── Dirección de envío (modo "envio") ──
   function getAddrVal(id) {
     const el = document.getElementById(id);
     return el ? el.value.trim() : '';
@@ -237,14 +242,65 @@
     return missing;
   }
 
-  function buildOrderSummary(addr) {
+  // ── Datos de contacto (modo "tienda" · recogida) ──
+  function getContactVal(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function getContactData() {
+    return {
+      nombre:    getContactVal('contact-nombre'),
+      apellidos: getContactVal('contact-apellidos'),
+      telefono:  getContactVal('contact-telefono'),
+      email:     getContactVal('contact-email'),
+    };
+  }
+
+  function validateContactData() {
+    const required = {
+      'contact-nombre':    'Nombre',
+      'contact-apellidos': 'Apellidos',
+      'contact-telefono':  'Teléfono',
+      'contact-email':     'Email de contacto',
+    };
+    const missing = [];
+    Object.entries(required).forEach(([id, label]) => {
+      const el = document.getElementById(id);
+      if (!el || !el.value.trim()) {
+        missing.push(label);
+        if (el) el.style.borderColor = '#e74c3c';
+      } else {
+        if (el) el.style.borderColor = '#d4a96a';
+      }
+    });
+    return missing;
+  }
+
+  function validateSavedContact(contact) {
+    const required = {
+      nombre:    'Nombre',
+      apellidos: 'Apellidos',
+      telefono:  'Teléfono',
+      email:     'Email de contacto',
+    };
+    const missing = [];
+    Object.entries(required).forEach(([key, label]) => {
+      if (!contact[key] || !contact[key].trim()) missing.push(label);
+    });
+    return missing;
+  }
+
+  function buildOrderSummary(customer) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const total = cartTotal();
     const weight = cartWeightGrams();
+    const personalizado = cartHasPersonalizacion();
 
     let text = `🛍️ NUEVO PEDIDO MAMEMI MADERA\n`;
     text += `Referencia: ${orderRef}\n`;
+    text += `Modo de entrega: ${deliveryMode === 'tienda' ? 'Recogida en tienda' : 'Envío a domicilio'}\n`;
     text += `────────────────────────\n`;
     text += `PRODUCTOS:\n`;
     cart.forEach(item => {
@@ -257,53 +313,65 @@
     if (deliveryMode === 'tienda') {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
       text += `Recogida en: Estudi | Caldes d'Estrac (Barcelona)\n`;
+      text += `────────────────────────\n`;
+      text += `DATOS DE CONTACTO:\n`;
+      text += `${customer.nombre} ${customer.apellidos}\n`;
+      text += `Tel: ${customer.telefono}\n`;
+      text += `Email: ${customer.email}\n`;
     } else {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
       text += `Peso total del pedido: ${weight} g\n`;
       text += `Envío: ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
       text += `────────────────────────\n`;
       text += `DIRECCIÓN DE ENVÍO:\n`;
-      text += `${addr.nombre}\n`;
-      text += `${addr.calle}, ${addr.numero}`;
-      if (addr.bloque) text += ` · Bloque: ${addr.bloque}`;
-      if (addr.puerta) text += ` · Puerta: ${addr.puerta}`;
-      text += `\n${addr.cp} ${addr.poblacion}, ${addr.ciudad}\n`;
-      text += `Tel: ${addr.telefono}\n`;
-      if (addr.email) text += `Email: ${addr.email}\n`;
-      if (addr.otros) text += `Indicaciones: ${addr.otros}\n`;
+      text += `${customer.nombre}\n`;
+      text += `${customer.calle}, ${customer.numero}`;
+      if (customer.bloque) text += ` · Bloque: ${customer.bloque}`;
+      if (customer.puerta) text += ` · Puerta: ${customer.puerta}`;
+      text += `\n${customer.cp} ${customer.poblacion}, ${customer.ciudad}\n`;
+      text += `Tel: ${customer.telefono}\n`;
+      if (customer.email) text += `Email: ${customer.email}\n`;
+      if (customer.otros) text += `Indicaciones: ${customer.otros}\n`;
     }
     text += `────────────────────────\n`;
     text += `TOTAL: ${total.toFixed(2)} €\n`;
+    text += `────────────────────────\n`;
+    text += personalizado
+      ? `✦ Pedido CON personalización.\n`
+      : `✦ Pedido SIN personalización.\n`;
     return text;
   }
 
   window.goToStep = function(step) {
-    if (step === 2 && deliveryMode === 'tienda') {
-      currentStep = 3;
-    } else {
-      currentStep = step;
-    }
+    currentStep = step;
     renderStep();
   };
 
   window.checkout = async function() {
     if (cart.length === 0) return;
 
-    const addr = deliveryMode === 'envio'
-      ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
-      : {};
-
+    let customer;
     if (deliveryMode === 'envio') {
-      const missing = validateSavedAddress(addr);
+      customer = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
+      const missing = validateSavedAddress(customer);
       if (missing.length > 0) {
         currentStep = 2;
         renderStep();
         alert('Por favor completa la dirección de envío:\n\n• ' + missing.join('\n• '));
         return;
       }
+    } else {
+      customer = JSON.parse(localStorage.getItem('mamemi_contact') || '{}');
+      const missing = validateSavedContact(customer);
+      if (missing.length > 0) {
+        currentStep = 2;
+        renderStep();
+        alert('Por favor completa tus datos de contacto:\n\n• ' + missing.join('\n• '));
+        return;
+      }
     }
 
-    const summary = buildOrderSummary(addr);
+    const summary = buildOrderSummary(customer);
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const finalTotalCentimos = Math.round((subtotal + shipping) * 100);
@@ -320,8 +388,7 @@
     const redsysOrder = Date.now().toString().slice(-12);
 
     try {
-        // --- AQUÍ EMPIEZAN LOS CAMBIOS ---
-        const emailCliente = addr.email || ""; 
+        const emailCliente = customer.email || "";
 
         const respuesta = await fetch('/api/generar-firma', {
             method: 'POST',
@@ -329,11 +396,11 @@
             body: JSON.stringify({
                 importe: finalTotalCentimos,
                 pedido: redsysOrder,
-                email: emailCliente,    // Enviamos el email para guardarlo en KV
-                resumen: summary        // Enviamos el resumen para guardarlo en KV
+                referencia: orderRef,
+                emailCliente: emailCliente,
+                resumen: summary
             })
         });
-        // --- AQUÍ TERMINAN LOS CAMBIOS ---
 
         if (!respuesta.ok) {
             const textoError = await respuesta.text();
@@ -483,13 +550,21 @@
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
         <p class="cart-note">${noteHtml}</p>
-        <button class="cart-next-btn" onclick="goToStep(${deliveryMode === 'tienda' ? 3 : 2})">
-          ${deliveryMode === 'tienda' ? 'Revisar pedido →' : 'Dirección de envío →'}
+        <button class="cart-next-btn" onclick="goToStep(2)">
+          ${deliveryMode === 'tienda' ? 'Tus datos de contacto →' : 'Dirección de envío →'}
         </button>
       </div>`;
   }
 
   function renderStep2(body) {
+    if (deliveryMode === 'tienda') {
+      renderStep2Contact(body);
+    } else {
+      renderStep2Address(body);
+    }
+  }
+
+  function renderStep2Address(body) {
     const saved = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
     const v = (key, placeholder) => `value="${saved[key] || ''}" placeholder="${placeholder}"`;
 
@@ -524,6 +599,30 @@
       </div>`;
   }
 
+  function renderStep2Contact(body) {
+    const saved = JSON.parse(localStorage.getItem('mamemi_contact') || '{}');
+    const v = (key, placeholder) => `value="${saved[key] || ''}" placeholder="${placeholder}"`;
+
+    body.innerHTML = `
+      <div class="cart-step-header">
+        <button class="cart-back-step" onclick="goToStep(1)">← Volver al carrito</button>
+        <p class="cart-step-title">🤝 Tus datos de contacto</p>
+        <p class="cart-step-sub">Para poder avisarte cuando tenga tu pedido listo, necesito estos datos:</p>
+        <p class="cart-step-sub">* Campos obligatorios</p>
+      </div>
+      <div class="cart-addr-form">
+        <div class="addr-row">
+          <input id="contact-nombre" class="addr-input" type="text" ${v('nombre','* Nombre')} style="margin:0;">
+          <input id="contact-apellidos" class="addr-input" type="text" ${v('apellidos','* Apellidos')} style="margin:0;">
+        </div>
+        <input id="contact-telefono" class="addr-input" type="tel" ${v('telefono','* Teléfono de contacto')} style="margin-top:0.4rem;">
+        <input id="contact-email" class="addr-input" type="email" ${v('email','* Email de contacto')} style="margin-top:0.4rem;">
+      </div>
+      <div class="cart-step-footer">
+        <button class="cart-next-btn" onclick="saveContactAndContinue()">Revisar pedido →</button>
+      </div>`;
+  }
+
   window.saveAddressAndContinue = function() {
     const missing = validateShippingAddress();
     if (missing.length > 0) {
@@ -536,6 +635,18 @@
     renderStep();
   };
 
+  window.saveContactAndContinue = function() {
+    const missing = validateContactData();
+    if (missing.length > 0) {
+      alert('Por favor rellena los siguientes campos:\n\n• ' + missing.join('\n• '));
+      return;
+    }
+    const contact = getContactData();
+    localStorage.setItem('mamemi_contact', JSON.stringify(contact));
+    currentStep = 3;
+    renderStep();
+  };
+
   function renderStep3(body) {
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
@@ -543,6 +654,9 @@
     const tier = getShippingTier(cartWeightGrams());
     const addr = deliveryMode === 'envio'
       ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
+      : {};
+    const contact = deliveryMode === 'tienda'
+      ? JSON.parse(localStorage.getItem('mamemi_contact') || '{}')
       : {};
 
     let itemsSummary = cart.map(item => {
@@ -560,14 +674,15 @@
     } else if (deliveryMode === 'tienda') {
       addrSummary = `
         <div class="summary-block">
-          <p class="summary-label">🏪 Recogida en tienda</p>
+          <p class="summary-label">🏪 Recogida en tienda <button class="edit-link" onclick="goToStep(2)">Editar</button></p>
           <p><a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a></p>
+          <p style="margin-top:0.4rem;">${contact.nombre || ''} ${contact.apellidos || ''}<br>Tel: ${contact.telefono || ''}${contact.email ? '<br>' + contact.email : ''}</p>
         </div>`;
     }
 
     body.innerHTML = `
       <div class="cart-step-header">
-        <button class="cart-back-step" onclick="goToStep(${deliveryMode === 'tienda' ? 1 : 2})">← Volver</button>
+        <button class="cart-back-step" onclick="goToStep(2)">← Volver</button>
         <p class="cart-step-title">✦ Resumen del pedido</p>
         <p class="cart-ref-line">Ref. ${orderRef}</p>
         <p class="cart-ref-line">📦 Plazo de envío estimado: <strong>${getEstimatedDelivery()}</strong></p>
@@ -711,7 +826,7 @@
         <div class="step-line"></div>
         <div style="text-align:center;">
           <div class="step-dot" id="step-dot-2">2</div>
-          <div class="step-label">Dirección</div>
+          <div class="step-label">Datos</div>
         </div>
         <div class="step-line"></div>
         <div style="text-align:center;">
