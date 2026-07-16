@@ -41,6 +41,9 @@
     .taller-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); margin-bottom: 0.5rem; }
     .taller-card-body p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
     .taller-card-date { font-size: 0.7rem; color: var(--wood-mid); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .taller-card-highlight { border-color: var(--mint-dark); }
+    .taller-card-link { display: inline-block; margin-top: 0.7rem; color: var(--mint-dark); font-weight: 700; text-decoration: none; font-size: 0.82rem; border-bottom: 1.5px solid var(--mint-dark); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+    .taller-card-link:hover { color: var(--wood-dark); border-color: var(--wood-dark); }
 
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
     .lightbox.active { display: flex; }
@@ -90,8 +93,20 @@
   <div class="taller-grid">
 
     <!-- ── NUEVA ENTRADA — copia este bloque, cambia la imagen, el título, la fecha y el texto ── -->
+    <div class="taller-card fade-in taller-card-highlight">
+      <img src="images/taller_piezas_exclusivas.jpg" alt="Incorporo en el Taller brazaletes, pulseras, y otras piezas de madera" style="cursor:default;">
+      <div class="taller-card-body">
+        <p class="taller-card-date">16 de julio de 2026</p>
+        <h3>En el Estudio tengo piezas que no están en la web</h3>
+        <p>No todo lo que hago cabe en la tienda online, hay piezas que solo puedes ver por aquí, en perosona en el taller, o en mi Instagram. Si has visto algo que te ha gustado y no lo encuentras entre mis productos, escríbeme sin compromiso y te ayudo a resolver cualquier duda que tengas sobre esa pieza en concreto.</p>
+        <a href="https://wa.me/34622562499?text=Hola!%20He%20visto%20una%20pieza%20en%20tu%20Instagram%20que%20no%20encuentro%20en%20la%20web%2C%20%C2%BFme%20puedes%20ayudar%3F" target="_blank" class="taller-card-link">💬 Pregúntame por esa pieza →</a>
+      </div>
+    </div>
+    <!-- ── FIN ENTRADA ── -->
+
+    <!-- ── NUEVA ENTRADA — copia este bloque, cambia la imagen, el título, la fecha y el texto ── -->
     <div class="taller-card fade-in">
-      <img src="images/taller_exposicion.jpg" alt="Base de exposición MAMEMI Madera en el Estudi" style="cursor:default;">
+      <img src="images/taller_exposicion.jpg" alt="Base de exposición MAMEMI Madera en el Estudio" style="cursor:default;">
       <div class="taller-card-body">
         <p class="taller-card-date">4 de julio de 2026</p>
         <h3>Ya tengo base de exposición</h3>
