@@ -414,7 +414,7 @@
 
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+        form.action = 'https://sis.redsys.es/sis/realizarPago';
 
         const addInput = (name, value) => {
             const input = document.createElement('input');
