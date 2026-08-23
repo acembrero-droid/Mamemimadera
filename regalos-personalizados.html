@@ -157,8 +157,8 @@
       <div class="cat-info"><h3>Con impresión 3D</h3><p>Letras · Placas · Banderín · Nombre puerta</p><span class="cat-arrow">Ver más →</span></div>
     </a>
     <a class="cat-card fade-in" onclick="showPage('madera'); return false;" href="#">
-      <div class="img-wrap"><img src="images/placa_cumple.jpg" alt="En madera"></div>
-      <div class="cat-info"><h3>En madera</h3><p>Placas · Llaveros · Nombres puerta · Banderín · Placa especial</p><span class="cat-arrow">Ver más →</span></div>
+      <div class="img-wrap"><img src="images/collar_resina.jpg" alt="En madera"></div>
+      <div class="cat-info"><h3>En madera</h3><p>Collares · Placas · Llaveros · Nombres puerta · Banderín</p><span class="cat-arrow">Ver más →</span></div>
     </a>
     <a class="cat-card fade-in" onclick="showPage('cuero'); return false;" href="#">
       <div class="img-wrap"><img src="images/marcapag.jpg" alt="De cuero"></div>
@@ -170,7 +170,60 @@
 <!-- ── EN MADERA ── -->
 <div class="product-page" id="page-madera">
   <button class="back-btn" onclick="showGrid()">← Volver a Regalos Personalizados</button>
-  <div class="products-grid" id="grid-madera"><div class="product-card fade-in">
+  <div class="products-grid" id="grid-madera">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/collar_resina.jpg')">
+        <img src="images/collar_resina.jpg" alt="Collar grabado en madera y resina">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Collar grabado en madera y resina</h3>
+        <p class="product-desc">Colgante circular de madera grabado al láser y protegido con una capa de resina, en cordón ajustable. Elige el tono de madera que más te guste y personalízalo con iniciales grabadas, o cuéntame tu propia idea de diseño.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con grabado personalizado</span><span class="amount">22 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Tono de madera</label>
+            <select class="opt-input" id="collar-tono">
+              <option value="">Elige un tono</option>
+              <option value="Clara">Clara</option>
+              <option value="Oscura">Oscura</option>
+              <option value="Ocre">Ocre</option>
+              <option value="Anaranjada">Anaranjada</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Qué quieres grabar?</label>
+            <select class="opt-input" id="collar-tipo" onchange="updateCollar()">
+              <option value="">Elige una opción</option>
+              <option value="letras">Iniciales grabadas (máx. 3 letras)</option>
+              <option value="diseno">Busco un diseño diferente</option>
+            </select>
+          </div>
+          <div class="opt-row" id="collar-letras-wrap" style="display:none;">
+            <label class="opt-label">Iniciales (máx. 3 letras)</label>
+            <input type="text" class="opt-input" id="collar-letras" maxlength="3" placeholder="ej. G&M" style="text-transform:uppercase;">
+          </div>
+          <div class="opt-row" id="collar-diseno-wrap" style="display:none;">
+            <p style="font-size:0.78rem;color:var(--text-mid);margin-bottom:0.4rem;">Cuéntame tu idea y te preparo un presupuesto y diseño a medida.</p>
+            <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20collar%20de%20madera%20con%20un%20dise%C3%B1o%20diferente%20al%20grabado%20de%20iniciales" target="_blank" style="color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">💬 Cuéntame tu diseño por WhatsApp →</a>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>22 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartCollarResina()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20collar%20de%20madera%20con%20resina" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_cumple.jpg')">
         <img src="images/placa_cumple.jpg" alt="Placa felicitación">
         <span class="personalizable-badge">Personalizable</span>
@@ -530,7 +583,7 @@
         <h3>Chupetero personalizado</h3>
         <p class="product-desc">Sujeta chupetes con combinación de cuentas de silicona y pinza de madera grabada al láser con el nombre o iniciales. Elige la forma de la pinza y la gama cromática de las cuentas para un diseño único.</p>
         <div class="price-block">
-          <div class="price-row"><span>Con nombre grabado en la pinza</span><span class="amount">18 €</span></div>
+          <div class="price-row"><span>Con nombre grabado en la pinza</span><span class="amount">20 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
         <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
@@ -569,7 +622,7 @@
             </select>
             <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20una%20gama%20crom%C3%A1tica%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras la gama que buscas? Escríbeme por WhatsApp y miro si la tengo disponible.</a></p>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong>18 €</strong></div>
+          <div class="opt-price-row"><span>Total:</span><strong>20 €</strong></div>
         </div>
         <button class="btn-add-cart" onclick="addCartChupetero()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20chupetero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
@@ -896,6 +949,28 @@
   const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
 
+  // ── COLLAR GRABADO EN MADERA Y RESINA ──
+  function updateCollar() {
+    const tipo = document.getElementById('collar-tipo').value;
+    document.getElementById('collar-letras-wrap').style.display = tipo === 'letras' ? 'block' : 'none';
+    document.getElementById('collar-diseno-wrap').style.display = tipo === 'diseno' ? 'block' : 'none';
+  }
+  function addCartCollarResina() {
+    const tono = document.getElementById('collar-tono')?.value;
+    const tipo = document.getElementById('collar-tipo')?.value;
+    if (!tono) { alert('Por favor elige el tono de madera.'); return; }
+    if (!tipo) { alert('Por favor indica qué quieres grabar.'); return; }
+    const opts = { 'Tono de madera': tono };
+    if (tipo === 'letras') {
+      const letras = document.getElementById('collar-letras')?.value.trim().toUpperCase();
+      if (!letras) { alert('Por favor escribe las iniciales que quieres grabar (máx. 3 letras).'); return; }
+      opts['Iniciales'] = letras;
+    } else {
+      opts['Diseño'] = 'Diseño personalizado a confirmar por WhatsApp';
+    }
+    addToCart({ id: 'collar-resina-' + Date.now(), name: 'Collar grabado en madera y resina', price: 22, peso: 20, options: opts });
+  }
+
   // ── LLAVERO PERSONALIZADO ──
   function updateLlavPers() {
     const qtySel = document.getElementById('opt-llav-pers-qty');
@@ -977,7 +1052,7 @@
     if (!nombre) { alert('Por favor escribe el nombre o iniciales (máx. 7 caracteres).'); return; }
     if (!gama) { alert('Por favor elige la gama cromática de las cuentas.'); return; }
     const opts = { 'Forma de la pinza': forma, 'Nombre / iniciales': nombre, 'Gama cromática': gama };
-    addToCart({ id: 'chupetero-' + Date.now(), name: 'Chupetero personalizado', price: 18, peso: 25, options: opts });
+    addToCart({ id: 'chupetero-' + Date.now(), name: 'Chupetero personalizado', price: 20, peso: 25, options: opts });
   }
 
   // ── BANDERÍN DE MADERA ──
