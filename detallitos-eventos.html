@@ -251,7 +251,8 @@
         <h3>Imán abrebotellas de bambú</h3>
         <p class="product-desc">Imán abrebotellas de bambú grabado al láser con el diseño, nombre o fecha que elijas. Un detalle práctico y original que tus invitados guardarán con cariño. Ideal para bodas, comuniones, bautizos y cualquier celebración especial.</p>
         <div class="price-block">
-          <div class="price-row"><span>Menos de 25 unidades</span><span class="amount">4,50 € / u</span></div>
+          <div class="price-row"><span>1–9 unidades</span><span class="amount">6,00 € / u</span></div>
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">4,50 € / u</span></div>
           <div class="price-row"><span>26–50 unidades</span><span class="amount">3,50 € / u</span></div>
           <div class="price-row"><span>Más de 50 unidades</span><span class="amount">2,90 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Consulta para pedidos mixtos</p>
@@ -296,12 +297,12 @@
         <h3>Llaveros para eventos</h3>
         <p class="product-desc">Llaveros redondos de madera natural grabados al láser con el diseño, nombres o fecha que elijas. Un detalle práctico y con encanto para que tus invitados se lo lleven a casa. Cada llavero se desmonta, se graba, y se vuelve a montar a mano junto con su borla, por lo que lleva más trabajo que otros detallitos.</p>
         <div class="price-block">
-          <div class="price-row"><span>Menos de 25 unidades</span><span class="amount">12,00 € / u</span></div>
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">12,00 € / u</span></div>
           <div class="price-row"><span>26–50 unidades</span><span class="amount">10,00 € / u</span></div>
           <div class="price-row"><span>Más de 50 unidades</span><span class="amount">8,00 € / u</span></div>
           <div class="price-row"><span>+ otro lado, mismo diseño para todos</span><span class="amount">+ 2,00 € / u</span></div>
           <div class="price-row"><span>+ otro lado, diseño distinto por llavero</span><span class="amount">+ 3,00 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Pedido mínimo online: 10 unidades</p>
           <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
@@ -309,6 +310,10 @@
             <label class="opt-label">Cantidad</label>
             <input type="number" class="opt-input" id="llaveventos-cantidad" min="1" placeholder="Nº de unidades" oninput="updateLlaverosEventos()">
             <p class="price-note" id="llaveventos-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div id="llaveventos-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            El pedido mínimo online es de 10 unidades. Para cantidades menores, escríbeme y lo vemos juntas.
+            <a id="llaveventos-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
           </div>
           <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado (lado principal)</label><input type="text" class="opt-input" id="llaveventos-diseno" placeholder="ej. nombres de los novios y fecha"></div>
           <div class="opt-row">
@@ -356,7 +361,7 @@
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="llaveventos-total">— €</strong></div>
         </div>
-        <button class="btn-add-cart" onclick="addCartLlaverosEventos()">Añadir al carrito</button>
+        <button class="btn-add-cart" id="llaveventos-add-btn" onclick="addCartLlaverosEventos()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20llaveros%20para%20mi%20evento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -543,7 +548,8 @@
   function imanesPrecioUnidad(cantidad) {
     if (cantidad > 50) return 2.90;
     if (cantidad >= 26) return 3.50;
-    return 4.50;
+    if (cantidad >= 10) return 4.50;
+    return 6.00;
   }
   function updateImanes() {
     const cantidad = parseInt(document.getElementById('imanes-cantidad')?.value) || 0;
@@ -587,6 +593,9 @@
     const cantidad = parseInt(document.getElementById('llaveventos-cantidad')?.value) || 0;
     const desglose = document.getElementById('llaveventos-desglose');
     const totalEl = document.getElementById('llaveventos-total');
+    const lowqty = document.getElementById('llaveventos-lowqty');
+    const lowqtyLink = document.getElementById('llaveventos-lowqty-link');
+    const addBtn = document.getElementById('llaveventos-add-btn');
     const otrolado = document.getElementById('llaveventos-otrolado')?.value || 'no';
     document.getElementById('llaveventos-mismo-wrap').style.display = otrolado === 'mismo' ? 'block' : 'none';
     document.getElementById('llaveventos-distinto-wrap').style.display = otrolado === 'distinto' ? 'block' : 'none';
@@ -595,8 +604,20 @@
     if (cantidad < 1) {
       desglose.textContent = 'Escribe la cantidad para ver el precio';
       totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
       return;
     }
+    if (cantidad < 10) {
+      desglose.textContent = 'Pedido mínimo online: 10 unidades';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' llaveros para mi evento, ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
     const base = llaveventosPrecioUnidad(cantidad);
     const extra = llaveventosOtroladoExtra();
     const precioU = base + extra;
@@ -641,7 +662,7 @@
     const diseno = document.getElementById('llaveventos-diseno')?.value.trim();
     const enfoque = document.getElementById('llaveventos-enfoque')?.value;
     const otrolado = document.getElementById('llaveventos-otrolado')?.value || 'no';
-    if (cantidad < 1) { alert('Por favor indica la cantidad de llaveros que quieres.'); return; }
+    if (cantidad < 10) { alert('El pedido mínimo online es de 10 unidades. Para menos, escríbeme por WhatsApp.'); return; }
     if (!diseno) { alert('Por favor indica qué quieres que lleve grabado en el lado principal.'); return; }
     if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
 
