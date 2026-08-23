@@ -11,7 +11,7 @@
       --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
       --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
       --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
-      --ocean: #1a4a7a; --forest: #2d6a4f;
+      --ocean: #1a4a7a; --forest: #2d6a4f; --autumn: #b5651d;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -54,6 +54,7 @@
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
     .product-card.mar { border-top: 3px solid var(--ocean); }
     .product-card.montana { border-top: 3px solid var(--forest); }
+    .product-card.otono { border-top: 3px solid var(--autumn); }
     .product-img { position: relative; height: 300px; overflow: hidden; cursor: zoom-in; }
     .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .product-card:hover .product-img img { transform: scale(1.05); }
@@ -61,6 +62,7 @@
     .product-card:hover .zoom-icon { opacity: 1; }
     .mar-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--ocean); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; z-index: 2; }
     .montana-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--forest); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
+    .otono-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--autumn); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
     .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
     .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
     .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
@@ -74,6 +76,7 @@
     .btn-contact:hover { background: var(--mint-dark); }
     .btn-mar:hover { background: var(--ocean) !important; }
     .btn-montana:hover { background: var(--forest) !important; }
+    .btn-otono:hover { background: var(--autumn) !important; }
     .cs-section { padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto; }
     .cs-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-mid); font-style: italic; margin-bottom: 1rem; }
     .cs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
@@ -158,10 +161,10 @@
   <div class="cat-divider"></div>
   <div class="cat-grid">
     <a class="cat-card fade-in" onclick="showPage('mar-montana'); return false;" href="#">
-      <div class="img-wrap"><img src="images/tabla_mar_montana.jpg" alt="Mar y Montaña"></div>
+      <div class="img-wrap"><img src="images/tabla_mar_montana.jpg" alt="Tablas de cocina"></div>
       <div class="cat-info">
-        <h3>🌊 Mar y Montaña 🌿</h3>
-        <p>Tablas de cocina · Diseños exclusivos</p>
+        <h3>Tablas de cocina</h3>
+        <p>Mar · Montaña · Otoño</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -176,7 +179,7 @@
   </div>
 </section>
 
-<!-- MAR Y MONTAÑA PAGE -->
+<!-- TABLAS DE COCINA PAGE -->
 <div class="product-page" id="page-mar-montana">
   <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
   <div class="products-grid">
@@ -202,7 +205,7 @@
         <span class="mar-badge">🌊 Mar</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Colección Cocina · Mar y Montaña</p>
+        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
         <h3>Tabla de cocina · Mar</h3>
         <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño del mar de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
         <div class="price-block">
@@ -221,7 +224,7 @@
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Colección Cocina · Mar y Montaña</p>
+        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
         <h3>Tabla de cocina · Montaña</h3>
         <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño de montaña de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
         <div class="price-block">
@@ -232,10 +235,29 @@
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Monta%C3%B1a" class="btn-contact btn-montana" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
+
+    <div class="product-card otono fade-in">
+      <div class="product-img" onclick="openLightbox('images/tabla_otono.jpg')">
+        <img src="images/tabla_otono.jpg" alt="Tabla cocina Otoño">
+        <span class="otono-badge">🍂 Otoño</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
+        <h3>Tabla de cocina · Otoño</h3>
+        <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño de una hoja seca de árbol de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-add-cart" onclick="addToCart({id:'tabla-otono',name:'Tabla de cocina · Otoño',price:32,peso:680,options:{}})">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Oto%C3%B1o" class="btn-contact btn-otono" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
   </div>
 
   <div class="cs-section" style="padding: 2rem 0 0;">
-    <h3 class="cs-title">✦ Próximamente más productos en Mar y Montaña ✦</h3>
+    <h3 class="cs-title">✦ Próximamente más productos en Tablas de cocina ✦</h3>
     <div class="cs-grid">
       <div class="cs-card fade-in"><h3>Posavasos</h3><p>Madera y porcelana</p><span class="cs-badge">Próximamente</span></div>
       <div class="cs-card fade-in"><h3>Salero y pimentero</h3><p>Diseño exclusivo</p><span class="cs-badge">Próximamente</span></div>
@@ -315,7 +337,7 @@
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const pageLabel = id === 'mar-montana' ? 'Mar y Montaña' : 'Mamemi en la mesa';
+    const pageLabel = id === 'mar-montana' ? 'Tablas de cocina' : 'Mamemi en la mesa';
     document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Colección Cocina</a> · ' + pageLabel;
   }
   function showGrid() {
