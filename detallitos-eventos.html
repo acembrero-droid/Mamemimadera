@@ -141,6 +141,10 @@
       <div class="img-wrap"><img src="images/llavero2.jpg" alt="Llaveros para eventos"></div>
       <div class="cat-info"><h3>Llaveros para eventos</h3><p>Madera natural · Grabado láser · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
     </a>
+    <a class="cat-card fade-in" onclick="showPage('posavasos'); return false;" href="#">
+      <div class="img-wrap"><img src="images/posavasos.jpg" alt="Posavasos para eventos"></div>
+      <div class="cat-info"><h3>Posavasos para eventos</h3><p>Madera natural · Grabado láser · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
     <a class="cat-card fade-in" onclick="showPage('libretas'); return false;" href="#">
       <div class="img-wrap"><img src="images/libretas.jpg" alt="Libretas personalizadas"></div>
       <div class="cat-info"><h3>Libretas personalizadas</h3><p>Grabado láser · Desde 1 unidad · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
@@ -220,6 +224,13 @@
             </div>
           </div>
           <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="marcasitios-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
+          <div class="opt-row">
             <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
             <select class="opt-input" id="marcasitios-enfoque">
               <option value="">Elige una opción</option>
@@ -251,11 +262,11 @@
         <h3>Imán abrebotellas de bambú</h3>
         <p class="product-desc">Imán abrebotellas de bambú grabado al láser con el diseño, nombre o fecha que elijas. Un detalle práctico y original que tus invitados guardarán con cariño. Ideal para bodas, comuniones, bautizos y cualquier celebración especial.</p>
         <div class="price-block">
-          <div class="price-row"><span>1–9 unidades</span><span class="amount">6,00 € / u</span></div>
-          <div class="price-row"><span>10–25 unidades</span><span class="amount">4,50 € / u</span></div>
-          <div class="price-row"><span>26–50 unidades</span><span class="amount">3,50 € / u</span></div>
-          <div class="price-row"><span>Más de 50 unidades</span><span class="amount">2,90 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Consulta para pedidos mixtos</p>
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">5,50 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">4,50 € / u</span></div>
+          <div class="price-row"><span>51–100 unidades</span><span class="amount">3,80 € / u</span></div>
+          <div class="price-row"><span>Más de 100 unidades</span><span class="amount">3,40 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Pedido mínimo online: 10 unidades</p>
           <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
         <div class="product-options">
@@ -264,7 +275,18 @@
             <input type="number" class="opt-input" id="imanes-cantidad" min="1" placeholder="Nº de unidades" oninput="updateImanes()">
             <p class="price-note" id="imanes-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
           </div>
+          <div id="imanes-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            El pedido mínimo online es de 10 unidades. Para cantidades menores, escríbeme y lo vemos juntas.
+            <a id="imanes-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
+          </div>
           <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="imanes-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="imanes-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
           <div class="opt-row">
             <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
             <select class="opt-input" id="imanes-enfoque">
@@ -275,7 +297,7 @@
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="imanes-total">— €</strong></div>
         </div>
-        <button class="btn-add-cart" onclick="addCartImanes()">Añadir al carrito</button>
+        <button class="btn-add-cart" id="imanes-add-btn" onclick="addCartImanes()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20imanes%20abrebotellas" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -353,6 +375,13 @@
             </select>
           </div>
           <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="llaveventos-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
+          <div class="opt-row">
             <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
             <select class="opt-input" id="llaveventos-enfoque">
               <option value="">Elige una opción</option>
@@ -364,6 +393,63 @@
         </div>
         <button class="btn-add-cart" id="llaveventos-add-btn" onclick="addCartLlaverosEventos()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20llaveros%20para%20mi%20evento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── POSAVASOS PARA EVENTOS ── -->
+<div class="product-page" id="page-posavasos">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
+  <div class="products-grid">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/posavasos.jpg')">
+        <img src="images/posavasos.jpg" alt="Posavasos para eventos">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Posavasos para eventos</h3>
+        <p class="product-desc">Posavasos de madera de unos 10cm de diámetro, grabados al láser con el nombre, texto o diseño que elijas y barnizados por ambas caras con barniz mate. Un recuerdo natural y con mucho encanto para tus invitados.</p>
+        <div class="price-block">
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">4,80 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">3,60 € / u</span></div>
+          <div class="price-row"><span>51–100 unidades</span><span class="amount">2,90 € / u</span></div>
+          <div class="price-row"><span>Más de 100 unidades</span><span class="amount">2,50 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Pedido mínimo online: 10 unidades</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="posaventos-cantidad" min="1" placeholder="Nº de unidades" oninput="updatePosavasosEventos()">
+            <p class="price-note" id="posaventos-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div id="posaventos-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            El pedido mínimo online es de 10 unidades. Para cantidades menores, escríbeme y lo vemos juntas.
+            <a id="posaventos-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="posaventos-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="posaventos-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="posaventos-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="posaventos-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" id="posaventos-add-btn" onclick="addCartPosavasosEventos()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20posavasos%20para%20mi%20evento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
@@ -398,6 +484,13 @@
             <p class="price-note" id="libretas-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
           </div>
           <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="libretas-diseno" placeholder="ej. nombre, logo, iniciales..."></div>
+          <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="libretas-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
           <div class="opt-row">
             <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
             <select class="opt-input" id="libretas-enfoque">
@@ -445,6 +538,13 @@
           </div>
           <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="cajavino-diseno" placeholder="ej. nombres de los novios y fecha"></div>
           <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="cajavino-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
+          <div class="opt-row">
             <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
             <select class="opt-input" id="cajavino-enfoque">
               <option value="">Elige una opción</option>
@@ -482,7 +582,7 @@
 </div>
 
 <script>
-  const pageNames = { imanes: 'Imanes abrebotellas', llaveros: 'Llaveros para eventos', libretas: 'Libretas', marcasitios: 'Marcasitios', cajavino: 'Cajas de vino' };
+  const pageNames = { imanes: 'Imanes abrebotellas', llaveros: 'Llaveros para eventos', posavasos: 'Posavasos para eventos', libretas: 'Libretas', marcasitios: 'Marcasitios', cajavino: 'Cajas de vino' };
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
@@ -547,20 +647,36 @@
 
   // ── IMANES ABREBOTELLAS ──
   function imanesPrecioUnidad(cantidad) {
-    if (cantidad > 50) return 2.90;
-    if (cantidad >= 26) return 3.50;
-    if (cantidad >= 10) return 4.50;
-    return 6.00;
+    if (cantidad > 100) return 3.40;
+    if (cantidad >= 51) return 3.80;
+    if (cantidad >= 26) return 4.50;
+    return 5.50;
   }
   function updateImanes() {
     const cantidad = parseInt(document.getElementById('imanes-cantidad')?.value) || 0;
     const desglose = document.getElementById('imanes-desglose');
     const totalEl = document.getElementById('imanes-total');
+    const lowqty = document.getElementById('imanes-lowqty');
+    const lowqtyLink = document.getElementById('imanes-lowqty-link');
+    const addBtn = document.getElementById('imanes-add-btn');
+
     if (cantidad < 1) {
       desglose.textContent = 'Escribe la cantidad para ver el precio';
       totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
       return;
     }
+    if (cantidad < 10) {
+      desglose.textContent = 'Pedido mínimo online: 10 unidades';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' imanes abrebotellas para mi evento, ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
     const precioU = imanesPrecioUnidad(cantidad);
     const total = precioU * cantidad;
     desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
@@ -570,24 +686,26 @@
     const cantidad = parseInt(document.getElementById('imanes-cantidad')?.value) || 0;
     const diseno = document.getElementById('imanes-diseno')?.value.trim();
     const enfoque = document.getElementById('imanes-enfoque')?.value;
-    if (cantidad < 1) { alert('Por favor indica la cantidad de imanes que quieres.'); return; }
+    if (cantidad < 10) { alert('El pedido mínimo online es de 10 unidades. Para menos, escríbeme por WhatsApp.'); return; }
     if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
     if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
     const precioU = imanesPrecioUnidad(cantidad);
-    const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
+    const bolsita = document.getElementById('imanes-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Grabado': diseno, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
     addToCart({ id: 'imanes-' + Date.now(), name: 'Imán abrebotellas de bambú', price: precioU, qty: cantidad, options: opts });
   }
 
   // ── LLAVEROS PARA EVENTOS ──
   function llaveventosPrecioUnidad(cantidad) {
-    if (cantidad > 50) return 8.00;
-    if (cantidad >= 26) return 10.00;
-    return 12.00;
+    if (cantidad > 100) return 6.00;
+    if (cantidad >= 51) return 7.00;
+    if (cantidad >= 26) return 8.00;
+    return 10.00;
   }
   function llaveventosOtroladoExtra() {
     const v = document.getElementById('llaveventos-otrolado')?.value;
-    if (v === 'mismo') return 2.00;
-    if (v === 'distinto') return 3.00;
+    if (v === 'mismo') return 1.00;
+    if (v === 'distinto') return 2.00;
     return 0;
   }
   function updateLlaverosEventos() {
@@ -674,6 +792,8 @@
     const opts = { 'Grabado lado principal': diseno, 'Enfoque diseño': enfoque };
     const borla = document.getElementById('llaveventos-borla')?.value;
     if (borla) opts['Borla'] = borla;
+    const bolsita = document.getElementById('llaveventos-bolsita')?.value || 'Con bolsita individual';
+    opts['Bolsita'] = bolsita;
 
     if (otrolado === 'mismo') {
       const texto = document.getElementById('llaveventos-mismo-texto')?.value.trim();
@@ -686,6 +806,56 @@
     }
 
     addToCart({ id: 'llaveventos-' + Date.now(), name: 'Llavero para eventos', price: precioU, qty: cantidad, options: opts });
+  }
+
+  // ── POSAVASOS PARA EVENTOS ──
+  function posaventosPrecioUnidad(cantidad) {
+    if (cantidad > 100) return 2.50;
+    if (cantidad >= 51) return 2.90;
+    if (cantidad >= 26) return 3.60;
+    return 4.80;
+  }
+  function updatePosavasosEventos() {
+    const cantidad = parseInt(document.getElementById('posaventos-cantidad')?.value) || 0;
+    const desglose = document.getElementById('posaventos-desglose');
+    const totalEl = document.getElementById('posaventos-total');
+    const lowqty = document.getElementById('posaventos-lowqty');
+    const lowqtyLink = document.getElementById('posaventos-lowqty-link');
+    const addBtn = document.getElementById('posaventos-add-btn');
+
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
+      return;
+    }
+    if (cantidad < 10) {
+      desglose.textContent = 'Pedido mínimo online: 10 unidades';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' posavasos para mi evento, ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
+    const precioU = posaventosPrecioUnidad(cantidad);
+    const total = precioU * cantidad;
+    desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
+    totalEl.textContent = formatEuros(total);
+  }
+  function addCartPosavasosEventos() {
+    const cantidad = parseInt(document.getElementById('posaventos-cantidad')?.value) || 0;
+    const diseno = document.getElementById('posaventos-diseno')?.value.trim();
+    const enfoque = document.getElementById('posaventos-enfoque')?.value;
+    if (cantidad < 10) { alert('El pedido mínimo online es de 10 unidades. Para menos, escríbeme por WhatsApp.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const precioU = posaventosPrecioUnidad(cantidad);
+    const bolsita = document.getElementById('posaventos-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Grabado': diseno, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
+    addToCart({ id: 'posaventos-' + Date.now(), name: 'Posavasos para eventos', price: precioU, qty: cantidad, options: opts });
   }
 
   // ── MARCASITIOS PARA BODA ──
@@ -779,7 +949,8 @@
     if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
     const precioU = marcasitiosPrecioUnidad(modelo, cantidad);
     const nombres = Array.from(document.querySelectorAll('.marcasitios-nombre')).map(i => i.value.trim()).filter(Boolean);
-    const opts = { 'Modelo': marcasitiosModelos[modelo].label, 'Enfoque diseño': enfoque };
+    const bolsita = document.getElementById('marcasitios-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Modelo': marcasitiosModelos[modelo].label, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
     if (extras) opts['Extras'] = extras;
     if (nombres.length > 0) opts['Nombres (' + nombres.length + ' de ' + cantidad + ')'] = nombres.join(', ');
     else opts['Nombres'] = 'Pendiente de confirmar por WhatsApp';
@@ -815,7 +986,8 @@
     if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
     if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
     const precioU = libretasPrecioUnidad(cantidad);
-    const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
+    const bolsita = document.getElementById('libretas-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Grabado': diseno, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
     addToCart({ id: 'libretas-' + Date.now(), name: 'Libreta personalizada', price: precioU, qty: cantidad, options: opts });
   }
 
@@ -848,7 +1020,8 @@
     if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
     if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
     const precioU = cajavinoPrecioUnidad(cantidad);
-    const opts = { 'Grabado': diseno, 'Enfoque diseño': enfoque };
+    const bolsita = document.getElementById('cajavino-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Grabado': diseno, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
     addToCart({ id: 'cajavino-' + Date.now(), name: 'Caja de vino personalizada', price: precioU, qty: cantidad, options: opts });
   }
 </script>
@@ -861,7 +1034,7 @@
     floatBtn.style.cssText = 'display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;border-radius:30px;padding:0.5rem 1.1rem;font-family:Nunito,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;';
     floatBtn.onclick = function() { showGrid(); };
     document.body.appendChild(floatBtn);
-    var floatPages = ['page-marcasitios','page-imanes','page-llaveros','page-libretas','page-cajavino'];
+    var floatPages = ['page-marcasitios','page-imanes','page-llaveros','page-posavasos','page-libretas','page-cajavino'];
     function upd() {
       var ok = window.innerWidth <= 640 && floatPages.some(function(id){var e=document.getElementById(id);return e&&e.classList.contains('active');});
       floatBtn.style.display = ok ? 'block' : 'none';
