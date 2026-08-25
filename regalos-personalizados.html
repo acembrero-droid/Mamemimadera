@@ -619,7 +619,7 @@
       </div>
     </div>
 
-    <div class="product-card fade-in">
+    <div class="product-card fade-in" id="prod-posavasos">
       <div class="product-img" onclick="openLightbox('images/posavasos.jpg')">
         <img src="images/posavasos.jpg" alt="Posavasos personalizados grabados en madera">
         <span class="personalizable-badge">Personalizable</span>
@@ -695,7 +695,7 @@
       </div>
     </div>
 
-    <div class="product-card fade-in">
+    <div class="product-card fade-in" id="prod-abrebotellas">
       <div class="product-img" style="position:relative; height:250px;">
         <div class="mini-carousel">
           <div class="mini-track" id="abreTrack">
@@ -764,7 +764,7 @@
       </div>
     </div>
 
-    <div class="product-card fade-in">
+    <div class="product-card fade-in" id="prod-llavero">
       <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
         <img src="images/llavero2.jpg" alt="Llavero personalizado">
         <span class="personalizable-badge">Personalizable</span>
@@ -1099,6 +1099,24 @@
   window.addEventListener('beforeunload', () => { sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY); });
   const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
   if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
+
+  // ── APERTURA DIRECTA A UN PRODUCTO VIA HASH (#llavero, #posavasos, #abrebotellas) ──
+  (function() {
+    const hashProductIds = { llavero: 'prod-llavero', posavasos: 'prod-posavasos', abrebotellas: 'prod-abrebotellas' };
+    const hash = window.location.hash.replace('#', '');
+    if (hashProductIds[hash]) {
+      showPage('madera');
+      setTimeout(() => {
+        const el = document.getElementById(hashProductIds[hash]);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          el.style.transition = 'box-shadow 0.4s ease';
+          el.style.boxShadow = '0 0 0 3px var(--mint-dark)';
+          setTimeout(() => { el.style.boxShadow = ''; }, 2000);
+        }
+      }, 150);
+    }
+  })();
 
   // ── COLLAR GRABADO EN MADERA Y RESINA ──
   function updateCollar() {
