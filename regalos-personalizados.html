@@ -157,7 +157,7 @@
       <div class="cat-info"><h3>Con impresión 3D</h3><p>Letras · Placas · Banderín · Nombre puerta</p><span class="cat-arrow">Ver más →</span></div>
     </a>
     <a class="cat-card fade-in" onclick="showPage('madera'); return false;" href="#">
-      <div class="img-wrap"><img src="images/collar_resina.jpg" alt="En madera"></div>
+      <div class="img-wrap"><img src="images/nacimiento.jpg" alt="En madera"></div>
       <div class="cat-info"><h3>En madera</h3><p>Collares · Placas · Llaveros · Nombres puerta · Banderín</p><span class="cat-arrow">Ver más →</span></div>
     </a>
     <a class="cat-card fade-in" onclick="showPage('cuero'); return false;" href="#">
@@ -171,107 +171,6 @@
 <div class="product-page" id="page-madera">
   <button class="back-btn" onclick="showGrid()">← Volver a Regalos Personalizados</button>
   <div class="products-grid" id="grid-madera">
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/collar_resina.jpg')">
-        <img src="images/collar_resina.jpg" alt="Collar grabado en madera y resina">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">En madera</p>
-        <h3>Collar grabado en madera y resina</h3>
-        <p class="product-desc">Colgante circular de madera grabado al láser y protegido con una capa de resina, en cordón ajustable. Elige el tono de madera que más te guste y personalízalo con iniciales grabadas, o cuéntame tu propia idea de diseño.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Con grabado personalizado</span><span class="amount">22 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Tono de madera</label>
-            <select class="opt-input" id="collar-tono">
-              <option value="">Elige un tono</option>
-              <option value="Clara">Clara</option>
-              <option value="Oscura">Oscura</option>
-              <option value="Ocre">Ocre</option>
-              <option value="Anaranjada">Anaranjada</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">¿Qué quieres grabar?</label>
-            <select class="opt-input" id="collar-tipo" onchange="updateCollar()">
-              <option value="">Elige una opción</option>
-              <option value="letras">Iniciales grabadas (máx. 3 letras)</option>
-              <option value="diseno">Busco un diseño diferente</option>
-            </select>
-          </div>
-          <div class="opt-row" id="collar-letras-wrap" style="display:none;">
-            <label class="opt-label">Iniciales (máx. 3 letras)</label>
-            <input type="text" class="opt-input" id="collar-letras" maxlength="3" placeholder="ej. G&M" style="text-transform:uppercase;">
-          </div>
-          <div class="opt-row" id="collar-diseno-wrap" style="display:none;">
-            <p style="font-size:0.78rem;color:var(--text-mid);margin-bottom:0.4rem;">Cuéntame tu idea y te preparo un presupuesto y diseño a medida.</p>
-            <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20collar%20de%20madera%20con%20un%20dise%C3%B1o%20diferente%20al%20grabado%20de%20iniciales" target="_blank" style="color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">💬 Cuéntame tu diseño por WhatsApp →</a>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong>22 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartCollarResina()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20collar%20de%20madera%20con%20resina" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/placa_cumple.jpg')">
-        <img src="images/placa_cumple.jpg" alt="Placa felicitación">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">En madera</p>
-        <h3>Placa de felicitación</h3>
-        <p class="product-desc">Placa circular de pino de 18cm de diámetro y 1cm de grosor, grabada al láser con la temática que elijas (brindis, coches, campo, animales...) y el nombre en relieve con impresión 3D. Puedes añadir también una frase corta. Perfecta para cumpleaños, aniversarios u ocasiones especiales.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Con nombre en 3D, temática y frase corta</span><span class="amount">35 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row"><label class="opt-label">Temática / ilustración que quieres</label><input type="text" class="opt-input" id="placa-felicit-tematica" placeholder="ej. coches, campo, animales, brindis..."></div>
-          <div class="opt-row"><label class="opt-label">Nombre a grabar en 3D</label><input type="text" class="opt-input" id="placa-felicit-nombre" placeholder="Nombre del destinatario"></div>
-          <div class="opt-row">
-            <label class="opt-label">Color del nombre en 3D</label>
-            <select class="opt-input" id="placa-felicit-color">
-              <option value="">Elige un color</option>
-              <option value="Verde menta">Verde menta</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Burdeos">Burdeos</option>
-              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-            </select>
-            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          </div>
-          <div class="opt-row"><label class="opt-label">Frase corta (máx. 10 palabras)</label><input type="text" class="opt-input" id="placa-felicit-frase" placeholder="ej. ¡Salud por tus 70 años!"></div>
-          <div class="opt-row">
-            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
-            <select class="opt-input" id="placa-felicit-enfoque">
-              <option value="">Elige una opción</option>
-              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
-              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong>35 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartPlacaFelicit()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20felicitaci%C3%B3n" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/nacimiento.jpg')">
         <img src="images/nacimiento.jpg" alt="Placa nacimiento">
@@ -314,249 +213,6 @@
         </div>
         <button class="btn-add-cart" onclick="addCartPlacaNac('pnac-m')">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/placa_profe.jpg')">
-        <img src="images/placa_profe.jpg" alt="Placa profe">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">En madera</p>
-        <h3>Placa de profe</h3>
-        <p class="product-desc">Disco de madera grabado al láser con el nombre del profe o profesora en 3D y el curso escolar, con un hueco preparado para la huella de cada alumn@. Un regalo de fin de curso listo para entregar sin complicaciones — te explico cómo funciona justo aquí abajo.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Con nombre en 3D · 15–21 alumn@s</span><span class="amount">40 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-          <div class="price-alert">⚠️ Si el grupo tiene menos de 15 o más de 21 alumn@s, consúltame — el precio puede variar según el tamaño del disco.</div>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="product-options">
-          <div style="background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.8rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
-            ✦ <strong>¿Cómo funciona?</strong> Yo dejo el hueco para cada huella y grabo el nombre del profe y el curso. Te envío junto con la placa unos pequeños botes de pintura de varios colores para que los peques pongan el dedo 🖐️ en cuanto la recibáis, y una bolsita con lazo de yute para guardar la placa una vez seca y entregarla como regalo sin pensar en envolverla.<br>
-            ✦ Si el grupo tiene <strong>menos de 15 o más de 21 alumn@s</strong>, escríbeme para crear un diseño a tu medida.<br>
-            ✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.
-          </div>
-          <div class="opt-row"><label class="opt-label">Nombre del profe / profesora</label><input type="text" class="opt-input" id="profe-nombre" placeholder="Nombre del profe"></div>
-          <div class="opt-row">
-            <label class="opt-label">Color del nombre en 3D</label>
-            <select class="opt-input" id="profe-color">
-              <option value="">Elige un color</option>
-              <option value="Verde menta">Verde menta</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Burdeos">Burdeos</option>
-              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-            </select>
-            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          </div>
-          <div class="opt-row"><label class="opt-label">Curso escolar</label><input type="text" class="opt-input" id="profe-curso" placeholder="ej. 2025-2026"></div>
-          <p class="opt-label" style="margin:0.6rem 0 0.4rem;">Nombres de los alumn@s (máximo 21):</p>
-          <div style="max-height:280px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 1</label><input type="text" class="opt-input" id="profe-alumno-1" placeholder="Nombre alumno 1" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 2</label><input type="text" class="opt-input" id="profe-alumno-2" placeholder="Nombre alumno 2" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 3</label><input type="text" class="opt-input" id="profe-alumno-3" placeholder="Nombre alumno 3" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 4</label><input type="text" class="opt-input" id="profe-alumno-4" placeholder="Nombre alumno 4" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 5</label><input type="text" class="opt-input" id="profe-alumno-5" placeholder="Nombre alumno 5" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 6</label><input type="text" class="opt-input" id="profe-alumno-6" placeholder="Nombre alumno 6" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 7</label><input type="text" class="opt-input" id="profe-alumno-7" placeholder="Nombre alumno 7" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 8</label><input type="text" class="opt-input" id="profe-alumno-8" placeholder="Nombre alumno 8" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 9</label><input type="text" class="opt-input" id="profe-alumno-9" placeholder="Nombre alumno 9" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 10</label><input type="text" class="opt-input" id="profe-alumno-10" placeholder="Nombre alumno 10" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 11</label><input type="text" class="opt-input" id="profe-alumno-11" placeholder="Nombre alumno 11" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 12</label><input type="text" class="opt-input" id="profe-alumno-12" placeholder="Nombre alumno 12" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 13</label><input type="text" class="opt-input" id="profe-alumno-13" placeholder="Nombre alumno 13" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 14</label><input type="text" class="opt-input" id="profe-alumno-14" placeholder="Nombre alumno 14" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 15</label><input type="text" class="opt-input" id="profe-alumno-15" placeholder="Nombre alumno 15" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 16</label><input type="text" class="opt-input" id="profe-alumno-16" placeholder="Nombre alumno 16" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 17</label><input type="text" class="opt-input" id="profe-alumno-17" placeholder="Nombre alumno 17" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 18</label><input type="text" class="opt-input" id="profe-alumno-18" placeholder="Nombre alumno 18" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 19</label><input type="text" class="opt-input" id="profe-alumno-19" placeholder="Nombre alumno 19" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 20</label><input type="text" class="opt-input" id="profe-alumno-20" placeholder="Nombre alumno 20" style="margin:0;"></div>
-          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 21</label><input type="text" class="opt-input" id="profe-alumno-21" placeholder="Nombre alumno 21" style="margin:0;"></div>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong>40 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartProfe()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20profe" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/cajavino.jpg')">
-        <img src="images/cajavino.jpg" alt="Caja de vino personalizada">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">En madera</p>
-        <h3>Caja de vino personalizada</h3>
-        <p class="product-desc">Caja de madera de kiri para una botella de vino, grabada al láser con el nombre, la fecha o el mensaje que elijas. Un regalo especial para el Día del Padre, un cumpleaños, Reyes o cualquier ocasión que lo merezca.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Grabado personalizado</span><span class="amount">39 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad · Botella no incluida</p>
-          <p class="price-note">¿La necesitas para una boda o evento? <a href="detallitos-eventos.html" style="color:var(--mint-dark);font-weight:700;">Mira los precios por cantidad →</a></p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="cajavino-pers-diseno" placeholder="ej. nombre, fecha, mensaje..."></div>
-          <div class="opt-row">
-            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
-            <select class="opt-input" id="cajavino-pers-enfoque">
-              <option value="">Elige una opción</option>
-              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
-              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong>39 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartCajaVinoPers()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20caja%20de%20vino%20personalizada" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
-        <img src="images/llavero2.jpg" alt="Llavero personalizado">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">En madera</p>
-        <h3>Llavero grabado en madera</h3>
-        <p class="product-desc">Llavero redondo de madera natural grabado al láser con el diseño, nombre o iniciales que elijas. Diseño exclusivo creado para ti. Con anilla metálica y borla de gamuza en el color que prefieras.</p>
-        <div class="price-block">
-          <div class="price-row"><span>1 unidad</span><span class="amount">15 €</span></div>
-          <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">12 € / u</span></div>
-          <p class="price-note">✦ IVA incluido</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Cantidad:</label>
-            <select id="opt-llav-pers-qty" onchange="updateLlavPers()">
-              <option value="15|1">1 unidad — 15 €</option>
-              <option value="12|3">Pack 3 unidades — 12 € / u (36 € total)</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">¿Qué buscas para tu llavero?</label>
-            <select id="opt-llav-pers-tipo" onchange="updateLlavPers()">
-              <option value="">Elige una opción</option>
-              <option value="unico">Busco crear algo único</option>
-              <option value="nombre">Quiero grabar un nombre o iniciales</option>
-            </select>
-          </div>
-          <div class="opt-row" id="llav-pers-enfoque-wrap" style="display:none;">
-            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
-            <select id="opt-llav-pers-enfoque">
-              <option value="">Elige una opción</option>
-              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
-              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
-            </select>
-          </div>
-          <div class="opt-row" id="llav-pers-nombre-wrap" style="display:none;">
-            <label class="opt-label">Nombre o iniciales (máx. 10 caracteres)</label>
-            <input type="text" id="opt-llav-pers-texto-principal" class="opt-input" maxlength="10" placeholder="ej. MARÍA o M&J">
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-llav-pers-caja" onchange="updateLlavPers()">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Borla</label>
-            <select id="opt-llav-pers-borla" onchange="updateLlavPers()">
-              <option value="Sin borla">Sin borla</option>
-              <option value="Me da igual">Me da igual el color</option>
-              <option value="Verde brillante">Verde brillante</option>
-              <option value="Amarillo">Amarillo</option>
-              <option value="Marrón">Marrón</option>
-              <option value="Azul cielo">Azul cielo</option>
-              <option value="Morado">Morado</option>
-              <option value="Rosita palo">Rosita palo</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Azul marino">Azul marino</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">¿Diseño o nombre por el otro lado? (+3 € / unidad)</label>
-            <select id="opt-llav-pers-otrolado" onchange="updateLlavPers()">
-              <option value="no">No, un solo lado</option>
-              <option value="si">Sí, quiero grabar también el otro lado (+3 €/u)</option>
-            </select>
-          </div>
-          <div class="opt-row" id="llav-pers-otrolado-texto-wrap" style="display:none;">
-            <label class="opt-label">¿Qué quieres grabar en el otro lado?</label>
-            <input type="text" id="opt-llav-pers-otrolado-texto" class="opt-input" placeholder="Describe el diseño o nombre del otro lado">
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-pers-total">15 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartLlavPers()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20llavero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/puerta.jpg')">
-        <img src="images/puerta.jpg" alt="Nombre puerta">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">En madera</p>
-        <h3>Nombre para puerta</h3>
-        <p class="product-desc">Nombre en 3D para colgar en la puerta de la habitación. Impreso y acabado a mano, disponible en distintos colores. Un detalle precioso para personalizar cualquier espacio.</p>
-        <div class="price-block">
-          <div class="price-row"><span>1 unidad</span><span class="amount">25 €</span></div>
-          <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">17 € / u</span></div>
-          <p class="price-note">✦ IVA incluido</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Cantidad:</label>
-            <select id="opt-puerta-qty" onchange="updatePuerta()">
-              <option value="25|1">1 unidad — 25 €</option>
-              <option value="19|3">Pack 3 unidades — 19 € / u (57 € total)</option>
-            </select>
-          </div>
-          <p class="opt-label" style="margin:0.6rem 0 0.3rem;">Nombre(s) y color de cada uno:</p>
-          <p style="font-size:0.7rem;margin:0 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          <div id="puerta-nombres-wrap">
-            <div class="puerta-nombre-row" style="display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;">
-              <input type="text" class="opt-input puerta-nombre" placeholder="Nombre 1" style="margin:0;">
-              <select class="opt-input puerta-color" style="margin:0;width:130px;">
-                <option value="">Color</option>
-                <option value="Verde menta">Verde menta</option>
-                <option value="Blanco">Blanco</option>
-                <option value="Negro">Negro</option>
-                <option value="Burdeos">Burdeos</option>
-                <option value="Otro (a confirmar por WhatsApp)">Otro (consultar)</option>
-              </select>
-            </div>
-          </div>
-          <button type="button" onclick="addPuertaRow()" style="background:none;border:1.5px dashed var(--wood-mid);border-radius:8px;padding:0.35rem 0.8rem;font-size:0.78rem;color:var(--wood-dark);cursor:pointer;margin-top:0.3rem;font-family:Nunito,sans-serif;">+ Añadir otro nombre</button>
-          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">25 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartPuertaV2()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
         </div></div>
       </div>
     </div>
@@ -691,9 +347,209 @@
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20banderín%20de%20madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
         </div></div>
       </div>
+    </div>    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/puerta.jpg')">
+        <img src="images/puerta.jpg" alt="Nombre puerta">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Nombre para puerta</h3>
+        <p class="product-desc">Nombre en 3D para colgar en la puerta de la habitación. Impreso y acabado a mano, disponible en distintos colores. Un detalle precioso para personalizar cualquier espacio.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1 unidad</span><span class="amount">25 €</span></div>
+          <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">17 € / u</span></div>
+          <p class="price-note">✦ IVA incluido</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad:</label>
+            <select id="opt-puerta-qty" onchange="updatePuerta()">
+              <option value="25|1">1 unidad — 25 €</option>
+              <option value="19|3">Pack 3 unidades — 19 € / u (57 € total)</option>
+            </select>
+          </div>
+          <p class="opt-label" style="margin:0.6rem 0 0.3rem;">Nombre(s) y color de cada uno:</p>
+          <p style="font-size:0.7rem;margin:0 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
+          <div id="puerta-nombres-wrap">
+            <div class="puerta-nombre-row" style="display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;">
+              <input type="text" class="opt-input puerta-nombre" placeholder="Nombre 1" style="margin:0;">
+              <select class="opt-input puerta-color" style="margin:0;width:130px;">
+                <option value="">Color</option>
+                <option value="Verde menta">Verde menta</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Negro">Negro</option>
+                <option value="Burdeos">Burdeos</option>
+                <option value="Otro (a confirmar por WhatsApp)">Otro (consultar)</option>
+              </select>
+            </div>
+          </div>
+          <button type="button" onclick="addPuertaRow()" style="background:none;border:1.5px dashed var(--wood-mid);border-radius:8px;padding:0.35rem 0.8rem;font-size:0.78rem;color:var(--wood-dark);cursor:pointer;margin-top:0.3rem;font-family:Nunito,sans-serif;">+ Añadir otro nombre</button>
+          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">25 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPuertaV2()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
     </div>
 
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/placa_cumple.jpg')">
+        <img src="images/placa_cumple.jpg" alt="Placa felicitación">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Placa de felicitación</h3>
+        <p class="product-desc">Placa circular de pino de 18cm de diámetro y 1cm de grosor, grabada al láser con la temática que elijas (brindis, coches, campo, animales...) y el nombre en relieve con impresión 3D. Puedes añadir también una frase corta. Perfecta para cumpleaños, aniversarios u ocasiones especiales.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con nombre en 3D, temática y frase corta</span><span class="amount">35 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row"><label class="opt-label">Temática / ilustración que quieres</label><input type="text" class="opt-input" id="placa-felicit-tematica" placeholder="ej. coches, campo, animales, brindis..."></div>
+          <div class="opt-row"><label class="opt-label">Nombre a grabar en 3D</label><input type="text" class="opt-input" id="placa-felicit-nombre" placeholder="Nombre del destinatario"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre en 3D</label>
+            <select class="opt-input" id="placa-felicit-color">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
+            </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
+          </div>
+          <div class="opt-row"><label class="opt-label">Frase corta (máx. 10 palabras)</label><input type="text" class="opt-input" id="placa-felicit-frase" placeholder="ej. ¡Salud por tus 70 años!"></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="placa-felicit-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>35 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPlacaFelicit()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20felicitaci%C3%B3n" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
 
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/cajavino.jpg')">
+        <img src="images/cajavino.jpg" alt="Caja de vino personalizada">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Caja de vino personalizada</h3>
+        <p class="product-desc">Caja de madera de kiri para una botella de vino, grabada al láser con el nombre, la fecha o el mensaje que elijas. Un regalo especial para el Día del Padre, un cumpleaños, Reyes o cualquier ocasión que lo merezca.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Grabado personalizado</span><span class="amount">39 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Botella no incluida</p>
+          <p class="price-note">¿La necesitas para una boda o evento? <a href="detallitos-eventos.html" style="color:var(--mint-dark);font-weight:700;">Mira los precios por cantidad →</a></p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="cajavino-pers-diseno" placeholder="ej. nombre, fecha, mensaje..."></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="cajavino-pers-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>39 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartCajaVinoPers()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20caja%20de%20vino%20personalizada" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/placa_profe.jpg')">
+        <img src="images/placa_profe.jpg" alt="Placa profe">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Placa de profe</h3>
+        <p class="product-desc">Disco de madera grabado al láser con el nombre del profe o profesora en 3D y el curso escolar, con un hueco preparado para la huella de cada alumn@. Un regalo de fin de curso listo para entregar sin complicaciones — te explico cómo funciona justo aquí abajo.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con nombre en 3D · 15–21 alumn@s</span><span class="amount">40 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-alert">⚠️ Si el grupo tiene menos de 15 o más de 21 alumn@s, consúltame — el precio puede variar según el tamaño del disco.</div>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="product-options">
+          <div style="background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.8rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            ✦ <strong>¿Cómo funciona?</strong> Yo dejo el hueco para cada huella y grabo el nombre del profe y el curso. Te envío junto con la placa unos pequeños botes de pintura de varios colores para que los peques pongan el dedo 🖐️ en cuanto la recibáis, y una bolsita con lazo de yute para guardar la placa una vez seca y entregarla como regalo sin pensar en envolverla.<br>
+            ✦ Si el grupo tiene <strong>menos de 15 o más de 21 alumn@s</strong>, escríbeme para crear un diseño a tu medida.<br>
+            ✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.
+          </div>
+          <div class="opt-row"><label class="opt-label">Nombre del profe / profesora</label><input type="text" class="opt-input" id="profe-nombre" placeholder="Nombre del profe"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre en 3D</label>
+            <select class="opt-input" id="profe-color">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
+            </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
+          </div>
+          <div class="opt-row"><label class="opt-label">Curso escolar</label><input type="text" class="opt-input" id="profe-curso" placeholder="ej. 2025-2026"></div>
+          <p class="opt-label" style="margin:0.6rem 0 0.4rem;">Nombres de los alumn@s (máximo 21):</p>
+          <div style="max-height:280px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 1</label><input type="text" class="opt-input" id="profe-alumno-1" placeholder="Nombre alumno 1" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 2</label><input type="text" class="opt-input" id="profe-alumno-2" placeholder="Nombre alumno 2" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 3</label><input type="text" class="opt-input" id="profe-alumno-3" placeholder="Nombre alumno 3" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 4</label><input type="text" class="opt-input" id="profe-alumno-4" placeholder="Nombre alumno 4" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 5</label><input type="text" class="opt-input" id="profe-alumno-5" placeholder="Nombre alumno 5" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 6</label><input type="text" class="opt-input" id="profe-alumno-6" placeholder="Nombre alumno 6" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 7</label><input type="text" class="opt-input" id="profe-alumno-7" placeholder="Nombre alumno 7" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 8</label><input type="text" class="opt-input" id="profe-alumno-8" placeholder="Nombre alumno 8" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 9</label><input type="text" class="opt-input" id="profe-alumno-9" placeholder="Nombre alumno 9" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 10</label><input type="text" class="opt-input" id="profe-alumno-10" placeholder="Nombre alumno 10" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 11</label><input type="text" class="opt-input" id="profe-alumno-11" placeholder="Nombre alumno 11" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 12</label><input type="text" class="opt-input" id="profe-alumno-12" placeholder="Nombre alumno 12" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 13</label><input type="text" class="opt-input" id="profe-alumno-13" placeholder="Nombre alumno 13" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 14</label><input type="text" class="opt-input" id="profe-alumno-14" placeholder="Nombre alumno 14" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 15</label><input type="text" class="opt-input" id="profe-alumno-15" placeholder="Nombre alumno 15" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 16</label><input type="text" class="opt-input" id="profe-alumno-16" placeholder="Nombre alumno 16" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 17</label><input type="text" class="opt-input" id="profe-alumno-17" placeholder="Nombre alumno 17" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 18</label><input type="text" class="opt-input" id="profe-alumno-18" placeholder="Nombre alumno 18" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 19</label><input type="text" class="opt-input" id="profe-alumno-19" placeholder="Nombre alumno 19" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 20</label><input type="text" class="opt-input" id="profe-alumno-20" placeholder="Nombre alumno 20" style="margin:0;"></div>
+          <div class="opt-row" style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem;align-items:center;"><label class="opt-label" style="margin:0;white-space:nowrap;">Alumno 21</label><input type="text" class="opt-input" id="profe-alumno-21" placeholder="Nombre alumno 21" style="margin:0;"></div>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>40 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartProfe()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20profe" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
 
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_especial.jpg')">
@@ -704,15 +560,301 @@
       <div class="product-body">
         <p class="product-cat">En madera</p>
         <h3>Placa especial grabada</h3>
-        <p class="product-desc">Disco de madera con diseño completamente personalizado: texto largo, poemas, dedicatorias en varios idiomas, ilustraciones grabadas al láser y toques de color pintados a mano. El precio varía según la complejidad del diseño.</p>
+        <p class="product-desc">Disco de madera con diseño completamente personalizado: texto largo, poemas, dedicatorias en varios idiomas, ilustraciones grabadas al láser y toques de color pintados a mano.</p>
         <div class="price-block">
-          <div class="price-row"><span>Según complejidad del diseño</span><span class="amount">a consultar</span></div>
-          <p class="price-note">✦ IVA incluido · Escríbeme con los detalles para presupuesto</p>
+          <p class="price-note">✦ IVA incluido · El precio final varía según la longitud del texto, la complejidad del diseño y grabado, o si requiere detalles pintados a mano. Habitualmente entre 40 € y 50 €.</p>
         </div>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20especial%20personalizada" class="btn-contact" target="_blank">Quiero este</a>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20especial%20personalizada" class="btn-contact" target="_blank">Escríbeme con tu idea y te preparo una propuesta personalizada</a>
+      </div>
+    </div>
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/collar_resina.jpg')">
+        <img src="images/collar_resina.jpg" alt="Collar grabado en madera y resina">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Collar grabado en madera y resina</h3>
+        <p class="product-desc">Colgante circular de madera grabado al láser y protegido con una capa de resina, en cordón ajustable. Elige el tono de madera que más te guste y personalízalo con iniciales grabadas, o cuéntame tu propia idea de diseño.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con grabado personalizado</span><span class="amount">22 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Tono de madera</label>
+            <select class="opt-input" id="collar-tono">
+              <option value="">Elige un tono</option>
+              <option value="Clara">Clara</option>
+              <option value="Oscura">Oscura</option>
+              <option value="Ocre">Ocre</option>
+              <option value="Anaranjada">Anaranjada</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Qué quieres grabar?</label>
+            <select class="opt-input" id="collar-tipo" onchange="updateCollar()">
+              <option value="">Elige una opción</option>
+              <option value="letras">Iniciales grabadas (máx. 3 letras)</option>
+              <option value="diseno">Busco un diseño diferente</option>
+            </select>
+          </div>
+          <div class="opt-row" id="collar-letras-wrap" style="display:none;">
+            <label class="opt-label">Iniciales (máx. 3 letras)</label>
+            <input type="text" class="opt-input" id="collar-letras" maxlength="3" placeholder="ej. G&M" style="text-transform:uppercase;">
+          </div>
+          <div class="opt-row" id="collar-diseno-wrap" style="display:none;">
+            <p style="font-size:0.78rem;color:var(--text-mid);margin-bottom:0.4rem;">Cuéntame tu idea y te preparo un presupuesto y diseño a medida.</p>
+            <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20collar%20de%20madera%20con%20un%20dise%C3%B1o%20diferente%20al%20grabado%20de%20iniciales" target="_blank" style="color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">💬 Cuéntame tu diseño por WhatsApp →</a>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>22 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartCollarResina()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20collar%20de%20madera%20con%20resina" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
       </div>
     </div>
 
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/posavasos.jpg')">
+        <img src="images/posavasos.jpg" alt="Posavasos personalizados grabados en madera">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Posavasos grabados en madera</h3>
+        <p class="product-desc">Posavasos de madera de unos 10cm de diámetro, grabados al láser con el diseño, nombre o texto que elijas, y barnizados por ambas caras con barniz mate para protegerlos del uso diario.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1–2 unidades</span><span class="amount">18 € / u</span></div>
+          <div class="price-row"><span>3–9 unidades</span><span class="amount">12 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Desde 10 unidades, consulta la tarifa de detallitos para eventos</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad:</label>
+            <input type="number" id="opt-posa-qty" class="opt-input" min="1" value="1" oninput="updatePosavasos()">
+            <p class="price-note" id="posa-tramo" style="margin-top:0.3rem;">1–2 unidades: 18 €/u</p>
+          </div>
+          <div id="posa-evento-wrap" style="display:none;">
+            <div class="price-alert">✦ Para 10 unidades o más trabajamos con la tarifa de detallitos para eventos, pensada para cantidades grandes (bodas, comuniones, bautizos...).</div>
+            <a href="detallitos-eventos.html" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
+          </div>
+          <div id="posa-fields">
+          <div class="opt-row">
+            <label class="opt-label">¿Qué buscas para tu posavasos?</label>
+            <select id="opt-posa-tipo" onchange="updatePosavasos()">
+              <option value="">Elige una opción</option>
+              <option value="unico">Busco crear algo único</option>
+              <option value="nombre">Quiero grabar un nombre o texto</option>
+            </select>
+          </div>
+          <div class="opt-row" id="posa-enfoque-wrap" style="display:none;">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select id="opt-posa-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-row" id="posa-nombre-wrap" style="display:none;">
+            <label class="opt-label">Nombre, texto o número a grabar</label>
+            <input type="text" id="opt-posa-texto-principal" class="opt-input" placeholder="ej. Montse, 50, familia García...">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Diseño o texto por el otro lado? (+3 € / unidad)</label>
+            <select id="opt-posa-otrolado" onchange="updatePosavasos()">
+              <option value="no">No, un solo lado</option>
+              <option value="si">Sí, quiero grabar también el otro lado (+3 €/u)</option>
+            </select>
+          </div>
+          <div class="opt-row" id="posa-otrolado-texto-wrap" style="display:none;">
+            <label class="opt-label">¿Qué quieres grabar en el otro lado?</label>
+            <input type="text" id="opt-posa-otrolado-texto" class="opt-input" placeholder="Describe el diseño o texto del otro lado">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Envoltorio</label>
+            <select id="opt-posa-envoltorio">
+              <option value="Sin envoltorio individual">Sin envoltorio individual</option>
+              <option value="Con envoltorio individual de papel celofán">Con envoltorio individual de papel celofán — sin coste adicional</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-posa-total">18 €</strong></div>
+          </div>
+        </div>
+        <button class="btn-add-cart" id="posa-add-btn" onclick="addCartPosavasos()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20unos%20posavasos%20personalizados" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" style="position:relative; height:250px;">
+        <div class="mini-carousel">
+          <div class="mini-track" id="abreTrack">
+            <img src="images/abrebotellas.jpg" alt="Abrebotellas de bambú magnético personalizado" onclick="openLightbox(this.src, this)">
+            <img src="images/abrebotellas2.jpg" alt="Abrebotellas de bambú magnético, otro lado" onclick="openLightbox(this.src, this)">
+          </div>
+          <button class="mc-btn mc-prev" onclick="moveAbre(-1)">‹</button>
+          <button class="mc-btn mc-next" onclick="moveAbre(1)">›</button>
+          <div class="mc-dots">
+            <div class="mc-dot active" onclick="goAbre(0)"></div>
+            <div class="mc-dot" onclick="goAbre(1)"></div>
+          </div>
+        </div>
+        <span class="zoom-icon">🔍</span>
+        <span class="personalizable-badge">Personalizable</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Abrebotellas de bambú magnético</h3>
+        <p class="product-desc">Abrebotellas de bambú con imán integrado, grabado al láser con el nombre, texto o diseño que elijas. Incluye una bolsita organza de regalo, lista para entregar.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1–2 unidades</span><span class="amount">9 € / u</span></div>
+          <div class="price-row"><span>3–9 unidades</span><span class="amount">7 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Incluye bolsita organza · Desde 10 unidades, consulta la tarifa de detallitos para eventos</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad:</label>
+            <input type="number" id="opt-abre-qty" class="opt-input" min="1" value="1" oninput="updateAbrebotellas()">
+            <p class="price-note" id="abre-tramo" style="margin-top:0.3rem;">1–2 unidades: 9 €/u</p>
+          </div>
+          <div id="abre-evento-wrap" style="display:none;">
+            <div class="price-alert">✦ Para 10 unidades o más trabajamos con la tarifa de detallitos para eventos, pensada para cantidades grandes (bodas, comuniones, bautizos...).</div>
+            <a href="detallitos-eventos.html" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
+          </div>
+          <div id="abre-fields">
+          <div class="opt-row">
+            <label class="opt-label">¿Qué buscas para tu abrebotellas?</label>
+            <select id="opt-abre-tipo" onchange="updateAbrebotellas()">
+              <option value="">Elige una opción</option>
+              <option value="unico">Busco crear algo único</option>
+              <option value="nombre">Quiero grabar un nombre o texto</option>
+            </select>
+          </div>
+          <div class="opt-row" id="abre-enfoque-wrap" style="display:none;">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select id="opt-abre-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-row" id="abre-nombre-wrap" style="display:none;">
+            <label class="opt-label">Nombre o texto a grabar</label>
+            <input type="text" id="opt-abre-texto-principal" class="opt-input" placeholder="ej. familia García, un nombre...">
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-abre-total">9 €</strong></div>
+          </div>
+        </div>
+        <button class="btn-add-cart" id="abre-add-btn" onclick="addCartAbrebotellas()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20abrebotellas%20de%20bamb%C3%BA%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/llavero2.jpg')">
+        <img src="images/llavero2.jpg" alt="Llavero personalizado">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Llavero grabado en madera</h3>
+        <p class="product-desc">Llavero redondo de madera natural grabado al láser con el diseño, nombre o iniciales que elijas. Diseño exclusivo creado para ti. Con anilla metálica y borla de gamuza en el color que prefieras.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1–2 unidades</span><span class="amount">15 € / u</span></div>
+          <div class="price-row"><span>3–9 unidades</span><span class="amount">12 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Desde 10 unidades, consulta la tarifa de detallitos para eventos</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad:</label>
+            <input type="number" id="opt-llav-pers-qty" class="opt-input" min="1" value="1" oninput="updateLlavPers()">
+            <p class="price-note" id="llav-pers-tramo" style="margin-top:0.3rem;">1–2 unidades: 15 €/u</p>
+          </div>
+          <div id="llav-pers-evento-wrap" style="display:none;">
+            <div class="price-alert">✦ Para 10 unidades o más trabajamos con la tarifa de detallitos para eventos, pensada para cantidades grandes (bodas, comuniones, bautizos...).</div>
+            <a href="detallitos-eventos.html" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
+          </div>
+          <div id="llav-pers-fields">
+          <div class="opt-row">
+            <label class="opt-label">¿Qué buscas para tu llavero?</label>
+            <select id="opt-llav-pers-tipo" onchange="updateLlavPers()">
+              <option value="">Elige una opción</option>
+              <option value="unico">Busco crear algo único</option>
+              <option value="nombre">Quiero grabar un nombre o iniciales</option>
+            </select>
+          </div>
+          <div class="opt-row" id="llav-pers-enfoque-wrap" style="display:none;">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select id="opt-llav-pers-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-row" id="llav-pers-nombre-wrap" style="display:none;">
+            <label class="opt-label">Nombre o iniciales (máx. 10 caracteres)</label>
+            <input type="text" id="opt-llav-pers-texto-principal" class="opt-input" maxlength="10" placeholder="ej. MARÍA o M&J">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Presentación</label>
+            <select id="opt-llav-pers-caja" onchange="updateLlavPers()">
+              <option value="0">Bolsita de tela — incluida en el precio</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Borla</label>
+            <select id="opt-llav-pers-borla" onchange="updateLlavPers()">
+              <option value="Sin borla">Sin borla</option>
+              <option value="Me da igual">Me da igual el color</option>
+              <option value="Verde brillante">Verde brillante</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Marrón">Marrón</option>
+              <option value="Azul cielo">Azul cielo</option>
+              <option value="Morado">Morado</option>
+              <option value="Rosita palo">Rosita palo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Azul marino">Azul marino</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Diseño o nombre por el otro lado? (+3 € / unidad)</label>
+            <select id="opt-llav-pers-otrolado" onchange="updateLlavPers()">
+              <option value="no">No, un solo lado</option>
+              <option value="si">Sí, quiero grabar también el otro lado (+3 €/u)</option>
+            </select>
+          </div>
+          <div class="opt-row" id="llav-pers-otrolado-texto-wrap" style="display:none;">
+            <label class="opt-label">¿Qué quieres grabar en el otro lado?</label>
+            <input type="text" id="opt-llav-pers-otrolado-texto" class="opt-input" placeholder="Describe el diseño o nombre del otro lado">
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-llav-pers-total">15 €</strong></div>
+          </div>
+        </div>
+        <button class="btn-add-cart" id="llav-pers-add-btn" onclick="addCartLlavPers()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20llavero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
     </div>
 </div>
 
@@ -910,6 +1052,15 @@
   }
   setInterval(() => moveChupete(1), 3500);
 
+  let abreIdx = 0;
+  function moveAbre(dir) { abreIdx = (abreIdx + dir + 2) % 2; goAbre(abreIdx); }
+  function goAbre(i) {
+    abreIdx = i;
+    document.getElementById('abreTrack').style.transform = `translateX(-${i * 100}%)`;
+    document.getElementById('abreTrack').closest('.mini-carousel').querySelectorAll('.mc-dot').forEach((d,j) => d.classList.toggle('active', j===i));
+  }
+  setInterval(() => moveAbre(1), 3500);
+
   let lightboxImages = [];
   let lightboxIdx = 0;
   function openLightbox(src, el) {
@@ -972,14 +1123,39 @@
   }
 
   // ── LLAVERO PERSONALIZADO ──
+  function llavQtyTier(qty) {
+    if (qty >= 10) return 'evento';
+    if (qty >= 3) return 12;
+    return 15;
+  }
   function updateLlavPers() {
-    const qtySel = document.getElementById('opt-llav-pers-qty');
-    const [priceStr, qtyStr] = qtySel.value.split('|');
-    const basePrice = parseFloat(priceStr) || 18;
-    const qty = parseInt(qtyStr) || 1;
+    const qtyInput = document.getElementById('opt-llav-pers-qty');
+    let qty = parseInt(qtyInput.value) || 1;
+    if (qty < 1) { qty = 1; qtyInput.value = 1; }
+    const tier = llavQtyTier(qty);
+
+    const evento = tier === 'evento';
+    document.getElementById('llav-pers-evento-wrap').style.display = evento ? 'block' : 'none';
+    document.getElementById('llav-pers-fields').style.display = evento ? 'none' : 'block';
+    document.getElementById('llav-pers-add-btn').style.display = evento ? 'none' : 'block';
+
+    const tramoEl = document.getElementById('llav-pers-tramo');
+    if (tramoEl) {
+      if (evento) {
+        tramoEl.textContent = '';
+      } else if (qty <= 2) {
+        tramoEl.textContent = '1–2 unidades: 15 €/u';
+      } else {
+        tramoEl.textContent = '3–9 unidades: 12 €/u (descuento aplicado)';
+      }
+    }
+
+    if (evento) return;
+
+    const basePrice = tier;
     const cajaExtra = parseFloat(document.getElementById('opt-llav-pers-caja').value) || 0;
     const otrolado = document.getElementById('opt-llav-pers-otrolado').value;
-    const otroladoExtra = otrolado === 'si' ? 5 : 0;
+    const otroladoExtra = otrolado === 'si' ? 3 : 0;
 
     const tipo = document.getElementById('opt-llav-pers-tipo').value;
     document.getElementById('llav-pers-enfoque-wrap').style.display = tipo === 'unico' ? 'block' : 'none';
@@ -990,13 +1166,14 @@
     document.getElementById('opt-llav-pers-total').textContent = (unitPrice * qty).toFixed(0) + ' €';
   }
   function addCartLlavPers() {
-    const qtySel = document.getElementById('opt-llav-pers-qty');
-    const [priceStr, qtyStr] = qtySel.value.split('|');
-    const basePrice = parseFloat(priceStr) || 18;
-    const qty = parseInt(qtyStr) || 1;
+    const qtyInput = document.getElementById('opt-llav-pers-qty');
+    const qty = parseInt(qtyInput.value) || 1;
+    const tier = llavQtyTier(qty);
+    if (tier === 'evento') { alert('Para 10 unidades o más, consulta la tarifa de detallitos para eventos.'); return; }
+    const basePrice = tier;
     const cajaExtra = parseFloat(document.getElementById('opt-llav-pers-caja').value) || 0;
     const otrolado = document.getElementById('opt-llav-pers-otrolado').value;
-    const otroladoExtra = otrolado === 'si' ? 5 : 0;
+    const otroladoExtra = otrolado === 'si' ? 3 : 0;
     const unitPrice = basePrice + cajaExtra + otroladoExtra;
 
     const tipo = document.getElementById('opt-llav-pers-tipo').value;
@@ -1025,6 +1202,148 @@
     if (borla) { opts['Borla'] = borla.value; }
 
     addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price: unitPrice, qty, peso: 8, options: opts });
+  }
+
+  // ── POSAVASOS PERSONALIZADOS ──
+  function posaQtyTier(qty) {
+    if (qty >= 10) return 'evento';
+    if (qty >= 3) return 12;
+    return 18;
+  }
+  function updatePosavasos() {
+    const qtyInput = document.getElementById('opt-posa-qty');
+    let qty = parseInt(qtyInput.value) || 1;
+    if (qty < 1) { qty = 1; qtyInput.value = 1; }
+    const tier = posaQtyTier(qty);
+
+    const evento = tier === 'evento';
+    document.getElementById('posa-evento-wrap').style.display = evento ? 'block' : 'none';
+    document.getElementById('posa-fields').style.display = evento ? 'none' : 'block';
+    document.getElementById('posa-add-btn').style.display = evento ? 'none' : 'block';
+
+    const tramoEl = document.getElementById('posa-tramo');
+    if (tramoEl) {
+      if (evento) {
+        tramoEl.textContent = '';
+      } else if (qty <= 2) {
+        tramoEl.textContent = '1–2 unidades: 18 €/u';
+      } else {
+        tramoEl.textContent = '3–9 unidades: 12 €/u (descuento aplicado)';
+      }
+    }
+
+    if (evento) return;
+
+    const basePrice = tier;
+    const otrolado = document.getElementById('opt-posa-otrolado').value;
+    const otroladoExtra = otrolado === 'si' ? 3 : 0;
+
+    const tipo = document.getElementById('opt-posa-tipo').value;
+    document.getElementById('posa-enfoque-wrap').style.display = tipo === 'unico' ? 'block' : 'none';
+    document.getElementById('posa-nombre-wrap').style.display = tipo === 'nombre' ? 'block' : 'none';
+    document.getElementById('posa-otrolado-texto-wrap').style.display = otrolado === 'si' ? 'block' : 'none';
+
+    const unitPrice = basePrice + otroladoExtra;
+    document.getElementById('opt-posa-total').textContent = (unitPrice * qty).toFixed(0) + ' €';
+  }
+  function addCartPosavasos() {
+    const qtyInput = document.getElementById('opt-posa-qty');
+    const qty = parseInt(qtyInput.value) || 1;
+    const tier = posaQtyTier(qty);
+    if (tier === 'evento') { alert('Para 10 unidades o más, consulta la tarifa de detallitos para eventos.'); return; }
+    const basePrice = tier;
+    const otrolado = document.getElementById('opt-posa-otrolado').value;
+    const otroladoExtra = otrolado === 'si' ? 3 : 0;
+    const unitPrice = basePrice + otroladoExtra;
+
+    const tipo = document.getElementById('opt-posa-tipo').value;
+    if (!tipo) { alert('Por favor indica qué buscas para tu posavasos.'); return; }
+
+    const opts = {};
+    if (tipo === 'unico') {
+      const enfoque = document.getElementById('opt-posa-enfoque')?.value;
+      if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+      opts['Tipo de diseño'] = 'Ilustración única';
+      opts['Enfoque diseño'] = enfoque;
+    } else {
+      const texto = document.getElementById('opt-posa-texto-principal')?.value.trim();
+      if (!texto) { alert('Por favor escribe el nombre o texto que quieres grabar.'); return; }
+      opts['Nombre / texto'] = texto;
+    }
+
+    if (otrolado === 'si') {
+      const otroladoTexto = document.getElementById('opt-posa-otrolado-texto')?.value.trim();
+      if (!otroladoTexto) { alert('Por favor indica qué quieres grabar en el otro lado.'); return; }
+      opts['Otro lado'] = otroladoTexto;
+    }
+
+    opts['Envoltorio'] = document.getElementById('opt-posa-envoltorio')?.value || 'Sin envoltorio individual';
+
+    addToCart({ id: 'posavasos-' + Date.now(), name: 'Posavasos grabado en madera', price: unitPrice, qty, peso: 60, options: opts });
+  }
+
+  // ── ABREBOTELLAS DE BAMBÚ MAGNÉTICO ──
+  function abreQtyTier(qty) {
+    if (qty >= 10) return 'evento';
+    if (qty >= 3) return 7;
+    return 9;
+  }
+  function updateAbrebotellas() {
+    const qtyInput = document.getElementById('opt-abre-qty');
+    let qty = parseInt(qtyInput.value) || 1;
+    if (qty < 1) { qty = 1; qtyInput.value = 1; }
+    const tier = abreQtyTier(qty);
+
+    const evento = tier === 'evento';
+    document.getElementById('abre-evento-wrap').style.display = evento ? 'block' : 'none';
+    document.getElementById('abre-fields').style.display = evento ? 'none' : 'block';
+    document.getElementById('abre-add-btn').style.display = evento ? 'none' : 'block';
+
+    const tramoEl = document.getElementById('abre-tramo');
+    if (tramoEl) {
+      if (evento) {
+        tramoEl.textContent = '';
+      } else if (qty <= 2) {
+        tramoEl.textContent = '1–2 unidades: 9 €/u';
+      } else {
+        tramoEl.textContent = '3–9 unidades: 7 €/u (descuento aplicado)';
+      }
+    }
+
+    if (evento) return;
+
+    const unitPrice = tier;
+    const tipo = document.getElementById('opt-abre-tipo').value;
+    document.getElementById('abre-enfoque-wrap').style.display = tipo === 'unico' ? 'block' : 'none';
+    document.getElementById('abre-nombre-wrap').style.display = tipo === 'nombre' ? 'block' : 'none';
+
+    document.getElementById('opt-abre-total').textContent = (unitPrice * qty).toFixed(0) + ' €';
+  }
+  function addCartAbrebotellas() {
+    const qtyInput = document.getElementById('opt-abre-qty');
+    const qty = parseInt(qtyInput.value) || 1;
+    const tier = abreQtyTier(qty);
+    if (tier === 'evento') { alert('Para 10 unidades o más, consulta la tarifa de detallitos para eventos.'); return; }
+    const unitPrice = tier;
+
+    const tipo = document.getElementById('opt-abre-tipo').value;
+    if (!tipo) { alert('Por favor indica qué buscas para tu abrebotellas.'); return; }
+
+    const opts = {};
+    if (tipo === 'unico') {
+      const enfoque = document.getElementById('opt-abre-enfoque')?.value;
+      if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+      opts['Tipo de diseño'] = 'Ilustración única';
+      opts['Enfoque diseño'] = enfoque;
+    } else {
+      const texto = document.getElementById('opt-abre-texto-principal')?.value.trim();
+      if (!texto) { alert('Por favor escribe el nombre o texto que quieres grabar.'); return; }
+      opts['Nombre / texto'] = texto;
+    }
+
+    opts['Presentación'] = 'Bolsita organza incluida';
+
+    addToCart({ id: 'abrebotellas-' + Date.now(), name: 'Abrebotellas de bambú magnético', price: unitPrice, qty, peso: 40, options: opts });
   }
 
   // ── MARCAPÁGINAS ──
