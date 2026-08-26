@@ -494,10 +494,10 @@
         <h3>Libreta personalizada</h3>
         <p class="product-desc">Libreta con diseño grabado al láser en la portada, personalizada con el nombre, ilustración o texto que quieras. Perfectas como detalle de fin de curso, regalo corporativo o recuerdo de evento.</p>
         <div class="price-block">
-          <div class="price-row"><span>10–25 unidades</span><span class="amount">5,50 € / u</span></div>
-          <div class="price-row"><span>26–50 unidades</span><span class="amount">4,40 € / u</span></div>
-          <div class="price-row"><span>51–100 unidades</span><span class="amount">3,70 € / u</span></div>
-          <div class="price-row"><span>Más de 100 unidades</span><span class="amount">3,50 € / u</span></div>
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">8,50 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">6,50 € / u</span></div>
+          <div class="price-row"><span>51–100 unidades</span><span class="amount">4,80 € / u</span></div>
+          <div class="price-row"><span>Más de 100 unidades</span><span class="amount">3,80 € / u</span></div>
           <div class="price-row"><span>+ nombre individual en cada libreta</span><span class="amount">+ 1,00 € / u</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad · Mismo diseño para todas las libretas del pedido · Estos precios por volumen aplican desde 10 unidades</p>
           <div class="price-alert">✦ Antes de fabricarlas, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
@@ -1071,10 +1071,10 @@
 
   // ── LIBRETAS PERSONALIZADAS ──
   function libretasPrecioUnidad(cantidad) {
-    if (cantidad > 100) return 3.50;
-    if (cantidad >= 51) return 3.70;
-    if (cantidad >= 26) return 4.40;
-    return 5.50;
+    if (cantidad > 100) return 3.80;
+    if (cantidad >= 51) return 4.80;
+    if (cantidad >= 26) return 6.50;
+    return 8.50;
   }
   const LIBRETAS_MAX_FILAS = 150;
   function renderLibretasNombreInd(cantidad) {
