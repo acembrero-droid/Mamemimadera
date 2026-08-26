@@ -619,6 +619,71 @@
       </div>
     </div>
 
+    <div class="product-card fade-in" id="prod-libreta">
+      <div class="product-img" onclick="openLightbox('images/libretas.jpg')">
+        <img src="images/libretas.jpg" alt="Libreta personalizada">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Libreta personalizada</h3>
+        <p class="product-desc">Libreta con diseño grabado al láser en la portada, personalizada con el nombre, ilustración o texto que quieras. Perfecta como detalle de fin de curso, regalo corporativo o recuerdo especial.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1 unidad</span><span class="amount">15 € / u</span></div>
+          <div class="price-row"><span>2–9 unidades</span><span class="amount">10 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Desde 10 unidades, consulta la tarifa de detallitos para eventos</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlas, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad:</label>
+            <input type="number" id="opt-libro-qty" class="opt-input" min="1" value="1" oninput="updateLibretaPers()">
+            <p class="price-note" id="libro-tramo" style="margin-top:0.3rem;">1 unidad: 15 €/u</p>
+          </div>
+          <div id="libro-evento-wrap" style="display:none;">
+            <div class="price-alert">✦ Para 10 unidades o más trabajamos con la tarifa de detallitos para eventos, pensada para cantidades grandes (bodas, comuniones, bautizos, fin de curso...).</div>
+            <a href="detallitos-eventos.html#libretas" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
+          </div>
+          <div id="libro-fields">
+          <div class="opt-row">
+            <label class="opt-label">¿Qué buscas para tu libreta?</label>
+            <select id="opt-libro-tipo" onchange="updateLibretaPers()">
+              <option value="">Elige una opción</option>
+              <option value="unico">Busco crear algo único</option>
+              <option value="nombre">Quiero grabar un nombre o texto</option>
+            </select>
+          </div>
+          <div class="opt-row" id="libro-enfoque-wrap" style="display:none;">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select id="opt-libro-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-row" id="libro-nombre-wrap" style="display:none;">
+            <label class="opt-label">Nombre o texto a grabar</label>
+            <input type="text" id="opt-libro-texto-principal" class="opt-input" placeholder="ej. nombre, logo, iniciales...">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Cuerda de yute</label>
+            <select id="opt-libro-cuerda">
+              <option value="Con cuerda de yute decorada individualmente">Con cuerda de yute decorada individualmente — sin coste adicional</option>
+              <option value="Sin cuerda de yute">Sin cuerda de yute</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-libro-total">15 €</strong></div>
+          </div>
+        </div>
+        <button class="btn-add-cart" id="libro-add-btn" onclick="addCartLibretaPers()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20libreta%20personalizada" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
     <div class="product-card fade-in" id="prod-posavasos">
       <div class="product-img" onclick="openLightbox('images/posavasos.jpg')">
         <img src="images/posavasos.jpg" alt="Posavasos personalizados grabados en madera">
@@ -855,6 +920,7 @@
         </div></div>
       </div>
     </div>
+
     </div>
 </div>
 
@@ -1102,7 +1168,7 @@
 
   // ── APERTURA DIRECTA A UN PRODUCTO VIA HASH (#llavero, #posavasos, #abrebotellas) ──
   (function() {
-    const hashProductIds = { llavero: 'prod-llavero', posavasos: 'prod-posavasos', abrebotellas: 'prod-abrebotellas' };
+    const hashProductIds = { llavero: 'prod-llavero', posavasos: 'prod-posavasos', abrebotellas: 'prod-abrebotellas', libreta: 'prod-libreta' };
     const hash = window.location.hash.replace('#', '');
     if (hashProductIds[hash]) {
       showPage('madera');
@@ -1220,6 +1286,70 @@
     if (borla) { opts['Borla'] = borla.value; }
 
     addToCart({ id: 'llav-pers-' + Date.now(), name: 'Llavero grabado personalizado', price: unitPrice, qty, peso: 8, options: opts });
+  }
+
+  // ── LIBRETA PERSONALIZADA ──
+  function libroQtyTier(qty) {
+    if (qty >= 10) return 'evento';
+    if (qty >= 2) return 10;
+    return 15;
+  }
+  function updateLibretaPers() {
+    const qtyInput = document.getElementById('opt-libro-qty');
+    let qty = parseInt(qtyInput.value) || 1;
+    if (qty < 1) { qty = 1; qtyInput.value = 1; }
+    const tier = libroQtyTier(qty);
+
+    const evento = tier === 'evento';
+    document.getElementById('libro-evento-wrap').style.display = evento ? 'block' : 'none';
+    document.getElementById('libro-fields').style.display = evento ? 'none' : 'block';
+    document.getElementById('libro-add-btn').style.display = evento ? 'none' : 'block';
+
+    const tramoEl = document.getElementById('libro-tramo');
+    if (tramoEl) {
+      if (evento) {
+        tramoEl.textContent = '';
+      } else if (qty <= 1) {
+        tramoEl.textContent = '1 unidad: 15 €/u';
+      } else {
+        tramoEl.textContent = '2–9 unidades: 10 €/u (descuento aplicado)';
+      }
+    }
+
+    if (evento) return;
+
+    const unitPrice = tier;
+    const tipo = document.getElementById('opt-libro-tipo').value;
+    document.getElementById('libro-enfoque-wrap').style.display = tipo === 'unico' ? 'block' : 'none';
+    document.getElementById('libro-nombre-wrap').style.display = tipo === 'nombre' ? 'block' : 'none';
+
+    document.getElementById('opt-libro-total').textContent = (unitPrice * qty).toFixed(2).replace('.', ',') + ' €';
+  }
+  function addCartLibretaPers() {
+    const qtyInput = document.getElementById('opt-libro-qty');
+    const qty = parseInt(qtyInput.value) || 1;
+    const tier = libroQtyTier(qty);
+    if (tier === 'evento') { alert('Para 10 unidades o más, consulta la tarifa de detallitos para eventos.'); return; }
+    const unitPrice = tier;
+
+    const tipo = document.getElementById('opt-libro-tipo').value;
+    if (!tipo) { alert('Por favor indica qué buscas para tu libreta.'); return; }
+
+    const opts = {};
+    if (tipo === 'unico') {
+      const enfoque = document.getElementById('opt-libro-enfoque')?.value;
+      if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+      opts['Tipo de diseño'] = 'Ilustración única';
+      opts['Enfoque diseño'] = enfoque;
+    } else {
+      const texto = document.getElementById('opt-libro-texto-principal')?.value.trim();
+      if (!texto) { alert('Por favor escribe el nombre o texto que quieres grabar.'); return; }
+      opts['Nombre / texto'] = texto;
+    }
+
+    opts['Cuerda de yute'] = document.getElementById('opt-libro-cuerda')?.value || 'Con cuerda de yute decorada individualmente';
+
+    addToCart({ id: 'libro-pers-' + Date.now(), name: 'Libreta personalizada', price: unitPrice, qty, peso: 200, options: opts });
   }
 
   // ── POSAVASOS PERSONALIZADOS ──
