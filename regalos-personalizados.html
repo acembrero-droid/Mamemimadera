@@ -358,21 +358,24 @@
         <h3>Nombre para puerta</h3>
         <p class="product-desc">Nombre en 3D para colgar en la puerta de la habitación. Impreso y acabado a mano, disponible en distintos colores. Un detalle precioso para personalizar cualquier espacio.</p>
         <div class="price-block">
-          <div class="price-row"><span>1 unidad</span><span class="amount">25 €</span></div>
-          <div class="price-row"><span>Pack desde 3 unidades</span><span class="amount">17 € / u</span></div>
-          <p class="price-note">✦ IVA incluido</p>
+          <div class="price-row"><span>1–2 nombres</span><span class="amount">20 € / u</span></div>
+          <div class="price-row"><span>3 o más nombres</span><span class="amount">18 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Para más de 10 nombres, escríbeme por WhatsApp — cada nombre es 100% personalizado y prefiero verlo contigo antes de dar precio</p>
         </div>
         <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
         <div class="product-collapsible"><div>
         <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
           <div class="opt-row">
-            <label class="opt-label">Cantidad:</label>
-            <select id="opt-puerta-qty" onchange="updatePuerta()">
-              <option value="25|1">1 unidad — 25 €</option>
-              <option value="19|3">Pack 3 unidades — 19 € / u (57 € total)</option>
-            </select>
+            <label class="opt-label">Cantidad de nombres:</label>
+            <input type="number" id="opt-puerta-qty" class="opt-input" min="1" value="1" oninput="updatePuerta()">
+            <p class="price-note" id="puerta-tramo" style="margin-top:0.3rem;">1–2 nombres: 20 €/u</p>
           </div>
+          <div id="puerta-consulta-wrap" style="display:none;">
+            <div class="price-alert">✦ Para más de 10 nombres prefiero verlo contigo por WhatsApp, ya que cada nombre es 100% personalizado y el precio se ajusta según el pedido.</div>
+            <a id="puerta-consulta-link" href="#" target="_blank" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Escríbeme por WhatsApp →</a>
+          </div>
+          <div id="puerta-fields">
           <p class="opt-label" style="margin:0.6rem 0 0.3rem;">Nombre(s) y color de cada uno:</p>
           <p style="font-size:0.7rem;margin:0 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
           <div id="puerta-nombres-wrap">
@@ -388,10 +391,10 @@
               </select>
             </div>
           </div>
-          <button type="button" onclick="addPuertaRow()" style="background:none;border:1.5px dashed var(--wood-mid);border-radius:8px;padding:0.35rem 0.8rem;font-size:0.78rem;color:var(--wood-dark);cursor:pointer;margin-top:0.3rem;font-family:Nunito,sans-serif;">+ Añadir otro nombre</button>
-          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">25 €</strong></div>
+          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">20 €</strong></div>
+          </div>
         </div>
-        <button class="btn-add-cart" onclick="addCartPuertaV2()">Añadir al carrito</button>
+        <button class="btn-add-cart" id="puerta-add-btn" onclick="addCartPuertaV2()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
         </div></div>
       </div>
@@ -459,7 +462,7 @@
         <div class="price-block">
           <div class="price-row"><span>Grabado personalizado</span><span class="amount">39 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad · Botella no incluida</p>
-          <p class="price-note">¿La necesitas para una boda o evento? <a href="detallitos-eventos.html" style="color:var(--mint-dark);font-weight:700;">Mira los precios por cantidad →</a></p>
+          <p class="price-note">¿La necesitas para una boda o evento? <a href="detallitos-eventos.html#cajavino" style="color:var(--mint-dark);font-weight:700;">Mira los precios por cantidad →</a></p>
         </div>
         <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
         <div class="product-collapsible"><div>
@@ -710,7 +713,7 @@
           </div>
           <div id="posa-evento-wrap" style="display:none;">
             <div class="price-alert">✦ Para 10 unidades o más trabajamos con la tarifa de detallitos para eventos, pensada para cantidades grandes (bodas, comuniones, bautizos...).</div>
-            <a href="detallitos-eventos.html" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
+            <a href="detallitos-eventos.html#posavasos" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
           </div>
           <div id="posa-fields">
           <div class="opt-row">
@@ -797,7 +800,7 @@
           </div>
           <div id="abre-evento-wrap" style="display:none;">
             <div class="price-alert">✦ Para 10 unidades o más trabajamos con la tarifa de detallitos para eventos, pensada para cantidades grandes (bodas, comuniones, bautizos...).</div>
-            <a href="detallitos-eventos.html" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
+            <a href="detallitos-eventos.html#imanes" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
           </div>
           <div id="abre-fields">
           <div class="opt-row">
@@ -855,7 +858,7 @@
           </div>
           <div id="llav-pers-evento-wrap" style="display:none;">
             <div class="price-alert">✦ Para 10 unidades o más trabajamos con la tarifa de detallitos para eventos, pensada para cantidades grandes (bodas, comuniones, bautizos...).</div>
-            <a href="detallitos-eventos.html" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
+            <a href="detallitos-eventos.html#llaveros" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Ver precios por cantidad para eventos →</a>
           </div>
           <div id="llav-pers-fields">
           <div class="opt-row">
@@ -1433,8 +1436,8 @@
   // ── ABREBOTELLAS DE BAMBÚ MAGNÉTICO ──
   function abreQtyTier(qty) {
     if (qty >= 10) return 'evento';
-    if (qty >= 3) return 7;
-    return 9;
+    if (qty >= 3) return 10;
+    return 13;
   }
   function updateAbrebotellas() {
     const qtyInput = document.getElementById('opt-abre-qty');
@@ -1452,9 +1455,9 @@
       if (evento) {
         tramoEl.textContent = '';
       } else if (qty <= 2) {
-        tramoEl.textContent = '1–2 unidades: 9 €/u';
+        tramoEl.textContent = '1–2 unidades: 13 €/u';
       } else {
-        tramoEl.textContent = '3–9 unidades: 7 €/u (descuento aplicado)';
+        tramoEl.textContent = '3–9 unidades: 10 €/u (descuento aplicado)';
       }
     }
 
@@ -1628,38 +1631,81 @@
   }
 
   // ── NOMBRE PUERTA ──
-  function updatePuerta() {
-    const sel = document.getElementById('opt-puerta-qty');
-    if (!sel) return;
-    const [price, qty] = sel.value.split('|');
-    document.getElementById('opt-puerta-total').textContent = (parseFloat(price) * parseInt(qty)).toFixed(0) + ' €';
-    const wrap = document.getElementById('puerta-nombres-wrap');
-    const q = parseInt(qty);
-    const rows = wrap.querySelectorAll('.puerta-nombre-row');
-    if (rows.length < q) for (let i = rows.length; i < q; i++) addPuertaRow();
+  function puertaQtyTier(qty) {
+    if (qty > 10) return 'consulta';
+    if (qty >= 3) return 18;
+    return 20;
   }
-  function addPuertaRow() {
+  function renderPuertaRows(qty) {
     const wrap = document.getElementById('puerta-nombres-wrap');
-    const count = wrap.querySelectorAll('.puerta-nombre-row').length + 1;
-    const row = document.createElement('div');
-    row.className = 'puerta-nombre-row';
-    row.style.cssText = 'display:grid;grid-template-columns:1fr auto auto;gap:0.4rem;margin-bottom:0.4rem;';
-    const inp = document.createElement('input'); inp.type = 'text'; inp.className = 'opt-input puerta-nombre'; inp.placeholder = 'Nombre ' + count; inp.style.margin = '0';
-    const sel = document.createElement('select'); sel.className = 'opt-input puerta-color'; sel.style.cssText = 'margin:0;width:130px;';
-    ['','Verde menta','Blanco','Negro','Burdeos','Otro (a confirmar por WhatsApp)'].forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v === 'Otro (a confirmar por WhatsApp)' ? 'Otro (consultar)' : (v || 'Color'); sel.appendChild(o); });
-    const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = '✕'; btn.style.cssText = 'background:#fee;border:none;border-radius:6px;width:28px;cursor:pointer;color:#c0392b;font-weight:700;'; btn.onclick = function() { this.parentNode.remove(); };
-    row.appendChild(inp); row.appendChild(sel); row.appendChild(btn);
-    wrap.appendChild(row);
+    if (!wrap) return;
+    const valoresActuales = Array.from(wrap.querySelectorAll('.puerta-nombre')).map(i => i.value);
+    const coloresActuales = Array.from(wrap.querySelectorAll('.puerta-color')).map(s => s.value);
+    wrap.innerHTML = '';
+    for (let i = 1; i <= qty; i++) {
+      const row = document.createElement('div');
+      row.className = 'puerta-nombre-row';
+      row.style.cssText = 'display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;';
+      const inp = document.createElement('input');
+      inp.type = 'text'; inp.className = 'opt-input puerta-nombre'; inp.placeholder = 'Nombre ' + i; inp.style.margin = '0';
+      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
+      const sel = document.createElement('select');
+      sel.className = 'opt-input puerta-color'; sel.style.cssText = 'margin:0;width:130px;';
+      ['', 'Verde menta', 'Blanco', 'Negro', 'Burdeos', 'Otro (a confirmar por WhatsApp)'].forEach(v => {
+        const o = document.createElement('option');
+        o.value = v;
+        o.textContent = v === 'Otro (a confirmar por WhatsApp)' ? 'Otro (consultar)' : (v || 'Color');
+        sel.appendChild(o);
+      });
+      if (coloresActuales[i - 1]) sel.value = coloresActuales[i - 1];
+      row.appendChild(inp); row.appendChild(sel);
+      wrap.appendChild(row);
+    }
+  }
+  function updatePuerta() {
+    const qtyInput = document.getElementById('opt-puerta-qty');
+    let qty = parseInt(qtyInput.value) || 1;
+    if (qty < 1) { qty = 1; qtyInput.value = 1; }
+    const tier = puertaQtyTier(qty);
+
+    const consulta = tier === 'consulta';
+    document.getElementById('puerta-consulta-wrap').style.display = consulta ? 'block' : 'none';
+    document.getElementById('puerta-fields').style.display = consulta ? 'none' : 'block';
+    document.getElementById('puerta-add-btn').style.display = consulta ? 'none' : 'block';
+
+    const tramoEl = document.getElementById('puerta-tramo');
+    if (tramoEl) {
+      if (consulta) {
+        tramoEl.textContent = '';
+      } else if (qty <= 2) {
+        tramoEl.textContent = '1–2 nombres: 20 €/u';
+      } else {
+        tramoEl.textContent = '3 o más nombres: 18 €/u (descuento aplicado)';
+      }
+    }
+
+    if (consulta) {
+      const link = document.getElementById('puerta-consulta-link');
+      if (link) link.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + qty + ' nombres para puerta, ¿cómo lo gestionamos al ser más de 10?');
+      return;
+    }
+
+    renderPuertaRows(qty);
+    const unitPrice = tier;
+    document.getElementById('opt-puerta-total').textContent = (unitPrice * qty).toFixed(0) + ' €';
   }
   function addCartPuertaV2() {
-    const sel = document.getElementById('opt-puerta-qty');
-    const [price, qty] = sel.value.split('|');
+    const qtyInput = document.getElementById('opt-puerta-qty');
+    const qty = parseInt(qtyInput.value) || 1;
+    const tier = puertaQtyTier(qty);
+    if (tier === 'consulta') { alert('Para más de 10 nombres, escríbeme por WhatsApp y lo vemos juntas.'); return; }
+    const unitPrice = tier;
     const nombres = Array.from(document.querySelectorAll('.puerta-nombre')).map(i => i.value.trim()).filter(Boolean);
     const colores = Array.from(document.querySelectorAll('.puerta-color')).map(s => s.value);
     if (nombres.length === 0) { alert('Por favor escribe al menos un nombre.'); return; }
     const opts = {};
-    nombres.forEach((n, i) => { opts['Nombre ' + (i+1)] = n + (colores[i] ? ' (' + colores[i] + ')' : ''); });
-    addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: parseFloat(price), qty: parseInt(qty), peso: 55, options: opts });
+    nombres.forEach((n, i) => { opts['Nombre ' + (i + 1)] = n + (colores[i] ? ' (' + colores[i] + ')' : ''); });
+    addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: unitPrice, qty, peso: 55, options: opts });
   }
 
   // ── LETRA 3D ──
