@@ -345,8 +345,8 @@
             <label class="opt-label">¿Grabado también por el otro lado?</label>
             <select class="opt-input" id="llaveventos-otrolado" onchange="updateLlaverosEventos()">
               <option value="no">No, un solo lado</option>
-              <option value="mismo">Sí, el mismo diseño para todos (+2 €/u)</option>
-              <option value="distinto">Sí, un diseño distinto por llavero (+3 €/u)</option>
+              <option value="mismo">Sí, el mismo diseño para todos (+1 €/u)</option>
+              <option value="distinto">Sí, un diseño distinto por llavero (+2 €/u)</option>
             </select>
           </div>
           <div class="opt-row" id="llaveventos-mismo-wrap" style="display:none;">
@@ -699,10 +699,10 @@
 
   // ── IMANES ABREBOTELLAS ──
   function imanesPrecioUnidad(cantidad) {
-    if (cantidad > 100) return 3.40;
-    if (cantidad >= 51) return 3.80;
-    if (cantidad >= 26) return 4.50;
-    return 5.50;
+    if (cantidad > 100) return 3.80;
+    if (cantidad >= 51) return 4.50;
+    if (cantidad >= 26) return 6.00;
+    return 8.50;
   }
   function updateImanes() {
     const cantidad = parseInt(document.getElementById('imanes-cantidad')?.value) || 0;
