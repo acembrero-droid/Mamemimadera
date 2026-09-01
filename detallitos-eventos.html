@@ -3,16 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Colección Cocina – MAMEMI Madera</title>
+  <title>Detallitos para Eventos – MAMEMI Madera</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
-      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
-      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
-      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
-      --ocean: #1a4a7a; --forest: #2d6a4f; --autumn: #b5651d;
-    }
+    :root { --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c; --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8; --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4; --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13); }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
@@ -34,35 +28,29 @@
     .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; }
     .cat-divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; max-width: 900px; margin: 0 auto; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
     .cat-card { position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; display: block; }
     .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
-    .cat-card .img-wrap { width: 100%; height: 280px; overflow: hidden; }
+    .cat-card .img-wrap { width: 100%; height: 260px; overflow: hidden; }
     .cat-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .cat-card:hover .img-wrap img { transform: scale(1.07); }
     .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.5rem 1.2rem; background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%); color: #fff; }
-    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
-    .cat-info p { font-size: 0.8rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.25rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+    .cat-info p { font-size: 0.78rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
     .cat-arrow { display: inline-block; margin-top: 0.5rem; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(4px); transition: background 0.25s; }
     .cat-card:hover .cat-arrow { background: var(--mint-dark); }
     .product-page { display: none; padding: 2rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
     .product-page.active { display: block; }
     .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
     .back-btn:hover { background: var(--wood-light); }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; align-items: start; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; }
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
-    .product-card.mar { border-top: 3px solid var(--ocean); }
-    .product-card.montana { border-top: 3px solid var(--forest); }
-    .product-card.otono { border-top: 3px solid var(--autumn); }
-    .product-img { position: relative; height: 300px; overflow: hidden; cursor: zoom-in; }
+    .product-img { position: relative; height: 250px; overflow: hidden; cursor: zoom-in; }
     .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .product-card:hover .product-img img { transform: scale(1.05); }
+    .product-card:hover .product-img img { transform: scale(1.06); }
     .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
     .product-card:hover .zoom-icon { opacity: 1; }
-    .mar-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--ocean); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; z-index: 2; }
-    .montana-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--forest); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
-    .otono-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--autumn); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
     .personalizable-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
     .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
     .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
@@ -72,28 +60,37 @@
     .price-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.82rem; color: var(--text-mid); padding: 0.25rem 0; border-bottom: 1px dashed var(--wood-light); }
     .price-row:last-of-type { border-bottom: none; }
     .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.92rem; }
-    .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
+    .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; line-height: 1.5; }
     .price-alert { font-size: 0.78rem; color: var(--wood-dark); font-weight: 600; background: var(--wood-light); border-radius: 8px; padding: 0.5rem 0.75rem; margin-top: 0.5rem; line-height: 1.5; }
     .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-contact:hover { background: var(--mint-dark); }
-    .btn-mar:hover { background: var(--ocean) !important; }
-    .btn-montana:hover { background: var(--forest) !important; }
-    .btn-otono:hover { background: var(--autumn) !important; }
-    .cs-section { padding: 0 2rem 4rem; max-width: 1100px; margin: 0 auto; }
-    .cs-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-mid); font-style: italic; margin-bottom: 1rem; }
-    .cs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
-    .cs-card { background: #fff; border-radius: 14px; border: 1.5px dashed var(--wood-mid); padding: 1.5rem 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-    .cs-card h3 { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--wood-deep); }
-    .cs-card p { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; }
-    .cs-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mint-dark); background: var(--mint-light); padding: 0.2rem 0.6rem; border-radius: 20px; }
+    .btn-contact-secondary { display: block; text-align: center; margin-top: 0.6rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.6rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.25s; }
+    .btn-contact-secondary:hover { background: var(--wood-light); }
+    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
+    .opt-row { margin-bottom: 0.5rem; }
+    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
+    .opt-row select:focus { border-color: var(--mint-dark); }
+    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
+    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
+    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
+    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .btn-add-cart:hover { background: var(--wood-dark); }
+    .mini-carousel { position: relative; width: 100%; overflow: hidden; }
+    .mini-track { display: flex; transition: transform 0.4s ease; }
+    .mini-track img { width: 100%; height: 250px; object-fit: cover; flex-shrink: 0; cursor: zoom-in; }
+    .mc-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,248,240,0.9); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px var(--shadow); }
+    .mc-prev { left: 0.5rem; } .mc-next { right: 0.5rem; }
+    .mc-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.35rem; }
+    .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
+    .mc-dot.active { background: #fff; }
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
     .lightbox.active { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
     .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
     .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 2rem; width: 52px; height: 52px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1001; transition: background 0.2s; }
     .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
-    .lightbox-nav.prev { left: 1rem; }
-    .lightbox-nav.next { right: 1rem; }
+    .lightbox-nav.prev { left: 1rem; } .lightbox-nav.next { right: 1rem; }
     @media (max-width: 640px) { .lightbox-nav { width: 42px; height: 42px; font-size: 1.6rem; } .lightbox-nav.prev { left: 0.4rem; } .lightbox-nav.next { right: 0.4rem; } }
     .lightbox-close:hover { background: rgba(255,255,255,0.3); }
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
@@ -102,50 +99,12 @@
     footer a:hover { color: var(--mint); }
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 640px) {
-      nav { padding: 0 0.8rem; }
-      .nav-actions { gap: 0.4rem; }
-      .nav-back { font-size: 0.7rem; }
-      .nav-cta { padding: 0.45rem 0.8rem !important; font-size: 0.68rem !important; }
-      .cart-btn { padding: 0.45rem 0.8rem; font-size: 0.68rem; }
-      .cat-grid, .products-grid, .cs-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
-    }
+    @media (max-width: 640px) { nav { padding: 0 0.8rem; } .nav-actions { gap: 0.4rem; } .nav-back { font-size: 0.7rem; } .nav-cta { padding: 0.45rem 0.8rem !important; font-size: 0.68rem !important; } .cart-btn { padding: 0.45rem 0.8rem; font-size: 0.68rem; } .cat-grid, .products-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; } }
     @media (max-width: 380px) { .nav-back { display: none; } }
-    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
-    .btn-add-cart:hover { background: var(--wood-dark); }
-    .btn-personalize { display: flex; align-items: center; justify-content: center; gap: 0.4rem; width: 100%; margin-top: 0.7rem; padding: 0.65rem 1rem; background: #fff; color: var(--wood-dark); border: 1.5px solid var(--wood-mid); border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
-    .btn-personalize:hover { background: var(--wood-light); }
-    .btn-personalize .chev { display: inline-block; transition: transform 0.3s ease; font-size: 0.7rem; }
-    .product-card.expanded .btn-personalize .chev { transform: rotate(180deg); }
-    .product-card.expanded .btn-personalize { background: var(--wood-light); }
-    .product-collapsible { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s ease, opacity 0.3s ease; }
-    .product-collapsible > div { overflow: hidden; }
-    .product-card.expanded .product-collapsible { grid-template-rows: 1fr; opacity: 1; }
     .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
     .cart-btn:hover { background: #4d8a72; }
     .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
     .cart-btn:active { outline: none !important; }
-    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
-    .opt-row { margin-bottom: 0.5rem; }
-    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    .opt-input { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; box-sizing: border-box; }
-    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
-    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
-    .carousel { position: relative; overflow: hidden; height: 300px; width: 100%; }
-    .carousel-track { display: flex; height: 100%; transition: transform 0.4s ease; will-change: transform; }
-    .carousel-slide { min-width: 100%; width: 100%; flex-shrink: 0; position: relative; cursor: zoom-in; height: 300px; overflow: hidden; }
-    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
-    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.85); border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.2rem; cursor: pointer; z-index: 2; display: flex; align-items: center; justify-content: center; }
-    .carousel-btn.prev { left: 0.5rem; }
-    .carousel-btn.next { right: 0.5rem; }
-    .carousel-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.4rem; }
-    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
-    .carousel-dot.active { background: #fff; }
-    @media (max-width: 640px) {
-      .carousel { height: 260px; }
-      .carousel-slide { height: 260px; }
-    }
   </style>
 </head>
 <body>
@@ -153,227 +112,494 @@
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <a href="index.html" class="nav-back">← Inicio</a>
   <div class="nav-actions">
-    <a href="https://wa.me/34622562499?text=Hola!%20Tengo%20una%20duda" target="_blank" class="nav-cta">¿Hablamos?</a>
+    <a href="https://wa.me/34622562499?text=Hola!%20Tengo%20una%20duda" class="nav-cta" target="_blank">¿Hablamos?</a>
     <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
   </div>
 </nav>
 
 <div class="page-hero">
-  <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Colección Cocina</p>
-  <h1>Colección Cocina</h1>
+  <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Detallitos para Eventos</p>
+  <h1>Detallitos para Eventos</h1>
   <div class="divider"></div>
-  <p>La belleza de lo natural en tu día a día. Diseños exclusivos elaborados principalmente en madera de primera calidad que aúnan utilidad y decoración. Piezas con alma y mucha personalidad, creadas para acompañarte en la mesa y con tus mejores recetas.</p>
+  <p>Hay momentos en la vida que se quedan grabados para siempre. Por eso diseño y mimo cada pieza para que tus invitados se lleven a su hogar un pedacito de esa magia: un recuerdo natural, único y personalizado para tu boda, aniversario o cualquier otra celebración especial. Y como cada evento es un mundo, el presupuesto se adapta según el volumen del pedido.</p>
 </div>
 
 <section class="cat-section" id="catGrid">
-  <p class="section-label">Colecciones</p>
-  <h2 class="section-title">¿Qué colección te apetece ver?</h2>
+  <p class="section-label">Explora</p>
+  <h2 class="section-title">¿Qué detalle estás buscando?</h2>
   <div class="cat-divider"></div>
   <div class="cat-grid">
-    <a class="cat-card fade-in" onclick="showPage('mar-montana'); return false;" href="#">
-      <div class="img-wrap"><img src="images/tabla_mar_montana.jpg" alt="Tablas de cocina"></div>
-      <div class="cat-info">
-        <h3>Tablas de cocina</h3>
-        <p>Mar · Montaña · Otoño</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
+    <a class="cat-card fade-in" onclick="showPage('marcasitios'); return false;" href="#">
+      <div class="img-wrap"><img src="images/marcasitio1.jpg" alt="Marcasitios boda"></div>
+      <div class="cat-info"><h3>Marcasitios para boda</h3><p>Madera natural · Varios estilos · Precio a consultar</p><span class="cat-arrow">Ver más →</span></div>
     </a>
-    <a class="cat-card fade-in" onclick="showPage('mesa'); return false;" href="#">
-      <div class="img-wrap"><img src="images/servilletero1.jpg" alt="Mamemi en la mesa"></div>
-      <div class="cat-info">
-        <h3>Mamemi en la mesa</h3>
-        <p>Servilleteros de mimbre · Detalles para la mesa</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
+    <a class="cat-card fade-in" onclick="showPage('imanes'); return false;" href="#">
+      <div class="img-wrap"><img src="images/iman.jpg" alt="Imanes abrebotellas"></div>
+      <div class="cat-info"><h3>Imanes abrebotellas</h3><p>Bambú · Grabado láser · Detalle práctico y original</p><span class="cat-arrow">Ver más →</span></div>
     </a>
-    <a class="cat-card fade-in" onclick="showPage('abrepared'); return false;" href="#">
-      <div class="img-wrap"><img src="images/abrebotellas_pared.jpg" alt="Abrebotellas de pared"></div>
-      <div class="cat-info">
-        <h3>Abrebotellas de pared</h3>
-        <p>Madera con cesta metálica recoge chapas</p>
-        <span class="cat-arrow">Ver más →</span>
-      </div>
+    <a class="cat-card fade-in" onclick="showPage('llaveros'); return false;" href="#">
+      <div class="img-wrap"><img src="images/llavero-eventos.jpg" alt="Llaveros para eventos"></div>
+      <div class="cat-info"><h3>Llaveros para eventos</h3><p>Madera natural · Grabado láser · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
+    <a class="cat-card fade-in" onclick="showPage('posavasos'); return false;" href="#">
+      <div class="img-wrap"><img src="images/posavasos-eventos.jpg" alt="Posavasos para eventos"></div>
+      <div class="cat-info"><h3>Posavasos para eventos</h3><p>Madera natural · Grabado láser · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
+    <a class="cat-card fade-in" onclick="showPage('libretas'); return false;" href="#">
+      <div class="img-wrap"><img src="images/libretas.jpg" alt="Libretas personalizadas"></div>
+      <div class="cat-info"><h3>Libretas personalizadas</h3><p>Grabado láser · Desde 1 unidad · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
+    </a>
+    <a class="cat-card fade-in" onclick="showPage('cajavino'); return false;" href="#">
+      <div class="img-wrap"><img src="images/cajavino.jpg" alt="Cajas de vino personalizadas"></div>
+      <div class="cat-info"><h3>Cajas de vino personalizadas</h3><p>Madera de kiri · Grabado láser · Precios por volumen</p><span class="cat-arrow">Ver más →</span></div>
     </a>
   </div>
 </section>
 
-<!-- TABLAS DE COCINA PAGE -->
-<div class="product-page" id="page-mar-montana">
-  <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
-  <div class="products-grid">
-    <div class="product-card mar fade-in">
-      <div style="position:relative;">
-        <div class="carousel" id="mar-carousel">
-          <div class="carousel-track" id="mar-track">
-            <div class="carousel-slide" onclick="openLightbox('images/tabla_mar_conjunto.jpg', this)">
-              <img src="images/tabla_mar_conjunto.jpg" alt="Tabla Mar conjunto">
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('images/tabla_mar_packaging.jpg', this)">
-              <img src="images/tabla_mar_packaging.jpg" alt="Tabla Mar con packaging">
-            </div>
-          </div>
-          <button class="carousel-btn prev" onclick="moveCarousel('mar', -1)">‹</button>
-          <button class="carousel-btn next" onclick="moveCarousel('mar', 1)">›</button>
-          <div class="carousel-dots">
-            <span class="carousel-dot active" onclick="goToSlide('mar', 0)"></span>
-            <span class="carousel-dot" onclick="goToSlide('mar', 1)"></span>
-          </div>
-        </div>
-        <span class="zoom-icon">🔍</span>
-        <span class="mar-badge">🌊 Mar</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
-        <h3>Tabla de cocina · Mar</h3>
-        <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño del mar de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'tabla-mar',name:'Tabla de cocina · Mar',price:32,peso:680,options:{}})">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Mar" class="btn-contact btn-mar" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card montana fade-in">
-      <div class="product-img" onclick="openLightbox('images/tabla_montana.jpg')">
-        <img src="images/tabla_montana.jpg" alt="Tabla cocina Montaña">
-        <span class="montana-badge">🌿 Montaña</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
-        <h3>Tabla de cocina · Montaña</h3>
-        <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño de montaña de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'tabla-montana',name:'Tabla de cocina · Montaña',price:32,peso:680,options:{}})">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Monta%C3%B1a" class="btn-contact btn-montana" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card otono fade-in">
-      <div class="product-img" onclick="openLightbox('images/tabla_otono.jpg')">
-        <img src="images/tabla_otono.jpg" alt="Tabla cocina Otoño">
-        <span class="otono-badge">🍂 Otoño</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
-        <h3>Tabla de cocina · Otoño</h3>
-        <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño de una hoja seca de árbol de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'tabla-otono',name:'Tabla de cocina · Otoño',price:32,peso:680,options:{}})">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Oto%C3%B1o" class="btn-contact btn-otono" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="cs-section" style="padding: 2rem 0 0;">
-    <h3 class="cs-title">✦ Próximamente más productos en Tablas de cocina ✦</h3>
-    <div class="cs-grid">
-      <div class="cs-card fade-in"><h3>Posavasos</h3><p>Madera y porcelana</p><span class="cs-badge">Próximamente</span></div>
-      <div class="cs-card fade-in"><h3>Salero y pimentero</h3><p>Diseño exclusivo</p><span class="cs-badge">Próximamente</span></div>
-      <div class="cs-card fade-in"><h3>Pack tabla + accesorios</h3><p>Set completo</p><span class="cs-badge">Próximamente</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- MAMEMI EN LA MESA -->
-<div class="product-page" id="page-mesa">
-  <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
+<!-- ── MARCASITIOS ── -->
+<div class="product-page" id="page-marcasitios">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
   <div class="products-grid">
     <div class="product-card fade-in">
-      <div style="position:relative;">
-        <div class="carousel" id="serv-carousel">
-          <div class="carousel-track" id="serv-track">
-            <div class="carousel-slide" onclick="openLightbox('images/servilletero1.jpg', this)">
-              <img src="images/servilletero1.jpg" alt="Pack servilleteros de mimbre">
-            </div>
-            <div class="carousel-slide" onclick="openLightbox('images/servilletero2.jpg', this)">
-              <img src="images/servilletero2.jpg" alt="Servilletero de mimbre con servilleta">
-            </div>
+      <div class="product-img" style="position:relative; height:250px;">
+        <div class="mini-carousel">
+          <div class="mini-track" id="marcaTrack">
+            <img src="images/marcasitio1.jpg" alt="Marcasitio redondo grabado" onclick="openLightbox(this.src, this)">
+            <img src="images/marcasitio2.jpg" alt="Marcasitio verde menta" onclick="openLightbox(this.src, this)">
+            <img src="images/marcasitio3.jpg" alt="Marcasitio oval madera" onclick="openLightbox(this.src, this)">
+            <img src="images/marcasitio4.jpg" alt="Marcasitio nombre 3D" onclick="openLightbox(this.src, this)">
+            <img src="images/marcasitio5.jpg" alt="Marcasitio oscuro" onclick="openLightbox(this.src, this)">
           </div>
-          <button class="carousel-btn prev" onclick="moveCarousel('serv', -1)">‹</button>
-          <button class="carousel-btn next" onclick="moveCarousel('serv', 1)">›</button>
-          <div class="carousel-dots">
-            <span class="carousel-dot active" onclick="goToSlide('serv', 0)"></span>
-            <span class="carousel-dot" onclick="goToSlide('serv', 1)"></span>
+          <button class="mc-btn mc-prev" onclick="moveMarca(-1)">‹</button>
+          <button class="mc-btn mc-next" onclick="moveMarca(1)">›</button>
+          <div class="mc-dots">
+            <div class="mc-dot active" onclick="goMarca(0)"></div>
+            <div class="mc-dot" onclick="goMarca(1)"></div>
+            <div class="mc-dot" onclick="goMarca(2)"></div>
+            <div class="mc-dot" onclick="goMarca(3)"></div>
+            <div class="mc-dot" onclick="goMarca(4)"></div>
           </div>
         </div>
         <span class="zoom-icon">🔍</span>
+        <span class="personalizable-badge">Personalizable</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Mamemi en la mesa</p>
-        <h3>Servilleteros de mimbre</h3>
-        <p class="product-desc">Servilleteros de mimbre natural trenzado a mano, con una etiqueta "Gracias por apostar por lo artesanal". Un detalle precioso para la mesa del día a día o para regalar. Se presentan con un lazo de rafia y flores secas, listos para entregar.</p>
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Marcasitios para boda</h3>
+        <p class="product-desc">Marcasitios de madera contrachapada grabados al láser con el nombre de cada invitado, disponibles en varios modelos: redondo pequeño, ovalado, ovalado con nombre en 3D o totalmente impreso en 3D. ¿Buscas otro diseño, modelo o calidad de madera distinta a las que ves aquí? Escríbeme y preparamos juntos un presupuesto a medida.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Según modelo · 10–24 uds</span><span class="amount">desde 2,50 €/u</span></div>
+          <div class="price-row"><span>Según modelo · 25–60 uds</span><span class="amount">desde 1,60 €/u</span></div>
+          <div class="price-row"><span>Según modelo · 61–120 uds</span><span class="amount">desde 1,35 €/u</span></div>
+          <div class="price-row"><span>Según modelo · más de 120 uds</span><span class="amount">desde 1,15 €/u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio exacto según el modelo elegido y la cantidad (ver desglose abajo) · Estos precios por volumen aplican desde 10 unidades</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+          <div class="price-alert">✦ El precio indicado es únicamente por la pieza del marcasitio. Si quieres completarlo con ramillete de flores, cuerda para la servilleta u otros detalles, coméntamelo en "Extras" o por WhatsApp y te paso presupuesto aparte para esos extras.</div>
+        </div>
         <div class="product-options">
           <div class="opt-row">
-            <label class="opt-label">Cantidad:</label>
-            <select id="opt-servilletero-qty" class="opt-input" onchange="updateServilletero()">
-              <option value="5|1">1 unidad — 5 €</option>
-              <option value="16|4">Pack de 4 unidades — 16 €</option>
+            <label class="opt-label">Modelo</label>
+            <select class="opt-input" id="marcasitios-modelo" onchange="updateMarcasitios()">
+              <option value="redondo">Marcasitio redondo pequeño</option>
+              <option value="ovalado">Marcasitio ovalado</option>
+              <option value="ovalado3d">Óvalo con nombre en 3D</option>
+              <option value="todo3d">Todo impreso en 3D</option>
             </select>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-servilletero-total">5 €</strong></div>
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="marcasitios-cantidad" min="1" placeholder="Nº de unidades" oninput="updateMarcasitios()">
+            <p class="price-note" id="marcasitios-desglose" style="margin-top:0.3rem;">Elige modelo y cantidad para ver el precio</p>
+          </div>
+          <div id="marcasitios-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            Estos precios por volumen aplican desde 10 unidades. Para cantidades menores, escríbeme y vemos qué opciones tenemos.
+            <a id="marcasitios-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
+          </div>
+          <div class="opt-row"><label class="opt-label">Extras (opcional): ramillete de flores, cuerda para servilleta...</label><input type="text" class="opt-input" id="marcasitios-extras" placeholder="ej. con ramillete de flores secas, con cuerda de yute..."></div>
+          <div class="opt-row">
+            <label class="opt-label">Nombres de los invitados (uno por marcasitio)</label>
+            <p style="font-size:0.7rem;margin:0 0 0.4rem;color:var(--text-mid);">Se genera una fila por cada unidad que hayas puesto en "Cantidad". Puedes rellenarlos ahora o dejarlos para cuando te contacte.</p>
+            <div id="marcasitios-nombres-wrap" style="max-height:220px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+              <p id="marcasitios-nombres-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas de nombres.</p>
+            </div>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="marcasitios-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="marcasitios-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="marcasitios-total">— €</strong></div>
         </div>
-        <button class="btn-add-cart" onclick="addCartServilletero()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20servilleteros%20de%20mimbre" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        <button class="btn-add-cart" id="marcasitios-add-btn" onclick="addCartMarcasitios()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20marcasitios%20para%20mi%20boda" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ABREBOTELLAS DE PARED -->
-<div class="product-page" id="page-abrepared">
-  <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
+<!-- ── IMANES ── -->
+<div class="product-page" id="page-imanes">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
   <div class="products-grid">
     <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/abrebotellas_pared.jpg')">
-        <img src="images/abrebotellas_pared.jpg" alt="Abrebotellas de pared de madera con cesta metálica">
+      <div class="product-img" onclick="openLightbox('images/iman.jpg')">
+        <img src="images/iman.jpg" alt="Imán abrebotellas bambú">
         <span class="personalizable-badge">Personalizable</span>
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Colección Cocina</p>
-        <h3>Abrebotellas de pared con cesta recoge chapas</h3>
-        <p class="product-desc">Abrebotellas de pared en madera con mecanismo metálico y una cesta de rejilla metálica debajo que recoge las chapas automáticamente. Se fija a la pared con tornillos (incluidos). Ideal para la cocina, la terraza o el rincón del aperitivo.</p>
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Imán abrebotellas de bambú</h3>
+        <p class="product-desc">Imán abrebotellas de bambú grabado al láser con el diseño, nombre o fecha que elijas. Un detalle práctico y original que tus invitados guardarán con cariño. Ideal para bodas, comuniones, bautizos y cualquier celebración especial.</p>
         <div class="price-block">
-          <div class="price-row"><span>Sin personalizar</span><span class="amount">20 €</span></div>
-          <div class="price-row"><span>Personalización solo con texto</span><span class="amount">+ 3 €</span></div>
-          <div class="price-row"><span>Personalización con logo o dibujo</span><span class="amount">+ 5 €</span></div>
-          <div class="price-row"><span>Personalización con dibujo + texto</span><span class="amount">+ 7 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">8,50 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">6,00 € / u</span></div>
+          <div class="price-row"><span>51–100 unidades</span><span class="amount">4,50 € / u</span></div>
+          <div class="price-row"><span>Más de 100 unidades</span><span class="amount">3,80 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Estos precios por volumen aplican desde 10 unidades · ¿Menos de 10? Consíguelo en Regalos Personalizados</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
         </div>
-        <div class="price-alert">✦ Tras la compra me pongo en contacto contigo para concretar el diseño exacto y confirmarlo antes de fabricarlo. Si prefieres adelantarme la idea, el logo o el dibujo, también puedes escribirme por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-dark);text-decoration:underline;">WhatsApp</a>.</div>
         <div class="product-options">
           <div class="opt-row">
-            <label class="opt-label">¿Quieres personalizarlo?</label>
-            <select id="opt-abrepared-personalizar" class="opt-input" onchange="updateAbrePared()">
-              <option value="no">No, lo quiero tal cual</option>
-              <option value="texto">Sí, solo con texto grabado (+3 €)</option>
-              <option value="dibujo">Sí, con logo o dibujo grabado (+5 €)</option>
-              <option value="ambos">Sí, con dibujo + texto (+7 €)</option>
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="imanes-cantidad" min="1" placeholder="Nº de unidades" oninput="updateImanes()">
+            <p class="price-note" id="imanes-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div id="imanes-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            Estos precios por volumen aplican desde 10 unidades. Para cantidades menores, puedes conseguir este mismo abrebotellas en Regalos Personalizados.
+            <a href="regalos-personalizados.html#abrebotellas" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Ver en Regalos Personalizados →</a>
+            <a id="imanes-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.4rem;background:none;border:1.5px solid var(--wood-mid);color:var(--wood-dark);border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="imanes-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="imanes-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
             </select>
           </div>
-          <div id="abrepared-texto-wrap" class="opt-row" style="display:none;">
-            <label class="opt-label">Frase para grabar (máx. 10 palabras)</label>
-            <input type="text" id="opt-abrepared-texto" class="opt-input" placeholder="ej. Para el mejor anfitrión" oninput="updateAbrePared()">
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="imanes-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
           </div>
-          <div id="abrepared-dibujo-wrap" class="opt-row" style="display:none;">
-            <label class="opt-label">Describe lo que te gustaría</label>
-            <input type="text" id="opt-abrepared-dibujo" class="opt-input" placeholder="ej. Logo de empresa, Dibujo de un ancla..." oninput="updateAbrePared()">
-            <p style="font-size:0.7rem;margin-top:0.3rem;color:var(--text-mid);">✦ No hace falta que subas la imagen aquí — te contacto yo tras la compra para que me la envíes, o me la puedes adelantar por WhatsApp.</p>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-abrepared-total">20 €</strong></div>
+          <div class="opt-price-row"><span>Total:</span><strong id="imanes-total">— €</strong></div>
         </div>
-        <button class="btn-add-cart" onclick="addCartAbrePared()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20abrebotellas%20de%20pared" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        <button class="btn-add-cart" id="imanes-add-btn" onclick="addCartImanes()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20imanes%20abrebotellas" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LLAVEROS PARA EVENTOS ── -->
+<div class="product-page" id="page-llaveros">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
+  <div class="products-grid">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/llavero-eventos.jpg')">
+        <img src="images/llavero-eventos.jpg" alt="Llavero para eventos">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Llaveros para eventos</h3>
+        <p class="product-desc">Llaveros redondos de madera natural grabados al láser con el diseño, nombres o fecha que elijas. Un detalle práctico y con encanto para que tus invitados se lo lleven a casa. Cada llavero se desmonta, se graba, y se vuelve a montar a mano junto con su borla, por lo que lleva más trabajo que otros detallitos.</p>
+        <div class="price-block">
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">10,00 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">8,00 € / u</span></div>
+          <div class="price-row"><span>51–100 unidades</span><span class="amount">7,00 € / u</span></div>
+          <div class="price-row"><span>Más de 100 unidades</span><span class="amount">6,00 € / u</span></div>
+          <div class="price-row"><span>+ otro lado, mismo diseño para todos</span><span class="amount">+ 1,00 € / u</span></div>
+          <div class="price-row"><span>+ otro lado, diseño distinto por llavero</span><span class="amount">+ 2,00 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Estos precios por volumen aplican desde 10 unidades</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="llaveventos-cantidad" min="1" placeholder="Nº de unidades" oninput="updateLlaverosEventos()">
+            <p class="price-note" id="llaveventos-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div id="llaveventos-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            Estos precios por volumen aplican desde 10 unidades. Para cantidades menores, puedes conseguir este mismo llavero en Regalos Personalizados.
+            <a href="regalos-personalizados.html#llavero" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Ver en Regalos Personalizados →</a>
+            <a id="llaveventos-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.4rem;background:none;border:1.5px solid var(--wood-mid);color:var(--wood-dark);border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado (lado principal)</label><input type="text" class="opt-input" id="llaveventos-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Grabado también por el otro lado?</label>
+            <select class="opt-input" id="llaveventos-otrolado" onchange="updateLlaverosEventos()">
+              <option value="no">No, un solo lado</option>
+              <option value="mismo">Sí, el mismo diseño para todos (+1 €/u)</option>
+              <option value="distinto">Sí, un diseño distinto por llavero (+2 €/u)</option>
+            </select>
+          </div>
+          <div class="opt-row" id="llaveventos-mismo-wrap" style="display:none;">
+            <label class="opt-label">Qué quieres que lleve grabado en el otro lado</label>
+            <input type="text" class="opt-input" id="llaveventos-mismo-texto" placeholder="ej. fecha de la boda">
+          </div>
+          <div class="opt-row" id="llaveventos-distinto-wrap" style="display:none;">
+            <label class="opt-label">Diseño del otro lado para cada llavero</label>
+            <p style="font-size:0.7rem;margin:0 0 0.4rem;color:var(--text-mid);">Se genera una fila por cada unidad que hayas puesto en "Cantidad". Puedes rellenarlas ahora o dejarlas para cuando te contacte.</p>
+            <div id="llaveventos-distinto-nombres-wrap" style="max-height:220px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+              <p id="llaveventos-distinto-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas.</p>
+            </div>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Borla</label>
+            <select class="opt-input" id="llaveventos-borla">
+              <option value="Sin borla">Sin borla</option>
+              <option value="Me da igual">Me da igual el color</option>
+              <option value="Verde brillante">Verde brillante</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Marrón">Marrón</option>
+              <option value="Azul cielo">Azul cielo</option>
+              <option value="Morado">Morado</option>
+              <option value="Rosita palo">Rosita palo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Azul marino">Azul marino</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="llaveventos-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="llaveventos-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="llaveventos-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" id="llaveventos-add-btn" onclick="addCartLlaverosEventos()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20llaveros%20para%20mi%20evento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── POSAVASOS PARA EVENTOS ── -->
+<div class="product-page" id="page-posavasos">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
+  <div class="products-grid">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/posavasos-eventos.jpg')">
+        <img src="images/posavasos-eventos.jpg" alt="Posavasos para eventos">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Posavasos para eventos</h3>
+        <p class="product-desc">Posavasos de madera de unos 10cm de diámetro, grabados al láser con el nombre, texto o diseño que elijas y barnizados por ambas caras con barniz mate. Un recuerdo natural y con mucho encanto para tus invitados.</p>
+        <div class="price-block">
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">6,50 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">4,80 € / u</span></div>
+          <div class="price-row"><span>51–100 unidades</span><span class="amount">3,60 € / u</span></div>
+          <div class="price-row"><span>Más de 100 unidades</span><span class="amount">2,90 € / u</span></div>
+          <div class="price-row"><span>+ otro lado, mismo diseño para todos</span><span class="amount">+ 1,00 € / u</span></div>
+          <div class="price-row"><span>+ otro lado, diseño distinto por posavasos</span><span class="amount">+ 2,00 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Estos precios por volumen aplican desde 10 unidades</p>
+          <div class="price-alert">✦ Antes de fabricarlos, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="posaventos-cantidad" min="1" placeholder="Nº de unidades" oninput="updatePosavasosEventos()">
+            <p class="price-note" id="posaventos-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div id="posaventos-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            Estos precios por volumen aplican desde 10 unidades. Para cantidades menores, puedes conseguir este mismo posavasos en Regalos Personalizados.
+            <a href="regalos-personalizados.html#posavasos" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Ver en Regalos Personalizados →</a>
+            <a id="posaventos-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.4rem;background:none;border:1.5px solid var(--wood-mid);color:var(--wood-dark);border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado (lado principal)</label><input type="text" class="opt-input" id="posaventos-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Grabado también por el otro lado?</label>
+            <select class="opt-input" id="posaventos-otrolado" onchange="updatePosavasosEventos()">
+              <option value="no">No, un solo lado</option>
+              <option value="mismo">Sí, el mismo diseño para todos (+1 €/u)</option>
+              <option value="distinto">Sí, un diseño distinto por posavasos (+2 €/u)</option>
+            </select>
+          </div>
+          <div class="opt-row" id="posaventos-mismo-wrap" style="display:none;">
+            <label class="opt-label">Qué quieres que lleve grabado en el otro lado</label>
+            <input type="text" class="opt-input" id="posaventos-mismo-texto" placeholder="ej. fecha de la boda">
+          </div>
+          <div class="opt-row" id="posaventos-distinto-wrap" style="display:none;">
+            <label class="opt-label">Diseño del otro lado para cada posavasos</label>
+            <p style="font-size:0.7rem;margin:0 0 0.4rem;color:var(--text-mid);">Se genera una fila por cada unidad que hayas puesto en "Cantidad". Puedes rellenarlas ahora o dejarlas para cuando te contacte.</p>
+            <div id="posaventos-distinto-nombres-wrap" style="max-height:220px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+              <p id="posaventos-distinto-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas.</p>
+            </div>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="posaventos-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="posaventos-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="posaventos-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" id="posaventos-add-btn" onclick="addCartPosavasosEventos()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20los%20posavasos%20para%20mi%20evento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LIBRETAS ── -->
+<div class="product-page" id="page-libretas">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
+  <div class="products-grid">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/libretas.jpg')">
+        <img src="images/libretas.jpg" alt="Libreta personalizada">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Libreta personalizada</h3>
+        <p class="product-desc">Libreta con diseño grabado al láser en la portada, personalizada con el nombre, ilustración o texto que quieras. Perfectas como detalle de fin de curso, regalo corporativo o recuerdo de evento.</p>
+        <div class="price-block">
+          <div class="price-row"><span>10–25 unidades</span><span class="amount">8,50 € / u</span></div>
+          <div class="price-row"><span>26–50 unidades</span><span class="amount">6,50 € / u</span></div>
+          <div class="price-row"><span>51–100 unidades</span><span class="amount">4,80 € / u</span></div>
+          <div class="price-row"><span>Más de 100 unidades</span><span class="amount">3,80 € / u</span></div>
+          <div class="price-row"><span>+ nombre individual en cada libreta</span><span class="amount">+ 1,00 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Mismo diseño para todas las libretas del pedido · Estos precios por volumen aplican desde 10 unidades</p>
+          <div class="price-alert">✦ Antes de fabricarlas, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="libretas-cantidad" min="1" placeholder="Nº de unidades" oninput="updateLibretas()">
+            <p class="price-note" id="libretas-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div id="libretas-lowqty" style="display:none;background:var(--mint-light);border-radius:8px;padding:0.7rem;margin-bottom:0.6rem;font-size:0.8rem;color:var(--wood-dark);line-height:1.6;">
+            Estos precios por volumen aplican desde 10 unidades. Para cantidades menores, puedes conseguir esta misma libreta en Regalos Personalizados.
+            <a href="regalos-personalizados.html#libreta" style="display:block;margin-top:0.5rem;background:var(--wood-dark);color:#fff;border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Ver en Regalos Personalizados →</a>
+            <a id="libretas-lowqty-link" href="#" target="_blank" style="display:block;margin-top:0.4rem;background:none;border:1.5px solid var(--wood-mid);color:var(--wood-dark);border-radius:20px;padding:0.5rem;text-align:center;text-decoration:none;font-weight:700;font-size:0.76rem;">Escríbeme por WhatsApp</a>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado (diseño común para todas)</label><input type="text" class="opt-input" id="libretas-diseno" placeholder="ej. nombre, logo, iniciales..."></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Añadir un nombre individual en cada libreta?</label>
+            <select class="opt-input" id="libretas-nombreind" onchange="updateLibretas()">
+              <option value="no">No, todas iguales</option>
+              <option value="si">Sí, un nombre distinto por libreta (+1 €/u)</option>
+            </select>
+          </div>
+          <div class="opt-row" id="libretas-nombreind-wrap" style="display:none;">
+            <label class="opt-label">Nombre de cada libreta</label>
+            <p style="font-size:0.7rem;margin:0 0 0.4rem;color:var(--text-mid);">Se genera una fila por cada unidad que hayas puesto en "Cantidad". Puedes rellenarlas ahora o dejarlas para cuando te contacte.</p>
+            <div id="libretas-nombreind-wrap-lista" style="max-height:220px;overflow-y:auto;border:1.5px solid var(--wood-light);border-radius:8px;padding:0.5rem;">
+              <p id="libretas-nombreind-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas.</p>
+            </div>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Cuerda de yute</label>
+            <select class="opt-input" id="libretas-cuerda">
+              <option value="Con cuerda de yute decorada individualmente">Con cuerda de yute decorada individualmente — sin coste adicional</option>
+              <option value="Sin cuerda de yute">Sin cuerda de yute</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="libretas-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="libretas-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" id="libretas-add-btn" onclick="addCartLibretas()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20las%20libretas%20personalizadas" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CAJAS DE VINO ── -->
+<div class="product-page" id="page-cajavino">
+  <button class="back-btn" onclick="showGrid()">← Volver a Detallitos para Eventos</button>
+  <div class="products-grid">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/cajavino.jpg')">
+        <img src="images/cajavino.jpg" alt="Caja de vino personalizada">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para Eventos</p>
+        <h3>Caja de vino personalizada</h3>
+        <p class="product-desc">Caja de madera de kiri para una botella de vino, grabada al láser con los nombres, la fecha o el mensaje que elijas. Un detalle especial y duradero para bodas, comuniones o cualquier celebración.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1–9 unidades</span><span class="amount">39,00 € / u</span></div>
+          <div class="price-row"><span>10–24 unidades</span><span class="amount">34,00 € / u</span></div>
+          <div class="price-row"><span>25–50 unidades</span><span class="amount">31,00 € / u</span></div>
+          <div class="price-row"><span>Más de 50 unidades</span><span class="amount">28,00 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad · Botella no incluida</p>
+          <div class="price-alert">✦ Antes de fabricarlas, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad</label>
+            <input type="number" class="opt-input" id="cajavino-cantidad" min="1" placeholder="Nº de unidades" oninput="updateCajavino()">
+            <p class="price-note" id="cajavino-desglose" style="margin-top:0.3rem;">Escribe la cantidad para ver el precio</p>
+          </div>
+          <div class="opt-row"><label class="opt-label">Qué quieres que lleve grabado</label><input type="text" class="opt-input" id="cajavino-diseno" placeholder="ej. nombres de los novios y fecha"></div>
+          <div class="opt-row">
+            <label class="opt-label">Bolsita organza</label>
+            <select class="opt-input" id="cajavino-bolsita">
+              <option value="Con bolsita individual">Con bolsita individual — sin coste adicional</option>
+              <option value="Sin bolsita">Sin bolsita</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Cómo prefieres definir el diseño?</label>
+            <select class="opt-input" id="cajavino-enfoque">
+              <option value="">Elige una opción</option>
+              <option value="Ya tengo una idea que te trasladé por WhatsApp">Ya tengo una idea que te trasladé por WhatsApp</option>
+              <option value="Espero que me contactes en un plazo máximo de 72h para concretar el diseño">Espero que me contactes en un plazo máximo de 72h para concretar el diseño</option>
+            </select>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="cajavino-total">— €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartCajavino()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesan%20las%20cajas%20de%20vino%20personalizadas" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
@@ -400,36 +626,33 @@
 </div>
 
 <script>
-  function togglePersonalize(btn) {
-    const card = btn.closest('.product-card');
-    card.classList.toggle('expanded');
-    if (card.classList.contains('expanded')) {
-      btn.childNodes[0].textContent = 'Ocultar personalización ';
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    } else {
-      btn.childNodes[0].textContent = 'Personalizar ';
-    }
-  }
-
+  const pageNames = { imanes: 'Imanes abrebotellas', llaveros: 'Llaveros para eventos', posavasos: 'Posavasos para eventos', libretas: 'Libretas', marcasitios: 'Marcasitios', cajavino: 'Cajas de vino' };
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const pageLabels = { 'mar-montana': 'Tablas de cocina', 'mesa': 'Mamemi en la mesa', 'abrepared': 'Abrebotellas de pared' };
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Colección Cocina</a> · ' + pageLabels[id];
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Detallitos para Eventos</a> · ' + pageNames[id];
   }
   function showGrid() {
     document.getElementById('catGrid').style.display = 'block';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Colección Cocina';
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Detallitos para Eventos';
   }
+  let marcaIdx = 0;
+  function moveMarca(dir) { marcaIdx = (marcaIdx + dir + 5) % 5; goMarca(marcaIdx); }
+  function goMarca(i) {
+    marcaIdx = i;
+    document.getElementById('marcaTrack').style.transform = `translateX(-${i * 100}%)`;
+    document.getElementById('marcaTrack').closest('.mini-carousel').querySelectorAll('.mc-dot').forEach((d,j) => d.classList.toggle('active', j===i));
+  }
+  setInterval(() => moveMarca(1), 4000);
   let lightboxImages = [];
   let lightboxIdx = 0;
   function openLightbox(src, el) {
-    const triggerEl = el || (window.event && window.event.currentTarget);
-    const carousel = triggerEl ? (triggerEl.closest('.mini-carousel') || triggerEl.closest('.carousel')) : null;
+    const imgEl = el || (window.event && window.event.currentTarget);
+    const carousel = imgEl ? imgEl.closest('.mini-carousel') : null;
     if (carousel) {
       lightboxImages = Array.from(carousel.querySelectorAll('img')).map(i => i.src);
       lightboxIdx = lightboxImages.indexOf(src);
@@ -460,75 +683,517 @@
   });
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-  window.addEventListener('beforeunload', () => { sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY); });
-  const savedScroll = sessionStorage.getItem('scrollPos_' + window.location.pathname);
-  if (savedScroll) window.scrollTo(0, parseInt(savedScroll));
 
-  function updateServilletero() {
-    const sel = document.getElementById('opt-servilletero-qty');
-    if (!sel) return;
-    const [price] = sel.value.split('|');
-    document.getElementById('opt-servilletero-total').textContent = parseFloat(price).toFixed(0) + ' €';
-  }
-  function addCartServilletero() {
-    const sel = document.getElementById('opt-servilletero-qty');
-    const [price, qty] = sel.value.split('|');
-    const q = parseInt(qty);
-    const name = q === 1 ? 'Servilletero de mimbre' : 'Pack 4 Servilleteros de mimbre';
-    const peso = q === 1 ? 8 : 32;
-    addToCart({ id: 'servilletero-' + Date.now(), name, price: parseFloat(price), qty: 1, peso, options: { Cantidad: q + ' u' } });
+  // ── APERTURA DIRECTA A UNA PÁGINA VIA HASH (#llaveros, #posavasos, #imanes, #libretas...) ──
+  (function() {
+    const hash = window.location.hash.replace('#', '');
+    if (pageNames[hash]) {
+      showPage(hash);
+    }
+  })();
+
+  // ── HELPERS DE PRECIO ──
+  function formatEuros(n) {
+    return (Math.round(n * 100) / 100).toFixed(2).replace('.', ',') + ' €';
   }
 
-  // ── ABREBOTELLAS DE PARED ──
-  function abreParedExtra(personalizar) {
-    if (personalizar === 'ambos') return 7;
-    if (personalizar === 'dibujo') return 5;
-    if (personalizar === 'texto') return 3;
+  // ── IMANES ABREBOTELLAS ──
+  function imanesPrecioUnidad(cantidad) {
+    if (cantidad > 100) return 3.80;
+    if (cantidad >= 51) return 4.50;
+    if (cantidad >= 26) return 6.00;
+    return 8.50;
+  }
+  function updateImanes() {
+    const cantidad = parseInt(document.getElementById('imanes-cantidad')?.value) || 0;
+    const desglose = document.getElementById('imanes-desglose');
+    const totalEl = document.getElementById('imanes-total');
+    const lowqty = document.getElementById('imanes-lowqty');
+    const lowqtyLink = document.getElementById('imanes-lowqty-link');
+    const addBtn = document.getElementById('imanes-add-btn');
+
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
+      return;
+    }
+    if (cantidad < 10) {
+      desglose.textContent = 'Este precio por volumen aplica desde 10 unidades — mira el aviso de arriba';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' imanes abrebotellas para mi evento, ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
+    const precioU = imanesPrecioUnidad(cantidad);
+    const total = precioU * cantidad;
+    desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
+    totalEl.textContent = formatEuros(total);
+  }
+  function addCartImanes() {
+    const cantidad = parseInt(document.getElementById('imanes-cantidad')?.value) || 0;
+    const diseno = document.getElementById('imanes-diseno')?.value.trim();
+    const enfoque = document.getElementById('imanes-enfoque')?.value;
+    if (cantidad < 10) { alert('Estos precios por volumen aplican desde 10 unidades. Para menos, consíguelo en Regalos Personalizados.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const precioU = imanesPrecioUnidad(cantidad);
+    const bolsita = document.getElementById('imanes-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Grabado': diseno, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
+    addToCart({ id: 'imanes-' + Date.now(), name: 'Imán abrebotellas de bambú', price: precioU, qty: cantidad, options: opts });
+  }
+
+  // ── LLAVEROS PARA EVENTOS ──
+  function llaveventosPrecioUnidad(cantidad) {
+    if (cantidad > 100) return 6.00;
+    if (cantidad >= 51) return 7.00;
+    if (cantidad >= 26) return 8.00;
+    return 10.00;
+  }
+  function llaveventosOtroladoExtra() {
+    const v = document.getElementById('llaveventos-otrolado')?.value;
+    if (v === 'mismo') return 1.00;
+    if (v === 'distinto') return 2.00;
     return 0;
   }
-  function updateAbrePared() {
-    const personalizar = document.getElementById('opt-abrepared-personalizar')?.value || 'no';
-    document.getElementById('abrepared-texto-wrap').style.display = (personalizar === 'texto' || personalizar === 'ambos') ? 'block' : 'none';
-    document.getElementById('abrepared-dibujo-wrap').style.display = (personalizar === 'dibujo' || personalizar === 'ambos') ? 'block' : 'none';
-    const extra = abreParedExtra(personalizar);
-    document.getElementById('opt-abrepared-total').textContent = (20 + extra) + ' €';
-  }
-  function addCartAbrePared() {
-    const personalizar = document.getElementById('opt-abrepared-personalizar')?.value || 'no';
-    const opts = {};
-    const extra = abreParedExtra(personalizar);
+  function updateLlaverosEventos() {
+    const cantidad = parseInt(document.getElementById('llaveventos-cantidad')?.value) || 0;
+    const desglose = document.getElementById('llaveventos-desglose');
+    const totalEl = document.getElementById('llaveventos-total');
+    const lowqty = document.getElementById('llaveventos-lowqty');
+    const lowqtyLink = document.getElementById('llaveventos-lowqty-link');
+    const addBtn = document.getElementById('llaveventos-add-btn');
+    const otrolado = document.getElementById('llaveventos-otrolado')?.value || 'no';
+    document.getElementById('llaveventos-mismo-wrap').style.display = otrolado === 'mismo' ? 'block' : 'none';
+    document.getElementById('llaveventos-distinto-wrap').style.display = otrolado === 'distinto' ? 'block' : 'none';
+    if (otrolado === 'distinto') renderLlaveventosDistintoNombres(cantidad);
 
-    if (personalizar === 'no') {
-      opts['Personalización'] = 'Sin personalizar';
-      addToCart({ id: 'abrepared-' + Date.now(), name: 'Abrebotellas de pared con cesta recoge chapas', price: 20, peso: 500, options: opts });
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
+      return;
+    }
+    if (cantidad < 10) {
+      desglose.textContent = 'Este precio por volumen aplica desde 10 unidades — mira el aviso de arriba';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' llaveros para mi evento, ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
+    const base = llaveventosPrecioUnidad(cantidad);
+    const extra = llaveventosOtroladoExtra();
+    const precioU = base + extra;
+    const total = precioU * cantidad;
+    let txt = cantidad + ' uds × ' + formatEuros(precioU);
+    if (extra > 0) txt += ' (' + formatEuros(base) + ' + ' + formatEuros(extra) + ' otro lado)';
+    txt += ' = ' + formatEuros(total);
+    desglose.textContent = txt;
+    totalEl.textContent = formatEuros(total);
+  }
+
+  const LLAVEVENTOS_MAX_FILAS = 150;
+  function renderLlaveventosDistintoNombres(cantidad) {
+    const wrap = document.getElementById('llaveventos-distinto-nombres-wrap');
+    if (!wrap) return;
+    const valoresActuales = Array.from(wrap.querySelectorAll('.llaveventos-distinto-nombre')).map(i => i.value);
+    if (cantidad < 1) {
+      wrap.innerHTML = '<p id="llaveventos-distinto-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas.</p>';
+      return;
+    }
+    const filas = Math.min(cantidad, LLAVEVENTOS_MAX_FILAS);
+    wrap.innerHTML = '';
+    for (let i = 1; i <= filas; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'opt-input llaveventos-distinto-nombre';
+      inp.placeholder = 'Llavero ' + i + ' — diseño otro lado';
+      inp.style.margin = '0 0 0.4rem 0';
+      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
+      wrap.appendChild(inp);
+    }
+    if (cantidad > LLAVEVENTOS_MAX_FILAS) {
+      const aviso = document.createElement('p');
+      aviso.style.cssText = 'font-size:0.72rem;color:var(--wood-dark);font-style:italic;margin-top:0.3rem;';
+      aviso.textContent = 'Para pedidos de más de ' + LLAVEVENTOS_MAX_FILAS + ' llaveros, mejor pásame la lista completa por WhatsApp o email cuando te contacte — aquí puedes dejar solo algunos de ejemplo.';
+      wrap.appendChild(aviso);
+    }
+  }
+
+  function addCartLlaverosEventos() {
+    const cantidad = parseInt(document.getElementById('llaveventos-cantidad')?.value) || 0;
+    const diseno = document.getElementById('llaveventos-diseno')?.value.trim();
+    const enfoque = document.getElementById('llaveventos-enfoque')?.value;
+    const otrolado = document.getElementById('llaveventos-otrolado')?.value || 'no';
+    if (cantidad < 10) { alert('Estos precios por volumen aplican desde 10 unidades. Para menos, consíguelo en Regalos Personalizados.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado en el lado principal.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+
+    const base = llaveventosPrecioUnidad(cantidad);
+    const extra = llaveventosOtroladoExtra();
+    const precioU = base + extra;
+
+    const opts = { 'Grabado lado principal': diseno, 'Enfoque diseño': enfoque };
+    const borla = document.getElementById('llaveventos-borla')?.value;
+    if (borla) opts['Borla'] = borla;
+    const bolsita = document.getElementById('llaveventos-bolsita')?.value || 'Con bolsita individual';
+    opts['Bolsita'] = bolsita;
+
+    if (otrolado === 'mismo') {
+      const texto = document.getElementById('llaveventos-mismo-texto')?.value.trim();
+      if (!texto) { alert('Por favor indica qué quieres grabar en el otro lado.'); return; }
+      opts['Otro lado (mismo diseño para todos)'] = texto;
+    } else if (otrolado === 'distinto') {
+      const disenos = Array.from(document.querySelectorAll('.llaveventos-distinto-nombre')).map(i => i.value.trim()).filter(Boolean);
+      if (disenos.length > 0) opts['Otro lado (' + disenos.length + ' de ' + cantidad + ')'] = disenos.join(' | ');
+      else opts['Otro lado'] = 'Diseños pendientes de confirmar por WhatsApp';
+    }
+
+    addToCart({ id: 'llaveventos-' + Date.now(), name: 'Llavero para eventos', price: precioU, qty: cantidad, options: opts });
+  }
+
+  // ── POSAVASOS PARA EVENTOS ──
+  function posaventosPrecioUnidad(cantidad) {
+    if (cantidad > 100) return 2.90;
+    if (cantidad >= 51) return 3.60;
+    if (cantidad >= 26) return 4.80;
+    return 6.50;
+  }
+  function posaventosOtroladoExtra() {
+    const v = document.getElementById('posaventos-otrolado')?.value;
+    if (v === 'mismo') return 1.00;
+    if (v === 'distinto') return 2.00;
+    return 0;
+  }
+  function updatePosavasosEventos() {
+    const cantidad = parseInt(document.getElementById('posaventos-cantidad')?.value) || 0;
+    const desglose = document.getElementById('posaventos-desglose');
+    const totalEl = document.getElementById('posaventos-total');
+    const lowqty = document.getElementById('posaventos-lowqty');
+    const lowqtyLink = document.getElementById('posaventos-lowqty-link');
+    const addBtn = document.getElementById('posaventos-add-btn');
+    const otrolado = document.getElementById('posaventos-otrolado')?.value || 'no';
+    document.getElementById('posaventos-mismo-wrap').style.display = otrolado === 'mismo' ? 'block' : 'none';
+    document.getElementById('posaventos-distinto-wrap').style.display = otrolado === 'distinto' ? 'block' : 'none';
+    if (otrolado === 'distinto') renderPosaventosDistintoNombres(cantidad);
+
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
+      return;
+    }
+    if (cantidad < 10) {
+      desglose.textContent = 'Este precio por volumen aplica desde 10 unidades — mira el aviso de arriba';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' posavasos para mi evento, ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
+    const base = posaventosPrecioUnidad(cantidad);
+    const extra = posaventosOtroladoExtra();
+    const precioU = base + extra;
+    const total = precioU * cantidad;
+    let txt = cantidad + ' uds × ' + formatEuros(precioU);
+    if (extra > 0) txt += ' (' + formatEuros(base) + ' + ' + formatEuros(extra) + ' otro lado)';
+    txt += ' = ' + formatEuros(total);
+    desglose.textContent = txt;
+    totalEl.textContent = formatEuros(total);
+  }
+
+  const POSAVENTOS_MAX_FILAS = 150;
+  function renderPosaventosDistintoNombres(cantidad) {
+    const wrap = document.getElementById('posaventos-distinto-nombres-wrap');
+    if (!wrap) return;
+    const valoresActuales = Array.from(wrap.querySelectorAll('.posaventos-distinto-nombre')).map(i => i.value);
+    if (cantidad < 1) {
+      wrap.innerHTML = '<p id="posaventos-distinto-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas.</p>';
+      return;
+    }
+    const filas = Math.min(cantidad, POSAVENTOS_MAX_FILAS);
+    wrap.innerHTML = '';
+    for (let i = 1; i <= filas; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'opt-input posaventos-distinto-nombre';
+      inp.placeholder = 'Posavasos ' + i + ' — diseño otro lado';
+      inp.style.margin = '0 0 0.4rem 0';
+      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
+      wrap.appendChild(inp);
+    }
+    if (cantidad > POSAVENTOS_MAX_FILAS) {
+      const aviso = document.createElement('p');
+      aviso.style.cssText = 'font-size:0.72rem;color:var(--wood-dark);font-style:italic;margin-top:0.3rem;';
+      aviso.textContent = 'Para pedidos de más de ' + POSAVENTOS_MAX_FILAS + ' posavasos, mejor pásame la lista completa por WhatsApp o email cuando te contacte — aquí puedes dejar solo algunos de ejemplo.';
+      wrap.appendChild(aviso);
+    }
+  }
+
+  function addCartPosavasosEventos() {
+    const cantidad = parseInt(document.getElementById('posaventos-cantidad')?.value) || 0;
+    const diseno = document.getElementById('posaventos-diseno')?.value.trim();
+    const enfoque = document.getElementById('posaventos-enfoque')?.value;
+    const otrolado = document.getElementById('posaventos-otrolado')?.value || 'no';
+    if (cantidad < 10) { alert('Estos precios por volumen aplican desde 10 unidades. Para menos, consíguelo en Regalos Personalizados.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado en el lado principal.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+
+    const base = posaventosPrecioUnidad(cantidad);
+    const extra = posaventosOtroladoExtra();
+    const precioU = base + extra;
+
+    const bolsita = document.getElementById('posaventos-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Grabado lado principal': diseno, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
+
+    if (otrolado === 'mismo') {
+      const texto = document.getElementById('posaventos-mismo-texto')?.value.trim();
+      if (!texto) { alert('Por favor indica qué quieres grabar en el otro lado.'); return; }
+      opts['Otro lado (mismo diseño para todos)'] = texto;
+    } else if (otrolado === 'distinto') {
+      const disenos = Array.from(document.querySelectorAll('.posaventos-distinto-nombre')).map(i => i.value.trim()).filter(Boolean);
+      if (disenos.length > 0) opts['Otro lado (' + disenos.length + ' de ' + cantidad + ')'] = disenos.join(' | ');
+      else opts['Otro lado'] = 'Diseños pendientes de confirmar por WhatsApp';
+    }
+
+    addToCart({ id: 'posaventos-' + Date.now(), name: 'Posavasos para eventos', price: precioU, qty: cantidad, options: opts });
+  }
+
+  // ── MARCASITIOS PARA BODA ──
+  const marcasitiosModelos = {
+    'redondo':   { label: 'Marcasitio redondo pequeño', precios: [2.50, 1.60, 1.35, 1.15] },
+    'ovalado':   { label: 'Marcasitio ovalado', precios: [2.80, 1.85, 1.60, 1.35] },
+    'ovalado3d': { label: 'Óvalo con nombre en 3D', precios: [3.70, 2.60, 2.30, 2.00] },
+    'todo3d':    { label: 'Todo impreso en 3D', precios: [4.00, 2.90, 2.55, 2.25] },
+  };
+  function marcasitiosPrecioUnidad(key, cantidad) {
+    const precios = marcasitiosModelos[key].precios;
+    if (cantidad > 120) return precios[3];
+    if (cantidad >= 61) return precios[2];
+    if (cantidad >= 25) return precios[1];
+    if (cantidad >= 10) return precios[0];
+    return null;
+  }
+  function updateMarcasitios() {
+    const modelo = document.getElementById('marcasitios-modelo')?.value || 'redondo';
+    const cantidad = parseInt(document.getElementById('marcasitios-cantidad')?.value) || 0;
+    const desglose = document.getElementById('marcasitios-desglose');
+    const totalEl = document.getElementById('marcasitios-total');
+    const lowqty = document.getElementById('marcasitios-lowqty');
+    const lowqtyLink = document.getElementById('marcasitios-lowqty-link');
+    const addBtn = document.getElementById('marcasitios-add-btn');
+
+    if (cantidad < 1) {
+      desglose.textContent = 'Elige modelo y cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
+      renderMarcasitiosNombres(0);
+      return;
+    }
+    if (cantidad < 10) {
+      desglose.textContent = 'Este precio por volumen aplica desde 10 unidades — mira el aviso de arriba';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      const nombreModelo = marcasitiosModelos[modelo].label;
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' marcasitios (' + nombreModelo + '), ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      renderMarcasitiosNombres(0);
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
+    const precioU = marcasitiosPrecioUnidad(modelo, cantidad);
+    const total = precioU * cantidad;
+    desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
+    totalEl.textContent = formatEuros(total);
+    renderMarcasitiosNombres(cantidad);
+  }
+
+  const MARCASITIOS_MAX_FILAS = 150;
+  function renderMarcasitiosNombres(cantidad) {
+    const wrap = document.getElementById('marcasitios-nombres-wrap');
+    if (!wrap) return;
+    // Guardamos los valores ya escritos para no perderlos al redibujar
+    const valoresActuales = Array.from(wrap.querySelectorAll('.marcasitios-nombre')).map(i => i.value);
+
+    if (cantidad < 1) {
+      wrap.innerHTML = '<p id="marcasitios-nombres-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas de nombres.</p>';
       return;
     }
 
-    const texto = document.getElementById('opt-abrepared-texto')?.value.trim() || '';
-    const dibujo = document.getElementById('opt-abrepared-dibujo')?.value.trim() || '';
-
-    if (personalizar === 'texto' || personalizar === 'ambos') {
-      if (!texto) { alert('Por favor escribe la frase que quieres grabar.'); return; }
-      const numPalabras = texto.split(/\s+/).filter(Boolean).length;
-      if (numPalabras > 10) { alert('La frase no puede superar las 10 palabras (ahora tiene ' + numPalabras + ').'); return; }
+    const filas = Math.min(cantidad, MARCASITIOS_MAX_FILAS);
+    wrap.innerHTML = '';
+    for (let i = 1; i <= filas; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'opt-input marcasitios-nombre';
+      inp.placeholder = 'Invitado ' + i;
+      inp.style.margin = '0 0 0.4rem 0';
+      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
+      wrap.appendChild(inp);
     }
-    if (personalizar === 'dibujo' || personalizar === 'ambos') {
-      if (!dibujo) { alert('Por favor describe el logo o dibujo que te gustaría.'); return; }
+    if (cantidad > MARCASITIOS_MAX_FILAS) {
+      const aviso = document.createElement('p');
+      aviso.style.cssText = 'font-size:0.72rem;color:var(--wood-dark);font-style:italic;margin-top:0.3rem;';
+      aviso.textContent = 'Para pedidos de más de ' + MARCASITIOS_MAX_FILAS + ' invitados, mejor pásame la lista completa por WhatsApp o email cuando te contacte — aquí puedes dejar solo algunos de ejemplo.';
+      wrap.appendChild(aviso);
     }
+  }
 
-    if (personalizar === 'texto') {
-      opts['Personalización'] = 'Solo texto';
-      opts['Frase'] = texto;
-    } else if (personalizar === 'dibujo') {
-      opts['Personalización'] = 'Logo o dibujo';
-      opts['Descripción del dibujo'] = dibujo;
-    } else if (personalizar === 'ambos') {
-      opts['Personalización'] = 'Dibujo + texto';
-      opts['Descripción del dibujo'] = dibujo;
-      opts['Frase'] = texto;
+  function addCartMarcasitios() {
+    const modelo = document.getElementById('marcasitios-modelo')?.value || 'redondo';
+    const cantidad = parseInt(document.getElementById('marcasitios-cantidad')?.value) || 0;
+    const extras = document.getElementById('marcasitios-extras')?.value.trim();
+    const enfoque = document.getElementById('marcasitios-enfoque')?.value;
+    if (cantidad < 10) { alert('Estos precios por volumen aplican desde 10 unidades. Para menos, consíguelo en Regalos Personalizados.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const precioU = marcasitiosPrecioUnidad(modelo, cantidad);
+    const nombres = Array.from(document.querySelectorAll('.marcasitios-nombre')).map(i => i.value.trim()).filter(Boolean);
+    const bolsita = document.getElementById('marcasitios-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Modelo': marcasitiosModelos[modelo].label, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
+    if (extras) opts['Extras'] = extras;
+    if (nombres.length > 0) opts['Nombres (' + nombres.length + ' de ' + cantidad + ')'] = nombres.join(', ');
+    else opts['Nombres'] = 'Pendiente de confirmar por WhatsApp';
+    addToCart({ id: 'marcasitios-' + Date.now(), name: 'Marcasitio para boda', price: precioU, qty: cantidad, options: opts });
+  }
+
+  // ── LIBRETAS PERSONALIZADAS ──
+  function libretasPrecioUnidad(cantidad) {
+    if (cantidad > 100) return 3.80;
+    if (cantidad >= 51) return 4.80;
+    if (cantidad >= 26) return 6.50;
+    return 8.50;
+  }
+  const LIBRETAS_MAX_FILAS = 150;
+  function renderLibretasNombreInd(cantidad) {
+    const wrap = document.getElementById('libretas-nombreind-wrap-lista');
+    if (!wrap) return;
+    const valoresActuales = Array.from(wrap.querySelectorAll('.libretas-nombreind-item')).map(i => i.value);
+    if (cantidad < 1) {
+      wrap.innerHTML = '<p id="libretas-nombreind-placeholder" style="font-size:0.75rem;color:var(--text-mid);font-style:italic;margin:0;">Indica primero la cantidad para que aparezcan las filas.</p>';
+      return;
     }
+    const filas = Math.min(cantidad, LIBRETAS_MAX_FILAS);
+    wrap.innerHTML = '';
+    for (let i = 1; i <= filas; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'opt-input libretas-nombreind-item';
+      inp.placeholder = 'Libreta ' + i + ' — nombre';
+      inp.style.margin = '0 0 0.4rem 0';
+      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
+      wrap.appendChild(inp);
+    }
+    if (cantidad > LIBRETAS_MAX_FILAS) {
+      const aviso = document.createElement('p');
+      aviso.style.cssText = 'font-size:0.72rem;color:var(--wood-dark);font-style:italic;margin-top:0.3rem;';
+      aviso.textContent = 'Para pedidos de más de ' + LIBRETAS_MAX_FILAS + ' libretas, mejor pásame la lista completa por WhatsApp o email cuando te contacte — aquí puedes dejar solo algunos de ejemplo.';
+      wrap.appendChild(aviso);
+    }
+  }
+  function updateLibretas() {
+    const cantidad = parseInt(document.getElementById('libretas-cantidad')?.value) || 0;
+    const desglose = document.getElementById('libretas-desglose');
+    const totalEl = document.getElementById('libretas-total');
+    const lowqty = document.getElementById('libretas-lowqty');
+    const lowqtyLink = document.getElementById('libretas-lowqty-link');
+    const addBtn = document.getElementById('libretas-add-btn');
+    const nombreInd = document.getElementById('libretas-nombreind')?.value || 'no';
+    document.getElementById('libretas-nombreind-wrap').style.display = nombreInd === 'si' ? 'block' : 'none';
+    if (nombreInd === 'si') renderLibretasNombreInd(cantidad);
 
-    addToCart({ id: 'abrepared-' + Date.now(), name: 'Abrebotellas de pared con cesta recoge chapas', price: 20 + extra, peso: 500, options: opts });
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'none';
+      addBtn.style.display = 'block';
+      return;
+    }
+    if (cantidad < 10) {
+      desglose.textContent = 'Este precio por volumen aplica desde 10 unidades — mira el aviso de arriba';
+      totalEl.textContent = '— €';
+      lowqty.style.display = 'block';
+      lowqtyLink.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + cantidad + ' libretas para mi evento, ¿cómo lo gestionamos al ser menos de 10 unidades?');
+      addBtn.style.display = 'none';
+      return;
+    }
+    lowqty.style.display = 'none';
+    addBtn.style.display = 'block';
+    const base = libretasPrecioUnidad(cantidad);
+    const extra = nombreInd === 'si' ? 1.00 : 0;
+    const precioU = base + extra;
+    const total = precioU * cantidad;
+    let txt = cantidad + ' uds × ' + formatEuros(precioU);
+    if (extra > 0) txt += ' (' + formatEuros(base) + ' + ' + formatEuros(extra) + ' nombre individual)';
+    txt += ' = ' + formatEuros(total);
+    desglose.textContent = txt;
+    totalEl.textContent = formatEuros(total);
+  }
+  function addCartLibretas() {
+    const cantidad = parseInt(document.getElementById('libretas-cantidad')?.value) || 0;
+    const diseno = document.getElementById('libretas-diseno')?.value.trim();
+    const enfoque = document.getElementById('libretas-enfoque')?.value;
+    const nombreInd = document.getElementById('libretas-nombreind')?.value || 'no';
+    if (cantidad < 10) { alert('Estos precios por volumen aplican desde 10 unidades. Para menos, consíguelo en Regalos Personalizados.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const base = libretasPrecioUnidad(cantidad);
+    const extra = nombreInd === 'si' ? 1.00 : 0;
+    const precioU = base + extra;
+    const cuerda = document.getElementById('libretas-cuerda')?.value || 'Con cuerda de yute decorada individualmente';
+    const opts = { 'Grabado (diseño común)': diseno, 'Cuerda de yute': cuerda, 'Enfoque diseño': enfoque };
+    if (nombreInd === 'si') {
+      const nombres = Array.from(document.querySelectorAll('.libretas-nombreind-item')).map(i => i.value.trim()).filter(Boolean);
+      if (nombres.length > 0) opts['Nombres individuales (' + nombres.length + ' de ' + cantidad + ')'] = nombres.join(', ');
+      else opts['Nombres individuales'] = 'Pendiente de confirmar por WhatsApp';
+    }
+    addToCart({ id: 'libretas-' + Date.now(), name: 'Libreta personalizada', price: precioU, qty: cantidad, options: opts });
+  }
+
+  // ── CAJAS DE VINO ──
+  function cajavinoPrecioUnidad(cantidad) {
+    if (cantidad > 50) return 28.00;
+    if (cantidad >= 25) return 31.00;
+    if (cantidad >= 10) return 34.00;
+    return 39.00;
+  }
+  function updateCajavino() {
+    const cantidad = parseInt(document.getElementById('cajavino-cantidad')?.value) || 0;
+    const desglose = document.getElementById('cajavino-desglose');
+    const totalEl = document.getElementById('cajavino-total');
+    if (cantidad < 1) {
+      desglose.textContent = 'Escribe la cantidad para ver el precio';
+      totalEl.textContent = '— €';
+      return;
+    }
+    const precioU = cajavinoPrecioUnidad(cantidad);
+    const total = precioU * cantidad;
+    desglose.textContent = cantidad + ' uds × ' + formatEuros(precioU) + ' = ' + formatEuros(total);
+    totalEl.textContent = formatEuros(total);
+  }
+  function addCartCajavino() {
+    const cantidad = parseInt(document.getElementById('cajavino-cantidad')?.value) || 0;
+    const diseno = document.getElementById('cajavino-diseno')?.value.trim();
+    const enfoque = document.getElementById('cajavino-enfoque')?.value;
+    if (cantidad < 1) { alert('Por favor indica la cantidad de cajas de vino que quieres.'); return; }
+    if (!diseno) { alert('Por favor indica qué quieres que lleve grabado.'); return; }
+    if (!enfoque) { alert('Por favor indica cómo prefieres definir el diseño.'); return; }
+    const precioU = cajavinoPrecioUnidad(cantidad);
+    const bolsita = document.getElementById('cajavino-bolsita')?.value || 'Con bolsita individual';
+    const opts = { 'Grabado': diseno, 'Bolsita': bolsita, 'Enfoque diseño': enfoque };
+    addToCart({ id: 'cajavino-' + Date.now(), name: 'Caja de vino personalizada', price: precioU, qty: cantidad, options: opts });
   }
 </script>
 <script>
@@ -540,7 +1205,7 @@
     floatBtn.style.cssText = 'display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;border-radius:30px;padding:0.5rem 1.1rem;font-family:Nunito,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;';
     floatBtn.onclick = function() { showGrid(); };
     document.body.appendChild(floatBtn);
-    var floatPages = ['page-mar-montana','page-mesa','page-abrepared'];
+    var floatPages = ['page-marcasitios','page-imanes','page-llaveros','page-posavasos','page-libretas','page-cajavino'];
     function upd() {
       var ok = window.innerWidth <= 640 && floatPages.some(function(id){var e=document.getElementById(id);return e&&e.classList.contains('active');});
       floatBtn.style.display = ok ? 'block' : 'none';
@@ -551,7 +1216,6 @@
     upd();
   })();
 </script>
-<script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
 </body>
 </html>
