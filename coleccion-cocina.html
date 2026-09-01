@@ -63,6 +63,7 @@
     .mar-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--ocean); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; z-index: 2; }
     .montana-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--forest); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
     .otono-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--autumn); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
+    .personalizable-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
     .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
     .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
     .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
@@ -72,6 +73,7 @@
     .price-row:last-of-type { border-bottom: none; }
     .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.92rem; }
     .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
+    .price-alert { font-size: 0.78rem; color: var(--wood-dark); font-weight: 600; background: var(--wood-light); border-radius: 8px; padding: 0.5rem 0.75rem; margin-top: 0.5rem; line-height: 1.5; }
     .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-contact:hover { background: var(--mint-dark); }
     .btn-mar:hover { background: var(--ocean) !important; }
@@ -112,6 +114,14 @@
     @media (max-width: 380px) { .nav-back { display: none; } }
     .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-add-cart:hover { background: var(--wood-dark); }
+    .btn-personalize { display: flex; align-items: center; justify-content: center; gap: 0.4rem; width: 100%; margin-top: 0.7rem; padding: 0.65rem 1rem; background: #fff; color: var(--wood-dark); border: 1.5px solid var(--wood-mid); border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+    .btn-personalize:hover { background: var(--wood-light); }
+    .btn-personalize .chev { display: inline-block; transition: transform 0.3s ease; font-size: 0.7rem; }
+    .product-card.expanded .btn-personalize .chev { transform: rotate(180deg); }
+    .product-card.expanded .btn-personalize { background: var(--wood-light); }
+    .product-collapsible { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s ease, opacity 0.3s ease; }
+    .product-collapsible > div { overflow: hidden; }
+    .product-card.expanded .product-collapsible { grid-template-rows: 1fr; opacity: 1; }
     .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
     .cart-btn:hover { background: #4d8a72; }
     .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
@@ -119,7 +129,7 @@
     .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
     .opt-row { margin-bottom: 0.5rem; }
     .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    .opt-input { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
+    .opt-input { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; box-sizing: border-box; }
     .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
     .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
     .carousel { position: relative; overflow: hidden; height: 300px; width: 100%; }
@@ -173,6 +183,14 @@
       <div class="cat-info">
         <h3>Mamemi en la mesa</h3>
         <p>Servilleteros de mimbre · Detalles para la mesa</p>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
+    <a class="cat-card fade-in" onclick="showPage('abrepared'); return false;" href="#">
+      <div class="img-wrap"><img src="images/abrebotellas_pared.jpg" alt="Abrebotellas de pared"></div>
+      <div class="cat-info">
+        <h3>Abrebotellas de pared</h3>
+        <p>Madera con cesta metálica recoge chapas</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -311,6 +329,56 @@
   </div>
 </div>
 
+<!-- ABREBOTELLAS DE PARED -->
+<div class="product-page" id="page-abrepared">
+  <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
+  <div class="products-grid">
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/abrebotellas_pared.jpg')">
+        <img src="images/abrebotellas_pared.jpg" alt="Abrebotellas de pared de madera con cesta metálica">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Colección Cocina</p>
+        <h3>Abrebotellas de pared con cesta recoge chapas</h3>
+        <p class="product-desc">Abrebotellas de pared en madera con mecanismo metálico y una cesta de rejilla metálica debajo que recoge las chapas automáticamente. Se fija a la pared con tornillos (incluidos). Ideal para la cocina, la terraza o el rincón del aperitivo.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Sin personalizar</span><span class="amount">20 €</span></div>
+          <div class="price-row"><span>Personalización solo con texto</span><span class="amount">+ 3 €</span></div>
+          <div class="price-row"><span>Personalización con logo o dibujo</span><span class="amount">+ 5 €</span></div>
+          <div class="price-row"><span>Personalización con dibujo + texto</span><span class="amount">+ 6 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <div class="price-alert">✦ Tras la compra me pongo en contacto contigo para concretar el diseño exacto y confirmarlo antes de fabricarlo. Si prefieres adelantarme la idea, el logo o el dibujo, también puedes escribirme por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-dark);text-decoration:underline;">WhatsApp</a>.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Quieres personalizarlo?</label>
+            <select id="opt-abrepared-personalizar" class="opt-input" onchange="updateAbrePared()">
+              <option value="no">No, lo quiero tal cual</option>
+              <option value="texto">Sí, solo con texto grabado (+3 €)</option>
+              <option value="dibujo">Sí, con logo o dibujo grabado (+5 €)</option>
+              <option value="ambos">Sí, con dibujo + texto (+6 €)</option>
+            </select>
+          </div>
+          <div id="abrepared-texto-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">Frase para grabar (máx. 10 palabras)</label>
+            <input type="text" id="opt-abrepared-texto" class="opt-input" placeholder="ej. Para el mejor anfitrión" oninput="updateAbrePared()">
+          </div>
+          <div id="abrepared-dibujo-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">Describe lo que te gustaría</label>
+            <input type="text" id="opt-abrepared-dibujo" class="opt-input" placeholder="ej. Logo de empresa, Dibujo de un ancla..." oninput="updateAbrePared()">
+            <p style="font-size:0.7rem;margin-top:0.3rem;color:var(--text-mid);">✦ No hace falta que subas la imagen aquí — te contacto yo tras la compra para que me la envíes, o me la puedes adelantar por WhatsApp.</p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-abrepared-total">20 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartAbrePared()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20abrebotellas%20de%20pared" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="info-banner" style="background:var(--wood-deep);color:var(--cream);padding:2rem;text-align:center;">
   <p style="font-size:0.88rem;font-weight:300;line-height:1.8;">✦ Todos los precios incluyen IVA · Realizo envíos a toda España ✦<br>
   ¿Tienes dudas? Escríbeme a <strong style="color:var(--wood-mid);">hola@mamemimadera.es</strong> o por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-mid);font-weight:700;">WhatsApp</a></p>
@@ -332,13 +400,24 @@
 </div>
 
 <script>
+  function togglePersonalize(btn) {
+    const card = btn.closest('.product-card');
+    card.classList.toggle('expanded');
+    if (card.classList.contains('expanded')) {
+      btn.childNodes[0].textContent = 'Ocultar personalización ';
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      btn.childNodes[0].textContent = 'Personalizar ';
+    }
+  }
+
   function showPage(id) {
     document.getElementById('catGrid').style.display = 'none';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const pageLabel = id === 'mar-montana' ? 'Tablas de cocina' : 'Mamemi en la mesa';
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Colección Cocina</a> · ' + pageLabel;
+    const pageLabels = { 'mar-montana': 'Tablas de cocina', 'mesa': 'Mamemi en la mesa', 'abrepared': 'Abrebotellas de pared' };
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Colección Cocina</a> · ' + pageLabels[id];
   }
   function showGrid() {
     document.getElementById('catGrid').style.display = 'block';
@@ -400,27 +479,56 @@
     addToCart({ id: 'servilletero-' + Date.now(), name, price: parseFloat(price), qty: 1, peso, options: { Cantidad: q + ' u' } });
   }
 
-  const carousels = {};
-  function moveCarousel(id, dir) {
-    if (!carousels[id]) carousels[id] = 0;
-    const track = document.getElementById(id + '-track');
-    const slides = track.querySelectorAll('.carousel-slide');
-    carousels[id] = (carousels[id] + dir + slides.length) % slides.length;
-    track.style.transform = 'translateX(-' + (carousels[id] * 100) + '%)';
-    updateDots(id);
+  // ── ABREBOTELLAS DE PARED ──
+  function abreParedExtra(personalizar) {
+    if (personalizar === 'ambos') return 6;
+    if (personalizar === 'dibujo') return 5;
+    if (personalizar === 'texto') return 3;
+    return 0;
   }
-  function goToSlide(id, idx) {
-    carousels[id] = idx;
-    const track = document.getElementById(id + '-track');
-    track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-    updateDots(id);
+  function updateAbrePared() {
+    const personalizar = document.getElementById('opt-abrepared-personalizar')?.value || 'no';
+    document.getElementById('abrepared-texto-wrap').style.display = (personalizar === 'texto' || personalizar === 'ambos') ? 'block' : 'none';
+    document.getElementById('abrepared-dibujo-wrap').style.display = (personalizar === 'dibujo' || personalizar === 'ambos') ? 'block' : 'none';
+    const extra = abreParedExtra(personalizar);
+    document.getElementById('opt-abrepared-total').textContent = (20 + extra) + ' €';
   }
-  function updateDots(id) {
-    const carousel = document.getElementById(id + '-carousel');
-    if (!carousel) return;
-    carousel.querySelectorAll('.carousel-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === (carousels[id] || 0));
-    });
+  function addCartAbrePared() {
+    const personalizar = document.getElementById('opt-abrepared-personalizar')?.value || 'no';
+    const opts = {};
+    const extra = abreParedExtra(personalizar);
+
+    if (personalizar === 'no') {
+      opts['Personalización'] = 'Sin personalizar';
+      addToCart({ id: 'abrepared-' + Date.now(), name: 'Abrebotellas de pared con cesta recoge chapas', price: 20, peso: 500, options: opts });
+      return;
+    }
+
+    const texto = document.getElementById('opt-abrepared-texto')?.value.trim() || '';
+    const dibujo = document.getElementById('opt-abrepared-dibujo')?.value.trim() || '';
+
+    if (personalizar === 'texto' || personalizar === 'ambos') {
+      if (!texto) { alert('Por favor escribe la frase que quieres grabar.'); return; }
+      const numPalabras = texto.split(/\s+/).filter(Boolean).length;
+      if (numPalabras > 10) { alert('La frase no puede superar las 10 palabras (ahora tiene ' + numPalabras + ').'); return; }
+    }
+    if (personalizar === 'dibujo' || personalizar === 'ambos') {
+      if (!dibujo) { alert('Por favor describe el logo o dibujo que te gustaría.'); return; }
+    }
+
+    if (personalizar === 'texto') {
+      opts['Personalización'] = 'Solo texto';
+      opts['Frase'] = texto;
+    } else if (personalizar === 'dibujo') {
+      opts['Personalización'] = 'Logo o dibujo';
+      opts['Descripción del dibujo'] = dibujo;
+    } else if (personalizar === 'ambos') {
+      opts['Personalización'] = 'Dibujo + texto';
+      opts['Descripción del dibujo'] = dibujo;
+      opts['Frase'] = texto;
+    }
+
+    addToCart({ id: 'abrepared-' + Date.now(), name: 'Abrebotellas de pared con cesta recoge chapas', price: 20 + extra, peso: 500, options: opts });
   }
 </script>
 <script>
@@ -432,7 +540,7 @@
     floatBtn.style.cssText = 'display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;border-radius:30px;padding:0.5rem 1.1rem;font-family:Nunito,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;';
     floatBtn.onclick = function() { showGrid(); };
     document.body.appendChild(floatBtn);
-    var floatPages = ['page-mar-montana','page-mesa'];
+    var floatPages = ['page-mar-montana','page-mesa','page-abrepared'];
     function upd() {
       var ok = window.innerWidth <= 640 && floatPages.some(function(id){var e=document.getElementById(id);return e&&e.classList.contains('active');});
       floatBtn.style.display = ok ? 'block' : 'none';
