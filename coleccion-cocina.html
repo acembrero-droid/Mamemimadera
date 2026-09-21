@@ -130,8 +130,10 @@
     .opt-row { margin-bottom: 0.5rem; }
     .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
     .opt-input { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; box-sizing: border-box; }
+    textarea.opt-input { cursor: text; font-family: 'Nunito', sans-serif; }
     .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
     .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
+    .opt-counter { font-size: 0.7rem; margin-top: 0.3rem; color: var(--text-mid); }
     .carousel { position: relative; overflow: hidden; height: 300px; width: 100%; }
     .carousel-track { display: flex; height: 100%; transition: transform 0.4s ease; will-change: transform; }
     .carousel-slide { min-width: 100%; width: 100%; flex-shrink: 0; position: relative; cursor: zoom-in; height: 300px; overflow: hidden; }
@@ -228,9 +230,25 @@
         <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño del mar de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
         <div class="price-block">
           <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
+          <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'tabla-mar',name:'Tabla de cocina · Mar',price:32,peso:680,options:{}})">Añadir al carrito</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Quieres añadir una dedicatoria grabada?</label>
+            <select id="opt-tabla-mar-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('mar')">
+              <option value="no">No, la quiero tal cual</option>
+              <option value="si">Sí, quiero una dedicatoria (+5 €)</option>
+            </select>
+          </div>
+          <div id="tabla-mar-dedicatoria-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">Texto de la dedicatoria (máx. 20 palabras)</label>
+            <textarea id="opt-tabla-mar-texto" class="opt-input" rows="2" placeholder="ej. Para los mejores anfitriones, con todo nuestro cariño..." oninput="tablaWordCount('mar')"></textarea>
+            <p class="opt-counter" id="tabla-mar-counter">0 / 20 palabras</p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-mar-total">32 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartTabla('mar')">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Mar" class="btn-contact btn-mar" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -247,9 +265,25 @@
         <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño de montaña de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
         <div class="price-block">
           <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
+          <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'tabla-montana',name:'Tabla de cocina · Montaña',price:32,peso:680,options:{}})">Añadir al carrito</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Quieres añadir una dedicatoria grabada?</label>
+            <select id="opt-tabla-montana-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('montana')">
+              <option value="no">No, la quiero tal cual</option>
+              <option value="si">Sí, quiero una dedicatoria (+5 €)</option>
+            </select>
+          </div>
+          <div id="tabla-montana-dedicatoria-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">Texto de la dedicatoria (máx. 20 palabras)</label>
+            <textarea id="opt-tabla-montana-texto" class="opt-input" rows="2" placeholder="ej. Para los mejores anfitriones, con todo nuestro cariño..." oninput="tablaWordCount('montana')"></textarea>
+            <p class="opt-counter" id="tabla-montana-counter">0 / 20 palabras</p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-montana-total">32 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartTabla('montana')">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Monta%C3%B1a" class="btn-contact btn-montana" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -266,9 +300,25 @@
         <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño de una hoja seca de árbol de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado — puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
         <div class="price-block">
           <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
+          <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <button class="btn-add-cart" onclick="addToCart({id:'tabla-otono',name:'Tabla de cocina · Otoño',price:32,peso:680,options:{}})">Añadir al carrito</button>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Quieres añadir una dedicatoria grabada?</label>
+            <select id="opt-tabla-otono-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('otono')">
+              <option value="no">No, la quiero tal cual</option>
+              <option value="si">Sí, quiero una dedicatoria (+5 €)</option>
+            </select>
+          </div>
+          <div id="tabla-otono-dedicatoria-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">Texto de la dedicatoria (máx. 20 palabras)</label>
+            <textarea id="opt-tabla-otono-texto" class="opt-input" rows="2" placeholder="ej. Para los mejores anfitriones, con todo nuestro cariño..." oninput="tablaWordCount('otono')"></textarea>
+            <p class="opt-counter" id="tabla-otono-counter">0 / 20 palabras</p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-otono-total">32 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartTabla('otono')">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Oto%C3%B1o" class="btn-contact btn-otono" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
@@ -345,29 +395,21 @@
         <p class="product-desc">Abrebotellas de pared en madera con mecanismo metálico y una cesta de rejilla metálica debajo que recoge las chapas automáticamente. Se fija a la pared con tornillos (incluidos). Ideal para la cocina, la terraza o el rincón del aperitivo.</p>
         <div class="price-block">
           <div class="price-row"><span>Sin personalizar</span><span class="amount">20 €</span></div>
-          <div class="price-row"><span>Personalización solo con texto</span><span class="amount">+ 3 €</span></div>
-          <div class="price-row"><span>Personalización con logo o dibujo</span><span class="amount">+ 5 €</span></div>
-          <div class="price-row"><span>Personalización con dibujo + texto</span><span class="amount">+ 7 €</span></div>
+          <div class="price-row"><span>Personalización grabada</span><span class="amount">+ 5 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
-        <div class="price-alert">✦ Tras la compra me pongo en contacto contigo para concretar el diseño exacto y confirmarlo antes de fabricarlo. Si prefieres adelantarme la idea, el logo o el dibujo, también puedes escribirme por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-dark);text-decoration:underline;">WhatsApp</a>.</div>
+        <div class="price-alert">✦ Tras la compra me pongo en contacto contigo para concretar el diseño exacto y confirmarlo antes de fabricarlo. Si prefieres adelantarme la idea, también puedes escribirme por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-dark);text-decoration:underline;">WhatsApp</a>.</div>
         <div class="product-options">
           <div class="opt-row">
             <label class="opt-label">¿Quieres personalizarlo?</label>
             <select id="opt-abrepared-personalizar" class="opt-input" onchange="updateAbrePared()">
               <option value="no">No, lo quiero tal cual</option>
-              <option value="texto">Sí, solo con texto grabado (+3 €)</option>
-              <option value="dibujo">Sí, con logo o dibujo grabado (+5 €)</option>
-              <option value="ambos">Sí, con dibujo + texto (+7 €)</option>
+              <option value="si">Sí, quiero personalizarlo (+5 €)</option>
             </select>
           </div>
-          <div id="abrepared-texto-wrap" class="opt-row" style="display:none;">
-            <label class="opt-label">Frase para grabar (máx. 10 palabras)</label>
-            <input type="text" id="opt-abrepared-texto" class="opt-input" placeholder="ej. Para el mejor anfitrión" oninput="updateAbrePared()">
-          </div>
-          <div id="abrepared-dibujo-wrap" class="opt-row" style="display:none;">
-            <label class="opt-label">Describe lo que te gustaría</label>
-            <input type="text" id="opt-abrepared-dibujo" class="opt-input" placeholder="ej. Logo de empresa, Dibujo de un ancla..." oninput="updateAbrePared()">
+          <div id="abrepared-detalle-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">¿Qué te gustaría que grabara? ¿Texto? ¿Dibujo? ¿Ambas cosas?</label>
+            <textarea id="opt-abrepared-detalle" class="opt-input" rows="2" placeholder="ej. El texto 'Casa Martínez' junto a un dibujo de una uva" oninput="updateAbrePared()"></textarea>
             <p style="font-size:0.7rem;margin-top:0.3rem;color:var(--text-mid);">✦ No hace falta que subas la imagen aquí — te contacto yo tras la compra para que me la envíes, o me la puedes adelantar por WhatsApp.</p>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="opt-abrepared-total">20 €</strong></div>
@@ -479,24 +521,55 @@
     addToCart({ id: 'servilletero-' + Date.now(), name, price: parseFloat(price), qty: 1, peso, options: { Cantidad: q + ' u' } });
   }
 
-  // ── ABREBOTELLAS DE PARED ──
-  function abreParedExtra(personalizar) {
-    if (personalizar === 'ambos') return 7;
-    if (personalizar === 'dibujo') return 5;
-    if (personalizar === 'texto') return 3;
-    return 0;
+  // ── TABLAS DE COCINA: DEDICATORIA ──
+  const tablaData = {
+    mar: { id: 'tabla-mar', name: 'Tabla de cocina · Mar', price: 32, peso: 680 },
+    montana: { id: 'tabla-montana', name: 'Tabla de cocina · Montaña', price: 32, peso: 680 },
+    otono: { id: 'tabla-otono', name: 'Tabla de cocina · Otoño', price: 32, peso: 680 }
+  };
+  function tablaWordCount(tipo) {
+    const ta = document.getElementById('opt-tabla-' + tipo + '-texto');
+    const counter = document.getElementById('tabla-' + tipo + '-counter');
+    if (!ta || !counter) return;
+    const words = ta.value.trim().split(/\s+/).filter(Boolean).length;
+    counter.textContent = words + ' / 20 palabras';
+    counter.style.color = words > 20 ? '#b5651d' : 'var(--text-mid)';
   }
+  function updateTablaDedicatoria(tipo) {
+    const sel = document.getElementById('opt-tabla-' + tipo + '-dedicatoria');
+    const wrap = document.getElementById('tabla-' + tipo + '-dedicatoria-wrap');
+    if (!sel || !wrap) return;
+    const quiere = sel.value === 'si';
+    wrap.style.display = quiere ? 'block' : 'none';
+    const total = tablaData[tipo].price + (quiere ? 5 : 0);
+    document.getElementById('opt-tabla-' + tipo + '-total').textContent = total + ' €';
+  }
+  function addCartTabla(tipo) {
+    const data = tablaData[tipo];
+    const sel = document.getElementById('opt-tabla-' + tipo + '-dedicatoria');
+    const quiere = sel && sel.value === 'si';
+    let price = data.price;
+    const opts = {};
+    if (quiere) {
+      const texto = document.getElementById('opt-tabla-' + tipo + '-texto')?.value.trim() || '';
+      if (!texto) { alert('Por favor escribe el texto de la dedicatoria.'); return; }
+      const numPalabras = texto.split(/\s+/).filter(Boolean).length;
+      if (numPalabras > 20) { alert('La dedicatoria no puede superar las 20 palabras (ahora tiene ' + numPalabras + ').'); return; }
+      opts['Dedicatoria'] = texto;
+      price += 5;
+    }
+    addToCart({ id: data.id, name: data.name, price, peso: data.peso, options: opts });
+  }
+
+  // ── ABREBOTELLAS DE PARED ──
   function updateAbrePared() {
     const personalizar = document.getElementById('opt-abrepared-personalizar')?.value || 'no';
-    document.getElementById('abrepared-texto-wrap').style.display = (personalizar === 'texto' || personalizar === 'ambos') ? 'block' : 'none';
-    document.getElementById('abrepared-dibujo-wrap').style.display = (personalizar === 'dibujo' || personalizar === 'ambos') ? 'block' : 'none';
-    const extra = abreParedExtra(personalizar);
-    document.getElementById('opt-abrepared-total').textContent = (20 + extra) + ' €';
+    document.getElementById('abrepared-detalle-wrap').style.display = personalizar === 'si' ? 'block' : 'none';
+    document.getElementById('opt-abrepared-total').textContent = (personalizar === 'si' ? 25 : 20) + ' €';
   }
   function addCartAbrePared() {
     const personalizar = document.getElementById('opt-abrepared-personalizar')?.value || 'no';
     const opts = {};
-    const extra = abreParedExtra(personalizar);
 
     if (personalizar === 'no') {
       opts['Personalización'] = 'Sin personalizar';
@@ -504,31 +577,12 @@
       return;
     }
 
-    const texto = document.getElementById('opt-abrepared-texto')?.value.trim() || '';
-    const dibujo = document.getElementById('opt-abrepared-dibujo')?.value.trim() || '';
+    const detalle = document.getElementById('opt-abrepared-detalle')?.value.trim() || '';
+    if (!detalle) { alert('Por favor cuéntame qué te gustaría que grabara (texto, dibujo o ambos).'); return; }
 
-    if (personalizar === 'texto' || personalizar === 'ambos') {
-      if (!texto) { alert('Por favor escribe la frase que quieres grabar.'); return; }
-      const numPalabras = texto.split(/\s+/).filter(Boolean).length;
-      if (numPalabras > 10) { alert('La frase no puede superar las 10 palabras (ahora tiene ' + numPalabras + ').'); return; }
-    }
-    if (personalizar === 'dibujo' || personalizar === 'ambos') {
-      if (!dibujo) { alert('Por favor describe el logo o dibujo que te gustaría.'); return; }
-    }
-
-    if (personalizar === 'texto') {
-      opts['Personalización'] = 'Solo texto';
-      opts['Frase'] = texto;
-    } else if (personalizar === 'dibujo') {
-      opts['Personalización'] = 'Logo o dibujo';
-      opts['Descripción del dibujo'] = dibujo;
-    } else if (personalizar === 'ambos') {
-      opts['Personalización'] = 'Dibujo + texto';
-      opts['Descripción del dibujo'] = dibujo;
-      opts['Frase'] = texto;
-    }
-
-    addToCart({ id: 'abrepared-' + Date.now(), name: 'Abrebotellas de pared con cesta recoge chapas', price: 20 + extra, peso: 500, options: opts });
+    opts['Personalización'] = 'Grabado personalizado';
+    opts['Detalle'] = detalle;
+    addToCart({ id: 'abrepared-' + Date.now(), name: 'Abrebotellas de pared con cesta recoge chapas', price: 25, peso: 500, options: opts });
   }
 </script>
 <script>
