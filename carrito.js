@@ -1,47 +1,17 @@
 // ── MAMEMI Madera · Carrito de compra ──
 (function() {
 
-  // ── Tabla de envío por peso, según zona (tarifa Correos Paq Ligero/Premium + embalaje) ──
-  const SHIPPING_TIERS_PENINSULA = [
-    { maxGrams: 250,      price: 5.98,  label: 'Envío Mini' },
-    { maxGrams: 500,      price: 9.00,  label: 'Envío Estándar' },
-    { maxGrams: 1000,     price: 12.51, label: 'Envío Mediano' },
-    { maxGrams: 2000,     price: 14.84, label: 'Envío Voluminoso' },
-    { maxGrams: Infinity, price: 21.70, label: 'Envío Paquete Grande' },
-  ];
-  const SHIPPING_TIERS_BALEARES_CEUTA_MELILLA = [
-    { maxGrams: 250,      price: 7.72,  label: 'Envío Mini' },
-    { maxGrams: 500,      price: 10.29, label: 'Envío Estándar' },
-    { maxGrams: 1000,     price: 14.19, label: 'Envío Mediano' },
-    { maxGrams: 2000,     price: 16.24, label: 'Envío Voluminoso' },
-    { maxGrams: Infinity, price: 24.25, label: 'Envío Paquete Grande' },
-  ];
-  const SHIPPING_TIERS_CANARIAS = [
-    { maxGrams: 250,      price: 11.85, label: 'Envío Mini' },
-    { maxGrams: 500,      price: 13.82, label: 'Envío Estándar' },
-    { maxGrams: 1000,     price: 15.59, label: 'Envío Mediano' },
-    { maxGrams: 2000,     price: 19.02, label: 'Envío Voluminoso' },
-    { maxGrams: Infinity, price: 36.05, label: 'Envío Paquete Grande' },
-  ];
-  const FREE_SHIPPING_THRESHOLD = 75;
+  // ── Tarifa plana de envío (sin tramos por peso) ──
+  const SHIPPING_RATES = {
+    domicilio: { peninsula: 4.95, baleares_ceuta_melilla: 7.99, canarias: 11.99 },
+    correos:   { peninsula: 3.99 } // recogida en Oficina de Correos, solo disponible en Península
+  };
+  const FREE_SHIPPING_THRESHOLD = 60;
   const ENVIOS_INFO_URL = 'envios.html';
 
-  const LIGHT_ITEMS = [
-    { name: 'un imán grabado al láser', weight: 20, url: 'cositas-mamemi.html' },
-    { name: 'un disco de madera', weight: 15, url: 'cositas-mamemi.html' },
-    { name: 'un marcapáginas', weight: 12, url: 'regalos-personalizados.html' },
-    { name: 'un llavero grabado', weight: 8, url: 'regalos-personalizados.html' },
-  ];
-
-  function suggestLightItem(remainingGrams) {
-    for (const item of LIGHT_ITEMS) {
-      if (item.weight <= remainingGrams) return item;
-    }
-    return null;
-  }
-
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
-  let deliveryMode = localStorage.getItem('mamemi_delivery') || 'envio';
+  let deliveryMode = localStorage.getItem('mamemi_delivery') || 'domicilio';
+  if (deliveryMode === 'envio') deliveryMode = 'domicilio'; // migración de un valor antiguo guardado en el navegador
   let orderRef = localStorage.getItem('mamemi_orderref') || generateRef();
   let currentStep = 1;
 
@@ -87,7 +57,14 @@
     saveCart();
   };
 
+  // 'domicilio' y 'correos' necesitan dirección; 'tienda' solo necesita datos de contacto
+  function needsAddress(mode) {
+    return mode === 'domicilio' || mode === 'correos';
+  }
+
   window.setDeliveryMode = function(mode) {
+    // la recogida en Oficina de Correos solo está disponible en Península
+    if (mode === 'correos' && getCurrentRegion() !== 'peninsula') mode = 'domicilio';
     deliveryMode = mode;
     saveCart();
   };
@@ -113,30 +90,26 @@
     return 'peninsula';
   }
 
-  function getShippingTiersForRegion(region) {
-    if (region === 'canarias') return SHIPPING_TIERS_CANARIAS;
-    if (region === 'baleares_ceuta_melilla') return SHIPPING_TIERS_BALEARES_CEUTA_MELILLA;
-    return SHIPPING_TIERS_PENINSULA;
-  }
-
   function getCurrentRegion() {
     const savedAddress = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
     return getRegionFromCP(savedAddress.cp);
   }
 
-  function getShippingTier(weightGrams, region) {
-    const tiers = getShippingTiersForRegion(region || getCurrentRegion());
-    for (const tier of tiers) {
-      if (weightGrams <= tier.maxGrams) return tier;
-    }
-    return tiers[tiers.length - 1];
+  function getShippingLabel(mode, region) {
+    if (region === 'canarias') return 'Envío a Canarias';
+    if (region === 'baleares_ceuta_melilla') return 'Envío a Baleares / Ceuta / Melilla';
+    return mode === 'correos' ? 'Recogida en Oficina de Correos' : 'Envío a domicilio';
   }
 
   function getShipping(subtotal) {
     if (deliveryMode === 'tienda') return 0;
     const region = getCurrentRegion();
-    if (subtotal >= FREE_SHIPPING_THRESHOLD && region === 'peninsula') return 0;
-    return getShippingTier(cartWeightGrams(), region).price;
+    if (region === 'peninsula' && subtotal >= FREE_SHIPPING_THRESHOLD) return 0;
+    if (region === 'peninsula') {
+      return deliveryMode === 'correos' ? SHIPPING_RATES.correos.peninsula : SHIPPING_RATES.domicilio.peninsula;
+    }
+    // Baleares/Ceuta/Melilla y Canarias: tarifa única, sin opción de elegir método
+    return SHIPPING_RATES.domicilio[region];
   }
 
   function cartTotal() {
@@ -178,7 +151,7 @@
     notif._t = setTimeout(() => notif.classList.remove('show'), 2500);
   }
 
-  // ── Dirección de envío (modo "envio") ──
+  // ── Dirección de envío (modo "domicilio" o "correos") ──
   function getAddrVal(id) {
     const el = document.getElementById(id);
     return el ? el.value.trim() : '';
@@ -242,7 +215,7 @@
     return missing;
   }
 
-  // ── Datos de contacto (modo "tienda" · recogida) ──
+  // ── Datos de contacto (modo "tienda" · recogida en el taller) ──
   function getContactVal(id) {
     const el = document.getElementById(id);
     return el ? el.value.trim() : '';
@@ -297,10 +270,15 @@
     const total = cartTotal();
     const weight = cartWeightGrams();
     const personalizado = cartHasPersonalizacion();
+    const region = getCurrentRegion();
+
+    const modeLabel = deliveryMode === 'tienda'
+      ? 'Recogida en tienda'
+      : getShippingLabel(deliveryMode, region);
 
     let text = `🛍️ NUEVO PEDIDO MAMEMI MADERA\n`;
     text += `Referencia: ${orderRef}\n`;
-    text += `Modo de entrega: ${deliveryMode === 'tienda' ? 'Recogida en tienda' : 'Envío a domicilio'}\n`;
+    text += `Modo de entrega: ${modeLabel}\n`;
     text += `────────────────────────\n`;
     text += `PRODUCTOS:\n`;
     cart.forEach(item => {
@@ -321,7 +299,7 @@
     } else {
       text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
       text += `Peso total del pedido: ${weight} g\n`;
-      text += `Envío: ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
+      text += `Envío (${modeLabel}): ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
       text += `────────────────────────\n`;
       text += `DIRECCIÓN DE ENVÍO:\n`;
       text += `${customer.nombre}\n`;
@@ -351,7 +329,7 @@
     if (cart.length === 0) return;
 
     let customer;
-    if (deliveryMode === 'envio') {
+    if (needsAddress(deliveryMode)) {
       customer = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
       const missing = validateSavedAddress(customer);
       if (missing.length > 0) {
@@ -465,7 +443,7 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const total = cartTotal();
-    const tier = getShippingTier(cartWeightGrams());
+    const region = getCurrentRegion();
 
     if (cart.length === 0) {
       body.innerHTML = `
@@ -500,40 +478,33 @@
     let noteHtml = '';
     if (deliveryMode === 'tienda') {
       noteHtml = `✨ Tu pedido incluirá un envoltorio bonito listo para regalo.<br>📍 <a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a>`;
-      if (subtotal < FREE_SHIPPING_THRESHOLD) {
-        const wouldBeShipping = getShippingTier(cartWeightGrams()).price;
-        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Gracias a que vienes a la tienda a recoger tu pedido te ahorras ${wouldBeShipping.toFixed(2)} € de los gastos de envío</span>`;
-      }
-    } else if (shipping === 0) {
-      noteHtml = `✨ Envoltorio mimado para entregar como regalo · ¡Envío gratis! (pedidos de más de ${FREE_SHIPPING_THRESHOLD}€, solo Península)`;
-      noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
     } else {
-      const remainingEur = FREE_SHIPPING_THRESHOLD - subtotal;
-      const closeToFree = remainingEur <= 25;
-      if (closeToFree) {
-        noteHtml = `✨ Envoltorio mimado para entregar como regalo<br><span style="font-size:0.68rem;opacity:0.8;">✦ ¡Solo te faltan ${remainingEur.toFixed(2)} € para conseguir el envío gratis!</span>`;
-      } else {
-        noteHtml = `✨ Envoltorio mimado para entregar como regalo`;
-      }
-      noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
-      const currentWeight = cartWeightGrams();
-      const currentTier = getShippingTier(currentWeight);
-      if (currentTier.maxGrams !== Infinity) {
-        const remainingGrams = currentTier.maxGrams - currentWeight;
-        const suggestion = suggestLightItem(remainingGrams);
-        if (suggestion) {
-          noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ Todavía te caben ${remainingGrams} g más en el mismo tramo de envío — por ejemplo, <a href="${suggestion.url}" style="color:#6a9e8a;font-weight:700;">${suggestion.name}</a> sin que suba el precio del envío</span>`;
+      noteHtml = `✨ Envoltorio mimado para entregar como regalo`;
+      if (region === 'peninsula') {
+        if (shipping === 0) {
+          noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">🎉 ¡Envío gratis conseguido!</span>`;
+        } else {
+          const remainingEur = FREE_SHIPPING_THRESHOLD - subtotal;
+          noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ ¡Te faltan solo ${remainingEur.toFixed(2)} € para conseguir el envío gratis! (a partir de ${FREE_SHIPPING_THRESHOLD}€)</span>`;
         }
+        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
+      } else {
+        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ El envío gratis solo aplica a envíos dentro de la Península</span>`;
       }
     }
     noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">📦 Plazo de envío estimado: <strong>${getEstimatedDelivery()}</strong> · Todos los envíos son certificados con seguimiento${deliveryMode === 'tienda' ? ' (te avisaré por WhatsApp/email)' : ' (puede ampliarse en fechas de alta demanda)'}</span>`;
 
     body.innerHTML = `
       <div class="delivery-selector">
-        <button class="delivery-btn ${deliveryMode === 'envio' ? 'active' : ''}" onclick="setDeliveryMode('envio')">
+        <button class="delivery-btn ${deliveryMode === 'domicilio' ? 'active' : ''}" onclick="setDeliveryMode('domicilio')">
           <span class="delivery-icon">🚚</span>
           Envío a domicilio
         </button>
+        ${region === 'peninsula' ? `
+        <button class="delivery-btn ${deliveryMode === 'correos' ? 'active' : ''}" onclick="setDeliveryMode('correos')">
+          <span class="delivery-icon">🏤</span>
+          Recogida en Correos
+        </button>` : ''}
         <button class="delivery-btn ${deliveryMode === 'tienda' ? 'active' : ''}" onclick="setDeliveryMode('tienda')">
           <span class="delivery-icon">🤝</span>
           Recogida en tienda
@@ -545,7 +516,7 @@
           <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
           ${deliveryMode === 'tienda'
             ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
-            : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+            : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : getShippingLabel(deliveryMode, region)} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
           }
           <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
         </div>
@@ -567,13 +538,17 @@
   function renderStep2Address(body) {
     const saved = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
     const v = (key, placeholder) => `value="${saved[key] || ''}" placeholder="${placeholder}"`;
+    const isCorreos = deliveryMode === 'correos';
 
     body.innerHTML = `
       <div class="cart-step-header">
         <button class="cart-back-step" onclick="goToStep(1)">← Volver al carrito</button>
-        <p class="cart-step-title">📦 Dirección de envío</p>
+        <p class="cart-step-title">${isCorreos ? '🏤 Datos para la recogida en Correos' : '📦 Dirección de envío'}</p>
         <p class="cart-step-sub">* Campos obligatorios</p>
-        <p class="cart-step-sub">✦ El envío gratis a partir de ${FREE_SHIPPING_THRESHOLD}€ aplica solo a envíos dentro de la España peninsular</p>
+        ${isCorreos
+          ? `<p class="cart-step-sub">✦ Te asignaré la Oficina de Correos más cercana a esta dirección — si prefieres una en concreto, indícalo en "Otras indicaciones"</p>`
+          : `<p class="cart-step-sub">✦ El envío gratis a partir de ${FREE_SHIPPING_THRESHOLD}€ aplica solo a envíos dentro de la España peninsular</p>`
+        }
       </div>
       <div class="cart-addr-form">
         <input id="addr-nombre" class="addr-input" type="text" ${v('nombre','* Nombre y apellidos')}>
@@ -592,7 +567,7 @@
         </div>
         <input id="addr-telefono" class="addr-input" type="tel" ${v('telefono','* Teléfono de contacto')} style="margin-top:0.4rem;">
         <input id="addr-email" class="addr-input" type="email" ${v('email','* Email de contacto')} style="margin-top:0.4rem;">
-        <input id="addr-otros" class="addr-input" type="text" ${v('otros','Otras indicaciones (timbre, piso, horario...)')} style="margin-top:0.4rem;">
+        <input id="addr-otros" class="addr-input" type="text" ${v('otros', isCorreos ? 'Oficina de Correos preferida, u otras indicaciones' : 'Otras indicaciones (timbre, piso, horario...)')} style="margin-top:0.4rem;">
       </div>
       <div class="cart-step-footer">
         <button class="cart-next-btn" onclick="saveAddressAndContinue()">Revisar pedido →</button>
@@ -631,6 +606,11 @@
     }
     const addr = getShippingAddress();
     localStorage.setItem('mamemi_address', JSON.stringify(addr));
+    // si tras guardar la dirección resulta que la región ya no admite "correos", pasamos a domicilio
+    if (deliveryMode === 'correos' && getCurrentRegion() !== 'peninsula') {
+      deliveryMode = 'domicilio';
+      localStorage.setItem('mamemi_delivery', deliveryMode);
+    }
     currentStep = 3;
     renderStep();
   };
@@ -651,8 +631,8 @@
     const subtotal = cartSubtotal();
     const shipping = getShipping(subtotal);
     const total = cartTotal();
-    const tier = getShippingTier(cartWeightGrams());
-    const addr = deliveryMode === 'envio'
+    const region = getCurrentRegion();
+    const addr = needsAddress(deliveryMode)
       ? JSON.parse(localStorage.getItem('mamemi_address') || '{}')
       : {};
     const contact = deliveryMode === 'tienda'
@@ -665,10 +645,11 @@
     }).join('');
 
     let addrSummary = '';
-    if (deliveryMode === 'envio' && addr.nombre) {
+    if (needsAddress(deliveryMode) && addr.nombre) {
+      const heading = deliveryMode === 'correos' ? '🏤 Recogida en Oficina de Correos' : '📦 Dirección de envío';
       addrSummary = `
         <div class="summary-block">
-          <p class="summary-label">📦 Dirección de envío <button class="edit-link" onclick="goToStep(2)">Editar</button></p>
+          <p class="summary-label">${heading} <button class="edit-link" onclick="goToStep(2)">Editar</button></p>
           <p>${addr.nombre}<br>${addr.calle} ${addr.numero}${addr.bloque ? ', Bl. ' + addr.bloque : ''}${addr.puerta ? ', Pta. ' + addr.puerta : ''}<br>${addr.cp} ${addr.poblacion}, ${addr.ciudad}<br>Tel: ${addr.telefono}${addr.email ? '<br>' + addr.email : ''}${addr.otros ? '<br><em>' + addr.otros + '</em>' : ''}</p>
         </div>`;
     } else if (deliveryMode === 'tienda') {
@@ -693,7 +674,7 @@
         <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
         ${deliveryMode === 'tienda'
           ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
-          : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : tier.label} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
+          : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : getShippingLabel(deliveryMode, region)} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
         }
         <div class="cart-total-row final"><span>Total</span><span>${total.toFixed(2)} €</span></div>
       </div>
