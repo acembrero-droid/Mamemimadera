@@ -25,12 +25,15 @@
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
     main { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 4rem; }
     .free-banner { background: var(--mint-light); border: 1.5px solid var(--mint); border-radius: 16px; padding: 1.2rem 1.5rem; text-align: center; font-size: 1.05rem; color: var(--wood-deep); font-weight: 700; margin-bottom: 2rem; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px var(--shadow); }
+    .zone-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); margin: 2rem 0 0.8rem; }
+    .zone-title:first-of-type { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px var(--shadow); margin-bottom: 0.6rem; }
     th, td { padding: 0.75rem 1rem; text-align: left; font-size: 0.85rem; }
     th { background: var(--wood-light); color: var(--wood-deep); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem; }
     td { color: var(--text-mid); border-bottom: 1px solid var(--wood-light); }
     tr:last-child td { border-bottom: none; }
     td.price { color: var(--wood-dark); font-weight: 700; white-space: nowrap; }
+    .zone-note { font-size: 0.78rem; color: var(--text-mid); font-style: italic; margin-bottom: 1.8rem; }
     .note-final { font-size: 0.78rem; color: var(--text-mid); font-style: italic; text-align: center; margin-top: 1.5rem; line-height: 1.6; }
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; }
     footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
@@ -60,22 +63,37 @@
 </div>
 
 <main>
-  <div class="free-banner">🎉 Envío GRATIS en compras superiores a 75 € (solo Península)</div>
+  <div class="free-banner">🎉 Envío GRATIS en compras superiores a 60 € (solo Península)</div>
 
+  <p class="zone-title">Península</p>
   <table>
     <thead>
-      <tr><th>Peso</th><th>Península</th><th>Baleares / Ceuta / Melilla</th><th>Canarias</th></tr>
+      <tr><th>Método</th><th>Precio</th></tr>
     </thead>
     <tbody>
-      <tr><td>0 – 250 g</td><td class="price">5,98 €</td><td class="price">7,72 €</td><td class="price">11,85 €</td></tr>
-      <tr><td>251 – 500 g</td><td class="price">9,00 €</td><td class="price">10,29 €</td><td class="price">13,82 €</td></tr>
-      <tr><td>501 g – 1 kg</td><td class="price">12,51 €</td><td class="price">14,19 €</td><td class="price">15,59 €</td></tr>
-      <tr><td>1 – 2 kg</td><td class="price">14,84 €</td><td class="price">16,24 €</td><td class="price">19,02 €</td></tr>
-      <tr><td>+ 2 kg</td><td class="price">21,70 €</td><td class="price">24,25 €</td><td class="price">36,05 €</td></tr>
+      <tr><td>🏤 Recogida en Oficina de Correos</td><td class="price">3,99 €</td></tr>
+      <tr><td>🚚 Envío a domicilio</td><td class="price">4,95 €</td></tr>
     </tbody>
   </table>
+  <p class="zone-note">✦ Puedes elegir el método que prefieras al finalizar tu pedido</p>
 
-  <p class="note-final">✦ El peso se calcula automáticamente sumando todos los productos de tu pedido<br>✦ Los envíos a Canarias pueden estar sujetos a aduana e IGIC en lugar de IVA, lo que puede implicar trámites y plazos adicionales ✦</p>
+  <p class="zone-title">Baleares / Ceuta / Melilla</p>
+  <table>
+    <tbody>
+      <tr><td>🚚 Envío estándar</td><td class="price">7,99 €</td></tr>
+    </tbody>
+  </table>
+  <p class="zone-note">✦ Tarifa única, sin opción de elegir método de entrega</p>
+
+  <p class="zone-title">Canarias</p>
+  <table>
+    <tbody>
+      <tr><td>🚚 Envío estándar</td><td class="price">11,99 €</td></tr>
+    </tbody>
+  </table>
+  <p class="zone-note">✦ Tarifa única, sin opción de elegir método de entrega</p>
+
+  <p class="note-final">✦ El envío gratuito a partir de 60€ aplica únicamente a envíos dentro de la Península<br>✦ Los envíos a Canarias pueden estar sujetos a aduana e IGIC en lugar de IVA, lo que puede implicar trámites y plazos adicionales</p>
 </main>
 
 <footer>
