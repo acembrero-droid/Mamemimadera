@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MAMEMI Madera – Regalos personalizados en madera</title>
+  <meta name="description" content="Regalos personalizados en madera hechos con mimo. Letras 3D, placas de nacimiento, joyitas, packs para regalar y detallitos para eventos. Envíos a toda España."/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -114,10 +115,64 @@
     .contact-card .label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-mid); }
     .contact-card .value { font-size: 0.9rem; font-weight: 600; color: var(--wood-dark); }
     .contact-note { margin-top: 2rem; font-size: 0.85rem; color: var(--text-mid); font-weight: 300; }
-    footer { background: var(--wood-deep); color: rgba(253,248,240,0.5); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; }
-    footer img { height: 40px; opacity: 0.7; filter: invert(1); }
-    footer a { color: rgba(253,248,240,0.5); text-decoration: none; }
+
+    /* ---------- FOOTER ACTUALIZADO ---------- */
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2.5rem 2.5rem 1.5rem; font-size: 0.78rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(253,248,240,0.12); }
+    .footer-top img { height: 40px; opacity: 0.75; filter: invert(1); }
+    .footer-top span { line-height: 1.6; }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; padding-top: 1.2rem; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; transition: color 0.2s; }
     footer a:hover { color: var(--mint); }
+    .footer-legal a { font-size: 0.75rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; transition: color 0.2s; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    /* ---------- BANNER DE COOKIES (AEPD) ---------- */
+    #cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+      background: #fff; border-top: 3px solid var(--mint-dark);
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.18); padding: 1.5rem 2rem;
+      display: none;
+    }
+    #cookie-banner.visible { display: block; }
+    .cookie-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; justify-content: space-between; }
+    .cookie-text { flex: 1 1 420px; font-size: 0.85rem; line-height: 1.6; color: var(--text-mid); }
+    .cookie-text strong { color: var(--wood-deep); font-size: 0.95rem; display: block; margin-bottom: 0.3rem; }
+    .cookie-text a { color: var(--mint-dark); font-weight: 700; text-decoration: underline; }
+    .cookie-actions { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+    .cookie-btn {
+      padding: 0.7rem 1.5rem; border-radius: 30px; font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; border: 2px solid transparent; transition: all 0.25s; white-space: nowrap;
+    }
+    .cookie-btn.accept { background: var(--wood-dark); color: #fff; border-color: var(--wood-dark); }
+    .cookie-btn.accept:hover { background: var(--mint-dark); border-color: var(--mint-dark); }
+    .cookie-btn.reject { background: #fff; color: var(--wood-dark); border-color: var(--wood-dark); }
+    .cookie-btn.reject:hover { background: var(--wood-light); }
+    .cookie-btn.config { background: transparent; color: var(--text-mid); text-decoration: underline; border: none; padding: 0.7rem 0.5rem; }
+    .cookie-btn.config:hover { color: var(--mint-dark); }
+
+    /* Panel de configuración granular */
+    #cookie-config {
+      display: none; max-width: 1100px; margin: 1.2rem auto 0; padding-top: 1.2rem;
+      border-top: 1px solid var(--wood-light); font-size: 0.85rem;
+    }
+    #cookie-config.visible { display: block; }
+    .cookie-cat { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px solid var(--wood-light); }
+    .cookie-cat:last-of-type { border-bottom: none; }
+    .cookie-cat input[type="checkbox"] { margin-top: 0.25rem; accent-color: var(--mint-dark); width: 18px; height: 18px; cursor: pointer; }
+    .cookie-cat input[type="checkbox"]:disabled { cursor: not-allowed; opacity: 0.6; }
+    .cookie-cat label { cursor: pointer; }
+    .cookie-cat label strong { color: var(--wood-deep); display: block; margin-bottom: 0.15rem; }
+    .cookie-cat label span { color: var(--text-mid); font-weight: 300; }
+    #cookie-save {
+      margin-top: 1rem; padding: 0.7rem 1.5rem; background: var(--mint-dark); color: #fff;
+      border: none; border-radius: 30px; font-family: inherit; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.25s;
+    }
+    #cookie-save:hover { background: var(--wood-dark); }
+
     .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 900px) {
@@ -142,7 +197,10 @@
       .dropdown a { font-size: 0.8rem; padding: 0.6rem 1rem; }
       .dropdown .sub-label { padding: 0.5rem 1rem; }
       .hamburger { display: flex; } .cat-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
+      .footer-top { flex-direction: column; text-align: center; }
+      #cookie-banner { padding: 1.2rem 1rem; }
+      .cookie-actions { width: 100%; justify-content: stretch; }
+      .cookie-btn { flex: 1; }
     }
     .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
     .cart-btn:hover { background: #4d8a72; }
@@ -462,12 +520,55 @@
   <p class="contact-note">Respondo en 24–72 h · Realizo envíos a toda España</p>
 </section>
 
+<!-- ---------- FOOTER ACTUALIZADO ---------- -->
 <footer>
-  <img src="images/logo.png" alt="MAMEMI Madera">
-  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
-  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
-  <span><a href="legal.html">Aviso Legal y Privacidad</a> · <a href="legal.html#devoluciones">Devoluciones</a></span>
+  <div class="footer-top">
+    <img src="images/logo.png" alt="MAMEMI Madera">
+    <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+    <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  </div>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
 </footer>
+
+<!-- ---------- BANNER DE COOKIES (AEPD) ---------- -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <strong>🍪 Usamos cookies</strong>
+      Utilizamos cookies técnicas necesarias para el funcionamiento del carrito y cookies analíticas (Google Analytics) para entender cómo se usa la web. Puedes aceptar, rechazar o configurar tus preferencias. Más información en nuestra <a href="politica-cookies.html">política de cookies</a>.
+    </div>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn accept" id="cookie-accept">Aceptar</button>
+      <button type="button" class="cookie-btn reject" id="cookie-reject">Rechazar</button>
+      <button type="button" class="cookie-btn config" id="cookie-config-toggle">Configurar</button>
+    </div>
+  </div>
+
+  <div id="cookie-config">
+    <div class="cookie-cat">
+      <input type="checkbox" id="cat-essential" checked disabled>
+      <label for="cat-essential">
+        <strong>Cookies técnicas (necesarias)</strong>
+        <span>Imprescindibles para el funcionamiento de la web: carrito de compra, sesión y preferencias básicas. No se pueden desactivar.</span>
+      </label>
+    </div>
+    <div class="cookie-cat">
+      <input type="checkbox" id="cat-analytics">
+      <label for="cat-analytics">
+        <strong>Cookies analíticas</strong>
+        <span>Nos permiten medir visitas y comportamiento en la web (Google Analytics) para mejorar nuestros contenidos. Se cargan solo si las aceptas.</span>
+      </label>
+    </div>
+    <button type="button" id="cookie-save">Guardar preferencias</button>
+  </div>
+</div>
 
 <script>
   const obs = new IntersectionObserver(entries => {
@@ -493,7 +594,7 @@
       : 'Leer mi historia completa <span class="chev">▾</span>';
   }
   function toggleSubmenu(e, btn) {
-    if (window.innerWidth > 640) return; // en escritorio el hover ya lo gestiona
+    if (window.innerWidth > 640) return;
     e.preventDefault();
     e.stopPropagation();
     const li = btn.closest('li');
@@ -508,16 +609,11 @@
       btn.setAttribute('aria-expanded', 'true');
     }
   }
-  // Cierra el menú móvil al pulsar cualquier enlace directo de navegación
-  // (anclas dentro de la página como #contacto, o enlaces a otras páginas).
-  // No afecta a los botones de flecha (dropdown-toggle), que gestionan el acordeón.
   document.querySelectorAll('.nav-links > li > a, .nav-links > li > .nav-item-row > a').forEach(link => {
     link.addEventListener('click', () => {
       document.getElementById('navLinks').classList.remove('open');
     });
   });
-
-  // Cierra el menú móvil si el usuario hace scroll (subir o bajar)
   let lastScrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     const navLinks = document.getElementById('navLinks');
@@ -526,13 +622,9 @@
     }
     lastScrollY = window.scrollY;
   }, { passive: true });
-
-  // Cierra el menú móvil al pulsar el logo
   document.querySelector('.nav-logo')?.addEventListener('click', () => {
     document.getElementById('navLinks').classList.remove('open');
   });
-
-  // Cierra el menú móvil al tocar fuera de él (fuera del menú y de la hamburguesa)
   document.addEventListener('click', (e) => {
     const navLinks = document.getElementById('navLinks');
     const hamburger = document.getElementById('hamburger');
@@ -541,6 +633,137 @@
     }
   });
 </script>
+
+<!-- ---------- SCRIPT DE CONSENTIMIENTO DE COOKIES ---------- -->
+<script>
+(function() {
+  'use strict';
+
+  const CONSENT_KEY = 'mamemi_consent_v1';
+  const GA_ID = 'G-9MM0BBNL5N';
+  const COOKIE_MAX_AGE_DAYS = 730; // 24 meses (recomendación AEPD)
+
+  function getConsent() {
+    try {
+      return JSON.parse(localStorage.getItem(CONSENT_KEY) || 'null');
+    } catch (e) { return null; }
+  }
+
+  function saveConsent(prefs) {
+    const data = Object.assign({ timestamp: Date.now() }, prefs);
+    localStorage.setItem(CONSENT_KEY, JSON.stringify(data));
+    return data;
+  }
+
+  function isConsentExpired(consent) {
+    if (!consent || !consent.timestamp) return true;
+    const days = (Date.now() - consent.timestamp) / (1000 * 60 * 60 * 24);
+    return days > COOKIE_MAX_AGE_DAYS;
+  }
+
+  function loadAnalytics() {
+    if (window._mamemiGaLoaded) return;
+    window._mamemiGaLoaded = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_ID, { anonymize_ip: true });
+  }
+
+  function unloadAnalytics() {
+    // Elimina las cookies de Google Analytics si el usuario rechaza
+    document.cookie.split(';').forEach(function(c) {
+      const name = c.split('=')[0].trim();
+      if (name.startsWith('_ga') || name.startsWith('_gid') || name.startsWith('_gat')) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=' + location.hostname + ';';
+      }
+    });
+  }
+
+  function showBanner(showConfig) {
+    const banner = document.getElementById('cookie-banner');
+    banner.classList.add('visible');
+    if (showConfig) {
+      document.getElementById('cookie-config').classList.add('visible');
+    }
+  }
+
+  function hideBanner() {
+    const banner = document.getElementById('cookie-banner');
+    banner.classList.remove('visible');
+    document.getElementById('cookie-config').classList.remove('visible');
+  }
+
+  function applyConsent(consent) {
+    if (consent && consent.analytics) {
+      loadAnalytics();
+    } else {
+      unloadAnalytics();
+    }
+  }
+
+  function init() {
+    const consent = getConsent();
+
+    // Si hay consentimiento válido y no ha caducado, aplicarlo y no mostrar banner
+    if (consent && !isConsentExpired(consent)) {
+      applyConsent(consent);
+    } else {
+      // Sin consentimiento o caducado: no cargamos analíticas y mostramos banner
+      showBanner(false);
+    }
+
+    // Botones del banner
+    document.getElementById('cookie-accept').addEventListener('click', function() {
+      const c = saveConsent({ essential: true, analytics: true });
+      applyConsent(c);
+      hideBanner();
+    });
+
+    document.getElementById('cookie-reject').addEventListener('click', function() {
+      const c = saveConsent({ essential: true, analytics: false });
+      applyConsent(c);
+      hideBanner();
+    });
+
+    document.getElementById('cookie-config-toggle').addEventListener('click', function() {
+      document.getElementById('cookie-config').classList.toggle('visible');
+    });
+
+    document.getElementById('cookie-save').addEventListener('click', function() {
+      const analytics = document.getElementById('cat-analytics').checked;
+      const c = saveConsent({ essential: true, analytics: analytics });
+      applyConsent(c);
+      hideBanner();
+    });
+
+    // Enlace "Configurar cookies" del footer: reabre el banner con el panel abierto
+    const openBtn = document.getElementById('open-cookie-config');
+    if (openBtn) {
+      openBtn.addEventListener('click', function() {
+        const current = getConsent();
+        if (current) {
+          document.getElementById('cat-analytics').checked = !!current.analytics;
+        }
+        showBanner(true);
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
 </body>
