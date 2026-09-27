@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Política de Privacidad – MAMEMI Madera</title>
+  <meta name="description" content="Política de privacidad de MAMEMI Madera. Información sobre el tratamiento de datos personales, finalidades, base jurídica, derechos del usuario y plazos de conservación."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; line-height: 1.7; }
+
+    /* ---------- NAV (idéntico al index) ---------- */
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; position: relative; }
+    .nav-links > li { position: relative; display: flex; align-items: center; }
+    .nav-item-row { display: flex; align-items: center; }
+    .nav-links > li > .nav-item-row > a { padding: 0 0.4rem 0 1rem; height: 70px; display: flex; align-items: center; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links > li > a { display: flex; align-items: center; gap: 4px; padding: 0 1rem; height: 70px; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links > li > a:hover, .nav-item-row > a:hover { color: var(--mint-dark); }
+    .dropdown-toggle { background: none; border: none; cursor: pointer; height: 70px; padding: 0 1rem 0 0.2rem; display: flex; align-items: center; color: var(--text-mid); }
+    .nav-links > li > a .arrow, .dropdown-toggle .arrow { font-size: 0.6rem; transition: transform 0.2s; }
+    .nav-links > li:hover > a .arrow, .nav-links > li:hover .dropdown-toggle .arrow { transform: rotate(180deg); }
+    .dropdown { display: none; position: absolute; top: 70px; left: 0; background: #fff; border: 1.5px solid var(--wood-light); border-radius: 0 0 12px 12px; box-shadow: 0 8px 30px var(--shadow); min-width: 220px; z-index: 300; }
+    .nav-links > li:hover .dropdown { display: block; }
+    .dropdown a { display: block; padding: 0.75rem 1.2rem; text-decoration: none; font-size: 0.82rem; color: var(--text-mid); font-weight: 600; border-bottom: 1px solid var(--wood-light); transition: background 0.2s, color 0.2s; }
+    .dropdown a:last-child { border-bottom: none; border-radius: 0 0 12px 12px; }
+    .dropdown a:hover { background: var(--mint-light); color: var(--mint-dark); }
+    .nav-cta { background: var(--wood-dark); color: #fff !important; border-radius: 30px; padding: 0.5rem 1.2rem !important; height: auto !important; margin-left: 0.5rem; font-size: 0.78rem !important; transition: background 0.25s !important; align-self: center; }
+    .nav-cta:hover { background: var(--mint-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--wood-dark); border-radius: 2px; transition: all 0.3s; }
+
+    /* ---------- CONTENIDO LEGAL ---------- */
+    .legal-page { max-width: 900px; margin: 0 auto; padding: 9rem 2rem 4rem; }
+    .legal-page .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
+    .legal-page h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; line-height: 1.2; }
+    .legal-page .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
+    .legal-intro { font-size: 0.95rem; color: var(--text-mid); font-weight: 300; text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+    .legal-block { margin-bottom: 2.5rem; }
+    .legal-block h2 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--wood-deep); margin-bottom: 0.8rem; line-height: 1.3; }
+    .legal-block h3 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; color: var(--wood-dark); margin: 1.2rem 0 0.4rem; }
+    .legal-block p { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 0.8rem; }
+    .legal-block ul { margin: 0.4rem 0 0.8rem 1.4rem; }
+    .legal-block li { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 0.3rem; }
+    .legal-block a { color: var(--mint-dark); font-weight: 600; text-decoration: underline; }
+    .legal-block a:hover { color: var(--wood-dark); }
+    .legal-card { background: var(--cream2); border-left: 4px solid var(--mint-dark); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1rem 0; }
+    .legal-card p { margin-bottom: 0.3rem; }
+    .legal-card p:last-child { margin-bottom: 0; }
+    .legal-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.88rem; }
+    .legal-table th, .legal-table td { padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid var(--wood-light); color: var(--text-mid); font-weight: 300; vertical-align: top; }
+    .legal-table th { background: var(--mint-light); color: var(--wood-deep); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .legal-table td strong { color: var(--wood-dark); font-weight: 700; }
+    .legal-note { font-size: 0.82rem; color: var(--text-mid); font-weight: 300; font-style: italic; margin-top: 0.5rem; }
+
+    /* ---------- FOOTER (idéntico al index) ---------- */
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2.5rem 2.5rem 1.5rem; font-size: 0.78rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(253,248,240,0.12); }
+    .footer-top img { height: 40px; opacity: 0.75; filter: invert(1); }
+    .footer-top span { line-height: 1.6; }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; padding-top: 1.2rem; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--mint); }
+    .footer-legal a { font-size: 0.75rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; transition: color 0.2s; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    @media (max-width: 900px) {
+      .legal-page { padding: 7rem 1.5rem 3rem; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 0.4rem 1rem 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
+      .nav-links.open { display: flex; }
+      .nav-links > li { flex-direction: column; align-items: stretch; border-bottom: 1px solid var(--wood-light); }
+      .nav-links > li:last-child { border-bottom: none; }
+      .nav-item-row { justify-content: space-between; }
+      .nav-links > li > .nav-item-row > a, .nav-links > li > a { height: 48px; font-size: 0.85rem; }
+      .dropdown-toggle { height: 48px; }
+      .dropdown { display: none; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.6rem 0.8rem; }
+      .has-dropdown.open .dropdown { display: block; }
+      .hamburger { display: flex; }
+      .footer-top { flex-direction: column; text-align: center; }
+      .legal-table { font-size: 0.8rem; }
+      .legal-table th, .legal-table td { padding: 0.5rem 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAVEGACIÓN ==================== -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <ul class="nav-links" id="navLinks">
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="regalos-personalizados.html">Regalos Personalizados</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Regalos Personalizados"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="regalos-personalizados.html">Letra 3D autoportante</a>
+        <a href="regalos-personalizados.html">Placa de nacimiento</a>
+        <a href="regalos-personalizados.html">Placa de profe</a>
+        <a href="regalos-personalizados.html">Nombre para puerta</a>
+        <a href="regalos-personalizados.html">Marcapáginas</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="cositas-mamemi.html">Cositas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Cositas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="cositas-mamemi.html">Llaveros</a>
+        <a href="cositas-mamemi.html">Imanes</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="joyitas-mamemi.html">Joyitas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Joyitas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="joyitas-mamemi.html">Brazaletes</a>
+        <a href="joyitas-mamemi.html">Collares</a>
+        <a href="joyitas-mamemi.html">Pulseras</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="packs-para-regalar.html">Packs para Regalar</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Packs para Regalar"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="packs-para-regalar.html">Pack Nacimiento</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="coleccion-cocina.html">Colección Cocina</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Colección Cocina"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="coleccion-cocina.html">Tablas de cocina</a>
+        <a href="coleccion-cocina.html">Servilleteros</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="detallitos-eventos.html">Detallitos para Eventos</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Detallitos para Eventos"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="detallitos-eventos.html">Bodas · Marcasitios</a>
+        <a href="detallitos-eventos.html">Imanes abrebotellas</a>
+        <a href="detallitos-eventos.html">Libretas personalizadas</a>
+        <a href="detallitos-eventos.html">Posavasos</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="estudio-creativo.html">Estudio Creativo</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Estudio Creativo"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="estudio-creativo.html">Tarjetas de visita</a>
+        <a href="estudio-creativo.html">Logos e identidad visual</a>
+        <a href="estudio-creativo.html">Diseño web</a>
+        <a href="estudio-creativo.html">Elementos de papelería y otros diseños</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="mamemi-instagram.html">Mamemi en Instagram</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Mamemi en Instagram"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="mamemi-instagram.html">Reels y publicaciones</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="el-taller.html">El Taller</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de El Taller"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="el-taller.html">¿Quieres entrar en mi taller?</a>
+      </div>
+    </li>
+    <li><a href="mamemi-en-vuestras-manos.html">Mamemi en vuestras manos</a></li>
+    <li><a href="index.html#sobre">Sobre mí</a></li>
+    <li><a href="index.html#contacto" class="nav-cta">¿Hablamos?</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+<main class="legal-page">
+
+  <p class="section-label">Protección de datos</p>
+  <h1>Política de Privacidad</h1>
+  <div class="divider"></div>
+
+  <p class="legal-intro">
+    En MAMEMI Madera nos tomamos muy en serio la protección de tus datos personales. Esta Política de Privacidad te explica, de forma clara y sencilla, qué datos recogemos, con qué finalidad, sobre qué base jurídica los tratamos, cuánto tiempo los conservamos y cuáles son tus derechos. Cumplimos con el Reglamento (UE) 2016/679, de 27 de abril (RGPD), y con la Ley Orgánica 3/2018, de 5 de diciembre (LOPDGDD).
+  </p>
+
+  <!-- ===== 1. RESPONSABLE DEL TRATAMIENTO ===== -->
+  <div class="legal-block">
+    <h2>1. ¿Quién es el responsable del tratamiento de tus datos?</h2>
+    <div class="legal-card">
+      <p><strong>Responsable:</strong> Leticia Gómez de Francisco</p>
+      <p><strong>NIF:</strong> 70057016M</p>
+      <p><strong>Domicilio:</strong> Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona (España)</p>
+      <p><strong>Correo electrónico:</strong> <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></p>
+      <p><strong>Teléfono / WhatsApp:</strong> <a href="https://wa.me/34622562499" target="_blank">+34 622 562 499</a></p>
+    </div>
+    <p>No es obligatorio designar un Delegado de Protección de Datos (DPD) para la actividad que desarrolla MAMEMI Madera, por lo que no se ha nombrado ninguno. Para cualquier consulta relacionada con la protección de tus datos, puedes dirigirte directamente al responsable en la dirección indicada.</p>
+  </div>
+
+  <!-- ===== 2. DATOS QUE RECOPILAMOS ===== -->
+  <div class="legal-block">
+    <h2>2. ¿Qué datos personales recopilamos?</h2>
+    <p>Dependiendo de cómo interactúes con nosotros, podemos tratar las siguientes categorías de datos personales:</p>
+
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Actividad</th>
+          <th>Categorías de datos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Realización de un pedido</strong></td>
+          <td>Nombre y apellidos, NIF/DNI (para facturación), dirección postal completa, correo electrónico, teléfono de contacto, datos de personalización del producto (nombres, fechas, dedicatorias, fotografías que voluntariamente nos envíes), datos bancarios o de tarjeta gestionados directamente por la pasarela de pago.</td>
+        </tr>
+        <tr>
+          <td><strong>Contacto por email o WhatsApp</strong></td>
+          <td>Nombre, dirección de correo electrónico o número de teléfono, y el contenido del mensaje que nos envías.</td>
+        </tr>
+        <tr>
+          <td><strong>Contacto a través de Instagram</strong></td>
+          <td>Nombre de usuario, foto de perfil y contenido de los mensajes directos que nos envías a través de esta red social.</td>
+        </tr>
+        <tr>
+          <td><strong>Suscripción a comunicaciones comerciales</strong></td>
+          <td>Nombre y dirección de correo electrónico (solo si otorgas tu consentimiento expreso).</td>
+        </tr>
+        <tr>
+          <td><strong>Navegación por el sitio web</strong></td>
+          <td>Dirección IP anonimizada, tipo de navegador, páginas visitadas, duración de la visita (solo si aceptas las cookies analíticas).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="legal-note">No tratamos datos especialmente protegidos (salud, ideología, religión, orientación sexual, etc.). Si nos envías fotografías para personalizar un producto, estas pueden contener la imagen de personas identificables, por lo que te pedimos que cuentes con su consentimiento antes de enviárnoslas.</p>
+
+    <p>Los datos marcados con un asterisco en los formularios correspondientes son obligatorios para poder gestionar tu solicitud o pedido. Si no los facilitas, no podremos atenderte correctamente.</p>
+  </div>
+
+  <!-- ===== 3. FINALIDADES Y BASES JURÍDICAS ===== -->
+  <div class="legal-block">
+    <h2>3. ¿Con qué finalidad tratamos tus datos y sobre qué base jurídica?</h2>
+    <p>El RGPD exige que todo tratamiento de datos personales tenga una base jurídica que lo legitime. En nuestro caso, las bases jurídicas son las siguientes:</p>
+
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Finalidad</th>
+          <th>Base jurídica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Gestión de pedidos y personalización de productos</strong></td>
+          <td>Ejecución de un contrato de compraventa (art. 6.1.b RGPD).</td>
+        </tr>
+        <tr>
+          <td><strong>Facturación y obligaciones fiscales y contables</strong></td>
+          <td>Cumplimiento de una obligación legal (art. 6.1.c RGPD), conforme al Código de Comercio y la normativa tributaria.</td>
+        </tr>
+        <tr>
+          <td><strong>Atención de consultas y solicitudes de información</strong></td>
+          <td>Consentimiento del interesado al contactarnos (art. 6.1.a RGPD) e interés legítimo en atender consultas comerciales (art. 6.1.f RGPD).</td>
+        </tr>
+        <tr>
+          <td><strong>Envío de comunicaciones comerciales y newsletter</strong></td>
+          <td>Consentimiento expreso del interesado (art. 6.1.a RGPD).</td>
+        </tr>
+        <tr>
+          <td><strong>Gestión de reclamaciones, devoluciones y garantías</strong></td>
+          <td>Ejecución de contrato y cumplimiento de obligaciones legales en materia de consumo (art. 6.1.b y 6.1.c RGPD).</td>
+        </tr>
+        <tr>
+          <td><strong>Análisis de navegación (Google Analytics)</strong></td>
+          <td>Consentimiento del usuario a través del banner de cookies (art. 6.1.a RGPD).</td>
+        </tr>
+        <tr>
+          <td><strong>Defensa frente a posibles reclamaciones</strong></td>
+          <td>Interés legítimo del responsable (art. 6.1.f RGPD).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>No tomamos decisiones automatizadas ni elaboramos perfiles que produzcan efectos jurídicos sobre ti o te afecten significativamente.</p>
+  </div>
+
+  <!-- ===== 4. PLAZOS DE CONSERVACIÓN ===== -->
+  <div class="legal-block">
+    <h2>4. ¿Cuánto tiempo conservamos tus datos?</h2>
+    <p>Los datos personales se conservarán durante el tiempo estrictamente necesario para cumplir con la finalidad para la que fueron recogidos y, en su caso, durante los plazos legalmente exigidos para atender posibles responsabilidades. A continuación se detallan los plazos orientativos:</p>
+
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Categoría de datos</th>
+          <th>Plazo de conservación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Datos de clientes (pedidos, facturas)</strong></td>
+          <td>Durante la relación contractual y, una vez finalizada, durante 6 años conforme al Código de Comercio y 4 años conforme a la normativa tributaria. En la práctica, se conservan 6 años desde la finalización del contrato.</td>
+        </tr>
+        <tr>
+          <td><strong>Datos de contacto (consultas por email, WhatsApp o Instagram)</strong></td>
+          <td>Durante el tiempo necesario para atender tu consulta y, posteriormente, se eliminan si no se deriva ninguna relación contractual. Si la consulta deriva en un pedido, se aplica el plazo anterior.</td>
+        </tr>
+        <tr>
+          <td><strong>Datos para comunicaciones comerciales</strong></td>
+          <td>Hasta que retires tu consentimiento o solicites la supresión. Si no interactúas, se conservan durante 3 años desde el último contacto.</td>
+        </tr>
+        <tr>
+          <td><strong>Datos de navegación (cookies analíticas)</strong></td>
+          <td>Hasta 14 meses desde la recogida, conforme a las directrices de la AEPD.</td>
+        </tr>
+        <tr>
+          <td><strong>Datos de reclamaciones y devoluciones</strong></td>
+          <td>Durante el plazo legal de garantía (3 años en España) y, posteriormente, durante el plazo de prescripción de acciones legales.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Una vez transcurridos estos plazos, los datos serán suprimidos o, en su caso, anonimizados de forma irreversible para que no puedan ser asociados a ninguna persona identificada o identificable.</p>
+  </div>
+
+  <!-- ===== 5. DESTINATARIOS ===== -->
+  <div class="legal-block">
+    <h2>5. ¿A quién comunicamos tus datos?</h2>
+    <p>No cedemos tus datos personales a terceros con fines comerciales ni los vendemos. Sin embargo, para poder prestarte nuestros servicios, algunos proveedores acceden a tus datos en calidad de **encargados del tratamiento**, siempre con un contrato que garantiza la confidencialidad y seguridad de la información:</p>
+
+    <ul>
+      <li><strong>Pasarela de pago (Redsys / CaixaBank):</strong> para procesar el pago de tu pedido. Los datos de tu tarjeta son gestionados directamente por la entidad financiera; nosotros no los almacenamos.</li>
+      <li><strong>Empresas de transporte y mensajería:</strong> para entregarte el pedido. Les facilitamos únicamente los datos necesarios para la entrega (nombre, dirección y teléfono).</li>
+      <li><strong>Proveedor de servicios de alojamiento web:</strong> los datos se alojan en servidores ubicados en la Unión Europea.</li>
+      <li><strong>Google Analytics:</strong> herramienta de análisis web que solo se activa si aceptas las cookies analíticas. Google actúa como encargado del tratamiento y aplica las cláusulas contractuales tipo de la Comisión Europea para transferencias internacionales.</li>
+      <li><strong>Asesoría fiscal y contable:</strong> para el cumplimiento de nuestras obligaciones fiscales y contables, accede a los datos de facturación.</li>
+    </ul>
+
+    <p>Algunos de estos proveedores pueden estar ubicados fuera del Espacio Económico Europeo (EEE). En tal caso, las transferencias internacionales se realizan al amparo de decisiones de adecuación de la Comisión Europea o mediante cláusulas contractuales tipo que garantizan un nivel de protección equivalente al del RGPD.</p>
+
+    <p class="legal-note">No está prevista la cesión de datos a otros terceros, salvo obligación legal.</p>
+  </div>
+
+  <!-- ===== 6. DERECHOS ===== -->
+  <div class="legal-block">
+    <h2>6. ¿Cuáles son tus derechos?</h2>
+    <p>Como titular de los datos, el RGPD y la LOPDGDD te reconocen los siguientes derechos, que puedes ejercer de forma gratuita:</p>
+
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Derecho</th>
+          <th>En qué consiste</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Acceso</strong></td>
+          <td>Obtener confirmación de si estamos tratando tus datos y, en su caso, acceder a ellos.</td>
+        </tr>
+        <tr>
+          <td><strong>Rectificación</strong></td>
+          <td>Solicitar la corrección de datos inexactos o incompletos.</td>
+        </tr>
+        <tr>
+          <td><strong>Supresión ("derecho al olvido")</strong></td>
+          <td>Solicitar la eliminación de tus datos cuando ya no sean necesarios para la finalidad para la que se recogieron.</td>
+        </tr>
+        <tr>
+          <td><strong>Limitación del tratamiento</strong></td>
+          <td>Solicitar que suspendamos temporalmente el tratamiento de tus datos en determinados supuestos.</td>
+        </tr>
+        <tr>
+          <td><strong>Oposición</strong></td>
+          <td>Oponerte al tratamiento de tus datos cuando se base en interés legítimo o cuando se trate de comunicaciones comerciales.</td>
+        </tr>
+        <tr>
+          <td><strong>Portabilidad</strong></td>
+          <td>Recibir tus datos en un formato estructurado, de uso común y lectura mecánica, o solicitar que se transmitan a otro responsable.</td>
+        </tr>
+        <tr>
+          <td><strong>Retirada del consentimiento</strong></td>
+          <td>Retirar en cualquier momento el consentimiento que hayas otorgado para un tratamiento concreto, sin que ello afecte a la licitud del tratamiento previo.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>¿Cómo ejercer tus derechos?</h3>
+    <p>Puedes ejercer cualquiera de estos derechos enviándonos una solicitud por escrito a:</p>
+    <div class="legal-card">
+      <p><strong>Por correo electrónico:</strong> <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></p>
+      <p><strong>Por correo postal:</strong> Leticia Gómez de Francisco, Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona (España)</p>
+    </div>
+    <p>La solicitud debe incluir tu nombre y apellidos, copia de un documento que acredite tu identidad (DNI, NIE o pasaporte), el derecho que deseas ejercer y, si procede, los datos concretos sobre los que se refiere. Te responderemos en el plazo máximo de un mes desde la recepción de la solicitud, prorrogable otros dos meses en caso de solicitudes complejas o numerosas.</p>
+
+    <h3>¿Puedes reclamar ante una autoridad?</h3>
+    <p>Si consideras que el tratamiento de tus datos personales no se ajusta a la normativa, tienes derecho a presentar una reclamación ante la **Agencia Española de Protección de Datos** (AEPD), autoridad de control competente en España. Puedes hacerlo a través de su sede electrónica (<a href="https://sedeagpd.gob.es" target="_blank" rel="noopener">sedeagpd.gob.es</a>) o de su página web (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+  </div>
+
+  <!-- ===== 7. SEGURIDAD ===== -->
+  <div class="legal-block">
+    <h2>7. ¿Cómo protegemos tus datos?</h2>
+    <p>Hemos adoptado las medidas técnicas y organizativas apropiadas para garantizar un nivel de seguridad adecuado al riesgo, de acuerdo con el artículo 32 del RGPD. Entre otras medidas:</p>
+
+    <ul>
+      <li>El sitio web funciona bajo el protocolo **HTTPS**, que cifra la comunicación entre tu navegador y nuestros servidores.</li>
+      <li>Los datos de pago se procesan íntegramente a través de **Redsys/CaixaBank**, pasarela de pago con certificación PCI-DSS. MAMEMI Madera no almacena los datos de tu tarjeta.</li>
+      <li>El acceso a los datos personales está restringido al personal autorizado y se realiza mediante credenciales seguras.</li>
+      <li>Se realizan **copias de seguridad periódicas** de la información.</li>
+      <li>Los dispositivos y sistemas desde los que se accede a los datos cuentan con **cifrado** y actualizaciones de seguridad.</li>
+      <li>En caso de brecha de seguridad que suponga un riesgo para tus derechos y libertades, te informaremos sin dilación indebida y notificaremos el incidente a la AEPD en el plazo legalmente establecido (72 horas).</li>
+    </ul>
+
+    <p class="legal-note">Para más información sobre las medidas de seguridad recomendadas para autónomos y pymes, puedes consultar la Guía de cifrado de la AEPD.</p>
+  </div>
+
+  <!-- ===== 8. MENORES ===== -->
+  <div class="legal-block">
+    <h2>8. Menores de edad</h2>
+    <p>Nuestros productos están dirigidos a un público general, pero no tratamos conscientemente datos personales de menores de 14 años sin el consentimiento de sus padres o tutores. Si eres menor de 14 años, no debes enviarnos datos personales sin autorización de tus padres o tutores. Si detectamos que hemos recogido datos de un menor sin el consentimiento correspondiente, procederemos a su supresión inmediata.</p>
+  </div>
+
+  <!-- ===== 9. CAMBIOS ===== -->
+  <div class="legal-block">
+    <h2>9. Cambios en esta Política de Privacidad</h2>
+    <p>Nos reservamos el derecho a modificar esta Política de Privacidad para adaptarla a novedades legislativas, jurisprudenciales o cambios en nuestra actividad. En caso de cambios significativos, te informaremos mediante un aviso destacado en el sitio web o, si disponemos de tu correo electrónico, mediante comunicación directa.</p>
+    <p>Te recomendamos revisar esta página periódicamente para estar al tanto de cualquier actualización. La fecha de la última revisión se indica al final del documento.</p>
+  </div>
+
+  <!-- ===== FECHA DE ACTUALIZACIÓN ===== -->
+  <div class="legal-block" style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--wood-light);">
+    <p style="font-size: 0.82rem; text-align: center;"><strong>Última actualización:</strong> septiembre de 2026</p>
+  </div>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-top">
+    <img src="images/logo.png" alt="MAMEMI Madera">
+    <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+    <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  </div>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
+</footer>
+
+<script>
+  function toggleSubmenu(e, btn) {
+    if (window.innerWidth > 640) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const li = btn.closest('li');
+    const wasOpen = li.classList.contains('open');
+    document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(item => {
+      item.classList.remove('open');
+      const t = item.querySelector('.dropdown-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      li.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  document.querySelectorAll('.nav-links > li > a, .nav-links > li > .nav-item-row > a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+  let lastScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const navLinks = document.getElementById('navLinks');
+    if (navLinks.classList.contains('open') && Math.abs(window.scrollY - lastScrollY) > 5) {
+      navLinks.classList.remove('open');
+    }
+    lastScrollY = window.scrollY;
+  }, { passive: true });
+  document.addEventListener('click', (e) => {
+    const navLinks = document.getElementById('navLinks');
+    const hamburger = document.getElementById('hamburger');
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+      navLinks.classList.remove('open');
+    }
+  });
+  document.querySelector('.nav-logo')?.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+</script>
+
+</body>
+</html>
