@@ -222,7 +222,7 @@
     <div class="legal-card">
       <p><strong>Titular:</strong> Leticia Gómez de Francisco</p>
       <p><strong>NIF:</strong> 70057016M</p>
-      <p><strong>Domicilio:</strong> Carrer Santa Teresa, 14 Fase A 1, 08393 Caldes d'Estrac, Barcelona (España)</p>
+      <p><strong>Domicilio:</strong> Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona (España)</p>
       <p><strong>Correo electrónico:</strong> <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></p>
       <p><strong>Teléfono / WhatsApp:</strong> <a href="https://wa.me/34622562499" target="_blank">+34 622 562 499</a></p>
       <p><strong>Nombre comercial:</strong> MAMEMI Madera</p>
@@ -373,9 +373,27 @@
     <a href="politica-cookies.html">Política de cookies</a>
     <a href="condiciones-contratacion.html">Condiciones de contratación</a>
     <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
-    <button type="button" id="open-cookie-config">Configurar cookies</button>
+    <a href="index.html#configurar-cookies" class="footer-cookie-config">Configurar cookies</a>
   </div>
 </footer>
+
+<style>
+  /* Estilo específico para que el enlace "Configurar cookies" se vea igual que los demás enlaces del footer */
+  .footer-cookie-config {
+    color: rgba(253,248,240,0.6);
+    font-size: 0.75rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+  }
+  .footer-cookie-config:hover {
+    color: var(--mint);
+  }
+</style>
 
 <script>
   function toggleSubmenu(e, btn) {
