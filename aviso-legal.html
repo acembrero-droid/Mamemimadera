@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aviso Legal – MAMEMI Madera</title>
+  <meta name="description" content="Aviso legal de MAMEMI Madera. Información sobre el titular del sitio web, condiciones de uso, propiedad intelectual y legislación aplicable."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; line-height: 1.7; }
+
+    /* ---------- NAV (idéntico al index) ---------- */
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; position: relative; }
+    .nav-links > li { position: relative; display: flex; align-items: center; }
+    .nav-item-row { display: flex; align-items: center; }
+    .nav-links > li > .nav-item-row > a { padding: 0 0.4rem 0 1rem; height: 70px; display: flex; align-items: center; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links > li > a { display: flex; align-items: center; gap: 4px; padding: 0 1rem; height: 70px; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links > li > a:hover, .nav-item-row > a:hover { color: var(--mint-dark); }
+    .dropdown-toggle { background: none; border: none; cursor: pointer; height: 70px; padding: 0 1rem 0 0.2rem; display: flex; align-items: center; color: var(--text-mid); }
+    .nav-links > li > a .arrow, .dropdown-toggle .arrow { font-size: 0.6rem; transition: transform 0.2s; }
+    .nav-links > li:hover > a .arrow, .nav-links > li:hover .dropdown-toggle .arrow { transform: rotate(180deg); }
+    .dropdown { display: none; position: absolute; top: 70px; left: 0; background: #fff; border: 1.5px solid var(--wood-light); border-radius: 0 0 12px 12px; box-shadow: 0 8px 30px var(--shadow); min-width: 220px; z-index: 300; }
+    .nav-links > li:hover .dropdown { display: block; }
+    .dropdown a { display: block; padding: 0.75rem 1.2rem; text-decoration: none; font-size: 0.82rem; color: var(--text-mid); font-weight: 600; border-bottom: 1px solid var(--wood-light); transition: background 0.2s, color 0.2s; }
+    .dropdown a:last-child { border-bottom: none; border-radius: 0 0 12px 12px; }
+    .dropdown a:hover { background: var(--mint-light); color: var(--mint-dark); }
+    .nav-cta { background: var(--wood-dark); color: #fff !important; border-radius: 30px; padding: 0.5rem 1.2rem !important; height: auto !important; margin-left: 0.5rem; font-size: 0.78rem !important; transition: background 0.25s !important; align-self: center; }
+    .nav-cta:hover { background: var(--mint-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--wood-dark); border-radius: 2px; transition: all 0.3s; }
+
+    /* ---------- CONTENIDO LEGAL ---------- */
+    .legal-page { max-width: 900px; margin: 0 auto; padding: 9rem 2rem 4rem; }
+    .legal-page .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
+    .legal-page h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; line-height: 1.2; }
+    .legal-page .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
+    .legal-intro { font-size: 0.95rem; color: var(--text-mid); font-weight: 300; text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+    .legal-block { margin-bottom: 2.5rem; }
+    .legal-block h2 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--wood-deep); margin-bottom: 0.8rem; line-height: 1.3; }
+    .legal-block h3 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; color: var(--wood-dark); margin: 1.2rem 0 0.4rem; }
+    .legal-block p { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 0.8rem; }
+    .legal-block ul { margin: 0.4rem 0 0.8rem 1.4rem; }
+    .legal-block li { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 0.3rem; }
+    .legal-block a { color: var(--mint-dark); font-weight: 600; text-decoration: underline; }
+    .legal-block a:hover { color: var(--wood-dark); }
+    .legal-card { background: var(--cream2); border-left: 4px solid var(--mint-dark); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1rem 0; }
+    .legal-card p { margin-bottom: 0.3rem; }
+    .legal-card p:last-child { margin-bottom: 0; }
+    .legal-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.88rem; }
+    .legal-table th, .legal-table td { padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid var(--wood-light); color: var(--text-mid); font-weight: 300; }
+    .legal-table th { background: var(--mint-light); color: var(--wood-deep); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .legal-table td strong { color: var(--wood-dark); font-weight: 700; }
+    .legal-note { font-size: 0.82rem; color: var(--text-mid); font-weight: 300; font-style: italic; margin-top: 0.5rem; }
+
+    /* ---------- FOOTER (idéntico al index) ---------- */
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2.5rem 2.5rem 1.5rem; font-size: 0.78rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(253,248,240,0.12); }
+    .footer-top img { height: 40px; opacity: 0.75; filter: invert(1); }
+    .footer-top span { line-height: 1.6; }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; padding-top: 1.2rem; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--mint); }
+    .footer-legal a { font-size: 0.75rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; transition: color 0.2s; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    @media (max-width: 900px) {
+      .legal-page { padding: 7rem 1.5rem 3rem; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 0.4rem 1rem 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
+      .nav-links.open { display: flex; }
+      .nav-links > li { flex-direction: column; align-items: stretch; border-bottom: 1px solid var(--wood-light); }
+      .nav-links > li:last-child { border-bottom: none; }
+      .nav-item-row { justify-content: space-between; }
+      .nav-links > li > .nav-item-row > a, .nav-links > li > a { height: 48px; font-size: 0.85rem; }
+      .dropdown-toggle { height: 48px; }
+      .dropdown { display: none; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.6rem 0.8rem; }
+      .has-dropdown.open .dropdown { display: block; }
+      .hamburger { display: flex; }
+      .footer-top { flex-direction: column; text-align: center; }
+      .legal-table { font-size: 0.8rem; }
+      .legal-table th, .legal-table td { padding: 0.5rem 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAVEGACIÓN ==================== -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <ul class="nav-links" id="navLinks">
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="regalos-personalizados.html">Regalos Personalizados</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Regalos Personalizados"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="regalos-personalizados.html">Letra 3D autoportante</a>
+        <a href="regalos-personalizados.html">Placa de nacimiento</a>
+        <a href="regalos-personalizados.html">Placa de profe</a>
+        <a href="regalos-personalizados.html">Nombre para puerta</a>
+        <a href="regalos-personalizados.html">Marcapáginas</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="cositas-mamemi.html">Cositas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Cositas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="cositas-mamemi.html">Llaveros</a>
+        <a href="cositas-mamemi.html">Imanes</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="joyitas-mamemi.html">Joyitas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Joyitas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="joyitas-mamemi.html">Brazaletes</a>
+        <a href="joyitas-mamemi.html">Collares</a>
+        <a href="joyitas-mamemi.html">Pulseras</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="packs-para-regalar.html">Packs para Regalar</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Packs para Regalar"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="packs-para-regalar.html">Pack Nacimiento</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="coleccion-cocina.html">Colección Cocina</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Colección Cocina"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="coleccion-cocina.html">Tablas de cocina</a>
+        <a href="coleccion-cocina.html">Servilleteros</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="detallitos-eventos.html">Detallitos para Eventos</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Detallitos para Eventos"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="detallitos-eventos.html">Bodas · Marcasitios</a>
+        <a href="detallitos-eventos.html">Imanes abrebotellas</a>
+        <a href="detallitos-eventos.html">Libretas personalizadas</a>
+        <a href="detallitos-eventos.html">Posavasos</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="estudio-creativo.html">Estudio Creativo</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Estudio Creativo"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="estudio-creativo.html">Tarjetas de visita</a>
+        <a href="estudio-creativo.html">Logos e identidad visual</a>
+        <a href="estudio-creativo.html">Diseño web</a>
+        <a href="estudio-creativo.html">Elementos de papelería y otros diseños</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="mamemi-instagram.html">Mamemi en Instagram</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Mamemi en Instagram"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="mamemi-instagram.html">Reels y publicaciones</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="el-taller.html">El Taller</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de El Taller"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="el-taller.html">¿Quieres entrar en mi taller?</a>
+      </div>
+    </li>
+    <li><a href="mamemi-en-vuestras-manos.html">Mamemi en vuestras manos</a></li>
+    <li><a href="index.html#sobre">Sobre mí</a></li>
+    <li><a href="index.html#contacto" class="nav-cta">¿Hablamos?</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+<main class="legal-page">
+
+  <p class="section-label">Información legal</p>
+  <h1>Aviso Legal</h1>
+  <div class="divider"></div>
+
+  <p class="legal-intro">
+    En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE), se informa a continuación de los datos identificativos del titular de este sitio web, así como de las condiciones de uso del mismo.
+  </p>
+
+  <!-- ===== 1. DATOS DEL TITULAR ===== -->
+  <div class="legal-block">
+    <h2>1. Datos del titular del sitio web</h2>
+    <div class="legal-card">
+      <p><strong>Titular:</strong> Leticia Gómez de Francisco</p>
+      <p><strong>NIF:</strong> 70057016M</p>
+      <p><strong>Domicilio:</strong> Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona (España)</p>
+      <p><strong>Correo electrónico:</strong> <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></p>
+      <p><strong>Teléfono / WhatsApp:</strong> <a href="https://wa.me/34622562499" target="_blank">+34 622 562 499</a></p>
+      <p><strong>Nombre comercial:</strong> MAMEMI Madera</p>
+      <p><strong>Sitio web:</strong> www.mamemimadera.es</p>
+    </div>
+    <p class="legal-note">El titular del sitio web es una persona física que actúa como autónoma. No se encuentra inscrita en el Registro Mercantil por no ser obligatorio para esta forma jurídica. La actividad se desarrolla al amparo de la legislación española aplicable a los trabajadores por cuenta propia.</p>
+  </div>
+
+  <!-- ===== 2. OBJETO Y ÁMBITO DE APLICACIÓN ===== -->
+  <div class="legal-block">
+    <h2>2. Objeto y ámbito de aplicación</h2>
+    <p>El presente Aviso Legal regula el acceso, navegación y uso del sitio web <strong>www.mamemimadera.es</strong> (en adelante, "el Sitio Web"), así como las responsabilidades derivadas de la utilización de sus contenidos.</p>
+    <p>El acceso al Sitio Web atribuye la condición de usuario e implica la aceptación plena y sin reservas de todas y cada una de las condiciones incluidas en este Aviso Legal, en la versión publicada en el momento del acceso. Si el usuario no está de acuerdo con las condiciones aquí establecidas, deberá abstenerse de acceder o utilizar el Sitio Web.</p>
+    <p>El titular se reserva el derecho a modificar, en cualquier momento y sin previo aviso, la presentación, configuración y contenidos del Sitio Web, así como las condiciones requeridas para su acceso y uso.</p>
+  </div>
+
+  <!-- ===== 3. CONDICIONES DE USO ===== -->
+  <div class="legal-block">
+    <h2>3. Condiciones de uso</h2>
+    <p>El usuario se compromete a hacer un uso adecuado de los contenidos y servicios que el titular ofrece a través del Sitio Web, y a no emplearlos para:</p>
+    <ul>
+      <li>Incurrir en actividades ilícitas, ilegales o contrarias a la buena fe y al orden público.</li>
+      <li>Difundir contenidos o propaganda de carácter racista, xenófobo, pornográfico, de apología del terrorismo o atentatorio contra los derechos humanos.</li>
+      <li>Provocar daños en los sistemas físicos y lógicos del titular, de sus proveedores o de terceras personas.</li>
+      <li>Introducir o difundir en la red virus informáticos o cualesquiera otros sistemas físicos o lógicos que sean susceptibles de provocar los daños anteriormente mencionados.</li>
+      <li>Intentar acceder y, en su caso, utilizar las cuentas de correo electrónico de otros usuarios y modificar o manipular sus mensajes.</li>
+      <li>Utilizar el Sitio Web ni los contenidos alojados en él con fines comerciales, políticos, publicitarios o de cualquier otra índole sin la autorización expresa del titular.</li>
+    </ul>
+    <p>El titular se reserva el derecho a denegar o retirar el acceso al Sitio Web, sin necesidad de preaviso, a aquellos usuarios que incumplan las presentes condiciones.</p>
+  </div>
+
+  <!-- ===== 4. PROPIEDAD INTELECTUAL E INDUSTRIAL ===== -->
+  <div class="legal-block">
+    <h2>4. Propiedad intelectual e industrial</h2>
+    <p>Todos los contenidos del Sitio Web, entendiendo por estos a título meramente enunciativo los textos, fotografías, gráficos, imágenes, iconos, tecnología, software, enlaces y demás contenidos audiovisuales o sonoros, así como su diseño gráfico y códigos fuente, son propiedad intelectual del titular o de terceros, sin que puedan entenderse cedidos al usuario ninguno de los derechos de explotación reconocidos por la normativa vigente en materia de propiedad intelectual.</p>
+    <p>Las marcas, nombres comerciales o signos distintivos son titularidad del titular o de terceros, sin que el acceso al Sitio Web pueda atribuir al usuario ningún derecho sobre los mismos.</p>
+    <p>Queda expresamente prohibida la reproducción, distribución, comunicación pública y transformación, total o parcial, de los contenidos del Sitio Web sin la autorización expresa y por escrito del titular. El usuario se compromete a respetar los derechos de propiedad intelectual e industrial titularidad del titular y de terceros.</p>
+    <p>En particular, las fotografías de las piezas artesanales, los textos descriptivos y el logotipo de MAMEMI Madera están protegidos por los derechos de propiedad intelectual e industrial correspondientes.</p>
+  </div>
+
+  <!-- ===== 5. EXCLUSIÓN DE RESPONSABILIDAD ===== -->
+  <div class="legal-block">
+    <h2>5. Exclusión de responsabilidad</h2>
+    <h3>5.1. Disponibilidad del Sitio Web</h3>
+    <p>El titular no garantiza la disponibilidad y continuidad del funcionamiento del Sitio Web. Cuando ello sea razonablemente posible, advertirá previamente de las interrupciones en el funcionamiento del mismo. El titular tampoco garantiza la utilidad del Sitio Web para la realización de ninguna actividad concreta, ni su infalibilidad.</p>
+
+    <h3>5.2. Contenidos y exactitud de la información</h3>
+    <p>El titular no se hace responsable de la exactitud, veracidad o actualidad de la información contenida en el Sitio Web. La información publicada tiene carácter informativo y orientativo, y puede estar sujeta a cambios sin previo aviso.</p>
+    <p>En particular, las fotografías de los productos son orientativas. Al tratarse de piezas artesanales elaboradas con materiales naturales, pueden existir variaciones en las vetas, tonos y acabados respecto a las imágenes mostradas. Estas variaciones no constituyen defecto ni incumplimiento del contrato, sino que forman parte del carácter único de cada pieza.</p>
+
+    <h3>5.3. Enlaces a terceros</h3>
+    <p>El Sitio Web puede contener enlaces a páginas web de terceros (Instagram, WhatsApp, pasarelas de pago, etc.). El titular no asume responsabilidad alguna por el contenido, informaciones o servicios que pudieran aparecer en dichos sitios, que tendrán exclusivamente carácter informativo y que no implican relación alguna entre el titular y las personas o entidades titulares de tales contenidos o sitios.</p>
+
+    <h3>5.4. Uso indebido del Sitio Web</h3>
+    <p>El titular no se hace responsable del uso que los usuarios hagan de los contenidos del Sitio Web. En particular, no se responsabiliza de los daños y perjuicios de cualquier naturaleza que pudieran derivarse del uso incorrecto, inadecuado o ilícito del Sitio Web por parte de los usuarios.</p>
+  </div>
+
+  <!-- ===== 6. PROTECCIÓN DE DATOS ===== -->
+  <div class="legal-block">
+    <h2>6. Protección de datos personales</h2>
+    <p>El tratamiento de los datos personales que el usuario facilite a través del Sitio Web se rige por lo dispuesto en el Reglamento (UE) 2016/679, de 27 de abril de 2016 (RGPD), y en la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
+    <p>El responsable del tratamiento es el titular indicado en el apartado 1 de este Aviso Legal. Las finalidades, bases jurídicas, destinatarios y plazos de conservación de los datos se detallan en la <a href="politica-privacidad.html">Política de Privacidad</a>, que el usuario debe leer antes de facilitar sus datos personales.</p>
+    <p>El usuario puede ejercer sus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad dirigiéndose por escrito a la dirección postal o electrónica indicada en el apartado 1, adjuntando copia de un documento que acredite su identidad. Asimismo, puede presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+  </div>
+
+  <!-- ===== 7. COOKIES ===== -->
+  <div class="legal-block">
+    <h2>7. Cookies</h2>
+    <p>El Sitio Web utiliza cookies propias y de terceros para garantizar el correcto funcionamiento del carrito de compra, así como para fines analíticos (Google Analytics), siempre que el usuario otorgue su consentimiento previo.</p>
+    <p>El usuario puede aceptar, rechazar o configurar el uso de cookies a través del banner que aparece en su primera visita, o en cualquier momento mediante el enlace "Configurar cookies" disponible en el pie de página del Sitio Web.</p>
+    <p>Para más información sobre qué cookies utilizamos, su finalidad, duración y cómo gestionarlas o revocarlas, consulte la <a href="politica-cookies.html">Política de Cookies</a>.</p>
+  </div>
+
+  <!-- ===== 8. MODIFICACIONES ===== -->
+  <div class="legal-block">
+    <h2>8. Modificaciones</h2>
+    <p>El titular se reserva el derecho a modificar en cualquier momento el presente Aviso Legal, así como sus contenidos, servicios y condiciones de uso. Las modificaciones entrarán en vigor desde su publicación en el Sitio Web. El usuario se compromete a revisar periódicamente el presente documento para estar informado de cualquier cambio.</p>
+    <p>La fecha de la última actualización de este Aviso Legal se indica al final del documento.</p>
+  </div>
+
+  <!-- ===== 9. LEGISLACIÓN APLICABLE Y JURISDICCIÓN ===== -->
+  <div class="legal-block">
+    <h2>9. Legislación aplicable y jurisdicción</h2>
+    <p>El presente Aviso Legal se rige por la legislación española. La relación entre el titular y el usuario se regirá por la normativa española vigente, y cualquier controversia se someterá a los Juzgados y Tribunales competentes conforme a la ley aplicable.</p>
+    <p>En el caso de usuarios consumidores, serán competentes los juzgados del domicilio del consumidor, de acuerdo con lo establecido en la normativa de defensa de los consumidores y usuarios. Para usuarios no consumidores, las partes se someten expresamente a los Juzgados y Tribunales de Barcelona, renunciando a cualquier otro fuero que pudiera corresponderles.</p>
+    <p>Asimismo, y en cumplimiento del Reglamento (UE) n.º 524/2013, se informa a los usuarios que la Comisión Europea facilita una plataforma de resolución de litigios en línea, disponible en el siguiente enlace: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>.</p>
+  </div>
+
+  <!-- ===== FECHA DE ACTUALIZACIÓN ===== -->
+  <div class="legal-block" style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--wood-light);">
+    <p style="font-size: 0.82rem; text-align: center;"><strong>Última actualización:</strong> septiembre de 2026</p>
+  </div>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-top">
+    <img src="images/logo.png" alt="MAMEMI Madera">
+    <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+    <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  </div>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
+</footer>
+
+<script>
+  // Menú móvil: acordeón de submenús
+  function toggleSubmenu(e, btn) {
+    if (window.innerWidth > 640) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const li = btn.closest('li');
+    const wasOpen = li.classList.contains('open');
+    document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(item => {
+      item.classList.remove('open');
+      const t = item.querySelector('.dropdown-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      li.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  // Cierra menú móvil al pulsar enlaces de navegación
+  document.querySelectorAll('.nav-links > li > a, .nav-links > li > .nav-item-row > a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // Cierra menú móvil al hacer scroll
+  let lastScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const navLinks = document.getElementById('navLinks');
+    if (navLinks.classList.contains('open') && Math.abs(window.scrollY - lastScrollY) > 5) {
+      navLinks.classList.remove('open');
+    }
+    lastScrollY = window.scrollY;
+  }, { passive: true });
+
+  // Cierra menú móvil al pulsar fuera
+  document.addEventListener('click', (e) => {
+    const navLinks = document.getElementById('navLinks');
+    const hamburger = document.getElementById('hamburger');
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+      navLinks.classList.remove('open');
+    }
+  });
+
+  // Cierra menú móvil al pulsar el logo
+  document.querySelector('.nav-logo')?.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+</script>
+
+</body>
+</html>
