@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Política de Cookies – MAMEMI Madera</title>
+  <meta name="description" content="Política de cookies de MAMEMI Madera. Información detallada sobre las cookies utilizadas, su finalidad, duración y cómo gestionar o revocar tu consentimiento."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; line-height: 1.7; }
+
+    /* ---------- NAV (idéntico al index) ---------- */
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; position: relative; }
+    .nav-links > li { position: relative; display: flex; align-items: center; }
+    .nav-item-row { display: flex; align-items: center; }
+    .nav-links > li > .nav-item-row > a { padding: 0 0.4rem 0 1rem; height: 70px; display: flex; align-items: center; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links > li > a { display: flex; align-items: center; gap: 4px; padding: 0 1rem; height: 70px; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links > li > a:hover, .nav-item-row > a:hover { color: var(--mint-dark); }
+    .dropdown-toggle { background: none; border: none; cursor: pointer; height: 70px; padding: 0 1rem 0 0.2rem; display: flex; align-items: center; color: var(--text-mid); }
+    .nav-links > li > a .arrow, .dropdown-toggle .arrow { font-size: 0.6rem; transition: transform 0.2s; }
+    .nav-links > li:hover > a .arrow, .nav-links > li:hover .dropdown-toggle .arrow { transform: rotate(180deg); }
+    .dropdown { display: none; position: absolute; top: 70px; left: 0; background: #fff; border: 1.5px solid var(--wood-light); border-radius: 0 0 12px 12px; box-shadow: 0 8px 30px var(--shadow); min-width: 220px; z-index: 300; }
+    .nav-links > li:hover .dropdown { display: block; }
+    .dropdown a { display: block; padding: 0.75rem 1.2rem; text-decoration: none; font-size: 0.82rem; color: var(--text-mid); font-weight: 600; border-bottom: 1px solid var(--wood-light); transition: background 0.2s, color 0.2s; }
+    .dropdown a:last-child { border-bottom: none; border-radius: 0 0 12px 12px; }
+    .dropdown a:hover { background: var(--mint-light); color: var(--mint-dark); }
+    .nav-cta { background: var(--wood-dark); color: #fff !important; border-radius: 30px; padding: 0.5rem 1.2rem !important; height: auto !important; margin-left: 0.5rem; font-size: 0.78rem !important; transition: background 0.25s !important; align-self: center; }
+    .nav-cta:hover { background: var(--mint-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--wood-dark); border-radius: 2px; transition: all 0.3s; }
+
+    /* ---------- CONTENIDO LEGAL ---------- */
+    .legal-page { max-width: 900px; margin: 0 auto; padding: 9rem 2rem 4rem; }
+    .legal-page .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
+    .legal-page h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; line-height: 1.2; }
+    .legal-page .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
+    .legal-intro { font-size: 0.95rem; color: var(--text-mid); font-weight: 300; text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+    .legal-block { margin-bottom: 2.5rem; }
+    .legal-block h2 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--wood-deep); margin-bottom: 0.8rem; line-height: 1.3; }
+    .legal-block h3 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; color: var(--wood-dark); margin: 1.2rem 0 0.4rem; }
+    .legal-block p { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 0.8rem; }
+    .legal-block ul { margin: 0.4rem 0 0.8rem 1.4rem; }
+    .legal-block li { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 0.3rem; }
+    .legal-block a { color: var(--mint-dark); font-weight: 600; text-decoration: underline; }
+    .legal-block a:hover { color: var(--wood-dark); }
+    .legal-card { background: var(--cream2); border-left: 4px solid var(--mint-dark); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1rem 0; }
+    .legal-card p { margin-bottom: 0.3rem; }
+    .legal-card p:last-child { margin-bottom: 0; }
+    .legal-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+    .legal-table th, .legal-table td { padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid var(--wood-light); color: var(--text-mid); font-weight: 300; vertical-align: top; }
+    .legal-table th { background: var(--mint-light); color: var(--wood-deep); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .legal-table td strong { color: var(--wood-dark); font-weight: 700; }
+    .legal-note { font-size: 0.82rem; color: var(--text-mid); font-weight: 300; font-style: italic; margin-top: 0.5rem; }
+    .btn-config-cookies { display: inline-block; padding: 0.7rem 1.5rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; margin-top: 0.5rem; }
+    .btn-config-cookies:hover { background: var(--wood-dark); }
+
+    /* ---------- FOOTER (idéntico al index) ---------- */
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2.5rem 2.5rem 1.5rem; font-size: 0.78rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(253,248,240,0.12); }
+    .footer-top img { height: 40px; opacity: 0.75; filter: invert(1); }
+    .footer-top span { line-height: 1.6; }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; padding-top: 1.2rem; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--mint); }
+    .footer-legal a { font-size: 0.75rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; transition: color 0.2s; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    @media (max-width: 900px) {
+      .legal-page { padding: 7rem 1.5rem 3rem; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 0.4rem 1rem 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
+      .nav-links.open { display: flex; }
+      .nav-links > li { flex-direction: column; align-items: stretch; border-bottom: 1px solid var(--wood-light); }
+      .nav-links > li:last-child { border-bottom: none; }
+      .nav-item-row { justify-content: space-between; }
+      .nav-links > li > .nav-item-row > a, .nav-links > li > a { height: 48px; font-size: 0.85rem; }
+      .dropdown-toggle { height: 48px; }
+      .dropdown { display: none; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.6rem 0.8rem; }
+      .has-dropdown.open .dropdown { display: block; }
+      .hamburger { display: flex; }
+      .footer-top { flex-direction: column; text-align: center; }
+      .legal-table { font-size: 0.75rem; }
+      .legal-table th, .legal-table td { padding: 0.4rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAVEGACIÓN ==================== -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <ul class="nav-links" id="navLinks">
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="regalos-personalizados.html">Regalos Personalizados</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Regalos Personalizados"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="regalos-personalizados.html">Letra 3D autoportante</a>
+        <a href="regalos-personalizados.html">Placa de nacimiento</a>
+        <a href="regalos-personalizados.html">Placa de profe</a>
+        <a href="regalos-personalizados.html">Nombre para puerta</a>
+        <a href="regalos-personalizados.html">Marcapáginas</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="cositas-mamemi.html">Cositas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Cositas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="cositas-mamemi.html">Llaveros</a>
+        <a href="cositas-mamemi.html">Imanes</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="joyitas-mamemi.html">Joyitas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Joyitas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="joyitas-mamemi.html">Brazaletes</a>
+        <a href="joyitas-mamemi.html">Collares</a>
+        <a href="joyitas-mamemi.html">Pulseras</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="packs-para-regalar.html">Packs para Regalar</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Packs para Regalar"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="packs-para-regalar.html">Pack Nacimiento</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="coleccion-cocina.html">Colección Cocina</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Colección Cocina"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="coleccion-cocina.html">Tablas de cocina</a>
+        <a href="coleccion-cocina.html">Servilleteros</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="detallitos-eventos.html">Detallitos para Eventos</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Detallitos para Eventos"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="detallitos-eventos.html">Bodas · Marcasitios</a>
+        <a href="detallitos-eventos.html">Imanes abrebotellas</a>
+        <a href="detallitos-eventos.html">Libretas personalizadas</a>
+        <a href="detallitos-eventos.html">Posavasos</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="estudio-creativo.html">Estudio Creativo</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Estudio Creativo"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="estudio-creativo.html">Tarjetas de visita</a>
+        <a href="estudio-creativo.html">Logos e identidad visual</a>
+        <a href="estudio-creativo.html">Diseño web</a>
+        <a href="estudio-creativo.html">Elementos de papelería y otros diseños</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="mamemi-instagram.html">Mamemi en Instagram</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Mamemi en Instagram"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="mamemi-instagram.html">Reels y publicaciones</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="el-taller.html">El Taller</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de El Taller"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="el-taller.html">¿Quieres entrar en mi taller?</a>
+      </div>
+    </li>
+    <li><a href="mamemi-en-vuestras-manos.html">Mamemi en vuestras manos</a></li>
+    <li><a href="index.html#sobre">Sobre mí</a></li>
+    <li><a href="index.html#contacto" class="nav-cta">¿Hablamos?</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+<main class="legal-page">
+
+  <p class="section-label">Información legal</p>
+  <h1>Política de Cookies</h1>
+  <div class="divider"></div>
+
+  <p class="legal-intro">
+    Esta Política de Cookies explica qué son las cookies, cuáles utilizamos en <strong>www.mamemimadera.es</strong>, con qué finalidad, durante cuánto tiempo y cómo puedes gestionarlas o revocar tu consentimiento. Cumplimos con el artículo 22.2 de la Ley 34/2002 (LSSI-CE) y con la Guía sobre el uso de cookies de la Agencia Española de Protección de Datos (AEPD).
+  </p>
+
+  <!-- ===== 1. QUÉ SON LAS COOKIES ===== -->
+  <div class="legal-block">
+    <h2>1. ¿Qué son las cookies y tecnologías similares?</h2>
+    <p>Las cookies son pequeños archivos de texto que se descargan en tu dispositivo (ordenador, móvil o tablet) cuando visitas una página web. Permiten almacenar y recuperar información sobre tus hábitos de navegación o sobre tu equipo.</p>
+    <p>Junto con las cookies, esta política también cubre otras tecnologías similares de almacenamiento y recuperación de datos en tu dispositivo, como el <em>localStorage</em>, <em>sessionStorage</em>, píxeles de seguimiento o SDK, que pueden realizar funciones equivalentes.</p>
+  </div>
+
+  <!-- ===== 2. RESPONSABLE ===== -->
+  <div class="legal-block">
+    <h2>2. ¿Quién es el responsable?</h2>
+    <div class="legal-card">
+      <p><strong>Responsable:</strong> Leticia Gómez de Francisco</p>
+      <p><strong>NIF:</strong> 70057016M</p>
+      <p><strong>Domicilio:</strong> Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona (España)</p>
+      <p><strong>Correo electrónico:</strong> <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></p>
+      <p><strong>Teléfono / WhatsApp:</strong> <a href="https://wa.me/34622562499" target="_blank">+34 622 562 499</a></p>
+    </div>
+    <p>Para cualquier consulta relacionada con esta Política de Cookies o con el tratamiento de tus datos, puedes dirigirte al responsable en la dirección indicada.</p>
+  </div>
+
+  <!-- ===== 3. BASE LEGAL ===== -->
+  <div class="legal-block">
+    <h2>3. ¿Cuál es la base legal para el uso de cookies?</h2>
+    <p>El artículo 22.2 de la LSSI-CE establece que los prestadores de servicios pueden utilizar cookies siempre que el usuario haya dado su consentimiento después de haber sido informado de forma clara y completa sobre su utilización.</p>
+    <p>No obstante, quedan <strong>exceptuadas del deber de consentimiento</strong> aquellas cookies que cumplen alguna de las siguientes finalidades:</p>
+    <ul>
+      <li>Permitir la comunicación entre el equipo del usuario y la red.</li>
+      <li>Prestar un servicio expresamente solicitado por el usuario.</li>
+    </ul>
+    <p>En la práctica, esto incluye las cookies técnicas necesarias para el funcionamiento del carrito de la compra, la gestión de sesión, la autenticación o la seguridad del usuario. Estas cookies se informan en esta política, pero no requieren consentimiento previo.</p>
+    <p>Para el resto de cookies (como las analíticas de Google Analytics), es necesario obtener el consentimiento informado del usuario antes de su instalación.</p>
+  </div>
+
+  <!-- ===== 4. COOKIES UTILIZADAS ===== -->
+  <div class="legal-block">
+    <h2>4. ¿Qué cookies utilizamos?</h2>
+    <p>A continuación se detallan las cookies utilizadas en este sitio web, clasificadas por categoría, con indicación de su nombre, proveedor, finalidad, tipo y duración:</p>
+
+    <h3>4.1. Cookies técnicas (exentas de consentimiento)</h3>
+    <p>Son imprescindibles para el funcionamiento del sitio web y no pueden desactivarse. Se utilizan para gestionar el carrito de compra, mantener la sesión del usuario y recordar las preferencias básicas.</p>
+
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Proveedor</th>
+          <th>Finalidad</th>
+          <th>Tipo</th>
+          <th>Duración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>mamemi_consent_v1</strong></td>
+          <td>mamemimadera.es</td>
+          <td>Guarda la elección del usuario sobre el consentimiento de cookies</td>
+          <td>Técnica (exenta)</td>
+          <td>24 meses</td>
+        </tr>
+        <tr>
+          <td><strong>mamemi_cart</strong></td>
+          <td>mamemimadera.es</td>
+          <td>Mantiene los productos en el carrito de compra durante la sesión</td>
+          <td>Técnica (exenta)</td>
+          <td>Sesión</td>
+        </tr>
+        <tr>
+          <td><strong>PHPSESSID</strong></td>
+          <td>mamemimadera.es</td>
+          <td>Identifica la sesión del usuario en el servidor</td>
+          <td>Técnica (exenta)</td>
+          <td>Sesión</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="legal-note">Las cookies técnicas están exceptuadas del deber de consentimiento según el artículo 22.2 de la LSSI-CE y el Dictamen 04/2012 del Grupo de Trabajo del Artículo 29. No obstante, se informa de su uso en cumplimiento del principio de transparencia.</p>
+
+    <h3>4.2. Cookies analíticas (requieren consentimiento)</h3>
+    <p>Utilizamos Google Analytics para medir el número de visitas, las páginas más vistas y el comportamiento general de los usuarios en la web. Esta información nos permite mejorar nuestros contenidos y la experiencia de navegación. Estas cookies <strong>solo se instalan si el usuario acepta expresamente</strong> las cookies analíticas a través del banner de configuración.</p>
+
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Proveedor</th>
+          <th>Finalidad</th>
+          <th>Tipo</th>
+          <th>Duración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>_ga</strong></td>
+          <td>Google Analytics</td>
+          <td>Distingue a los usuarios únicos mediante un identificador anónimo</td>
+          <td>Analítica</td>
+          <td>24 meses</td>
+        </tr>
+        <tr>
+          <td><strong>_ga_9MM0BBNL5N</strong></td>
+          <td>Google Analytics</td>
+          <td>Mantiene el estado de la sesión de Google Analytics</td>
+          <td>Analítica</td>
+          <td>24 meses</td>
+        </tr>
+        <tr>
+          <td><strong>_gid</strong></td>
+          <td>Google Analytics</td>
+          <td>Distingue a los usuarios para obtener estadísticas agregadas</td>
+          <td>Analítica</td>
+          <td>24 horas</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Google Analytics está configurado con la <strong>anonimización de IP activada</strong> (<code>anonymize_ip: true</code>), de modo que no se almacena la dirección IP completa del usuario. Google actúa como encargado del tratamiento y aplica las cláusulas contractuales tipo de la Comisión Europea para transferencias internacionales de datos.</p>
+
+    <p class="legal-note">No utilizamos cookies publicitarias, de remarketing ni de redes sociales. Si en el futuro se incorporan, se informará en esta política y se solicitará el consentimiento correspondiente.</p>
+  </div>
+
+  <!-- ===== 5. GESTIÓN Y REVOCACIÓN ===== -->
+  <div class="legal-block">
+    <h2>5. ¿Cómo puedes gestionar o revocar tu consentimiento?</h2>
+    <p>Puedes gestionar tus preferencias de cookies en cualquier momento de las siguientes formas:</p>
+
+    <h3>5.1. Desde el banner de configuración de la web</h3>
+    <p>El banner que aparece en tu primera visita te permite <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> las cookies por categorías. Si ya has tomado una decisión y quieres cambiarla, puedes volver a abrir el panel de configuración desde el enlace "Configurar cookies" disponible en el pie de página de cualquier sección del sitio.</p>
+    <button type="button" class="btn-config-cookies" id="open-cookie-config">Configurar mis preferencias de cookies</button>
+
+    <h3>5.2. Desde la configuración de tu navegador</h3>
+    <p>Puedes configurar tu navegador para bloquear o eliminar cookies. Ten en cuenta que, si desactivas las cookies técnicas, es posible que algunas funcionalidades del sitio (como el carrito de la compra) no funcionen correctamente. A continuación tienes los enlaces a las instrucciones de los navegadores más habituales:</p>
+    <ul>
+      <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+      <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+      <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+      <li><a href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-las-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener">Microsoft Edge</a></li>
+    </ul>
+
+    <h3>5.3. Revocación del consentimiento</h3>
+    <p>Puedes retirar el consentimiento otorgado para las cookies analíticas en cualquier momento. Al hacerlo, se eliminarán las cookies de Google Analytics instaladas previamente y no se volverán a instalar salvo que vuelvas a aceptarlas. La retirada del consentimiento no afecta a la licitud del tratamiento basado en el consentimiento previo a su retirada.</p>
+  </div>
+
+  <!-- ===== 6. TRANSFERENCIAS INTERNACIONALES ===== -->
+  <div class="legal-block">
+    <h2>6. Transferencias internacionales de datos</h2>
+    <p>Google Analytics es un servicio prestado por Google LLC, con sede en Estados Unidos. Esto implica una transferencia internacional de datos fuera del Espacio Económico Europeo (EEE). Esta transferencia está amparada por las <strong>cláusulas contractuales tipo</strong> aprobadas por la Comisión Europea, que garantizan un nivel de protección equivalente al del RGPD.</p>
+    <p>Puedes consultar más información sobre cómo Google trata los datos en su <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidad</a>.</p>
+  </div>
+
+  <!-- ===== 7. ACTUALIZACIONES ===== -->
+  <div class="legal-block">
+    <h2>7. Actualizaciones de esta Política de Cookies</h2>
+    <p>Esta Política de Cookies puede actualizarse para adaptarse a novedades legislativas, cambios en las cookies utilizadas o modificaciones en las directrices de la AEPD. Te recomendamos revisarla periódicamente.</p>
+    <p>Cuando se produzcan cambios significativos, te informaremos mediante un aviso destacado en el sitio web o, si disponemos de tu correo electrónico, mediante comunicación directa.</p>
+  </div>
+
+  <!-- ===== INFORMACIÓN ADICIONAL ===== -->
+  <div class="legal-block">
+    <h2>8. Más información</h2>
+    <p>Para más información sobre cómo tratamos tus datos personales, puedes consultar nuestra <a href="politica-privacidad.html">Política de Privacidad</a>. Si tienes cualquier duda sobre esta Política de Cookies, puedes escribirnos a <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>.</p>
+    <p>Asimismo, puedes consultar la <a href="https://www.aepd.es/guias/guia-cookies.pdf" target="_blank" rel="noopener">Guía sobre el uso de cookies de la AEPD</a> para obtener información adicional sobre tus derechos.</p>
+  </div>
+
+  <!-- ===== FECHA DE ACTUALIZACIÓN ===== -->
+  <div class="legal-block" style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--wood-light);">
+    <p style="font-size: 0.82rem; text-align: center;"><strong>Última actualización:</strong> septiembre de 2026</p>
+  </div>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-top">
+    <img src="images/logo.png" alt="MAMEMI Madera">
+    <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+    <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  </div>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
+</footer>
+
+<script>
+  function toggleSubmenu(e, btn) {
+    if (window.innerWidth > 640) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const li = btn.closest('li');
+    const wasOpen = li.classList.contains('open');
+    document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(item => {
+      item.classList.remove('open');
+      const t = item.querySelector('.dropdown-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      li.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  document.querySelectorAll('.nav-links > li > a, .nav-links > li > .nav-item-row > a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+  let lastScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const navLinks = document.getElementById('navLinks');
+    if (navLinks.classList.contains('open') && Math.abs(window.scrollY - lastScrollY) > 5) {
+      navLinks.classList.remove('open');
+    }
+    lastScrollY = window.scrollY;
+  }, { passive: true });
+  document.addEventListener('click', (e) => {
+    const navLinks = document.getElementById('navLinks');
+    const hamburger = document.getElementById('hamburger');
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+      navLinks.classList.remove('open');
+    }
+  });
+  document.querySelector('.nav-logo')?.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+
+  // Botón "Configurar mis preferencias": redirige al index y abre el panel
+  const configBtns = document.querySelectorAll('#open-cookie-config');
+  configBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      window.location.href = 'index.html#configurar-cookies';
+    });
+  });
+</script>
+
+</body>
+</html>
