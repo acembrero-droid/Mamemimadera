@@ -61,8 +61,8 @@
     .legal-table th { background: var(--mint-light); color: var(--wood-deep); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
     .legal-table td strong { color: var(--wood-dark); font-weight: 700; }
     .legal-note { font-size: 0.82rem; color: var(--text-mid); font-weight: 300; font-style: italic; margin-top: 0.5rem; }
-    .btn-config-cookies { display: inline-block; padding: 0.7rem 1.5rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; margin-top: 0.5rem; }
-    .btn-config-cookies:hover { background: var(--wood-dark); }
+    .btn-config-cookies { display: inline-block; padding: 0.7rem 1.5rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; margin-top: 0.5rem; text-decoration: none; }
+    .btn-config-cookies:hover { background: var(--wood-dark); color: #fff; text-decoration: none; }
 
     /* ---------- FOOTER (idéntico al index) ---------- */
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2.5rem 2.5rem 1.5rem; font-size: 0.78rem; }
@@ -75,6 +75,20 @@
     .footer-legal a { font-size: 0.75rem; }
     .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; transition: color 0.2s; }
     .footer-legal button:hover { color: var(--mint); }
+
+    /* Estilo específico para el enlace "Configurar cookies" del footer */
+    .footer-cookie-config {
+      color: rgba(253,248,240,0.6);
+      font-size: 0.75rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+    }
+    .footer-cookie-config:hover { color: var(--mint); }
 
     @media (max-width: 900px) {
       .legal-page { padding: 7rem 1.5rem 3rem; }
@@ -345,8 +359,8 @@
     <p>Puedes gestionar tus preferencias de cookies en cualquier momento de las siguientes formas:</p>
 
     <h3>5.1. Desde el banner de configuración de la web</h3>
-    <p>El banner que aparece en tu primera visita te permite <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> las cookies por categorías. Si ya has tomado una decisión y quieres cambiarla, puedes volver a abrir el panel de configuración desde el enlace "Configurar cookies" disponible en el pie de página de cualquier sección del sitio.</p>
-    <button type="button" class="btn-config-cookies" id="open-cookie-config">Configurar mis preferencias de cookies</button>
+    <p>El banner que aparece en tu primera visita te permite <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> las cookies por categorías. Si ya has tomado una decisión y quieres cambiarla, puedes volver a abrir el panel de configuración desde el enlace "Configurar cookies" disponible en el pie de página de cualquier sección del sitio, o directamente desde el siguiente botón:</p>
+    <a href="index.html#configurar-cookies" class="btn-config-cookies">Configurar mis preferencias de cookies</a>
 
     <h3>5.2. Desde la configuración de tu navegador</h3>
     <p>Puedes configurar tu navegador para bloquear o eliminar cookies. Ten en cuenta que, si desactivas las cookies técnicas, es posible que algunas funcionalidades del sitio (como el carrito de la compra) no funcionen correctamente. A continuación tienes los enlaces a las instrucciones de los navegadores más habituales:</p>
@@ -375,7 +389,7 @@
     <p>Cuando se produzcan cambios significativos, te informaremos mediante un aviso destacado en el sitio web o, si disponemos de tu correo electrónico, mediante comunicación directa.</p>
   </div>
 
-  <!-- ===== INFORMACIÓN ADICIONAL ===== -->
+  <!-- ===== 8. MÁS INFORMACIÓN ===== -->
   <div class="legal-block">
     <h2>8. Más información</h2>
     <p>Para más información sobre cómo tratamos tus datos personales, puedes consultar nuestra <a href="politica-privacidad.html">Política de Privacidad</a>. Si tienes cualquier duda sobre esta Política de Cookies, puedes escribirnos a <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>.</p>
@@ -402,7 +416,7 @@
     <a href="politica-cookies.html">Política de cookies</a>
     <a href="condiciones-contratacion.html">Condiciones de contratación</a>
     <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
-    <button type="button" id="open-cookie-config">Configurar cookies</button>
+    <a href="index.html#configurar-cookies" class="footer-cookie-config">Configurar cookies</a>
   </div>
 </footer>
 
@@ -445,14 +459,6 @@
   });
   document.querySelector('.nav-logo')?.addEventListener('click', () => {
     document.getElementById('navLinks').classList.remove('open');
-  });
-
-  // Botón "Configurar mis preferencias": redirige al index y abre el panel
-  const configBtns = document.querySelectorAll('#open-cookie-config');
-  configBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      window.location.href = 'index.html#configurar-cookies';
-    });
   });
 </script>
 
