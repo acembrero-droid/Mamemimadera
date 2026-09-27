@@ -70,6 +70,7 @@
     /* ---------- FORMULARIO DE DESISTIMIENTO ---------- */
     .desistimiento-form { background: #fff; border: 2px dashed var(--mint-dark); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; }
     .desistimiento-form h3 { margin-top: 0; text-align: center; color: var(--mint-dark); }
+    .desistimiento-form .form-intro { font-size: 0.82rem; text-align: center; color: var(--text-mid); margin-bottom: 1.5rem; }
     .desistimiento-form .field { margin-bottom: 1rem; }
     .desistimiento-form label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; }
     .desistimiento-form input[type="text"],
@@ -78,11 +79,20 @@
     .desistimiento-form textarea { width: 100%; padding: 0.6rem 0.8rem; border: 1.5px solid var(--wood-light); border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--cream); }
     .desistimiento-form input:focus,
     .desistimiento-form textarea:focus { outline: none; border-color: var(--mint-dark); }
-    .desistimiento-form .checkbox-row { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.8rem 0; }
+    .desistimiento-form input[readonly] { background: var(--cream2); color: var(--text-mid); }
+    .desistimiento-form .checkbox-row { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.8rem 0 1.2rem; }
     .desistimiento-form .checkbox-row input { margin-top: 0.25rem; accent-color: var(--mint-dark); }
-    .desistimiento-form .checkbox-row label { font-weight: 300; font-size: 0.85rem; margin-bottom: 0; }
-    .desistimiento-form .btn-submit { display: inline-block; padding: 0.7rem 1.8rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; margin-top: 0.5rem; }
+    .desistimiento-form .checkbox-row label { font-weight: 300; font-size: 0.85rem; margin-bottom: 0; cursor: pointer; }
+    .desistimiento-form .form-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: 0.5rem; }
+    .desistimiento-form .btn-submit { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.5rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; }
     .desistimiento-form .btn-submit:hover { background: var(--wood-dark); }
+    .desistimiento-form .btn-submit.whatsapp { background: #25D366; }
+    .desistimiento-form .btn-submit.whatsapp:hover { background: #1da851; }
+    .desistimiento-form .btn-submit.email { background: var(--wood-dark); }
+    .desistimiento-form .btn-submit.email:hover { background: var(--mint-dark); }
+    .desistimiento-form .form-note { font-size: 0.78rem; color: var(--text-mid); text-align: center; margin-top: 1.2rem; line-height: 1.6; font-weight: 300; }
+    .desistimiento-form .form-note strong { color: var(--wood-dark); }
+    .desistimiento-form .form-note a { color: var(--mint-dark); font-weight: 600; text-decoration: underline; }
 
     /* ---------- FOOTER (idéntico al index) ---------- */
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2.5rem 2.5rem 1.5rem; font-size: 0.78rem; }
@@ -115,6 +125,8 @@
       .legal-table { font-size: 0.75rem; }
       .legal-table th, .legal-table td { padding: 0.4rem 0.5rem; }
       .desistimiento-form { padding: 1.2rem; }
+      .desistimiento-form .form-actions { flex-direction: column; }
+      .desistimiento-form .btn-submit { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -444,21 +456,11 @@
     <h3>7.2. Formulario de desistimiento</h3>
     <div class="desistimiento-form">
       <h3>📄 Formulario de Desistimiento</h3>
-      <p style="font-size: 0.82rem; text-align: center; color: var(--text-mid); margin-bottom: 1.5rem;">Solo debe cumplimentar y enviar el presente formulario si desea desistir del contrato.</p>
+      <p class="form-intro">Solo debe cumplimentar y enviar el presente formulario si desea desistir del contrato. Puede enviarlo por email o por WhatsApp; también se acepta por correo postal.</p>
 
       <div class="field">
-        <label for="desist-nombre">A la atención de:</label>
-        <input type="text" id="desist-nombre" value="MAMEMI Madera – Leticia Gómez de Francisco, Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona" readonly style="background: var(--cream2); color: var(--text-mid);"/>
-      </div>
-
-      <div class="field">
-        <label for="desist-email">Correo electrónico de contacto:</label>
-        <input type="email" id="desist-email" value="hola@mamemimadera.es" readonly style="background: var(--cream2); color: var(--text-mid);"/>
-      </div>
-
-      <div class="field">
-        <label for="desist-consumidor">Por la presente le comunico/comunicamos (*) que desisto de mi/desistimos de nuestro (*) contrato de venta del siguiente bien:</label>
-        <textarea id="desist-consumidor" rows="3" placeholder="Describa el producto o productos de los que desea desistir..."></textarea>
+        <label for="desist-consumidor">Bien o servicio del que desea desistir:</label>
+        <textarea id="desist-consumidor" rows="3" placeholder="Describa el producto o productos de los que desea desistir..." required></textarea>
       </div>
 
       <div class="field">
@@ -477,31 +479,45 @@
       </div>
 
       <div class="field">
-        <label for="desist-datos">Nombre del consumidor y usuario:</label>
-        <input type="text" id="desist-datos" placeholder="Nombre y apellidos"/>
+        <label for="desist-datos">Nombre y apellidos del consumidor:</label>
+        <input type="text" id="desist-datos" placeholder="Nombre y apellidos" required/>
       </div>
 
       <div class="field">
-        <label for="desist-domicilio">Domicilio del consumidor y usuario:</label>
-        <input type="text" id="desist-domicilio" placeholder="Dirección completa"/>
+        <label for="desist-domicilio">Domicilio completo:</label>
+        <input type="text" id="desist-domicilio" placeholder="Dirección completa" required/>
       </div>
 
       <div class="field">
-        <label for="desist-firma">Firma del consumidor y usuario (solo si el formulario se presenta en papel):</label>
-        <input type="text" id="desist-firma" placeholder="Firma"/>
+        <label for="desist-email">Correo electrónico de contacto:</label>
+        <input type="email" id="desist-email" placeholder="tucorreo@email.com" required/>
       </div>
 
       <div class="field">
-        <label for="desist-fecha-firma">Fecha:</label>
+        <label for="desist-fecha-firma">Fecha de la solicitud:</label>
         <input type="date" id="desist-fecha-firma"/>
       </div>
 
       <div class="checkbox-row">
-        <input type="checkbox" id="desist-acepto"/>
-        <label for="desist-acepto">He leído y acepto las condiciones de desistimiento descritas en esta página.</label>
+        <input type="checkbox" id="desist-acepto" required/>
+        <label for="desist-acepto">He leído y acepto las condiciones de desistimiento descritas en esta página y confirmo que los datos facilitados son correctos.</label>
       </div>
 
-      <button type="button" class="btn-submit" onclick="alert('Formulario de ejemplo. Para ejercer el derecho de desistimiento, envíe este formulario cumplimentado a hola@mamemimadera.es o por correo postal a la dirección indicada.')">Enviar solicitud de desistimiento</button>
+      <div class="form-actions">
+        <button type="button" class="btn-submit email" onclick="enviarDesistimientoEmail()">
+          ✉️ Enviar por email
+        </button>
+        <button type="button" class="btn-submit whatsapp" onclick="enviarDesistimientoWhatsApp()">
+          💬 Enviar por WhatsApp
+        </button>
+      </div>
+
+      <p class="form-note">
+        También puedes enviarnos esta solicitud <strong>por correo postal</strong> a:<br>
+        MAMEMI Madera – Leticia Gómez de Francisco<br>
+        Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona<br>
+        O directamente a <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>
+      </p>
     </div>
 
     <h3>7.3. Consecuencias del desistimiento</h3>
@@ -657,6 +673,7 @@
 </footer>
 
 <script>
+  // ---------- Menú móvil ----------
   function toggleSubmenu(e, btn) {
     if (window.innerWidth > 640) return;
     e.preventDefault();
@@ -696,6 +713,67 @@
   document.querySelector('.nav-logo')?.addEventListener('click', () => {
     document.getElementById('navLinks').classList.remove('open');
   });
+
+  // ---------- Formulario de desistimiento ----------
+  function recogerDatosDesistimiento() {
+    const producto = document.getElementById('desist-consumidor').value.trim();
+    const pedido = document.getElementById('desist-pedido').value.trim();
+    const fechaPedido = document.getElementById('desist-fecha-pedido').value;
+    const fechaRecepcion = document.getElementById('desist-fecha-recepcion').value;
+    const nombre = document.getElementById('desist-datos').value.trim();
+    const domicilio = document.getElementById('desist-domicilio').value.trim();
+    const email = document.getElementById('desist-email').value.trim();
+    const fechaFirma = document.getElementById('desist-fecha-firma').value;
+    const acepto = document.getElementById('desist-acepto').checked;
+
+    if (!producto || !nombre || !domicilio) {
+      alert('Por favor, rellena al menos los campos obligatorios: producto, nombre y domicilio.');
+      return null;
+    }
+    if (!acepto) {
+      alert('Por favor, marca la casilla de aceptación de las condiciones de desistimiento.');
+      return null;
+    }
+    return { producto, pedido, fechaPedido, fechaRecepcion, nombre, domicilio, email, fechaFirma };
+  }
+
+  function formatearMensaje(d) {
+    const hoy = new Date().toLocaleDateString('es-ES');
+    return (
+      'A la atención de MAMEMI Madera – Leticia Gómez de Francisco\n' +
+      'Carrer Sant Josep, 19, 08393 Caldes d\'Estrac, Barcelona\n' +
+      'hola@mamemimadera.es\n\n' +
+      'SOLICITUD DE DESISTIMIENTO\n' +
+      '---------------------------------------\n' +
+      'Por la presente le comunico que desisto del contrato de venta del siguiente bien:\n\n' +
+      '• Producto: ' + d.producto + '\n' +
+      '• Nº de pedido: ' + (d.pedido || '(no indicado)') + '\n' +
+      '• Fecha del pedido: ' + (d.fechaPedido || '(no indicada)') + '\n' +
+      '• Fecha de recepción: ' + (d.fechaRecepcion || '(no indicada)') + '\n\n' +
+      'DATOS DEL CONSUMIDOR\n' +
+      '• Nombre: ' + d.nombre + '\n' +
+      '• Domicilio: ' + d.domicilio + '\n' +
+      '• Email: ' + (d.email || '(no indicado)') + '\n\n' +
+      'Fecha de la solicitud: ' + (d.fechaFirma || hoy) + '\n'
+    );
+  }
+
+  function enviarDesistimientoEmail() {
+    const d = recogerDatosDesistimiento();
+    if (!d) return;
+    const asunto = 'Solicitud de desistimiento - Pedido ' + (d.pedido || '(sin número)');
+    const url = 'mailto:hola@mamemimadera.es?subject=' +
+      encodeURIComponent(asunto) +
+      '&body=' + encodeURIComponent(formatearMensaje(d));
+    window.location.href = url;
+  }
+
+  function enviarDesistimientoWhatsApp() {
+    const d = recogerDatosDesistimiento();
+    if (!d) return;
+    const url = 'https://wa.me/34622562499?text=' + encodeURIComponent(formatearMensaje(d));
+    window.open(url, '_blank');
+  }
 </script>
 
 </body>
