@@ -74,6 +74,20 @@
     .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; transition: color 0.2s; }
     .footer-legal button:hover { color: var(--mint); }
 
+    /* Estilo específico para el enlace "Configurar cookies" del footer */
+    .footer-cookie-config {
+      color: rgba(253,248,240,0.6);
+      font-size: 0.75rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+    }
+    .footer-cookie-config:hover { color: var(--mint); }
+
     @media (max-width: 900px) {
       .legal-page { padding: 7rem 1.5rem 3rem; }
     }
@@ -522,7 +536,7 @@
     <a href="politica-cookies.html">Política de cookies</a>
     <a href="condiciones-contratacion.html">Condiciones de contratación</a>
     <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
-    <button type="button" id="open-cookie-config">Configurar cookies</button>
+    <a href="index.html#configurar-cookies" class="footer-cookie-config">Configurar cookies</a>
   </div>
 </footer>
 
