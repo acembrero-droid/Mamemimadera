@@ -708,6 +708,15 @@
     }
   }
 
+  // Si la URL contiene #configurar-cookies, abrir el panel automáticamente
+if (window.location.hash === '#configurar-cookies') {
+  const current = getConsent();
+  if (current) {
+    document.getElementById('cat-analytics').checked = !!current.analytics;
+  }
+  showBanner(true);
+}
+  
   function init() {
     const consent = getConsent();
 
