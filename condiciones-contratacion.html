@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Condiciones de Contratación – MAMEMI Madera</title>
+  <meta name="description" content="Condiciones Generales de Contratación de MAMEMI Madera. Información sobre productos personalizados y a medida, precios, envíos, devoluciones, derecho de desistimiento y garantías legales."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
+      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; line-height: 1.7; }
+
+    /* ---------- NAV (idéntico al index) ---------- */
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
+    .nav-links { display: flex; align-items: center; gap: 0; list-style: none; position: relative; }
+    .nav-links > li { position: relative; display: flex; align-items: center; }
+    .nav-item-row { display: flex; align-items: center; }
+    .nav-links > li > .nav-item-row > a { padding: 0 0.4rem 0 1rem; height: 70px; display: flex; align-items: center; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links > li > a { display: flex; align-items: center; gap: 4px; padding: 0 1rem; height: 70px; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links > li > a:hover, .nav-item-row > a:hover { color: var(--mint-dark); }
+    .dropdown-toggle { background: none; border: none; cursor: pointer; height: 70px; padding: 0 1rem 0 0.2rem; display: flex; align-items: center; color: var(--text-mid); }
+    .nav-links > li > a .arrow, .dropdown-toggle .arrow { font-size: 0.6rem; transition: transform 0.2s; }
+    .nav-links > li:hover > a .arrow, .nav-links > li:hover .dropdown-toggle .arrow { transform: rotate(180deg); }
+    .dropdown { display: none; position: absolute; top: 70px; left: 0; background: #fff; border: 1.5px solid var(--wood-light); border-radius: 0 0 12px 12px; box-shadow: 0 8px 30px var(--shadow); min-width: 220px; z-index: 300; }
+    .nav-links > li:hover .dropdown { display: block; }
+    .dropdown a { display: block; padding: 0.75rem 1.2rem; text-decoration: none; font-size: 0.82rem; color: var(--text-mid); font-weight: 600; border-bottom: 1px solid var(--wood-light); transition: background 0.2s, color 0.2s; }
+    .dropdown a:last-child { border-bottom: none; border-radius: 0 0 12px 12px; }
+    .dropdown a:hover { background: var(--mint-light); color: var(--mint-dark); }
+    .nav-cta { background: var(--wood-dark); color: #fff !important; border-radius: 30px; padding: 0.5rem 1.2rem !important; height: auto !important; margin-left: 0.5rem; font-size: 0.78rem !important; transition: background 0.25s !important; align-self: center; }
+    .nav-cta:hover { background: var(--mint-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--wood-dark); border-radius: 2px; transition: all 0.3s; }
+
+    /* ---------- CONTENIDO LEGAL ---------- */
+    .legal-page { max-width: 900px; margin: 0 auto; padding: 9rem 2rem 4rem; }
+    .legal-page .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
+    .legal-page h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; line-height: 1.2; }
+    .legal-page .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
+    .legal-intro { font-size: 0.95rem; color: var(--text-mid); font-weight: 300; text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+    .legal-block { margin-bottom: 2.5rem; }
+    .legal-block h2 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--wood-deep); margin-bottom: 0.8rem; line-height: 1.3; }
+    .legal-block h3 { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; color: var(--wood-dark); margin: 1.2rem 0 0.4rem; }
+    .legal-block p { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 0.8rem; }
+    .legal-block ul, .legal-block ol { margin: 0.4rem 0 0.8rem 1.4rem; }
+    .legal-block li { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 0.3rem; }
+    .legal-block a { color: var(--mint-dark); font-weight: 600; text-decoration: underline; }
+    .legal-block a:hover { color: var(--wood-dark); }
+    .legal-card { background: var(--cream2); border-left: 4px solid var(--mint-dark); border-radius: 0 12px 12px 0; padding: 1.2rem 1.5rem; margin: 1rem 0; }
+    .legal-card p { margin-bottom: 0.3rem; }
+    .legal-card p:last-child { margin-bottom: 0; }
+    .legal-card.highlight { border-left-color: var(--wood-dark); background: var(--wood-light); }
+    .legal-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+    .legal-table th, .legal-table td { padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid var(--wood-light); color: var(--text-mid); font-weight: 300; vertical-align: top; }
+    .legal-table th { background: var(--mint-light); color: var(--wood-deep); font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .legal-table td strong { color: var(--wood-dark); font-weight: 700; }
+    .legal-note { font-size: 0.82rem; color: var(--text-mid); font-weight: 300; font-style: italic; margin-top: 0.5rem; }
+    .legal-alert { background: #fff8e6; border: 1px solid var(--wood-mid); border-radius: 12px; padding: 1.2rem 1.5rem; margin: 1rem 0; }
+    .legal-alert p { margin-bottom: 0.3rem; }
+    .legal-alert p:last-child { margin-bottom: 0; }
+    .legal-alert strong { color: var(--wood-dark); }
+
+    /* ---------- FORMULARIO DE DESISTIMIENTO ---------- */
+    .desistimiento-form { background: #fff; border: 2px dashed var(--mint-dark); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; }
+    .desistimiento-form h3 { margin-top: 0; text-align: center; color: var(--mint-dark); }
+    .desistimiento-form .field { margin-bottom: 1rem; }
+    .desistimiento-form label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; }
+    .desistimiento-form input[type="text"],
+    .desistimiento-form input[type="email"],
+    .desistimiento-form input[type="date"],
+    .desistimiento-form textarea { width: 100%; padding: 0.6rem 0.8rem; border: 1.5px solid var(--wood-light); border-radius: 8px; font-family: 'Nunito', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--cream); }
+    .desistimiento-form input:focus,
+    .desistimiento-form textarea:focus { outline: none; border-color: var(--mint-dark); }
+    .desistimiento-form .checkbox-row { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.8rem 0; }
+    .desistimiento-form .checkbox-row input { margin-top: 0.25rem; accent-color: var(--mint-dark); }
+    .desistimiento-form .checkbox-row label { font-weight: 300; font-size: 0.85rem; margin-bottom: 0; }
+    .desistimiento-form .btn-submit { display: inline-block; padding: 0.7rem 1.8rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; margin-top: 0.5rem; }
+    .desistimiento-form .btn-submit:hover { background: var(--wood-dark); }
+
+    /* ---------- FOOTER (idéntico al index) ---------- */
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2.5rem 2.5rem 1.5rem; font-size: 0.78rem; }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(253,248,240,0.12); }
+    .footer-top img { height: 40px; opacity: 0.75; filter: invert(1); }
+    .footer-top span { line-height: 1.6; }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; padding-top: 1.2rem; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--mint); }
+    .footer-legal a { font-size: 0.75rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; transition: color 0.2s; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    @media (max-width: 900px) {
+      .legal-page { padding: 7rem 1.5rem 3rem; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 0.4rem 1rem 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
+      .nav-links.open { display: flex; }
+      .nav-links > li { flex-direction: column; align-items: stretch; border-bottom: 1px solid var(--wood-light); }
+      .nav-links > li:last-child { border-bottom: none; }
+      .nav-item-row { justify-content: space-between; }
+      .nav-links > li > .nav-item-row > a, .nav-links > li > a { height: 48px; font-size: 0.85rem; }
+      .dropdown-toggle { height: 48px; }
+      .dropdown { display: none; position: static; box-shadow: none; border: none; background: var(--cream2); border-radius: 8px; margin: 0 0 0.6rem 0.8rem; }
+      .has-dropdown.open .dropdown { display: block; }
+      .hamburger { display: flex; }
+      .footer-top { flex-direction: column; text-align: center; }
+      .legal-table { font-size: 0.75rem; }
+      .legal-table th, .legal-table td { padding: 0.4rem 0.5rem; }
+      .desistimiento-form { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAVEGACIÓN ==================== -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
+  <ul class="nav-links" id="navLinks">
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="regalos-personalizados.html">Regalos Personalizados</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Regalos Personalizados"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="regalos-personalizados.html">Letra 3D autoportante</a>
+        <a href="regalos-personalizados.html">Placa de nacimiento</a>
+        <a href="regalos-personalizados.html">Placa de profe</a>
+        <a href="regalos-personalizados.html">Nombre para puerta</a>
+        <a href="regalos-personalizados.html">Marcapáginas</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="cositas-mamemi.html">Cositas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Cositas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="cositas-mamemi.html">Llaveros</a>
+        <a href="cositas-mamemi.html">Imanes</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="joyitas-mamemi.html">Joyitas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Joyitas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="joyitas-mamemi.html">Brazaletes</a>
+        <a href="joyitas-mamemi.html">Collares</a>
+        <a href="joyitas-mamemi.html">Pulseras</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="packs-para-regalar.html">Packs para Regalar</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Packs para Regalar"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="packs-para-regalar.html">Pack Nacimiento</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="coleccion-cocina.html">Colección Cocina</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Colección Cocina"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="coleccion-cocina.html">Tablas de cocina</a>
+        <a href="coleccion-cocina.html">Servilleteros</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="detallitos-eventos.html">Detallitos para Eventos</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Detallitos para Eventos"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="detallitos-eventos.html">Bodas · Marcasitios</a>
+        <a href="detallitos-eventos.html">Imanes abrebotellas</a>
+        <a href="detallitos-eventos.html">Libretas personalizadas</a>
+        <a href="detallitos-eventos.html">Posavasos</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="estudio-creativo.html">Estudio Creativo</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Estudio Creativo"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="estudio-creativo.html">Tarjetas de visita</a>
+        <a href="estudio-creativo.html">Logos e identidad visual</a>
+        <a href="estudio-creativo.html">Diseño web</a>
+        <a href="estudio-creativo.html">Elementos de papelería y otros diseños</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="mamemi-instagram.html">Mamemi en Instagram</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Mamemi en Instagram"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="mamemi-instagram.html">Reels y publicaciones</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="el-taller.html">El Taller</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de El Taller"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="el-taller.html">¿Quieres entrar en mi taller?</a>
+      </div>
+    </li>
+    <li><a href="mamemi-en-vuestras-manos.html">Mamemi en vuestras manos</a></li>
+    <li><a href="index.html#sobre">Sobre mí</a></li>
+    <li><a href="index.html#contacto" class="nav-cta">¿Hablamos?</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+<main class="legal-page">
+
+  <p class="section-label">Información legal</p>
+  <h1>Condiciones Generales de Contratación</h1>
+  <div class="divider"></div>
+
+  <p class="legal-intro">
+    Las presentes Condiciones Generales de Contratación regulan la relación entre <strong>MAMEMI Madera</strong> y los usuarios que realicen compras a través del sitio web <strong>www.mamemimadera.es</strong>. Al realizar un pedido, el usuario acepta expresamente estas condiciones. Te recomendamos leerlas detenidamente antes de comprar.
+  </p>
+
+  <!-- ===== 1. DATOS DEL VENDEDOR ===== -->
+  <div class="legal-block">
+    <h2>1. Datos del vendedor</h2>
+    <div class="legal-card">
+      <p><strong>Vendedor:</strong> Leticia Gómez de Francisco (en adelante, "MAMEMI Madera")</p>
+      <p><strong>NIF:</strong> 70057016M</p>
+      <p><strong>Domicilio:</strong> Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona (España)</p>
+      <p><strong>Correo electrónico:</strong> <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></p>
+      <p><strong>Teléfono / WhatsApp:</strong> <a href="https://wa.me/34622562499" target="_blank">+34 622 562 499</a></p>
+      <p><strong>Sitio web:</strong> www.mamemimadera.es</p>
+    </div>
+  </div>
+
+  <!-- ===== 2. OBJETO Y ÁMBITO ===== -->
+  <div class="legal-block">
+    <h2>2. Objeto y ámbito de aplicación</h2>
+    <p>Las presentes Condiciones Generales de Contratación tienen por objeto regular la compraventa de productos artesanales, personalizados y a medida ofrecidos en el sitio web <strong>www.mamemimadera.es</strong> (en adelante, "el Sitio Web").</p>
+    <p>Estas condiciones se aplican a todas las compras realizadas por <strong>consumidores</strong> (personas físicas que actúan con un propósito ajeno a su actividad comercial, empresarial, oficio o profesión) conforme al Real Decreto Legislativo 1/2007, de 16 de noviembre, por el que se aprueba el texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios (TRLGDCU).</p>
+    <p>El acceso al Sitio Web y la realización de un pedido implican la aceptación plena y sin reservas de todas las condiciones aquí establecidas. MAMEMI Madera se reserva el derecho a modificar estas condiciones en cualquier momento, siendo aplicables al usuario las condiciones vigentes en el momento de su pedido.</p>
+    <p>Las presentes condiciones cumplen con lo dispuesto en la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE); la Ley 7/1998, de 13 de abril, sobre Condiciones Generales de la Contratación; y el Real Decreto Legislativo 1/2007, de 16 de noviembre, por el que se aprueba el texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios.</p>
+  </div>
+
+  <!-- ===== 3. PRODUCTOS Y SERVICIOS ===== -->
+  <div class="legal-block">
+    <h2>3. Productos y servicios ofrecidos</h2>
+    <p>MAMEMI Madera ofrece productos artesanales elaborados con madera y otros materiales naturales, organizados en las siguientes categorías:</p>
+    <ul>
+      <li><strong>Regalos Personalizados:</strong> letras 3D autoportantes, placas de nacimiento, placas de profe, nombres para puerta, marcapáginas.</li>
+      <li><strong>Cositas Mamemi:</strong> llaveros, imanes.</li>
+      <li><strong>Joyitas Mamemi:</strong> brazaletes, collares, pulseras.</li>
+      <li><strong>Packs para Regalar:</strong> cajas de nacimiento y packs temáticos.</li>
+      <li><strong>Colección Cocina:</strong> tablas de cocina, servilleteros.</li>
+      <li><strong>Detallitos para Eventos:</strong> marcasitios de boda, imanes abrebotellas, libretas personalizadas, posavasos.</li>
+      <li><strong>Estudio Creativo:</strong> tarjetas de visita, logotipos, identidad visual, diseño web y papelería.</li>
+    </ul>
+
+    <h3>3.1. Productos personalizados y productos a medida</h3>
+    <p>Dentro de la actividad de MAMEMI Madera se distinguen dos tipos de productos que, aunque comparten su carácter artesanal, tienen implicaciones contractuales diferentes:</p>
+
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Definición</th>
+          <th>Ejemplos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Productos personalizados</strong></td>
+          <td>Productos de catálogo a los que se añade un elemento personalizador (nombre, fecha, dedicatoria, grabado concreto) sin alterar el diseño base ni las dimensiones del producto.</td>
+          <td>Llavero con nombre grabado, placa de nacimiento con datos del bebé, marcapáginas con iniciales.</td>
+        </tr>
+        <tr>
+          <td><strong>Productos a medida</strong></td>
+          <td>Productos diseñados y fabricados específicamente conforme a las especificaciones del cliente, alterando dimensiones, materiales, estructura o diseño original.</td>
+          <td>Mueble a medida, letra 3D con tipografía y tamaño específicos, tablas de cocina con dimensiones no estándar, proyectos del Estudio Creativo.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Ambos tipos de productos están <strong>excluidos del derecho de desistimiento</strong> conforme al artículo 103.c) del TRLGDCU, que exceptúa los bienes confeccionados conforme a las especificaciones del consumidor o claramente personalizados. Esta exclusión se aplica tanto al producto personalizado como al producto a medida.</p>
+
+    <h3>3.2. Proceso de diseño y aprobación</h3>
+    <p>Para los productos personalizados y a medida, se seguirá el siguiente proceso:</p>
+    <ol>
+      <li><strong>Consulta inicial:</strong> el cliente describe su idea, necesidades y plazos a través de los canales de contacto.</li>
+      <li><strong>Presupuesto:</strong> MAMEMI Madera elaborará un presupuesto detallado con las características, plazo de elaboración y precio final.</li>
+      <li><strong>Aceptación y pago:</strong> el cliente acepta el presupuesto y realiza el pago (total o parcial, según se indique en el apartado 5.2).</li>
+      <li><strong>Diseño o boceto:</strong> cuando la complejidad del proyecto lo requiera, MAMEMI Madera enviará al cliente un boceto, mockup o muestra digital para su revisión.</li>
+      <li><strong>Aprobación del diseño:</strong> el cliente deberá revisar y aprobar expresamente el boceto <strong>por escrito</strong> (el correo electrónico es válido) antes de iniciar la producción. Sin esta aprobación, no se iniciará la fabricación.</li>
+      <li><strong>Producción:</strong> una vez aprobado el diseño, se inicia la elaboración de la pieza.</li>
+      <li><strong>Entrega:</strong> se entrega el producto acabado según lo acordado.</li>
+    </ol>
+
+    <div class="legal-alert">
+      <p><strong>⚠️ Importante:</strong> Una vez aprobado el diseño por escrito por parte del cliente y <strong>comenzada la producción</strong>, no se admitirán cambios en el diseño ni cancelaciones del pedido, salvo defecto de fabricación imputable a MAMEMI Madera.</p>
+    </div>
+
+    <h3>3.3. Responsabilidad sobre los textos, nombres y diseños aportados</h3>
+    <p>El cliente es el único responsable de la <strong>exactitud, ortografía, contenido y legalidad</strong> de los textos, nombres, fechas, imágenes y diseños que aporte para la personalización del producto. MAMEMI Madera reproduce fielmente lo indicado por el cliente en la fase de aprobación del diseño.</p>
+    <p>MAMEMI Madera no se responsabiliza de:</p>
+    <ul>
+      <li>Errores ortográficos o tipográficos presentes en el texto facilitado por el cliente y aprobados por este en la fase de revisión.</li>
+      <li>Errores en fechas, nombres o datos aportados por el cliente.</li>
+      <li>El uso no autorizado de imágenes, marcas, logotipos o diseños de terceros que el cliente aporte para su reproducción. El cliente garantiza ser titular de los derechos necesarios o contar con la autorización del titular para su uso.</li>
+      <li>Reclamaciones de terceros derivadas del contenido aportado por el cliente.</li>
+    </ul>
+    <p>En caso de que MAMEMI Madera detecte que el contenido aportado por el cliente pueda infringir derechos de propiedad intelectual, industrial, el derecho al honor, a la intimidad o a la propia imagen, o la normativa vigente, podrá rechazar la elaboración del producto y reembolsar el importe abonado.</p>
+
+    <h3>3.4. Fotografías y contenido aportado por el cliente</h3>
+    <p>Cuando el cliente aporte fotografías para la personalización de un producto, deberá:</p>
+    <ul>
+      <li>Ser titular de los derechos de propiedad intelectual de las fotografías o contar con autorización del titular.</li>
+      <li>Contar con el consentimiento de las personas identificables que aparezcan en las fotografías para su tratamiento con la finalidad de personalizar el producto.</li>
+      <li>No aportar imágenes de contenido ilícito, ofensivo, violento, sexual o que vulneren derechos de terceros.</li>
+    </ul>
+    <p>Las fotografías facilitadas por el cliente serán tratadas exclusivamente para la elaboración del producto solicitado y se eliminarán una vez entregado el pedido, salvo que el cliente autorice expresamente su conservación. Para más información, consulta la <a href="politica-privacidad.html">Política de Privacidad</a>.</p>
+
+    <h3>3.5. Características de los productos artesanales</h3>
+    <p>Los productos ofrecidos por MAMEMI Madera son <strong>piezas artesanales elaboradas de forma individual</strong>. Debido a su carácter artesanal y al uso de materiales naturales (como la madera), pueden existir ligeras variaciones en las vetas, tonos, acabados y dimensiones respecto a las fotografías mostradas en el Sitio Web.</p>
+    <p>Estas variaciones <strong>no constituyen defecto ni incumplimiento del contrato</strong>, sino que forman parte de la naturaleza única e irrepetible de cada pieza. Las fotografías son orientativas y no contractuales. Las imágenes de productos ya elaborados que se muestran en el Sitio Web son ejemplos del resultado final, no reproducciones exactas de la pieza que recibirá el cliente.</p>
+
+    <h3>3.6. Disponibilidad de materiales</h3>
+    <p>Los productos se elaboran con maderas y materiales naturales cuya disponibilidad puede verse afectada por causas ajenas a MAMEMI Madera. Si el material acordado no estuviera disponible, MAMEMI Madera informará al cliente y propondrá una alternativa equivalente, pudiendo el cliente aceptarla, modificar el pedido o cancelarlo con reembolso íntegro del importe abonado.</p>
+  </div>
+
+  <!-- ===== 4. PROCESO DE COMPRA ===== -->
+  <div class="legal-block">
+    <h2>4. Proceso de compra</h2>
+    <p>Para realizar un pedido en el Sitio Web, el usuario debe seguir los siguientes pasos:</p>
+    <ol>
+      <li>Seleccionar el producto deseado y añadirlo al carrito de compra.</li>
+      <li>Revisar el contenido del carrito y proceder al pago.</li>
+      <li>Facilitar los datos personales necesarios para la gestión del pedido (nombre, dirección de envío, correo electrónico, teléfono).</li>
+      <li>Seleccionar el método de pago y completar la transacción.</li>
+      <li>Recibir un correo electrónico de confirmación con los detalles del pedido.</li>
+    </ol>
+    <p>Antes de finalizar la compra, el usuario podrá verificar y corregir los datos introducidos. La confirmación del pedido por parte de MAMEMI Madera se produce mediante el envío del correo electrónico de confirmación. El contrato se perfecciona en el momento en que el usuario recibe dicha confirmación.</p>
+    <p>En el caso de <strong>productos personalizados o a medida</strong>, el proceso se completa con la fase de diseño y aprobación descrita en el apartado 3.2. El contrato se perfecciona en el momento en que el cliente aprueba expresamente el diseño propuesto y realiza el pago correspondiente.</p>
+    <p>MAMEMI Madera se reserva el derecho a rechazar o cancelar pedidos en caso de error en el precio, falta de disponibilidad del producto o sospecha de fraude. En tal caso, se informará al usuario y se procederá al reembolso íntegro de cualquier importe abonado.</p>
+  </div>
+
+  <!-- ===== 5. PRECIOS Y PAGOS ===== -->
+  <div class="legal-block">
+    <h2>5. Precios y formas de pago</h2>
+    <p>Todos los precios mostrados en el Sitio Web se expresan en <strong>euros (€)</strong> e incluyen el Impuesto sobre el Valor Añadido (IVA) aplicable en España en el momento de la compra.</p>
+    <p>Los gastos de envío, si los hubiera, se calcularán y mostrarán de forma separada antes de finalizar la compra, de modo que el usuario pueda conocer el importe total antes de confirmar el pedido.</p>
+
+    <h3>5.1. Formas de pago aceptadas</h3>
+    <ul>
+      <li><strong>Tarjeta de crédito o débito:</strong> a través de la pasarela de pago segura Redsys/CaixaBank. Los datos de la tarjeta se procesan directamente por la entidad financiera; MAMEMI Madera no almacena ni tiene acceso a dichos datos.</li>
+      <li><strong>Transferencia bancaria:</strong> el pedido se procesará una vez confirmado el ingreso en la cuenta indicada.</li>
+      <li><strong>Bizum:</strong> disponible para clientes con cuenta en entidades bancarias españolas que ofrezcan este servicio.</li>
+    </ul>
+
+    <h3>5.2. Pagos parciales en pedidos personalizados o a medida</h3>
+    <p>Para pedidos personalizados o a medida cuyo importe supere los <strong>100 €</strong>, MAMEMI Madera podrá solicitar:</p>
+    <ul>
+      <li>Un <strong>pago inicial del 50%</strong> en concepto de reserva y inicio de la producción, que se abonará tras la aprobación del presupuesto y del diseño.</li>
+      <li>El <strong>50% restante</strong> antes del envío del producto acabado.</li>
+    </ul>
+    <p>En pedidos de importe inferior a 100 €, se abonará el importe íntegro en el momento de la confirmación del pedido.</p>
+    <p>En caso de cancelación por parte del cliente una vez iniciada la producción, se retendrá el importe correspondiente al trabajo ya realizado y a los materiales empleados, informando al cliente de forma detallada. Para más información sobre cancelaciones, consulta el apartado 7.5.</p>
+
+    <p class="legal-note">MAMEMI Madera se reserva el derecho a modificar o ampliar las formas de pago disponibles, informando debidamente en el Sitio Web.</p>
+  </div>
+
+  <!-- ===== 6. ENVÍOS Y ENTREGAS ===== -->
+  <div class="legal-block">
+    <h2>6. Envíos y plazos de entrega</h2>
+    <p>MAMEMI Madera realiza envíos a <strong>toda España peninsular, Islas Baleares, Islas Canarias, Ceuta y Melilla</strong>. Para envíos a otros destinos, el usuario puede consultar previamente a través de <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>.</p>
+
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Zona de envío</th>
+          <th>Plazo de entrega estimado</th>
+          <th>Gastos de envío</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Península</strong></td>
+          <td>3-5 días laborables</td>
+          <td>Consultar en el carrito</td>
+        </tr>
+        <tr>
+          <td><strong>Islas Baleares</strong></td>
+          <td>4-7 días laborables</td>
+          <td>Consultar en el carrito</td>
+        </tr>
+        <tr>
+          <td><strong>Islas Canarias, Ceuta y Melilla</strong></td>
+          <td>5-10 días laborables</td>
+          <td>Consultar en el carrito</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Los plazos indicados son orientativos y se refieren a días laborables. En el caso de <strong>productos personalizados o a medida</strong>, al plazo de entrega debe añadirse el tiempo de elaboración, que se informará al cliente antes de confirmar el pedido o en el presupuesto correspondiente.</p>
+    <p>La entrega se realiza en el domicilio indicado por el usuario. Si en el momento de la entrega no se encuentra nadie en el domicilio, el transportista dejará un aviso para acordar una nueva entrega o la recogida en el punto más cercano.</p>
+    <p>Si el usuario detecta daños en el embalaje en el momento de la entrega, debe indicarlo en el albarán del transportista y comunicárnoslo en un plazo máximo de <strong>24 horas</strong> a través de <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>, adjuntando fotografías del producto y del embalaje.</p>
+  </div>
+
+  <!-- ===== 7. DERECHO DE DESISTIMIENTO ===== -->
+  <div class="legal-block">
+    <h2>7. Derecho de desistimiento</h2>
+
+    <div class="legal-card highlight">
+      <p><strong>Derecho de desistimiento:</strong> Tiene usted derecho a desistir del presente contrato en un plazo de <strong>14 días naturales</strong> sin necesidad de justificación. El plazo de desistimiento expirará a los 14 días naturales del día en que usted o un tercero por usted indicado, distinto del transportista, adquirió la posesión material de los bienes.</p>
+    </div>
+
+    <h3>7.1. Cómo ejercer el derecho de desistimiento</h3>
+    <p>Para ejercer el derecho de desistimiento, el usuario debe notificarnos su decisión mediante una <strong>declaración inequívoca</strong> (por ejemplo, una carta enviada por correo postal o un correo electrónico) a:</p>
+    <div class="legal-card">
+      <p><strong>MAMEMI Madera – Leticia Gómez de Francisco</strong></p>
+      <p>Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona (España)</p>
+      <p>Correo electrónico: <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a></p>
+    </div>
+    <p>El usuario puede utilizar el modelo de formulario de desistimiento que figura a continuación, aunque su uso no es obligatorio. Para cumplir el plazo de desistimiento, basta con que la comunicación relativa al ejercicio de este derecho sea enviada antes de que venza el plazo correspondiente.</p>
+
+    <h3>7.2. Formulario de desistimiento</h3>
+    <div class="desistimiento-form">
+      <h3>📄 Formulario de Desistimiento</h3>
+      <p style="font-size: 0.82rem; text-align: center; color: var(--text-mid); margin-bottom: 1.5rem;">Solo debe cumplimentar y enviar el presente formulario si desea desistir del contrato.</p>
+
+      <div class="field">
+        <label for="desist-nombre">A la atención de:</label>
+        <input type="text" id="desist-nombre" value="MAMEMI Madera – Leticia Gómez de Francisco, Carrer Sant Josep, 19, 08393 Caldes d'Estrac, Barcelona" readonly style="background: var(--cream2); color: var(--text-mid);"/>
+      </div>
+
+      <div class="field">
+        <label for="desist-email">Correo electrónico de contacto:</label>
+        <input type="email" id="desist-email" value="hola@mamemimadera.es" readonly style="background: var(--cream2); color: var(--text-mid);"/>
+      </div>
+
+      <div class="field">
+        <label for="desist-consumidor">Por la presente le comunico/comunicamos (*) que desisto de mi/desistimos de nuestro (*) contrato de venta del siguiente bien:</label>
+        <textarea id="desist-consumidor" rows="3" placeholder="Describa el producto o productos de los que desea desistir..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="desist-pedido">Número de pedido:</label>
+        <input type="text" id="desist-pedido" placeholder="Ej: MAM-2026-001"/>
+      </div>
+
+      <div class="field">
+        <label for="desist-fecha-pedido">Fecha del pedido:</label>
+        <input type="date" id="desist-fecha-pedido"/>
+      </div>
+
+      <div class="field">
+        <label for="desist-fecha-recepcion">Fecha de recepción del producto:</label>
+        <input type="date" id="desist-fecha-recepcion"/>
+      </div>
+
+      <div class="field">
+        <label for="desist-datos">Nombre del consumidor y usuario:</label>
+        <input type="text" id="desist-datos" placeholder="Nombre y apellidos"/>
+      </div>
+
+      <div class="field">
+        <label for="desist-domicilio">Domicilio del consumidor y usuario:</label>
+        <input type="text" id="desist-domicilio" placeholder="Dirección completa"/>
+      </div>
+
+      <div class="field">
+        <label for="desist-firma">Firma del consumidor y usuario (solo si el formulario se presenta en papel):</label>
+        <input type="text" id="desist-firma" placeholder="Firma"/>
+      </div>
+
+      <div class="field">
+        <label for="desist-fecha-firma">Fecha:</label>
+        <input type="date" id="desist-fecha-firma"/>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="desist-acepto"/>
+        <label for="desist-acepto">He leído y acepto las condiciones de desistimiento descritas en esta página.</label>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="alert('Formulario de ejemplo. Para ejercer el derecho de desistimiento, envíe este formulario cumplimentado a hola@mamemimadera.es o por correo postal a la dirección indicada.')">Enviar solicitud de desistimiento</button>
+    </div>
+
+    <h3>7.3. Consecuencias del desistimiento</h3>
+    <p>Si el usuario ejercita el derecho de desistimiento, MAMEMI Madera le reembolsará <strong>todos los pagos recibidos</strong>, incluidos los gastos de envío iniciales (con excepción de los gastos adicionales resultantes de la elección por el usuario de un modo de entrega diferente al ofrecido por nosotros), sin ninguna demora indebida y, en todo caso, a más tardar <strong>14 días naturales</strong> desde la fecha en que se nos informe de su decisión de desistir.</p>
+    <p>El reembolso se realizará utilizando el <strong>mismo medio de pago</strong> empleado por el usuario en la transacción inicial, salvo que el usuario haya dispuesto expresamente lo contrario. MAMEMI Madera puede retener el reembolso hasta haber recibido los bienes o hasta que el usuario haya presentado una prueba de la devolución, según cuál de estas condiciones se cumpla primero.</p>
+    <p>El usuario deberá devolver los bienes o entregarlos directamente a MAMEMI Madera sin ninguna demora indebida y, en cualquier caso, a más tardar en el plazo de <strong>14 días naturales</strong> a partir de la fecha en que nos comunique su decisión de desistir. Se considerará cumplido el plazo si efectúa la devolución de los bienes antes de que haya concluido dicho plazo.</p>
+
+    <h3>7.4. Costes de devolución</h3>
+    <p>El usuario asumirá el <strong>coste directo de devolución de los bienes</strong>, salvo que MAMEMI Madera haya aceptado asumirlos o haya incumplido su deber de informar sobre este extremo. Para envíos de pequeño tamaño (llaveros, imanes, marcapáginas, joyitas), el coste estimado de devolución es de aproximadamente <strong>5-8 €</strong> mediante envío postal certificado. Para piezas de mayor tamaño (tablas de cocina, packs, placas grandes), el coste estimado de devolución es de aproximadamente <strong>10-20 €</strong>.</p>
+    <p>El usuario solo será responsable de la <strong>disminución de valor de los bienes</strong> resultante de una manipulación distinta a la necesaria para establecer la naturaleza, las características y el funcionamiento de los bienes.</p>
+
+    <h3>7.5. Cancelación de pedidos personalizados o a medida antes de iniciar la producción</h3>
+    <p>Aunque los productos personalizados y a medida están excluidos del derecho de desistimiento, MAMEMI Madera ofrece la posibilidad de <strong>cancelar el pedido sin coste alguno</strong> siempre que se cumplan las siguientes condiciones:</p>
+    <ul>
+      <li>La cancelación se solicite <strong>por escrito</strong> a <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>.</li>
+      <li>No se haya iniciado la producción de la pieza.</li>
+      <li>No se hayan realizado compras de materiales específicos para el pedido.</li>
+    </ul>
+    <p>En este caso, MAMEMI Madera reembolsará íntegramente cualquier importe abonado en un plazo máximo de 14 días naturales.</p>
+    <p>Si la producción ya se ha iniciado, el cliente podrá cancelar el pedido, pero MAMEMI Madera retendrá la parte proporcional al trabajo ya realizado y a los materiales empleados, informando al cliente de forma detallada. Si el pedido ya ha sido enviado, se aplicará lo dispuesto en el apartado 7.6 (excepciones al derecho de desistimiento).</p>
+
+    <h3>7.6. Excepciones al derecho de desistimiento</h3>
+    <div class="legal-alert">
+      <p><strong>El derecho de desistimiento NO se aplica a:</strong></p>
+      <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+        <li>Productos <strong>personalizados</strong> o confeccionados conforme a especificaciones del consumidor (nombres, fechas, diseños personalizados, grabados específicos), conforme al artículo 103.c) del TRLGDCU.</li>
+        <li>Productos <strong>a medida</strong> fabricados con dimensiones, materiales o diseños específicos solicitados por el cliente, conforme al artículo 103.c) del TRLGDCU.</li>
+        <li>Productos que puedan deteriorarse o caducar con rapidez.</li>
+        <li>Bienes precintados que no sean aptos para ser devueltos por razones de protección de la salud o de higiene y que hayan sido desprecintados tras la entrega.</li>
+        <li>Bienes que, después de su entrega, se hayan mezclado de forma indisociable con otros bienes.</li>
+      </ul>
+    </div>
+    <p class="legal-note">En el caso de los productos personalizados o a medida, si el usuario desea cancelar el pedido antes de que se haya iniciado su elaboración, puede hacerlo conforme al apartado 7.5. Una vez iniciada la personalización o fabricación, no será posible el desistimiento salvo defecto de fabricación.</p>
+  </div>
+
+  <!-- ===== 8. GARANTÍAS LEGALES ===== -->
+  <div class="legal-block">
+    <h2>8. Garantías legales</h2>
+    <p>De conformidad con el Real Decreto Legislativo 1/2007 y las modificaciones introducidas por el Real Decreto-ley 7/2021, todos los productos nuevos ofrecidos por MAMEMI Madera cuentan con una <strong>garantía legal de 3 años</strong> desde la fecha de entrega, para defectos de origen o falta de conformidad.</p>
+
+    <h3>8.1. ¿Qué se entiende por falta de conformidad?</h3>
+    <p>Existe falta de conformidad cuando el producto no se ajusta a la descripción realizada por el vendedor, no posee las cualidades presentadas, no es apto para el uso al que ordinariamente se destina, o no presenta la calidad y prestaciones habituales de un producto del mismo tipo.</p>
+    <p>En el caso de productos personalizados o a medida, se entiende por falta de conformidad la discrepancia entre el producto entregado y el diseño expresamente aprobado por el cliente en la fase de aprobación descrita en el apartado 3.2. Las variaciones naturales de la madera (vetas, tonos, pequeñas diferencias de acabado) no se consideran falta de conformidad.</p>
+
+    <h3>8.2. Plazos de garantía</h3>
+    <table class="legal-table">
+      <thead>
+        <tr>
+          <th>Tipo de producto</th>
+          <th>Plazo de garantía legal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Productos nuevos</strong></td>
+          <td>3 años desde la entrega</td>
+        </tr>
+        <tr>
+          <td><strong>Productos de segunda mano</strong></td>
+          <td>Mínimo 1 año desde la entrega (acordado entre las partes)</td>
+        </tr>
+        <tr>
+          <td><strong>Contenidos o servicios digitales</strong></td>
+          <td>2 años desde el suministro</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>8.3. Presunción de falta de conformidad</h3>
+    <p>Se presume que la falta de conformidad existía en el momento de la entrega del producto si se manifiesta en los <strong>2 años</strong> siguientes a la entrega. El usuario solo deberá demostrar la falta de conformidad transcurrido dicho plazo.</p>
+
+    <h3>8.4. Cómo ejercer la garantía</h3>
+    <p>Para ejercer la garantía legal, el usuario debe contactar con MAMEMI Madera a través de <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>, indicando el número de pedido, la descripción del defecto y adjuntando fotografías del producto. MAMEMI Madera procederá, según proceda, a la <strong>reparación, sustitución, reducción del precio o resolución del contrato</strong>, conforme a lo establecido en los artículos 118 y siguientes del TRLGDCU.</p>
+
+    <h3>8.5. Limitaciones de la garantía</h3>
+    <p>La garantía legal no cubre:</p>
+    <ul>
+      <li>El desgaste normal por uso.</li>
+      <li>Daños causados por un uso inadecuado, golpes, caídas o exposición a condiciones extremas.</li>
+      <li>Variaciones naturales en la madera (vetas, tonos, pequeñas grietas propias del material) que no afecten a la funcionalidad del producto.</li>
+      <li>Productos modificados o reparados por terceros sin autorización de MAMEMI Madera.</li>
+      <li>Discrepancias entre el producto y las expectativas subjetivas del cliente que no se correspondan con el diseño previamente aprobado.</li>
+    </ul>
+    <p class="legal-note">La garantía comercial ofrecida por el fabricante, si la hubiera, es independiente y adicional a la garantía legal, sin que pueda reducir los derechos que la ley reconoce al consumidor.</p>
+  </div>
+
+  <!-- ===== 9. DEVOLUCIONES ===== -->
+  <div class="legal-block" id="devoluciones">
+    <h2>9. Política de devoluciones</h2>
+    <p>Además del derecho de desistimiento regulado en el apartado 7, MAMEMI Madera ofrece la posibilidad de gestionar devoluciones o cambios en los siguientes supuestos:</p>
+
+    <h3>9.1. Producto defectuoso o erróneo</h3>
+    <p>Si el usuario recibe un producto defectuoso, dañado o que no se corresponde con lo solicitado o con el diseño aprobado, debe comunicarlo en un plazo máximo de <strong>14 días naturales</strong> desde la recepción, a través de <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>, adjuntando fotografías que muestren el problema. MAMEMI Madera se hará cargo de los gastos de devolución y procederá, a elección del usuario, a la sustitución del producto o al reembolso íntegro del importe abonado.</p>
+
+    <h3>9.2. Cambio por otro producto</h3>
+    <p>El usuario puede solicitar el cambio de un producto por otro de igual o superior valor, siempre que el producto esté en perfecto estado, sin usar y en su embalaje original. Los gastos de envío derivados del cambio correrán a cargo del usuario. Esta opción <strong>no se aplica a productos personalizados ni a medida</strong>, salvo defecto de fabricación.</p>
+
+    <h3>9.3. Plazo de reembolso</h3>
+    <p>El reembolso se realizará en el mismo medio de pago utilizado en la compra, en un plazo máximo de <strong>14 días naturales</strong> desde la recepción de la solicitud o desde la recepción del producto devuelto, según proceda.</p>
+  </div>
+
+  <!-- ===== 10. RESPONSABILIDAD ===== -->
+  <div class="legal-block">
+    <h2>10. Responsabilidad</h2>
+    <p>MAMEMI Madera responde del cumplimiento de las obligaciones derivadas de estas Condiciones Generales y de la normativa aplicable en materia de consumo. El usuario es responsable de la veracidad de los datos facilitados durante el proceso de compra y de la exactitud de los textos, nombres, fechas e imágenes aportados para la personalización de los productos.</p>
+    <p>MAMEMI Madera no será responsable de los daños derivados de:</p>
+    <ul>
+      <li>Un uso indebido o inadecuado de los productos adquiridos.</li>
+      <li>El incumplimiento por parte del usuario de las instrucciones de cuidado o mantenimiento de los productos.</li>
+      <li>Errores en los datos, textos o imágenes aportados por el cliente y aprobados por este en la fase de diseño.</li>
+      <li>Las interrupciones del servicio por causas ajenas a su control (fuerza mayor, fallos técnicos, etc.).</li>
+    </ul>
+  </div>
+
+  <!-- ===== 11. RECLAMACIONES Y RESOLUCIÓN DE LITIGIOS ===== -->
+  <div class="legal-block">
+    <h2>11. Reclamaciones y resolución de litigios</h2>
+    <p>El usuario puede presentar cualquier reclamación relacionada con su compra a través de <a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a>. MAMEMI Madera se compromete a responder en el plazo máximo de <strong>un mes</strong> desde la recepción de la reclamación.</p>
+    <p>En cumplimiento del Reglamento (UE) n.º 524/2013, se informa al usuario de que la Comisión Europea facilita una <strong>plataforma de resolución de litigios en línea (ODR)</strong> de acceso gratuito para ayudar a los consumidores y comerciantes a resolver disputas derivadas de compras online. El usuario puede acceder a dicha plataforma en el siguiente enlace: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a></p>
+    <p>El Centro Europeo del Consumidor de España (CEC España) es el punto de contacto de la plataforma ODR en España. Asimismo, el usuario puede acudir a la Junta Arbitral de Consumo de su demarcación o a los servicios municipales de información al consumidor (OMIC) para la resolución extrajudicial de conflictos.</p>
+    <p class="legal-note">MAMEMI Madera no está adherida a ningún sistema arbitral de consumo distinto de los legalmente establecidos, sin perjuicio de su voluntad de resolver cualquier controversia de forma amistosa.</p>
+  </div>
+
+  <!-- ===== 12. LEY APLICABLE ===== -->
+  <div class="legal-block">
+    <h2>12. Ley aplicable y jurisdicción</h2>
+    <p>Las presentes Condiciones Generales se rigen por la legislación española vigente. Para cualquier controversia que pudiera derivarse de la interpretación o aplicación de estas condiciones, y de acuerdo con lo dispuesto en la Ley 1/2000, de Enjuiciamiento Civil, y en el TRLGDCU, serán competentes los juzgados y tribunales del domicilio del consumidor.</p>
+    <p>Para los usuarios no consumidores, las partes se someten expresamente a los Juzgados y Tribunales de Barcelona (España), renunciando a cualquier otro fuero que pudiera corresponderles.</p>
+  </div>
+
+  <!-- ===== FECHA DE ACTUALIZACIÓN ===== -->
+  <div class="legal-block" style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--wood-light);">
+    <p style="font-size: 0.82rem; text-align: center;"><strong>Última actualización:</strong> septiembre de 2026</p>
+  </div>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-top">
+    <img src="images/logo.png" alt="MAMEMI Madera">
+    <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+    <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
+  </div>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
+</footer>
+
+<script>
+  function toggleSubmenu(e, btn) {
+    if (window.innerWidth > 640) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const li = btn.closest('li');
+    const wasOpen = li.classList.contains('open');
+    document.querySelectorAll('.nav-links > li.has-dropdown.open').forEach(item => {
+      item.classList.remove('open');
+      const t = item.querySelector('.dropdown-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) {
+      li.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  document.querySelectorAll('.nav-links > li > a, .nav-links > li > .nav-item-row > a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+  let lastScrollY = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const navLinks = document.getElementById('navLinks');
+    if (navLinks.classList.contains('open') && Math.abs(window.scrollY - lastScrollY) > 5) {
+      navLinks.classList.remove('open');
+    }
+    lastScrollY = window.scrollY;
+  }, { passive: true });
+  document.addEventListener('click', (e) => {
+    const navLinks = document.getElementById('navLinks');
+    const hamburger = document.getElementById('hamburger');
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+      navLinks.classList.remove('open');
+    }
+  });
+  document.querySelector('.nav-logo')?.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+</script>
+
+</body>
+</html>
