@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Esencia de Monte y Tradición · Mamemi Madera</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Esencia de Monte y Tradición: tablas, abrebotellas, llaveros y vasos térmicos personalizados."/>
+  <meta property="og:title" content="Esencia de Monte y Tradición">
+  <meta property="og:description" content="Tablas, abrebotellas, llaveros y vasos térmicos personalizados.">
+  <meta property="og:image" content="https://mamemimadera.es/images/esencia-og.jpg">
+  <meta property="og:url" content="https://mamemimadera.es/esencia-de-monte-y-tradicion.html">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="images/favicon-esencia.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #b7c6a6; --mint-light: #e3e9d5;
+      --mint-dark: #7a9366; --cream: #f6eedd; --cream2: #eee3cb;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* NAV mínima */
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(246,238,221,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--wood-deep); text-decoration: none; }
+    .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
+    .cart-btn:hover { background: #627a50; }
+
+    /* HERO */
+    #hero { background: var(--mint-light); padding: 110px 2rem 3.5rem; text-align: center; }
+    #hero img { width: min(340px, 72vw); height: auto; display: block; margin: 0 auto 1rem; }
+    #hero p { max-width: 480px; margin: 0 auto; color: var(--text-mid); font-weight: 300; line-height: 1.75; }
+
+    /* CATEGORÍAS */
+    #categorias { background: var(--cream2); padding: 4rem 2rem 5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); color: var(--wood-deep); text-align: center; line-height: 1.2; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.8rem auto 2.5rem; border-radius: 2px; }
+    .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; max-width: 900px; margin: 0 auto; }
+    .cat-card { position: relative; border-radius: 20px; overflow: hidden; isolation: isolate; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; display: block; background: var(--wood-deep); }
+    .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
+    .cat-card .img-wrap { display: block; width: 100%; height: 300px; overflow: hidden; }
+    .cat-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .cat-card:hover .img-wrap img { transform: scale(1.07); }
+    .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.5rem 1.2rem; background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%); color: #fff; }
+    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+    .cat-arrow, .chip { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: #fff; text-decoration: none; backdrop-filter: blur(4px); transition: background 0.25s; }
+    .cat-card:hover .cat-arrow, .chip:hover { background: var(--mint-dark); }
+    .chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2rem 2.5rem 1.5rem; font-size: 0.78rem; text-align: center; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; margin-top: 1rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-title { font-size: 0.95rem; }
+      #categorias { padding: 3rem 1rem 4rem; }
+      .cat-grid { grid-template-columns: 1fr; }
+      .cat-card .img-wrap { height: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="esencia-de-monte-y-tradicion.html" class="nav-title">Esencia de Monte y Tradición</a>
+  <!-- >>> PEGAR AQUÍ el botón del carrito tal como está en tus páginas de categoría <<< -->
+</nav>
+
+<section id="hero">
+  <img src="images/logo-esencia-transparente.webp" alt="Esencia de Monte y Tradición · Mamemi Madera" width="900" height="900">
+  <p>Piezas personalizadas pensadas para quienes llevan el monte y la tradición en el corazón.</p>
+</section>
+
+<section id="categorias">
+  <h2 class="section-title">¿Qué estás buscando?</h2>
+  <div class="divider"></div>
+  <div class="cat-grid">
+
+    <a href="esencia-tablas.html" class="cat-card">
+      <span class="img-wrap"><img src="images/esencia-tablas.jpg" alt="Tablas de madera" onerror="this.style.display='none'"></span>
+      <div class="cat-info">
+        <h3>Tablas de madera</h3>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
+
+    <a href="esencia-abrebotellas.html" class="cat-card">
+      <span class="img-wrap"><img src="images/esencia-abrebotellas.jpg" alt="Abrebotellas de madera" onerror="this.style.display='none'"></span>
+      <div class="cat-info">
+        <h3>Abrebotellas de madera</h3>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
+
+    <!-- Llaveros: la tarjeta tiene dos opciones, así que no es un único enlace -->
+    <div class="cat-card">
+      <a href="esencia-llaveros.html" class="img-wrap"><img src="images/esencia-llaveros.jpg" alt="Llaveros" onerror="this.style.display='none'"></a>
+      <div class="cat-info">
+        <h3>Llaveros</h3>
+        <div class="chips">
+          <a href="esencia-llaveros.html#cuero" class="chip">De cuero</a>
+          <a href="esencia-llaveros.html#madera" class="chip">De madera</a>
+        </div>
+      </div>
+    </div>
+
+    <a href="esencia-vasos-termicos.html" class="cat-card">
+      <span class="img-wrap"><img src="images/esencia-vasos.jpg" alt="Vasos térmicos" onerror="this.style.display='none'"></span>
+      <div class="cat-info">
+        <h3>Vasos térmicos</h3>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
+</footer>
+
+<!-- >>> PEGAR AQUÍ el bloque HTML <div id="cookie-banner"> ... </div> del index <<< -->
+<!-- >>> PEGAR AQUÍ el <script> de consentimiento de cookies del index <<< -->
+<script src="carrito.js"></script>
+</body>
+</html>
