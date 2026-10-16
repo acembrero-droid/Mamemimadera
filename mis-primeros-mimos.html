@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mis primeros Mimos – MAMEMI Madera</title>
+  <title>Mis Primeros Mimos – MAMEMI Madera</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -133,6 +133,33 @@
     .muselina-name { font-size: 0.72rem; color: var(--text-mid); text-align: center; margin-top: 0.4rem; font-style: italic; }
     @media (max-width: 480px) { .muselina-grid { grid-template-columns: repeat(4, 1fr); gap: 0.4rem; } }
     .data-input.error { border-color: #e74c3c !important; background: #fff5f5; }
+
+    /* ── Productos personalizables (Detallitos para bebés) ── */
+    .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.8rem; align-items:start; max-width:1100px; margin:0 auto; }
+    .products-grid .product-img { height:250px; }
+    .products-grid .product-img > img { height:100%; object-fit:cover; max-height:none; }
+    .personalizable-badge { position:absolute; top:0.8rem; left:0.8rem; background:var(--mint-dark); color:#fff; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.3rem 0.75rem; border-radius:20px; }
+    .price-row { display:flex; justify-content:space-between; align-items:baseline; font-size:0.82rem; color:var(--text-mid); padding:0.25rem 0; border-bottom:1px dashed var(--wood-light); }
+    .price-row:last-of-type { border-bottom:none; }
+    .price-row .amount { font-weight:700; color:var(--wood-dark); font-size:0.92rem; }
+    .price-alert { font-size:0.78rem; color:var(--wood-dark); font-weight:600; background:var(--wood-light); border-radius:8px; padding:0.5rem 0.75rem; margin-top:0.5rem; line-height:1.5; }
+    .btn-personalize { display:flex; align-items:center; justify-content:center; gap:0.4rem; width:100%; margin-top:0.7rem; padding:0.65rem 1rem; background:#fff; color:var(--wood-dark); border:1.5px solid var(--wood-mid); border-radius:30px; font-family:'Nunito',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; letter-spacing:0.06em; text-transform:uppercase; transition:background 0.2s; }
+    .btn-personalize:hover { background:var(--wood-light); }
+    .btn-personalize .chev { display:inline-block; transition:transform 0.3s ease; font-size:0.7rem; }
+    .product-card.expanded .btn-personalize .chev { transform:rotate(180deg); }
+    .product-card.expanded .btn-personalize { background:var(--wood-light); }
+    .product-collapsible { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows 0.4s ease, opacity 0.3s ease; }
+    .product-collapsible > div { overflow:hidden; }
+    .product-card.expanded .product-collapsible { grid-template-rows:1fr; opacity:1; }
+    .mini-carousel { position:relative; width:100%; overflow:hidden; }
+    .mini-track { display:flex; transition:transform 0.4s ease; }
+    .mini-track img { width:100%; height:250px; max-height:none; object-fit:cover; flex-shrink:0; cursor:zoom-in; }
+    .mc-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(253,248,240,0.9); border:none; border-radius:50%; width:34px; height:34px; font-size:1.1rem; cursor:pointer; z-index:10; box-shadow:0 2px 8px var(--shadow); }
+    .mc-prev { left:0.5rem; } .mc-next { right:0.5rem; }
+    .mc-dots { position:absolute; bottom:0.5rem; left:50%; transform:translateX(-50%); display:flex; gap:0.35rem; }
+    .mc-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.6); cursor:pointer; }
+    .mc-dot.active { background:#fff; }
+    @media (max-width:640px) { .products-grid { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -147,21 +174,29 @@
 
 <div class="page-hero">
   <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Mis Primeros Mimos</p>
-  <h1>Mis primeros Mimos</h1>
+  <h1>Mis Primeros Mimos</h1>
   <div class="divider"></div>
   <p>Regalos únicos para bebés listos para sorprender. Conjuntos pensados con mimo donde la delicadeza trasciende gracias al cuidado de cada elemento, desde el primer detalle hasta el último lazo.</p>
 </div>
 
 <section class="cat-section" id="catGrid">
   <p class="section-label">Colecciones</p>
-  <h2 class="section-title">¿Prefieres regalar un pack mimado?</h2>
+  <h2 class="section-title">¿Prefieres regalar un pack completo y exclusivo o un detalle único?</h2>
   <div class="cat-divider"></div>
   <div class="cat-grid">
     <a class="cat-card fade-in" onclick="showPage('nacimiento'); return false;" href="#">
-      <div class="img-wrap"><img src="images/pack_lucia.jpg" alt="Packs para regalar por Nacimiento"></div>
+      <div class="img-wrap"><img src="images/pack_lucia.jpg" alt="Packs de nacimiento"></div>
       <div class="cat-info">
-        <h3>Packs para regalar por Nacimiento</h3>
+        <h3>Packs de nacimiento</h3>
         <p>Packs con cesta de mimbre, de bambú, y más · Todos personalizables</p>
+        <span class="cat-arrow">Ver más →</span>
+      </div>
+    </a>
+    <a class="cat-card fade-in" onclick="showDetalles(); return false;" href="#">
+      <div class="img-wrap"><img src="images/nacimiento.jpg" alt="Detallitos para bebés"></div>
+      <div class="cat-info">
+        <h3>Detallitos para bebés</h3>
+        <p>Placa de nacimiento · Chupetero · Letra 3D · Banderín · Nombre para puerta</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -187,6 +222,304 @@
       <div class="img-wrap"><img src="images/pack_baul.jpg" alt="Pack Tesoro"></div>
       <div class="cat-info"><h3>Pack Tesoro</h3><p>Baúl de bambú · desde 105 €</p><span class="cat-arrow">Ver más →</span></div>
     </a>
+  </div>
+</div>
+
+<!-- ── DETALLITOS PARA BEBÉS ── -->
+<div class="product-page" id="page-detalles">
+  <button class="back-btn" onclick="showGrid()">← Volver a Mis Primeros Mimos</button>
+  <p class="section-label" style="text-align:center;margin-bottom:0.5rem;">Personalizables</p>
+  <h2 class="section-title" style="text-align:center;margin-bottom:0.5rem;">Detallitos para bebés</h2>
+  <div class="cat-divider" style="margin:0.5rem auto 2rem;"></div>
+  <div class="products-grid">
+
+    <!-- Placa de nacimiento -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/nacimiento.jpg')">
+        <img src="images/nacimiento.jpg" alt="Placa nacimiento">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para bebés</p>
+        <h3>Placa de nacimiento</h3>
+        <p class="product-desc">Disco de madera natural grabado al láser con el nombre del bebé, fecha, hora, peso, talla y frase especial. El nombre en 3D con decoración. Un recuerdo único e irrepetible.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con nombre en 3D y decoración</span><span class="amount">38 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <p class="opt-label" style="margin-bottom:0.6rem;">Datos para la placa:</p>
+          <div class="opt-row"><label class="opt-label">Nombre del bebé</label><input type="text" class="opt-input" id="pnac-m-nombre" placeholder="Nombre del bebé"></div>
+          <div class="opt-row"><label class="opt-label">Nombre de la madre</label><input type="text" class="opt-input" id="pnac-m-madre" placeholder="Nombre de la madre"></div>
+          <div class="opt-row"><label class="opt-label">Nombre del padre</label><input type="text" class="opt-input" id="pnac-m-padre" placeholder="Nombre del padre"></div>
+          <div class="opt-row"><label class="opt-label">Fecha completa de nacimiento</label><input type="text" class="opt-input" id="pnac-m-fecha" placeholder="ej. 22 de febrero de 2026"></div>
+          <div class="opt-row"><label class="opt-label">Hora del nacimiento</label><input type="text" class="opt-input" id="pnac-m-hora" placeholder="ej. 14:15h"></div>
+          <div class="opt-row"><label class="opt-label">Peso al nacer</label><input type="text" class="opt-input" id="pnac-m-peso" placeholder="ej. 3.200 kg"></div>
+          <div class="opt-row"><label class="opt-label">Longitud al nacer</label><input type="text" class="opt-input" id="pnac-m-longitud" placeholder="ej. 50 cm"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre y estrellitas en 3D</label>
+            <select class="opt-input" id="pnac-m-color">
+              <option value="">Elige color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
+            </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>38 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPlacaNac('pnac-m')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Chupetero -->
+    <div class="product-card fade-in">
+      <div class="product-img" style="position:relative; height:250px;">
+        <div class="mini-carousel">
+          <div class="mini-track" id="chupeteTrack">
+            <img src="images/chupetero1.jpg" alt="Chupetero personalizado oso" onclick="openLightbox(this.src)" style="object-position:center 20%;">
+            <img src="images/chupetero2.jpg" alt="Chupetero personalizado estrella" onclick="openLightbox(this.src)" style="object-position:center 15%;">
+          </div>
+          <button class="mc-btn mc-prev" onclick="moveChupete(-1)">‹</button>
+          <button class="mc-btn mc-next" onclick="moveChupete(1)">›</button>
+          <div class="mc-dots">
+            <div class="mc-dot active" onclick="goChupete(0)"></div>
+            <div class="mc-dot" onclick="goChupete(1)"></div>
+          </div>
+        </div>
+        <span class="personalizable-badge">Personalizable</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para bebés</p>
+        <h3>Chupetero personalizado</h3>
+        <p class="product-desc">Sujeta chupetes con combinación de cuentas de silicona y pinza de madera grabada al láser con el nombre o iniciales. Elige la forma de la pinza y la gama cromática de las cuentas para un diseño único.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con nombre grabado en la pinza</span><span class="amount">20 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Forma de la pinza de madera</label>
+            <select class="opt-input" id="chupetero-forma">
+              <option value="">Elige una forma</option>
+              <option value="Estrella">Estrella</option>
+              <option value="Oso">Oso</option>
+              <option value="Círculo">Círculo</option>
+              <option value="Corazón">Corazón</option>
+              <option value="Pájaro">Pájaro</option>
+              <option value="Erizo">Erizo</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Nombre o iniciales (máx. 7 caracteres)</label>
+            <input type="text" class="opt-input" id="chupetero-nombre" maxlength="7" placeholder="ej. LUCÍA o M&J">
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Gama cromática de las cuentas</label>
+            <select class="opt-input" id="chupetero-gama">
+              <option value="">Elige una gama</option>
+              <option value="Tierra">Tierra</option>
+              <option value="Verdes">Verdes</option>
+              <option value="Amarillos">Amarillos</option>
+              <option value="Azules">Azules</option>
+              <option value="Rosas">Rosas</option>
+              <option value="Naranjas">Naranjas</option>
+              <option value="Morados">Morados</option>
+              <option value="Grises">Grises</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
+            </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20una%20gama%20crom%C3%A1tica%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras la gama que buscas? Escríbeme por WhatsApp y miro si la tengo disponible.</a></p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>20 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartChupetero()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20chupetero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Letra 3D -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/letra3d.jpg')">
+        <img src="images/letra3d.jpg" alt="Letra 3D">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para bebés</p>
+        <h3>Letra 3D autoportante</h3>
+        <p class="product-desc">Letra inicial en 3D impresa y acabada a mano, autoportante para colocar donde quieras. Se personaliza con el nombre del destinatario y una decoración sencilla en un segundo color. Perfecta para habitaciones infantiles o como regalo especial.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con nombre y decoración en otro color</span><span class="amount">42 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row"><label class="opt-label">Letra inicial</label><input type="text" class="opt-input" id="letra3d-inicial" placeholder="Escribe la letra inicial" maxlength="1" style="text-transform:uppercase;"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color de la letra inicial</label>
+            <select class="opt-input" id="letra3d-color-inicial">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Rosa pastel">Rosa pastel</option>
+              <option value="Azul clarito">Azul clarito</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Naranja">Naranja</option>
+            </select>
+          </div>
+          <div class="opt-row"><label class="opt-label">Nombre completo</label><input type="text" class="opt-input" id="letra3d-nombre" placeholder="Escribe el nombre completo"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre</label>
+            <select class="opt-input" id="letra3d-color-nombre">
+              <option value="">Elige un color</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
+            </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>42 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartLetra3d()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20letra%203D%20autoportante" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Banderín de madera -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/banderin.jpg')">
+        <img src="images/banderin.jpg" alt="Banderín personalizado">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para bebés</p>
+        <h3>Banderín de madera</h3>
+        <p class="product-desc">Guirnalda de banderines de madera cortados al láser con las letras del nombre en relieve con impresión 3D. Perfecto para decorar la habitación del bebé o celebrar cualquier ocasión especial. Puedes añadir también banderines decorativos sin letra en los extremos o como separadores.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Banderín con letra (impresión 3D)</span><span class="amount">4 € / u</span></div>
+          <div class="price-row"><span>Banderín decorativo sin letra</span><span class="amount">2,50 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Mínimo 15 € por guirnalda</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row"><label class="opt-label">Nombre a formar</label><input type="text" class="opt-input" id="banderin-nombre" placeholder="Escribe el nombre" oninput="updateBanderin()"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color de las letras</label>
+            <select class="opt-input" id="banderin-color">
+              <option value="">Elige un color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Rosa pastel">Rosa pastel</option>
+              <option value="Azul clarito">Azul clarito</option>
+              <option value="Amarillo">Amarillo</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Naranja">Naranja</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Banderines decorativos sin letra (extremos, separadores...)</label>
+            <select class="opt-input" id="banderin-decorativos" onchange="updateBanderin()">
+              <option value="0">Ninguno</option>
+              <option value="1">1 banderín</option>
+              <option value="2">2 banderines</option>
+              <option value="3">3 banderines</option>
+              <option value="4">4 banderines</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Banderines con estrella (impresión 3D)</label>
+            <select class="opt-input" id="banderin-estrellas" onchange="updateBanderin()">
+              <option value="0">Ninguno</option>
+              <option value="1">1 banderín</option>
+              <option value="2">2 banderines</option>
+              <option value="3">3 banderines</option>
+              <option value="4">4 banderines</option>
+            </select>
+          </div>
+          <p class="price-note" id="banderin-desglose" style="margin-top:0.2rem;">Escribe el nombre para ver el desglose del precio</p>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-banderin-total">15 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartBanderin()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20banderín%20de%20madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Nombre para puerta -->
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/puerta.jpg')">
+        <img src="images/puerta.jpg" alt="Nombre puerta">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para bebés</p>
+        <h3>Nombre para puerta</h3>
+        <p class="product-desc">Nombre en 3D para colgar en la puerta de la habitación. Impreso y acabado a mano, disponible en distintos colores. Un detalle precioso para personalizar cualquier espacio.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1–2 nombres</span><span class="amount">20 € / u</span></div>
+          <div class="price-row"><span>3 o más nombres</span><span class="amount">18 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Para más de 10 nombres, escríbeme por WhatsApp — cada nombre es 100% personalizado y prefiero verlo contigo antes de dar precio</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad de nombres:</label>
+            <input type="number" id="opt-puerta-qty" class="opt-input" min="1" value="1" oninput="updatePuerta()">
+            <p class="price-note" id="puerta-tramo" style="margin-top:0.3rem;">1–2 nombres: 20 €/u</p>
+          </div>
+          <div id="puerta-consulta-wrap" style="display:none;">
+            <div class="price-alert">✦ Para más de 10 nombres prefiero verlo contigo por WhatsApp, ya que cada nombre es 100% personalizado y el precio se ajusta según el pedido.</div>
+            <a id="puerta-consulta-link" href="#" target="_blank" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Escríbeme por WhatsApp →</a>
+          </div>
+          <div id="puerta-fields">
+          <p class="opt-label" style="margin:0.6rem 0 0.3rem;">Nombre(s) y color de cada uno:</p>
+          <p style="font-size:0.7rem;margin:0 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
+          <div id="puerta-nombres-wrap">
+            <div class="puerta-nombre-row" style="display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;">
+              <input type="text" class="opt-input puerta-nombre" placeholder="Nombre 1" style="margin:0;">
+              <select class="opt-input puerta-color" style="margin:0;width:130px;">
+                <option value="">Color</option>
+                <option value="Verde menta">Verde menta</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Negro">Negro</option>
+                <option value="Burdeos">Burdeos</option>
+                <option value="Otro (a confirmar por WhatsApp)">Otro (consultar)</option>
+              </select>
+            </div>
+          </div>
+          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">20 €</strong></div>
+          </div>
+        </div>
+        <button class="btn-add-cart" id="puerta-add-btn" onclick="addCartPuertaV2()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -433,26 +766,26 @@
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · Pack Nacimiento';
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Mis Primeros Mimos</a> · Pack Nacimiento';
   }
   function showPackPage(id) {
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const names = {ternura:'Pack Ternura', huella:'Pack Huella', tesoro:'Pack Tesoro'};
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · <a href="#" onclick="backToNacimiento();return false;">Pack Nacimiento</a> · ' + names[id];
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Mis Primeros Mimos</a> · <a href="#" onclick="backToNacimiento();return false;">Pack Nacimiento</a> · ' + names[id];
   }
   function backToNacimiento() {
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-nacimiento').classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Packs para Regalar</a> · Pack Nacimiento';
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Mis Primeros Mimos</a> · Pack Nacimiento';
   }
   function showGrid() {
     document.getElementById('catGrid').style.display = 'block';
     document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Packs para Regalar';
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Mis Primeros Mimos';
   }
 
   function updatePackPrice(prefix, base) {
@@ -556,6 +889,7 @@
     'page-ternura':    () => backToNacimiento(),
     'page-huella':     () => backToNacimiento(),
     'page-tesoro':     () => backToNacimiento(),
+    'page-detalles':   () => showGrid(),
   };
 
   function updateFloatBtn() {
@@ -578,6 +912,186 @@
   });
   window.addEventListener('resize', updateFloatBtn);
   updateFloatBtn();
+</script>
+<script>
+  // ── DETALLITOS PARA BEBÉS ──
+  function showDetalles() {
+    document.getElementById('catGrid').style.display = 'none';
+    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-detalles').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Mis Primeros Mimos</a> · Detallitos para bebés';
+  }
+
+  function togglePersonalize(btn) {
+    const card = btn.closest('.product-card');
+    card.classList.toggle('expanded');
+    if (card.classList.contains('expanded')) {
+      btn.childNodes[0].textContent = 'Ocultar personalización ';
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      btn.childNodes[0].textContent = 'Personalizar ';
+    }
+  }
+
+  // Carrusel del chupetero
+  let chupeteIdx = 0;
+  function moveChupete(dir) { chupeteIdx = (chupeteIdx + dir + 2) % 2; goChupete(chupeteIdx); }
+  function goChupete(i) {
+    chupeteIdx = i;
+    const track = document.getElementById('chupeteTrack');
+    track.style.transform = `translateX(-${i * 100}%)`;
+    track.closest('.mini-carousel').querySelectorAll('.mc-dot').forEach((d, j) => d.classList.toggle('active', j === i));
+  }
+  setInterval(() => moveChupete(1), 3500);
+
+  // Placa de nacimiento
+  function addCartPlacaNac(prefix) {
+    const nombre = document.getElementById(prefix + '-nombre')?.value.trim();
+    if (!nombre) { alert('Por favor escribe el nombre del bebé.'); return; }
+    const opts = {};
+    ['nombre','madre','padre','fecha','hora','peso','longitud'].forEach(f => {
+      const v = document.getElementById(prefix + '-' + f)?.value.trim();
+      if (v) opts[f.charAt(0).toUpperCase() + f.slice(1)] = v;
+    });
+    const color = document.getElementById(prefix + '-color')?.value;
+    if (color) opts['Color 3D'] = color;
+    addToCart({ id: 'placa-nac-' + Date.now(), name: 'Placa de nacimiento', price: 38, peso: 160, options: opts });
+  }
+
+  // Chupetero
+  function addCartChupetero() {
+    const forma = document.getElementById('chupetero-forma')?.value;
+    const nombre = document.getElementById('chupetero-nombre')?.value.trim();
+    const gama = document.getElementById('chupetero-gama')?.value;
+    if (!forma) { alert('Por favor elige la forma de la pinza de madera.'); return; }
+    if (!nombre) { alert('Por favor escribe el nombre o iniciales (máx. 7 caracteres).'); return; }
+    if (!gama) { alert('Por favor elige la gama cromática de las cuentas.'); return; }
+    const opts = { 'Forma de la pinza': forma, 'Nombre / iniciales': nombre, 'Gama cromática': gama };
+    addToCart({ id: 'chupetero-' + Date.now(), name: 'Chupetero personalizado', price: 20, peso: 25, options: opts });
+  }
+
+  // Letra 3D
+  function addCartLetra3d() {
+    const inicial = document.getElementById('letra3d-inicial')?.value.trim().toUpperCase();
+    const colorInicial = document.getElementById('letra3d-color-inicial')?.value;
+    const nombre = document.getElementById('letra3d-nombre')?.value.trim();
+    const colorNombre = document.getElementById('letra3d-color-nombre')?.value;
+    if (!inicial) { alert('Por favor escribe la letra inicial.'); return; }
+    if (!colorInicial) { alert('Por favor elige el color de la letra inicial.'); return; }
+    if (!nombre) { alert('Por favor escribe el nombre completo.'); return; }
+    if (!colorNombre) { alert('Por favor elige el color del nombre.'); return; }
+    addToCart({ id: 'letra3d-' + Date.now(), name: 'Letra 3D autoportante', price: 42, peso: 40, options: { 'Letra inicial': inicial + ' (' + colorInicial + ')', 'Nombre': nombre + ' (' + colorNombre + ')' } });
+  }
+
+  // Banderín de madera
+  function calcBanderin() {
+    const nombre = document.getElementById('banderin-nombre')?.value.trim() || '';
+    const numLetras = nombre.replace(/\s+/g, '').length;
+    const decorativos = parseInt(document.getElementById('banderin-decorativos')?.value) || 0;
+    const estrellas = parseInt(document.getElementById('banderin-estrellas')?.value) || 0;
+    const subtotal = numLetras * 4 + decorativos * 2.5 + estrellas * 4;
+    const total = Math.max(subtotal, 15);
+    return { nombre, numLetras, decorativos, estrellas, subtotal, total };
+  }
+  function formatEuros(n) {
+    return (Math.round(n * 100) / 100).toString().replace('.', ',') + ' €';
+  }
+  function updateBanderin() {
+    const { numLetras, decorativos, estrellas, subtotal, total } = calcBanderin();
+    const totalEl = document.getElementById('opt-banderin-total');
+    if (totalEl) totalEl.textContent = formatEuros(total);
+    const desgloseEl = document.getElementById('banderin-desglose');
+    if (!desgloseEl) return;
+    if (numLetras === 0 && decorativos === 0 && estrellas === 0) {
+      desgloseEl.textContent = 'Escribe el nombre para ver el desglose del precio';
+      return;
+    }
+    let partes = [numLetras + ' letra' + (numLetras === 1 ? '' : 's') + ' × 4 € = ' + formatEuros(numLetras * 4)];
+    if (estrellas > 0) partes.push(estrellas + ' estrella' + (estrellas === 1 ? '' : 's') + ' × 4 € = ' + formatEuros(estrellas * 4));
+    if (decorativos > 0) partes.push(decorativos + ' decorativo' + (decorativos === 1 ? '' : 's') + ' × 2,50 € = ' + formatEuros(decorativos * 2.5));
+    let txt = partes.join(' + ');
+    if (subtotal < 15) txt += ' · se aplica el mínimo de 15 € por guirnalda';
+    desgloseEl.textContent = txt;
+  }
+  function addCartBanderin() {
+    const { nombre, numLetras, decorativos, estrellas, total } = calcBanderin();
+    const color = document.getElementById('banderin-color')?.value;
+    if (!nombre) { alert('Por favor escribe el nombre que quieres formar.'); return; }
+    if (!color) { alert('Por favor elige el color de las letras.'); return; }
+    const opts = { 'Nombre': nombre, 'Color': color, 'Letras': String(numLetras) };
+    if (estrellas > 0) opts['Banderines con estrella'] = String(estrellas);
+    if (decorativos > 0) opts['Banderines decorativos'] = String(decorativos);
+    const pesoTotal = (numLetras + decorativos + estrellas) * 5;
+    addToCart({ id: 'banderin-' + Date.now(), name: 'Banderín de madera', price: total, peso: pesoTotal, options: opts });
+  }
+
+  // Nombre para puerta
+  function puertaQtyTier(qty) {
+    if (qty > 10) return 'consulta';
+    if (qty >= 3) return 18;
+    return 20;
+  }
+  function renderPuertaRows(qty) {
+    const wrap = document.getElementById('puerta-nombres-wrap');
+    if (!wrap) return;
+    const valoresActuales = Array.from(wrap.querySelectorAll('.puerta-nombre')).map(i => i.value);
+    const coloresActuales = Array.from(wrap.querySelectorAll('.puerta-color')).map(s => s.value);
+    wrap.innerHTML = '';
+    for (let i = 1; i <= qty; i++) {
+      const row = document.createElement('div');
+      row.className = 'puerta-nombre-row';
+      row.style.cssText = 'display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;';
+      const inp = document.createElement('input');
+      inp.type = 'text'; inp.className = 'opt-input puerta-nombre'; inp.placeholder = 'Nombre ' + i; inp.style.margin = '0';
+      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
+      const sel = document.createElement('select');
+      sel.className = 'opt-input puerta-color'; sel.style.cssText = 'margin:0;width:130px;';
+      ['', 'Verde menta', 'Blanco', 'Negro', 'Burdeos', 'Otro (a confirmar por WhatsApp)'].forEach(v => {
+        const o = document.createElement('option');
+        o.value = v;
+        o.textContent = v === 'Otro (a confirmar por WhatsApp)' ? 'Otro (consultar)' : (v || 'Color');
+        sel.appendChild(o);
+      });
+      if (coloresActuales[i - 1]) sel.value = coloresActuales[i - 1];
+      row.appendChild(inp); row.appendChild(sel);
+      wrap.appendChild(row);
+    }
+  }
+  function updatePuerta() {
+    const qtyInput = document.getElementById('opt-puerta-qty');
+    let qty = parseInt(qtyInput.value) || 1;
+    if (qty < 1) { qty = 1; qtyInput.value = 1; }
+    const tier = puertaQtyTier(qty);
+    const consulta = tier === 'consulta';
+    document.getElementById('puerta-consulta-wrap').style.display = consulta ? 'block' : 'none';
+    document.getElementById('puerta-fields').style.display = consulta ? 'none' : 'block';
+    document.getElementById('puerta-add-btn').style.display = consulta ? 'none' : 'block';
+    const tramoEl = document.getElementById('puerta-tramo');
+    if (tramoEl) {
+      if (consulta) tramoEl.textContent = '';
+      else if (qty <= 2) tramoEl.textContent = '1–2 nombres: 20 €/u';
+      else tramoEl.textContent = '3 o más nombres: 18 €/u (descuento aplicado)';
+    }
+    if (consulta) {
+      const link = document.getElementById('puerta-consulta-link');
+      if (link) link.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + qty + ' nombres para puerta, ¿cómo lo gestionamos al ser más de 10?');
+      return;
+    }
+    renderPuertaRows(qty);
+    document.getElementById('opt-puerta-total').textContent = (tier * qty).toFixed(0) + ' €';
+  }
+  function addCartPuertaV2() {
+    const qty = parseInt(document.getElementById('opt-puerta-qty').value) || 1;
+    const tier = puertaQtyTier(qty);
+    if (tier === 'consulta') { alert('Para más de 10 nombres, escríbeme por WhatsApp y lo vemos juntas.'); return; }
+    const nombres = Array.from(document.querySelectorAll('.puerta-nombre')).map(i => i.value.trim()).filter(Boolean);
+    const colores = Array.from(document.querySelectorAll('.puerta-color')).map(s => s.value);
+    if (nombres.length === 0) { alert('Por favor escribe al menos un nombre.'); return; }
+    const opts = {};
+    nombres.forEach((n, i) => { opts['Nombre ' + (i + 1)] = n + (colores[i] ? ' (' + colores[i] + ')' : ''); });
+    addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: tier, qty, peso: 55, options: opts });
+  }
 </script>
 <script src="carrito.js"></script>
 </body>
