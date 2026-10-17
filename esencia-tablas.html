@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tablas de madera · Esencia de Monte y Tradición</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="Tablas de madera · Esencia de Monte y Tradición">
+  <meta property="og:image" content="https://mamemimadera.es/images/esencia-og.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="images/favicon-esencia.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #b7c6a6; --mint-light: #e3e9d5;
+      --mint-dark: #7a9366; --cream: #f6eedd; --cream2: #eee3cb;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(246,238,221,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--wood-deep); text-decoration: none; }
+    .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
+    .cart-btn:hover { background: #627a50; }
+
+    .page-head { background: var(--mint-light); padding: 100px 2rem 2.5rem; text-align: center; }
+    .back { display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mint-dark); text-decoration: none; margin-bottom: 1rem; }
+    .back:hover { color: var(--wood-dark); }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); color: var(--wood-deep); line-height: 1.2; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.8rem auto 0; border-radius: 2px; }
+
+    #productos { background: var(--cream2); padding: 3.5rem 2rem; }
+    .product { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 960px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px var(--shadow); }
+    .product-img { background: var(--wood-deep); }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .product-info { padding: 2.5rem 2.5rem 2.5rem 0; display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
+    .product-info h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--wood-deep); line-height: 1.2; }
+    .product-desc { color: var(--text-mid); font-weight: 300; line-height: 1.8; font-size: 0.95rem; }
+    .price { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--wood-dark); font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+    .price small { font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 400; color: var(--text-mid); }
+    .field label { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.4rem; }
+    .field select, .field input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--wood-light); border-radius: 12px; background: var(--cream); font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text); }
+    .field select:focus, .field input:focus { outline: none; border-color: var(--mint-dark); }
+    #dedicatoria-field { display: none; }
+    #dedicatoria-field.visible { display: block; }
+    .field-note { font-size: 0.75rem; color: var(--text-mid); margin-top: 0.3rem; font-weight: 300; }
+    .teaser { font-size: 0.85rem; color: var(--text-mid); background: var(--mint-light); border-radius: 12px; padding: 0.8rem 1rem; line-height: 1.6; }
+    .teaser a { color: var(--mint-dark); font-weight: 700; }
+    .btn-primary { display: inline-block; padding: 0.9rem 2rem; background: var(--wood-dark); color: #fff; border: none; border-radius: 40px; text-decoration: none; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(139,94,60,0.35); text-align: center; }
+    .btn-primary:hover { background: var(--mint-dark); transform: translateY(-2px); }
+    .btn-secondary { display: inline-block; padding: 0.85rem 2rem; background: transparent; color: var(--wood-dark); border: 2px solid var(--wood-dark); border-radius: 40px; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; }
+    .btn-secondary:hover { background: var(--wood-light); }
+    .msg { font-size: 0.8rem; color: #a0412d; min-height: 1.1em; }
+    .iva { font-size: 0.78rem; color: var(--text-mid); font-weight: 300; }
+
+    #exclusiva { background: var(--mint-light); padding: 4rem 2rem; text-align: center; }
+    #exclusiva h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--wood-deep); margin-bottom: 1rem; }
+    #exclusiva p { max-width: 560px; margin: 0 auto 0.8rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; }
+    #exclusiva .price { margin: 1rem 0 1.5rem; }
+    .btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2rem 2.5rem 1.5rem; font-size: 0.78rem; text-align: center; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; margin-top: 1rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
+
+    @media (max-width: 800px) {
+      .product { grid-template-columns: 1fr; gap: 0; }
+      .product-img { height: 380px; }
+      .product-info { padding: 1.8rem 1.5rem 2rem; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-title { font-size: 0.95rem; }
+      #productos, #exclusiva { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="esencia-de-monte-y-tradicion.html" class="nav-title">Esencia de Monte y Tradición</a>
+  <!-- >>> PEGAR AQUÍ el botón del carrito tal como está en tus páginas de categoría <<< -->
+</nav>
+
+<header class="page-head">
+  <a href="esencia-de-monte-y-tradicion.html" class="back">← Volver a Esencia</a>
+  <h1 class="section-title">Tablas de madera</h1>
+  <div class="divider"></div>
+</header>
+
+<section id="productos">
+  <article class="product" id="tabla-ciervo">
+    <div class="product-img">
+      <img src="images/esencia-tabla-ciervo.jpg" alt="Tabla de madera con ciervo grabado al láser y cordón de yute decorativo con abalorios de madera" width="811" height="1082">
+    </div>
+    <div class="product-info">
+      <h2>Tabla de cocina · Ciervo</h2>
+      <p class="product-desc">Tabla de madera con un ciervo grabado al láser. Lleva un cordón de yute con abalorios de madera como detalle decorativo. Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
+      <div class="price"><span id="precio">28 €</span> <small>IVA incluido</small></div>
+
+      <div class="field">
+        <label for="opcion">Elige una opción</label>
+        <select id="opcion">
+          <option value="sin">Tal cual (28 €)</option>
+          <option value="dedicatoria">Con dedicatoria (+5 €)</option>
+        </select>
+      </div>
+
+      <div class="field" id="dedicatoria-field">
+        <label for="dedicatoria">Tu dedicatoria</label>
+        <input type="text" id="dedicatoria" maxlength="60" placeholder="Escribe aquí el texto que quieres grabar">
+        <p class="field-note">Máximo 60 caracteres. Te confirmaré el diseño antes de grabarla.</p>
+      </div>
+
+      <p class="msg" id="msg" role="alert"></p>
+      <button type="button" class="btn-primary" id="btn-add">Añadir al carrito</button>
+
+      <p class="teaser">¿Sabías que puedo transformar tu fotografía favorita en un grabado único sobre madera noble? <a href="#exclusiva">Descubre cómo</a></p>
+      <p class="iva">Plazo de envío estimado: 3-5 días laborables</p>
+    </div>
+  </article>
+</section>
+
+<section id="exclusiva">
+  <h2>¿Quieres una tabla completamente exclusiva?</h2>
+  <p>A partir de una fotografía tuya, creo un dibujo para grabarlo sobre la madera. Puede ser tu perro, un paisaje, un rincón especial o ese recuerdo que no quieres olvidar. Una pieza que no existe en ningún otro sitio.</p>
+  <p>Antes de grabar te enseño el diseño para que lo apruebes.</p>
+  <div class="price">45 € <small>IVA incluido</small></div>
+  <div class="btns">
+    <a class="btn-primary" target="_blank" rel="noopener" href="https://wa.me/34622562499?text=Hola%20Leticia%2C%20me%20gustar%C3%ADa%20una%20tabla%20exclusiva%20a%20partir%20de%20una%20fotograf%C3%ADa">Escríbeme por WhatsApp</a>
+    <a class="btn-secondary" href="mailto:hola@mamemimadera.es?subject=Tabla%20exclusiva">Por email</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
+</footer>
+
+<!-- >>> PEGAR AQUÍ el bloque HTML <div id="cookie-banner"> ... </div> del index <<< -->
+<!-- >>> PEGAR AQUÍ el <script> de consentimiento de cookies del index <<< -->
+
+<script>
+(function () {
+  var PRECIO_BASE = 28, EXTRA_DEDICATORIA = 5;
+  var sel = document.getElementById('opcion');
+  var campo = document.getElementById('dedicatoria-field');
+  var texto = document.getElementById('dedicatoria');
+  var precio = document.getElementById('precio');
+  var msg = document.getElementById('msg');
+
+  function total() { return PRECIO_BASE + (sel.value === 'dedicatoria' ? EXTRA_DEDICATORIA : 0); }
+  function actualizar() {
+    campo.classList.toggle('visible', sel.value === 'dedicatoria');
+    precio.textContent = total() + ' €';
+    msg.textContent = '';
+  }
+  sel.addEventListener('change', actualizar);
+
+  document.getElementById('btn-add').addEventListener('click', function () {
+    var conDedicatoria = sel.value === 'dedicatoria';
+    var dedic = texto.value.trim();
+    if (conDedicatoria && !dedic) {
+      msg.textContent = 'Escribe la dedicatoria que quieres grabar.';
+      texto.focus();
+      return;
+    }
+    var producto = {
+      id: 'esencia-tabla-ciervo' + (conDedicatoria ? '-dedicatoria' : ''),
+      nombre: 'Tabla de cocina · Ciervo' + (conDedicatoria ? ' (con dedicatoria)' : ''),
+      precio: total(),
+      cantidad: 1,
+      imagen: 'images/esencia-tabla-ciervo.jpg',
+      dedicatoria: conDedicatoria ? dedic : ''
+    };
+
+    /* >>> CONECTAR AQUÍ con carrito.js: sustituye esta línea por la llamada que usan
+       tus productos de coleccion-cocina.html para añadir al carrito <<< */
+    console.log('Producto listo para el carrito:', producto);
+  });
+})();
+</script>
+<script src="carrito.js"></script>
+</body>
+</html>
