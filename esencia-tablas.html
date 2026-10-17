@@ -22,8 +22,8 @@
     body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
     nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(246,238,221,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
     .nav-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--wood-deep); text-decoration: none; }
-    .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
-    .cart-btn:hover { background: #627a50; }
+    nav .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
+    nav .cart-btn:hover { background: #627a50; }
 
     .page-head { background: var(--mint-light); padding: 100px 2rem 2.5rem; text-align: center; }
     .back { display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mint-dark); text-decoration: none; margin-bottom: 1rem; }
@@ -68,11 +68,24 @@
     .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; }
     .footer-legal button:hover { color: var(--mint); }
 
+    /* Foto ampliable */
+    .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
+    .zoom-hint { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(90,58,26,0.65); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.8rem; border-radius: 30px; backdrop-filter: blur(4px); }
+    .zoom-btn:hover .zoom-hint { background: var(--mint-dark); }
+    .zoom-btn:focus-visible { outline: 3px solid var(--mint-dark); outline-offset: -3px; }
+    #lightbox { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; background: rgba(40,25,10,0.93); padding: 1rem; cursor: zoom-out; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; touch-action: pinch-zoom; cursor: default; }
+    #lightbox-close { position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px; border: none; border-radius: 50%; background: rgba(255,255,255,0.15); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; }
+    #lightbox-close:hover { background: var(--mint-dark); }
+    @media (max-width: 800px) { .zoom-btn { height: auto; } }
+
     /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
 
     @media (max-width: 800px) {
       .product { grid-template-columns: 1fr; gap: 0; }
-      .product-img { height: 380px; }
+      .product-img { height: auto; }
+      .product-img img { height: auto; aspect-ratio: 3 / 4; }
       .product-info { padding: 1.8rem 1.5rem 2rem; }
     }
     @media (max-width: 640px) {
@@ -86,7 +99,7 @@
 
 <nav>
   <a href="esencia-de-monte-y-tradicion.html" class="nav-title">Esencia de Monte y Tradición</a>
-  <!-- >>> PEGAR AQUÍ el botón del carrito tal como está en tus páginas de categoría <<< -->
+  <button type="button" class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">🛒 Carrito <span class="cart-badge" style="display:none">0</span></button>
 </nav>
 
 <header class="page-head">
@@ -98,7 +111,10 @@
 <section id="productos">
   <article class="product" id="tabla-ciervo">
     <div class="product-img">
-      <img src="images/esencia-tabla-ciervo.jpg" alt="Tabla de madera con ciervo grabado al láser y cordón de yute decorativo con abalorios de madera" width="811" height="1082">
+      <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto de la tabla">
+        <img id="foto-producto" src="images/esencia-tabla-ciervo.jpg" alt="Tabla de madera con ciervo grabado al láser y cordón de yute decorativo con abalorios de madera" width="811" height="1082">
+        <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
+      </button>
     </div>
     <div class="product-info">
       <h2>Tabla de cocina · Ciervo</h2>
@@ -151,6 +167,11 @@
   </div>
 </footer>
 
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button type="button" id="lightbox-close" aria-label="Cerrar">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <!-- >>> PEGAR AQUÍ el bloque HTML <div id="cookie-banner"> ... </div> del index <<< -->
 <!-- >>> PEGAR AQUÍ el <script> de consentimiento de cookies del index <<< -->
 
@@ -179,19 +200,44 @@
       texto.focus();
       return;
     }
+    if (typeof window.addToCart !== 'function') {
+      msg.textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.';
+      return;
+    }
     var producto = {
       id: 'esencia-tabla-ciervo' + (conDedicatoria ? '-dedicatoria' : ''),
-      nombre: 'Tabla de cocina · Ciervo' + (conDedicatoria ? ' (con dedicatoria)' : ''),
-      precio: total(),
-      cantidad: 1,
-      imagen: 'images/esencia-tabla-ciervo.jpg',
-      dedicatoria: conDedicatoria ? dedic : ''
+      name: 'Esencia · Tabla de cocina Ciervo',
+      price: total(),
+      qty: 1
     };
-
-    /* >>> CONECTAR AQUÍ con carrito.js: sustituye esta línea por la llamada que usan
-       tus productos de coleccion-cocina.html para añadir al carrito <<< */
-    console.log('Producto listo para el carrito:', producto);
+    if (conDedicatoria) producto.options = { 'Dedicatoria': dedic };
+    window.addToCart(producto);
+    msg.textContent = '';
   });
+})();
+</script>
+<script>
+(function () {
+  var box = document.getElementById('lightbox');
+  var big = document.getElementById('lightbox-img');
+  var trigger = document.getElementById('zoom-btn');
+  var foto = document.getElementById('foto-producto');
+  var closeBtn = document.getElementById('lightbox-close');
+  function abrir() {
+    big.src = foto.src; big.alt = foto.alt;
+    box.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function cerrar() {
+    box.classList.remove('open');
+    document.body.style.overflow = '';
+    trigger.focus();
+  }
+  trigger.addEventListener('click', abrir);
+  closeBtn.addEventListener('click', cerrar);
+  box.addEventListener('click', function (e) { if (e.target !== big) cerrar(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('open')) cerrar(); });
 })();
 </script>
 <script src="carrito.js"></script>
