@@ -50,6 +50,8 @@
     .cat-arrow, .chip { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: #fff; text-decoration: none; backdrop-filter: blur(4px); transition: background 0.25s; }
     .cat-card:hover .cat-arrow, .chip:hover { background: var(--mint-dark); }
     .chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .cat-card > .cat-arrow { position: absolute; top: 1rem; right: 1rem; z-index: 2; background: rgba(90,58,26,0.6); }
+    .cat-info h3:last-child { margin-bottom: 0; }
 
     /* FOOTER */
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2rem 2.5rem 1.5rem; font-size: 0.78rem; text-align: center; }
@@ -89,17 +91,17 @@
 
     <a href="esencia-tablas.html" class="cat-card">
       <span class="img-wrap"><img src="images/esencia-tablas.jpg" alt="Tablas de madera" onerror="this.style.display='none'"></span>
+      <span class="cat-arrow">Ver más →</span>
       <div class="cat-info">
         <h3>Tablas de madera</h3>
-        <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
 
     <a href="esencia-abrebotellas.html" class="cat-card">
       <span class="img-wrap"><img src="images/esencia-abrebotellas.jpg" alt="Abrebotellas de madera" onerror="this.style.display='none'"></span>
+      <span class="cat-arrow">Ver más →</span>
       <div class="cat-info">
         <h3>Abrebotellas de madera</h3>
-        <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
 
@@ -118,9 +120,9 @@
 
     <a href="esencia-vasos-termicos.html" class="cat-card">
       <span class="img-wrap"><img src="images/esencia-vasos.jpg" alt="Vasos térmicos" onerror="this.style.display='none'"></span>
+      <span class="cat-arrow">Ver más →</span>
       <div class="cat-info">
         <h3>Vasos térmicos</h3>
-        <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
 
