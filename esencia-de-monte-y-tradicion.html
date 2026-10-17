@@ -50,6 +50,7 @@
     .cat-arrow, .chip { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: #fff; text-decoration: none; backdrop-filter: blur(4px); transition: background 0.25s; }
     .cat-card:hover .cat-arrow, .chip:hover { background: var(--mint-dark); }
     .chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .cat-grid .cat-card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - 0.6rem); justify-self: center; }
     .cat-card > .cat-arrow { position: absolute; top: 1rem; right: 1rem; z-index: 2; background: rgba(90,58,26,0.6); }
     .cat-info h3:last-child { margin-bottom: 0; }
 
@@ -68,6 +69,7 @@
       .nav-title { font-size: 0.95rem; }
       #categorias { padding: 3rem 1rem 4rem; }
       .cat-grid { grid-template-columns: 1fr; }
+      .cat-grid .cat-card:last-child:nth-child(odd) { width: auto; }
       .cat-card .img-wrap { height: 260px; }
     }
   </style>
@@ -81,7 +83,7 @@
 
 <section id="hero">
   <img src="images/logo-esencia-transparente.webp" alt="Esencia de Monte y Tradición · Mamemi Madera" width="900" height="900">
-  <p>Piezas pensadas para quienes llevan el monte y la tradición en el corazón. Todas pueden ser personalizadas</p>
+  <p>Piezas personalizadas pensadas para quienes llevan el monte y la tradición en el corazón.</p>
 </section>
 
 <section id="categorias">
@@ -123,6 +125,14 @@
       <span class="cat-arrow">Ver más →</span>
       <div class="cat-info">
         <h3>Vasos térmicos</h3>
+      </div>
+    </a>
+
+    <a href="esencia-chapas.html" class="cat-card">
+      <span class="img-wrap"><img src="images/esencia-chapas.jpg" alt="Chapas para perros" onerror="this.style.display='none'"></span>
+      <span class="cat-arrow">Ver más →</span>
+      <div class="cat-info">
+        <h3>Chapas para perros</h3>
       </div>
     </a>
 
