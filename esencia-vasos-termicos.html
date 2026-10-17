@@ -43,6 +43,7 @@
     .field label { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.4rem; }
     .field select, .field input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--wood-light); border-radius: 12px; background: var(--cream); font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text); }
     .field select:focus, .field input:focus { outline: none; border-color: var(--mint-dark); }
+    .field input::placeholder { color: #a8957c; opacity: 1; }
     #dedicatoria-field { display: none; }
     #dedicatoria-field.visible { display: block; }
     .field-note { font-size: 0.75rem; color: var(--text-mid); margin-top: 0.3rem; font-weight: 300; }
@@ -79,6 +80,24 @@
     #lightbox-close { position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px; border: none; border-radius: 50%; background: rgba(255,255,255,0.15); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; }
     #lightbox-close:hover { background: var(--mint-dark); }
     @media (max-width: 800px) { .zoom-btn { height: auto; } }
+
+    /* Recomendaciones */
+    #tambien { background: var(--cream); padding: 3.5rem 2rem 4rem; }
+    #tambien h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--wood-deep); text-align: center; }
+    .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; max-width: 960px; margin: 1.8rem auto 0; }
+    .rec-card { display: block; background: #fff; border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+    .rec-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px var(--shadow); }
+    .rec-card img { width: 100%; height: 180px; object-fit: cover; display: block; background: var(--wood-deep); }
+    .rec-info { padding: 1rem 1.2rem 1.2rem; }
+    .rec-info h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--wood-deep); margin-bottom: 0.2rem; }
+    .rec-info p { font-size: 0.85rem; font-weight: 700; color: var(--mint-dark); }
+    @media (max-width: 700px) {
+      #tambien { padding: 2.5rem 1rem 3rem; }
+      .rec-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+      .rec-card { display: flex; }
+      .rec-card img { width: 110px; height: auto; flex-shrink: 0; }
+      .rec-info { align-self: center; }
+    }
 
     /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
 
@@ -117,7 +136,7 @@
       </button>
     </div>
     <div class="product-info">
-      <h2>Vaso térmico · Corzo</h2>
+      <h2>Vaso térmico · Ciervo</h2>
       <p class="product-desc">Vaso térmico verde con tapa, con un ciervo y el nombre de Esencia de Monte y Tradición grabados al láser. Para llevar contigo al monte, al trabajo o a donde quieras.</p>
       <div class="price"><span id="precio">28 €</span> <small>IVA incluido</small></div>
 
@@ -131,7 +150,7 @@
 
       <div class="field" id="dedicatoria-field">
         <label for="dedicatoria">Tu nombre o dedicatoria</label>
-        <input type="text" id="dedicatoria" maxlength="40" placeholder="Escribe aquí el nombre o texto que quieres grabar">
+        <input type="text" id="dedicatoria" maxlength="40" placeholder="Ej.: Mi compañero de monte">
         <p class="field-note">Máximo 40 caracteres. Te confirmaré el diseño antes de grabarlo.</p>
       </div>
 
@@ -151,6 +170,24 @@
   <div class="btns">
     <a class="btn-primary" target="_blank" rel="noopener" href="https://wa.me/34622562499?text=Hola%20Leticia%2C%20me%20gustar%C3%ADa%20un%20vaso%20t%C3%A9rmico%20exclusivo%20a%20partir%20de%20una%20fotograf%C3%ADa">Escríbeme por WhatsApp</a>
     <a class="btn-secondary" href="mailto:hola@mamemimadera.es?subject=Vaso%20exclusivo">Por email</a>
+  </div>
+</section>
+
+<section id="tambien">
+  <h2>También te puede gustar</h2>
+  <div class="rec-grid">
+    <a class="rec-card" href="esencia-tablas.html">
+      <img src="images/esencia-tablas.jpg" alt="Tabla de cocina con un ciervo grabado" loading="lazy" onerror="this.style.visibility='hidden'">
+      <div class="rec-info"><h3>Tabla de cocina</h3><p>Desde 28 €</p></div>
+    </a>
+    <a class="rec-card" href="esencia-llaveros.html#madera">
+      <img src="images/esencia-llavero-madera.jpg" alt="Llavero redondo de madera con grabado" loading="lazy" onerror="this.style.visibility='hidden'">
+      <div class="rec-info"><h3>Llavero de madera</h3><p>Desde 10 €</p></div>
+    </a>
+    <a class="rec-card" href="esencia-chapas.html">
+      <img src="images/esencia-chapas.jpg" alt="Chapa de acero inoxidable para perros" loading="lazy" onerror="this.style.visibility='hidden'">
+      <div class="rec-info"><h3>Chapa para perros</h3><p>Desde 10 €</p></div>
+    </a>
   </div>
 </section>
 
