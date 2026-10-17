@@ -27,8 +27,8 @@
     /* NAV mínima */
     nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(246,238,221,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
     .nav-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--wood-deep); text-decoration: none; }
-    .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
-    .cart-btn:hover { background: #627a50; }
+    nav .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
+    nav .cart-btn:hover { background: #627a50; }
 
     /* HERO */
     #hero { background: var(--mint-light); padding: 110px 2rem 3.5rem; text-align: center; }
@@ -76,7 +76,7 @@
 
 <nav>
   <a href="esencia-de-monte-y-tradicion.html" class="nav-title">Esencia de Monte y Tradición</a>
-  <!-- >>> PEGAR AQUÍ el botón del carrito tal como está en tus páginas de categoría <<< -->
+  <button type="button" class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">🛒 Carrito <span class="cart-badge" style="display:none">0</span></button>
 </nav>
 
 <section id="hero">
