@@ -39,20 +39,22 @@
     #categorias { background: var(--cream2); padding: 4rem 2rem 5rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); color: var(--wood-deep); text-align: center; line-height: 1.2; }
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.8rem auto 2.5rem; border-radius: 2px; }
-    .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; max-width: 900px; margin: 0 auto; }
+    .cat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
     .cat-card { position: relative; border-radius: 20px; overflow: hidden; isolation: isolate; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; display: block; background: var(--wood-deep); }
     .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
-    .cat-card .img-wrap { display: block; width: 100%; height: 300px; overflow: hidden; }
+    .cat-card .img-wrap { display: block; width: 100%; height: 280px; overflow: hidden; }
     .cat-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .cat-card:hover .img-wrap img { transform: scale(1.07); }
     .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.5rem 1.2rem; background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%); color: #fff; }
     .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
     .cat-arrow, .chip { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: #fff; text-decoration: none; backdrop-filter: blur(4px); transition: background 0.25s; }
     .cat-card:hover .cat-arrow, .chip:hover { background: var(--mint-dark); }
-    .cat-grid .cat-card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - 0.6rem); justify-self: center; }
+    .cat-grid .cat-card { grid-column: span 2; }
+    .cat-grid .cat-card:last-child:nth-child(3n+1) { grid-column: 3 / span 2; }
+    .cat-grid .cat-card:nth-last-child(2):nth-child(3n+1) { grid-column: 2 / span 2; }
+    .cat-grid .cat-card:last-child:nth-child(3n+2) { grid-column: 4 / span 2; }
     .cat-card > .cat-arrow { position: absolute; top: 1rem; right: 1rem; z-index: 2; background: rgba(90,58,26,0.6); }
     .cat-info h3:last-child { margin-bottom: 0; }
-    .cat-info p { font-size: 0.8rem; opacity: 0.92; font-weight: 400; line-height: 1.4; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
     .cat-card .sub-badge { position: absolute; top: 1rem; left: 1rem; z-index: 2; background: var(--mint-dark); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px; }
     .cat-card.soon-card { cursor: default; }
     .cat-card.soon-card:hover { transform: none; box-shadow: 0 4px 20px var(--shadow); }
@@ -68,13 +70,28 @@
 
     /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
 
+    .story-banner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; max-width: 1100px; margin: 2.5rem auto 0; background: var(--mint-light); border-radius: 20px; padding: 1.8rem 2.2rem; text-decoration: none; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+    .story-banner:hover { transform: translateY(-4px); box-shadow: 0 14px 36px var(--shadow); }
+    .story-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--wood-deep); }
+    .story-banner p { color: var(--text-mid); font-weight: 300; margin-top: 0.2rem; }
+    .story-btn { background: var(--mint-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; transition: background 0.25s; }
+    .story-banner:hover .story-btn { background: var(--wood-dark); }
+    @media (max-width: 900px) {
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-grid .cat-card,
+      .cat-grid .cat-card:last-child:nth-child(3n+1),
+      .cat-grid .cat-card:nth-last-child(2):nth-child(3n+1),
+      .cat-grid .cat-card:last-child:nth-child(3n+2) { grid-column: auto; }
+      .cat-grid .cat-card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - 0.6rem); justify-self: center; }
+    }
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
       .nav-title { font-size: 0.95rem; }
       #categorias { padding: 3rem 1rem 4rem; }
       .cat-grid { grid-template-columns: 1fr; }
-      .cat-grid .cat-card:last-child:nth-child(odd) { width: auto; }
+      .cat-grid .cat-card:last-child:nth-child(odd) { grid-column: auto; width: auto; justify-self: stretch; }
       .cat-card .img-wrap { height: 260px; }
+      .story-banner { flex-direction: column; align-items: flex-start; padding: 1.4rem; }
     }
   </style>
 </head>
@@ -94,6 +111,14 @@
   <h2 class="section-title">¿Qué estás buscando?</h2>
   <div class="divider"></div>
   <div class="cat-grid">
+
+    <a href="esencia-packs.html" class="cat-card">
+      <span class="img-wrap"><img src="images/esencia-packs.jpg" alt="Packs para regalar" onerror="this.style.display='none'"></span>
+      <span class="cat-arrow">Ver más →</span>
+      <div class="cat-info">
+        <h3>Packs para regalar</h3>
+      </div>
+    </a>
 
     <a href="esencia-tablas.html" class="cat-card">
       <span class="img-wrap"><img src="images/esencia-tablas.jpg" alt="Tablas de madera" onerror="this.style.display='none'"></span>
@@ -140,7 +165,6 @@
       <span class="cat-arrow">Ver más →</span>
       <div class="cat-info">
         <h3>Lápiz de madera</h3>
-        <p>Para que no te quedes nunca sin tinta y puedas sacarle punta con una navaja</p>
       </div>
     </a>
 
@@ -153,6 +177,13 @@
     </div>
 
   </div>
+  <a href="historias-con-raices.html" class="story-banner">
+    <div>
+      <h2>Historias con raíces</h2>
+      <p>Novedades y fotos de nuestros clientes</p>
+    </div>
+    <span class="story-btn">Leer →</span>
+  </a>
 </section>
 
 <footer>
