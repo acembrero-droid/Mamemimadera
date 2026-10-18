@@ -3,13 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Esencia de Monte y Tradición · Mamemi Madera</title>
+  <title>Packs para regalar · Esencia de Monte y Tradición</title>
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Esencia de Monte y Tradición: tablas, abrebotellas, llaveros y vasos térmicos personalizados."/>
-  <meta property="og:title" content="Esencia de Monte y Tradición">
-  <meta property="og:description" content="Tablas, abrebotellas, llaveros y vasos térmicos personalizados.">
+  <meta property="og:title" content="Packs para regalar · Esencia de Monte y Tradición">
   <meta property="og:image" content="https://mamemimadera.es/images/esencia-og.jpg">
-  <meta property="og:url" content="https://mamemimadera.es/esencia-de-monte-y-tradicion.html">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="images/favicon-esencia.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
@@ -23,44 +20,49 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
-
-    /* NAV mínima */
     nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(246,238,221,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
     .nav-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--wood-deep); text-decoration: none; }
     nav .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
     nav .cart-btn:hover { background: #627a50; }
 
-    /* HERO */
-    #hero { background: var(--mint-light); padding: 110px 2rem 3.5rem; text-align: center; }
-    #hero img { width: min(340px, 72vw); height: auto; display: block; margin: 0 auto 1rem; }
-    #hero p { max-width: 480px; margin: 0 auto; color: var(--text-mid); font-weight: 300; line-height: 1.75; }
+    .page-head { background: var(--mint-light); padding: 100px 2rem 2.5rem; text-align: center; }
+    .back { display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mint-dark); text-decoration: none; margin-bottom: 1rem; }
+    .back:hover { color: var(--wood-dark); }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); color: var(--wood-deep); line-height: 1.2; }
+    .page-head p.sub { max-width: 480px; margin: 0.8rem auto 0; color: var(--text-mid); font-weight: 300; line-height: 1.7; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto 0; border-radius: 2px; }
 
-    /* CATEGORÍAS */
-    #categorias { background: var(--cream2); padding: 4rem 2rem 5rem; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); color: var(--wood-deep); text-align: center; line-height: 1.2; }
-    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.8rem auto 2.5rem; border-radius: 2px; }
-    .cat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
-    .cat-card { position: relative; border-radius: 20px; overflow: hidden; isolation: isolate; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; display: block; background: var(--wood-deep); }
-    .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
-    .cat-card .img-wrap { display: block; width: 100%; height: 280px; overflow: hidden; }
-    .cat-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .cat-card:hover .img-wrap img { transform: scale(1.07); }
-    .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.5rem 1.2rem; background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%); color: #fff; }
-    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
-    .cat-arrow, .chip { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: #fff; text-decoration: none; backdrop-filter: blur(4px); transition: background 0.25s; }
-    .cat-card:hover .cat-arrow, .chip:hover { background: var(--mint-dark); }
-    .cat-grid .cat-card { grid-column: span 2; }
-    .cat-grid .cat-card:last-child:nth-child(3n+1) { grid-column: 3 / span 2; }
-    .cat-grid .cat-card:nth-last-child(2):nth-child(3n+1) { grid-column: 2 / span 2; }
-    .cat-grid .cat-card:last-child:nth-child(3n+2) { grid-column: 4 / span 2; }
-    .cat-card > .cat-arrow { position: absolute; top: 1rem; right: 1rem; z-index: 2; background: rgba(90,58,26,0.6); }
-    .cat-info h3:last-child { margin-bottom: 0; }
-    .cat-card .sub-badge { position: absolute; top: 1rem; left: 1rem; z-index: 2; background: var(--mint-dark); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px; }
-    .cat-card.soon-card { cursor: default; }
-    .cat-card.soon-card:hover { transform: none; box-shadow: 0 4px 20px var(--shadow); }
-    .cat-card.soon-card:hover .img-wrap img { transform: none; }
+    #pack { background: var(--cream2); padding: 3rem 2rem 4rem; }
+    .pack-wrap { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; align-items: start; }
+    .pcards { display: grid; gap: 1rem; }
+    .pcard { background: #fff; border-radius: 18px; box-shadow: 0 4px 20px var(--shadow); border: 2px solid transparent; transition: border-color 0.2s; overflow: hidden; }
+    .pcard.activo { border-color: var(--mint-dark); }
+    .phead { display: flex; gap: 1rem; align-items: center; padding: 1rem; }
+    .phead img { width: 110px; height: 84px; object-fit: cover; border-radius: 12px; flex-shrink: 0; background: var(--wood-deep); }
+    .phead h2 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); line-height: 1.25; }
+    .phead .pp { font-weight: 700; color: var(--mint-dark); font-size: 0.85rem; margin-top: 0.2rem; }
+    .ptoggle { margin-left: auto; flex-shrink: 0; padding: 0.55rem 1.1rem; border: 2px solid var(--wood-dark); border-radius: 30px; background: transparent; color: var(--wood-dark); font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.25s; }
+    .ptoggle:hover { background: var(--wood-light); }
+    .pcard.activo .ptoggle { background: var(--mint-dark); border-color: var(--mint-dark); color: #fff; }
+    .pcampos { display: none; padding: 0 1rem 1.2rem; }
+    .pcard.activo .pcampos { display: block; }
+    .field { margin-top: 0.8rem; }
+    .field label { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.4rem; }
+    .field select, .field input { width: 100%; padding: 0.7rem 1rem; border: 1.5px solid var(--wood-light); border-radius: 12px; background: var(--cream); font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text); }
+    .field select:focus, .field input:focus { outline: none; border-color: var(--mint-dark); }
+    .field input::placeholder { color: #a8957c; opacity: 1; }
+    .field-note { font-size: 0.75rem; color: var(--text-mid); margin-top: 0.3rem; font-weight: 300; }
+    .resumen { position: sticky; top: 90px; background: #fff; border-radius: 18px; padding: 1.4rem; box-shadow: 0 4px 20px var(--shadow); }
+    .resumen h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--wood-deep); margin-bottom: 0.8rem; }
+    .rline { display: flex; justify-content: space-between; gap: 0.8rem; font-size: 0.85rem; color: var(--text-mid); padding: 0.25rem 0; }
+    .rline.desc { color: var(--mint-dark); font-weight: 700; }
+    .rline.rtotal { font-size: 1.05rem; font-weight: 700; color: var(--wood-deep); border-top: 1px solid var(--wood-light); margin-top: 0.4rem; padding-top: 0.6rem; }
+    .vacio { font-size: 0.85rem; color: var(--text-mid); font-weight: 300; }
+    .aviso { font-size: 0.8rem; color: var(--text-mid); background: var(--mint-light); border-radius: 10px; padding: 0.6rem 0.8rem; margin: 0.9rem 0; line-height: 1.5; }
+    .msg { font-size: 0.8rem; color: #a0412d; min-height: 1.1em; margin-bottom: 0.5rem; }
+    .btn-primary { display: block; width: 100%; padding: 0.9rem 1.5rem; background: var(--wood-dark); color: #fff; border: none; border-radius: 40px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(139,94,60,0.35); }
+    .btn-primary:hover { background: var(--mint-dark); transform: translateY(-2px); }
 
-    /* FOOTER */
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2rem 2.5rem 1.5rem; font-size: 0.78rem; text-align: center; }
     footer a { color: rgba(253,248,240,0.6); text-decoration: none; }
     footer a:hover { color: var(--mint); }
@@ -70,28 +72,13 @@
 
     /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
 
-    .story-banner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; max-width: 1100px; margin: 2.5rem auto 0; background: var(--mint-light); border-radius: 20px; padding: 1.8rem 2.2rem; text-decoration: none; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
-    .story-banner:hover { transform: translateY(-4px); box-shadow: 0 14px 36px var(--shadow); }
-    .story-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--wood-deep); }
-    .story-banner p { color: var(--text-mid); font-weight: 300; margin-top: 0.2rem; }
-    .story-btn { background: var(--mint-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; transition: background 0.25s; }
-    .story-banner:hover .story-btn { background: var(--wood-dark); }
-    @media (max-width: 900px) {
-      .cat-grid { grid-template-columns: repeat(2, 1fr); }
-      .cat-grid .cat-card,
-      .cat-grid .cat-card:last-child:nth-child(3n+1),
-      .cat-grid .cat-card:nth-last-child(2):nth-child(3n+1),
-      .cat-grid .cat-card:last-child:nth-child(3n+2) { grid-column: auto; }
-      .cat-grid .cat-card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - 0.6rem); justify-self: center; }
-    }
+    @media (max-width: 800px) { .pack-wrap { grid-template-columns: 1fr; } .resumen { position: static; } }
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
       .nav-title { font-size: 0.95rem; }
-      #categorias { padding: 3rem 1rem 4rem; }
-      .cat-grid { grid-template-columns: 1fr; }
-      .cat-grid .cat-card:last-child:nth-child(odd) { grid-column: auto; width: auto; justify-self: stretch; }
-      .cat-card .img-wrap { height: 260px; }
-      .story-banner { flex-direction: column; align-items: flex-start; padding: 1.4rem; }
+      #pack { padding: 2.5rem 1rem 3.5rem; }
+      .phead { flex-wrap: wrap; }
+      .ptoggle { margin-left: 0; width: 100%; }
     }
   </style>
 </head>
@@ -102,88 +89,24 @@
   <button type="button" class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">🛒 Carrito <span class="cart-badge" style="display:none">0</span></button>
 </nav>
 
-<section id="hero">
-  <img src="images/logo-esencia-transparente.webp" alt="Esencia de Monte y Tradición · Mamemi Madera" width="900" height="900">
-  <p>Piezas personalizadas pensadas para quienes llevan el monte y la tradición en el corazón.</p>
-</section>
-
-<section id="categorias">
-  <h2 class="section-title">¿Qué estás buscando?</h2>
+<header class="page-head">
+  <a href="esencia-de-monte-y-tradicion.html" class="back">← Volver a la página principal</a>
+  <h1 class="section-title">Packs para regalar</h1>
+  <p class="sub" id="pack-regla">Elige las piezas de tu pack y personalízalas. Con descuento al reunir varias.</p>
   <div class="divider"></div>
-  <div class="cat-grid">
+</header>
 
-    <a href="esencia-packs.html" class="cat-card">
-      <span class="img-wrap"><img src="images/esencia-packs.jpg" alt="Packs para regalar" onerror="this.style.display='none'"></span>
-      <span class="cat-arrow">Ver más →</span>
-      <div class="cat-info">
-        <h3>Packs para regalar</h3>
-      </div>
-    </a>
-
-    <a href="esencia-tablas.html" class="cat-card">
-      <span class="img-wrap"><img src="images/esencia-tablas.jpg" alt="Tablas de madera" onerror="this.style.display='none'"></span>
-      <span class="cat-arrow">Ver más →</span>
-      <div class="cat-info">
-        <h3>Tablas de madera</h3>
-      </div>
-    </a>
-
-    <a href="esencia-abrebotellas.html" class="cat-card">
-      <span class="img-wrap"><img src="images/esencia-abrebotellas.jpg" alt="Abrebotellas de madera" onerror="this.style.display='none'"></span>
-      <span class="cat-arrow">Ver más →</span>
-      <div class="cat-info">
-        <h3>Abrebotellas de madera</h3>
-      </div>
-    </a>
-
-    <a href="esencia-llaveros.html" class="cat-card">
-      <span class="img-wrap"><img src="images/esencia-llaveros.jpg" alt="Llaveros" onerror="this.style.display='none'"></span>
-      <span class="cat-arrow">Ver más →</span>
-      <div class="cat-info">
-        <h3>Llaveros</h3>
-      </div>
-    </a>
-
-    <a href="esencia-vasos-termicos.html" class="cat-card">
-      <span class="img-wrap"><img src="images/esencia-vasos.jpg" alt="Vasos térmicos" onerror="this.style.display='none'"></span>
-      <span class="cat-arrow">Ver más →</span>
-      <div class="cat-info">
-        <h3>Vasos térmicos</h3>
-      </div>
-    </a>
-
-    <a href="esencia-chapas.html" class="cat-card">
-      <span class="img-wrap"><img src="images/esencia-chapas.jpg" alt="Chapas para perros" onerror="this.style.display='none'"></span>
-      <span class="cat-arrow">Ver más →</span>
-      <div class="cat-info">
-        <h3>Chapas para perros</h3>
-      </div>
-    </a>
-
-    <a href="esencia-lapiz.html" class="cat-card">
-      <span class="img-wrap"><img src="images/esencia-lapiz.jpg" alt="Lápiz de madera" onerror="this.style.display='none'"></span>
-      <span class="cat-arrow">Ver más →</span>
-      <div class="cat-info">
-        <h3>Lápiz de madera</h3>
-      </div>
-    </a>
-
-    <div class="cat-card soon-card">
-      <span class="sub-badge">Próximamente</span>
-      <span class="img-wrap"><img src="images/esencia-3d.jpg" alt="Representación de tu perro en 3D" onerror="this.style.display='none'"></span>
-      <div class="cat-info">
-        <h3>Representación de tu perro en 3D</h3>
-      </div>
-    </div>
-
+<section id="pack">
+  <div class="pack-wrap">
+    <div class="pcards" id="pcards"></div>
+    <aside class="resumen">
+      <h3>Tu pack</h3>
+      <div id="rdetalle"></div>
+      <p class="aviso" id="raviso"></p>
+      <p class="msg" id="msg" role="alert"></p>
+      <button type="button" class="btn-primary" id="btn-pack">Añadir pack al carrito</button>
+    </aside>
   </div>
-  <a href="historias-con-raices.html" class="story-banner">
-    <div>
-      <h2>Historias con raíces</h2>
-      <p>Novedades y fotos de nuestros clientes</p>
-    </div>
-    <span class="story-btn">Leer →</span>
-  </a>
 </section>
 
 <footer>
@@ -199,7 +122,169 @@
 </footer>
 
 <!-- >>> PEGAR AQUÍ el bloque HTML <div id="cookie-banner"> ... </div> del index <<< -->
-<!-- >>> PEGAR AQUÍ el <script> de consentimiento de cookies del index <<< -->
+<!-- >>> PEGAR AQUÍ el script de consentimiento de cookies del index <<< -->
+
 <script src="carrito.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function cfg() { return window.PACK_CONFIG || { minPieces: 3, discount: 0.10 }; }
+  function telValido(v) { return /^\+?\d{9,15}$/.test(v.replace(/[\s.\-]/g, '')); }
+  var esRaza = function (v) { return v.opcion === 'raza'; };
+
+  // Piezas disponibles: precio base, campos de personalización y opciones que viajan al carrito
+  var PRODUCTOS = [
+    { id: 'tabla', nombre: 'Tabla de cocina · Ciervo', img: 'images/esencia-tablas.jpg', base: 28,
+      campos: [
+        { k: 'opcion', tipo: 'select', label: 'Elige una opción', opts: [['sin', 'Tal cual', 0], ['ded', 'Con dedicatoria', 5]] },
+        { k: 'texto', tipo: 'text', label: 'Tu dedicatoria', ph: 'Ej.: Felicidades papá', max: 60, req: 1, si: function (v) { return v.opcion === 'ded'; } }],
+      opciones: function (v) { return v.opcion === 'ded' ? { 'Dedicatoria': v.texto } : null; } },
+    { id: 'vaso', nombre: 'Vaso térmico · Ciervo', img: 'images/esencia-vasos.jpg', base: 28,
+      campos: [
+        { k: 'opcion', tipo: 'select', label: 'Elige una opción', opts: [['sin', 'Tal cual', 0], ['ded', 'Con nombre o dedicatoria', 5]] },
+        { k: 'texto', tipo: 'text', label: 'Tu nombre o dedicatoria', ph: 'Ej.: Mi compañero de monte', max: 40, req: 1, si: function (v) { return v.opcion === 'ded'; } }],
+      opciones: function (v) { return v.opcion === 'ded' ? { 'Dedicatoria': v.texto } : null; } },
+    { id: 'abrepared', nombre: 'Abrebotellas de pared', img: 'images/esencia-abrebotellas-pared.jpg', base: 20,
+      campos: [
+        { k: 'opcion', tipo: 'select', label: 'Elige una opción', opts: [['sin', 'Tal cual, como en la foto', 0], ['pers', 'Con grabado personalizado', 5]] },
+        { k: 'animal', tipo: 'text', label: 'Animal o raza (cabeza)', ph: 'Ej.: Perro de raza Andaluz', max: 50, maxPal: 5, note: 'Hasta 5 palabras. Grabo la cabeza de forma genérica.', si: function (v) { return v.opcion === 'pers'; } },
+        { k: 'texto', tipo: 'text', label: 'Nombre o dedicatoria', ph: 'Ej.: Felicidades papá', max: 60, note: 'Rellena uno o los dos campos.', si: function (v) { return v.opcion === 'pers'; } }],
+      valida: function (v) { return v.opcion === 'pers' && !v.animal && !v.texto ? 'indica qué quieres grabar (un animal o raza, un nombre o una dedicatoria).' : ''; },
+      opciones: function (v) { if (v.opcion !== 'pers') return null; var o = {}; if (v.animal) o['Animal o raza'] = v.animal; if (v.texto) o['Dedicatoria'] = v.texto; return o; } },
+    { id: 'abremano', nombre: 'Abrebotellas de mano', img: 'images/esencia-abrebotellas-mano.jpg', base: 8,
+      campos: [
+        { k: 'texto', tipo: 'text', label: 'Frase corta o nombre', ph: 'Ej.: Porque nos lo hemos ganado', max: 40, req: 1, note: 'Grabado incluido en el precio.' }],
+      opciones: function (v) { return { 'Dedicatoria': v.texto }; } },
+    { id: 'llavero', nombre: 'Llavero de madera', img: 'images/esencia-llavero-madera.jpg', base: 10,
+      campos: [
+        { k: 'animal', tipo: 'text', label: 'Animal o raza que quieres grabar', ph: 'Ej.: Perro de raza Andaluz', max: 50, req: 1, maxPal: 5, note: 'Hasta 5 palabras. Grabo la cabeza de forma genérica.' },
+        { k: 'opcion', tipo: 'select', label: '¿Quieres añadir un nombre?', opts: [['sin', 'Sin nombre', 0], ['nombre', 'Con nombre', 3]] },
+        { k: 'nombre', tipo: 'text', label: 'Tu nombre', ph: 'Ej.: Pecas', max: 14, req: 1, una: 1, note: 'Una sola palabra, máximo 14 letras.', si: function (v) { return v.opcion === 'nombre'; } }],
+      opciones: function (v) { var o = { 'Animal o raza': v.animal }; if (v.opcion === 'nombre') o['Nombre'] = v.nombre; return o; } },
+    { id: 'chapa', nombre: 'Chapa para perros', img: 'images/esencia-chapas.jpg', base: 10,
+      campos: [
+        { k: 'opcion', tipo: 'select', label: 'Elige una opción', opts: [['basica', 'Nombre + 1 teléfono', 0], ['raza', 'Nombre + dibujo de la raza + hasta 2 teléfonos', 5]] },
+        { k: 'nombre', tipo: 'text', label: 'Nombre de tu perro', ph: 'Ej.: Cloe', max: 14, req: 1, una: 1, note: 'Una sola palabra, máximo 14 letras.' },
+        { k: 'raza', tipo: 'text', label: 'Raza (o la más parecida)', ph: 'Ej.: Labrador', max: 40, req: 1, si: esRaza },
+        { k: 'tel1', tipo: 'tel', label: 'Teléfono', ph: 'Ej.: 600 123 456', max: 16, req: 1 },
+        { k: 'tel2', tipo: 'tel', label: 'Segundo teléfono (opcional)', ph: 'Ej.: 600 654 321', max: 16, si: esRaza }],
+      opciones: function (v) { var o = { 'Nombre': v.nombre }; if (esRaza(v)) o['Raza'] = v.raza; o['Teléfono 1'] = v.tel1; if (esRaza(v) && v.tel2) o['Teléfono 2'] = v.tel2; return o; } }
+  ];
+
+  var activos = {};
+  function campoHtml(p, c) {
+    var id = 'f-' + p.id + '-' + c.k;
+    var h = '<div class="field" data-fk="' + c.k + '"><label for="' + id + '">' + c.label + '</label>';
+    if (c.tipo === 'select') {
+      h += '<select id="' + id + '" data-k="' + c.k + '">' + c.opts.map(function (o, i) {
+        return '<option value="' + o[0] + '">' + o[1] + ' (' + (i ? '+' + o[2] : p.base) + ' €)</option>';
+      }).join('') + '</select>';
+    } else {
+      h += '<input type="' + c.tipo + '" id="' + id + '" data-k="' + c.k + '" maxlength="' + c.max + '" placeholder="' + c.ph + '" autocomplete="off"' + (c.tipo === 'tel' ? ' inputmode="tel"' : '') + '>';
+    }
+    return h + (c.note ? '<p class="field-note">' + c.note + '</p>' : '') + '</div>';
+  }
+  function valores(p) {
+    var v = {};
+    document.querySelectorAll('#p-' + p.id + ' [data-k]').forEach(function (el) { v[el.dataset.k] = el.value.trim(); });
+    return v;
+  }
+  function precio(p, v) {
+    var extra = 0;
+    p.campos.forEach(function (c) {
+      if (c.tipo === 'select') c.opts.forEach(function (o) { if (o[0] === v[c.k]) extra = extra + o[2]; });
+    });
+    return p.base + extra;
+  }
+  function mostrarCampos(p) {
+    var v = valores(p);
+    p.campos.forEach(function (c) {
+      var f = document.querySelector('#p-' + p.id + ' [data-fk="' + c.k + '"]');
+      if (f) f.style.display = (!c.si || c.si(v)) ? '' : 'none';
+    });
+  }
+
+  function actualizar() {
+    var lineas = [], suma = 0;
+    PRODUCTOS.forEach(function (p) {
+      if (!activos[p.id]) return;
+      var pr = precio(p, valores(p));
+      lineas.push({ nombre: p.nombre, precio: pr }); suma += pr;
+    });
+    var c = cfg(), pct = Math.round(c.discount * 100);
+    var desc = lineas.length >= c.minPieces ? Math.round(suma * c.discount * 100) / 100 : 0;
+    var h = '';
+    if (!lineas.length) {
+      h = '<p class="vacio">Aún no has elegido ninguna pieza.</p>';
+    } else {
+      lineas.forEach(function (l) { h += '<div class="rline"><span>' + l.nombre + '</span><span>' + l.precio.toFixed(2) + ' €</span></div>'; });
+      if (desc > 0) h += '<div class="rline desc"><span>Descuento pack (−' + pct + '%)</span><span>−' + desc.toFixed(2) + ' €</span></div>';
+      h += '<div class="rline rtotal"><span>Total pack</span><span>' + (suma - desc).toFixed(2) + ' €</span></div>';
+    }
+    $('rdetalle').innerHTML = h;
+    var faltan = c.minPieces - lineas.length;
+    $('raviso').textContent = faltan <= 0
+      ? '¡Descuento del ' + pct + '% aplicado!'
+      : 'Con ' + c.minPieces + ' piezas o más te llevas un ' + pct + '% de descuento' + (lineas.length ? ' (te falta' + (faltan > 1 ? 'n ' : ' ') + faltan + ').' : '.');
+    $('msg').textContent = '';
+  }
+
+  var cont = $('pcards');
+  PRODUCTOS.forEach(function (p) {
+    var card = document.createElement('div');
+    card.className = 'pcard'; card.id = 'p-' + p.id;
+    card.innerHTML = '<div class="phead"><img src="' + p.img + '" alt="' + p.nombre + '" loading="lazy"><div><h2>' + p.nombre + '</h2><p class="pp">Desde ' + p.base + ' €</p></div>' +
+      '<button type="button" class="ptoggle">Añadir al pack</button></div><div class="pcampos">' + p.campos.map(function (c) { return campoHtml(p, c); }).join('') + '</div>';
+    cont.appendChild(card);
+    mostrarCampos(p);
+    card.querySelector('.ptoggle').addEventListener('click', function () {
+      activos[p.id] = !activos[p.id];
+      card.classList.toggle('activo', !!activos[p.id]);
+      this.textContent = activos[p.id] ? 'Quitar del pack' : 'Añadir al pack';
+      actualizar();
+    });
+    card.addEventListener('input', function (e) {
+      var el = e.target, c = p.campos.filter(function (x) { return x.k === el.dataset.k; })[0];
+      if (!c) return;
+      if (c.una) el.value = el.value.replace(/\s/g, '');
+      if (c.maxPal) { var w = el.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ').split(' '); el.value = w.slice(0, c.maxPal).join(' '); }
+      actualizar();
+    });
+    card.addEventListener('change', function () { mostrarCampos(p); actualizar(); });
+  });
+
+  function error(texto) { $('msg').textContent = texto; }
+  $('btn-pack').addEventListener('click', function () {
+    var elegidas = PRODUCTOS.filter(function (p) { return activos[p.id]; });
+    if (!elegidas.length) return error('Elige al menos una pieza para tu pack.');
+    for (var i = 0; i < elegidas.length; i++) {
+      var p = elegidas[i], v = valores(p);
+      for (var j = 0; j < p.campos.length; j++) {
+        var c = p.campos[j];
+        if (c.tipo === 'select' || (c.si && !c.si(v))) continue;
+        var val = v[c.k] || '';
+        if (c.req && !val) return error(p.nombre + ': completa «' + c.label + '».');
+        if (c.tipo === 'tel' && val && !telValido(val)) return error(p.nombre + ': el teléfono no parece válido.');
+      }
+      if (p.valida) { var m = p.valida(v); if (m) return error(p.nombre + ': ' + m); }
+    }
+    if (typeof window.addToCart !== 'function') return error('No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.');
+    elegidas.forEach(function (p) {
+      var v = valores(p), prod = {
+        id: 'pack-esencia-' + p.id + '-' + (v.opcion || 'base'),
+        name: 'Pack Esencia · ' + p.nombre,
+        price: precio(p, v), qty: 1, pack: true
+      };
+      var o = p.opciones(v); if (o) prod.options = o;
+      window.addToCart(prod);
+    });
+    if (typeof window.toggleCart === 'function') window.toggleCart();
+  });
+
+  var c0 = cfg();
+  $('pack-regla').textContent = 'Elige las piezas de tu pack y personalízalas. Con ' + c0.minPieces + ' piezas o más, ' + Math.round(c0.discount * 100) + '% de descuento.';
+  actualizar();
+})();
+</script>
 </body>
 </html>
