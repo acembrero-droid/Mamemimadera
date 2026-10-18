@@ -131,6 +131,17 @@
     return '3-5 días laborables en piezas sin personalizar';
   }
 
+  // Convierte los símbolos que el navegador entendería como código (& < > " ') en texto seguro.
+  // Se usa SOLO al pintar en pantalla; el resumen del pedido (email) es texto plano y no se toca.
+  function esc(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function updateCartBadge() {
     const count = cartCount();
     document.querySelectorAll('.cart-badge').forEach(b => {
@@ -458,11 +469,11 @@
 
     let itemsHtml = '';
     cart.forEach((item, i) => {
-      const optStr = item.options ? Object.entries(item.options).map(([k,v]) => `<span>${k}: ${v}</span>`).join('') : '';
+      const optStr = item.options ? Object.entries(item.options).map(([k,v]) => `<span>${esc(k)}: ${esc(v)}</span>`).join('') : '';
       itemsHtml += `
         <div class="cart-item">
           <div class="cart-item-info">
-            <p class="cart-item-name">${item.name}</p>
+            <p class="cart-item-name">${esc(item.name)}</p>
             ${optStr ? `<div class="cart-item-opts">${optStr}</div>` : ''}
             <p class="cart-item-price">${item.price.toFixed(2)} € / u</p>
           </div>
@@ -538,7 +549,7 @@
 
   function renderStep2Address(body) {
     const saved = JSON.parse(localStorage.getItem('mamemi_address') || '{}');
-    const v = (key, placeholder) => `value="${saved[key] || ''}" placeholder="${placeholder}"`;
+    const v = (key, placeholder) => `value="${esc(saved[key])}" placeholder="${placeholder}"`;
     const isCorreos = deliveryMode === 'correos';
 
     body.innerHTML = `
@@ -577,7 +588,7 @@
 
   function renderStep2Contact(body) {
     const saved = JSON.parse(localStorage.getItem('mamemi_contact') || '{}');
-    const v = (key, placeholder) => `value="${saved[key] || ''}" placeholder="${placeholder}"`;
+    const v = (key, placeholder) => `value="${esc(saved[key])}" placeholder="${placeholder}"`;
 
     body.innerHTML = `
       <div class="cart-step-header">
@@ -641,8 +652,8 @@
       : {};
 
     let itemsSummary = cart.map(item => {
-      const opts = item.options ? Object.entries(item.options).map(([k,v]) => `${k}: ${v}`).join(' · ') : '';
-      return `<div class="summary-item"><span>${item.qty}x ${item.name}${opts ? '<br><small style="color:#8b5e3c;">' + opts + '</small>' : ''}</span><span>${(item.price * item.qty).toFixed(2)} €</span></div>`;
+      const opts = item.options ? Object.entries(item.options).map(([k,v]) => `${esc(k)}: ${esc(v)}`).join(' · ') : '';
+      return `<div class="summary-item"><span>${item.qty}x ${esc(item.name)}${opts ? '<br><small style="color:#8b5e3c;">' + opts + '</small>' : ''}</span><span>${(item.price * item.qty).toFixed(2)} €</span></div>`;
     }).join('');
 
     let addrSummary = '';
@@ -651,14 +662,14 @@
       addrSummary = `
         <div class="summary-block">
           <p class="summary-label">${heading} <button class="edit-link" onclick="goToStep(2)">Editar</button></p>
-          <p>${addr.nombre}<br>${addr.calle} ${addr.numero}${addr.bloque ? ', Bl. ' + addr.bloque : ''}${addr.puerta ? ', Pta. ' + addr.puerta : ''}<br>${addr.cp} ${addr.poblacion}, ${addr.ciudad}<br>Tel: ${addr.telefono}${addr.email ? '<br>' + addr.email : ''}${addr.otros ? '<br><em>' + addr.otros + '</em>' : ''}</p>
+          <p>${esc(addr.nombre)}<br>${esc(addr.calle)} ${esc(addr.numero)}${addr.bloque ? ', Bl. ' + esc(addr.bloque) : ''}${addr.puerta ? ', Pta. ' + esc(addr.puerta) : ''}<br>${esc(addr.cp)} ${esc(addr.poblacion)}, ${esc(addr.ciudad)}<br>Tel: ${esc(addr.telefono)}${addr.email ? '<br>' + esc(addr.email) : ''}${addr.otros ? '<br><em>' + esc(addr.otros) + '</em>' : ''}</p>
         </div>`;
     } else if (deliveryMode === 'tienda') {
       addrSummary = `
         <div class="summary-block">
           <p class="summary-label">🏪 Recogida en tienda <button class="edit-link" onclick="goToStep(2)">Editar</button></p>
           <p><a href="https://maps.app.goo.gl/W1SzAuzFyPJjTitc8" target="_blank" style="color:#6a9e8a;font-weight:700;">Estudi | Caldes d'Estrac (Barcelona)</a></p>
-          <p style="margin-top:0.4rem;">${contact.nombre || ''} ${contact.apellidos || ''}<br>Tel: ${contact.telefono || ''}${contact.email ? '<br>' + contact.email : ''}</p>
+          <p style="margin-top:0.4rem;">${esc(contact.nombre)} ${esc(contact.apellidos)}<br>Tel: ${esc(contact.telefono)}${contact.email ? '<br>' + esc(contact.email) : ''}</p>
         </div>`;
     }
 
