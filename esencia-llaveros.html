@@ -145,13 +145,19 @@
     </div>
     <div class="product-info">
       <h2>Llavero de madera</h2>
-      <p class="product-desc">Para que tu fiel compañero te acompañe siempre. Llavero redondo de madera con grabado láser y borla. Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
+      <p class="product-desc">Para que tu fiel compañero te acompañe siempre. Llavero redondo de madera con borla y la cabeza del animal o raza que elijas grabada al láser, y si quieres, su nombre debajo. Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
       <div class="price"><span id="precio">10 €</span> <small>IVA incluido</small></div>
 
       <div class="field">
-        <label for="opcion">Elige una opción</label>
+        <label for="animal">Animal o raza que quieres grabar</label>
+        <input type="text" id="animal" maxlength="50" placeholder="Ej.: Perro de raza Andaluz" autocomplete="off">
+        <p class="field-note">Hasta 5 palabras. Grabo la cabeza de forma genérica, según lo que me indiques.</p>
+      </div>
+
+      <div class="field">
+        <label for="opcion">¿Quieres añadir un nombre?</label>
         <select id="opcion">
-          <option value="sin">Tal cual (10 €)</option>
+          <option value="sin">Sin nombre (10 €)</option>
           <option value="dedicatoria">Con nombre (+3 €)</option>
         </select>
       </div>
@@ -159,14 +165,14 @@
       <div class="field" id="dedicatoria-field">
         <label for="dedicatoria">Tu nombre</label>
         <input type="text" id="dedicatoria" maxlength="14" placeholder="Ej.: Pecas" autocomplete="off">
-        <p class="field-note">Una sola palabra, máximo 14 letras. Te confirmaré el diseño antes de grabarlo.</p>
+        <p class="field-note">Una sola palabra, máximo 14 letras. Va grabado debajo de la cabeza. Te confirmaré el diseño antes de grabarlo.</p>
       </div>
 
       <p class="msg" id="msg" role="alert"></p>
       <button type="button" class="btn-primary" id="btn-add">Añadir al carrito</button>
 
       <p class="teaser">¿Sabías que puedo transformar tu fotografía favorita en un grabado único sobre madera? <a href="#exclusiva">Descubre cómo</a></p>
-      <p class="iva">Plazo de envío estimado: 3-5 días laborables (7-10 con personalización)</p>
+      <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
     </div>
   </article>
 </section>
@@ -222,14 +228,12 @@
 
 <script>
 (function () {
-  var PRECIO_BASE = 10, EXTRA_DEDICATORIA = 3;
-  var sel = document.getElementById('opcion');
-  var campo = document.getElementById('dedicatoria-field');
-  var texto = document.getElementById('dedicatoria');
-  var precio = document.getElementById('precio');
-  var msg = document.getElementById('msg');
+  var PRECIO_BASE = 10, EXTRA_NOMBRE = 3;
+  var $ = function (id) { return document.getElementById(id); };
+  var sel = $('opcion'), campo = $('dedicatoria-field'), texto = $('dedicatoria'), animal = $('animal');
+  var precio = $('precio'), msg = $('msg');
 
-  function total() { return PRECIO_BASE + (sel.value === 'dedicatoria' ? EXTRA_DEDICATORIA : 0); }
+  function total() { return PRECIO_BASE + (sel.value === 'dedicatoria' ? EXTRA_NOMBRE : 0); }
   function actualizar() {
     campo.classList.toggle('visible', sel.value === 'dedicatoria');
     precio.textContent = total() + ' €';
@@ -237,29 +241,37 @@
   }
   sel.addEventListener('change', actualizar);
   texto.addEventListener('input', function () { texto.value = texto.value.replace(/\s/g, ''); });
+  animal.addEventListener('input', function () {
+    var v = animal.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ');
+    var palabras = v.split(' ');
+    if (palabras.length > 5) v = palabras.slice(0, 5).join(' ');
+    animal.value = v;
+  });
 
-  document.getElementById('btn-add').addEventListener('click', function () {
-    var conDedicatoria = sel.value === 'dedicatoria';
-    var dedic = texto.value.trim();
-    if (conDedicatoria && !dedic) {
-      msg.textContent = 'Escribe el nombre que quieres grabar (una sola palabra).';
-      texto.focus();
-      return;
-    }
+  function error(texto, campo) { msg.textContent = texto; campo.focus(); }
+
+  $('btn-add').addEventListener('click', function () {
+    var conNombre = sel.value === 'dedicatoria';
+    var a = animal.value.trim().replace(/\s+/g, ' ');
+    var n = texto.value.trim();
+    if (!a) return error('Escribe el animal o la raza que quieres grabar.', animal);
+    if (conNombre && !n) return error('Escribe el nombre que quieres grabar (una sola palabra).', texto);
     if (typeof window.addToCart !== 'function') {
       msg.textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.';
       return;
     }
-    var producto = {
-      id: 'esencia-llavero-madera' + (conDedicatoria ? '-nombre' : ''),
+    var options = { 'Animal o raza': a };
+    if (conNombre) options['Nombre'] = n;
+    window.addToCart({
+      id: 'esencia-llavero-madera' + (conNombre ? '-nombre' : ''),
       name: 'Esencia · Llavero de madera',
       price: total(),
-      qty: 1
-    };
-    if (conDedicatoria) producto.options = { 'Nombre': dedic };
-    window.addToCart(producto);
+      qty: 1,
+      options: options
+    });
     msg.textContent = '';
   });
+  actualizar();
 })();
 </script>
 <script>
