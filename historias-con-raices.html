@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Historias con raíces · Esencia de Monte y Tradición</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="Historias con raíces · Esencia de Monte y Tradición">
+  <meta property="og:image" content="https://mamemimadera.es/images/esencia-og.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="images/favicon-esencia.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #b7c6a6; --mint-light: #e3e9d5;
+      --mint-dark: #7a9366; --cream: #f6eedd; --cream2: #eee3cb;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(246,238,221,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--wood-deep); text-decoration: none; }
+    nav .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
+    nav .cart-btn:hover { background: #627a50; }
+
+    .page-head { background: var(--mint-light); padding: 100px 2rem 2.5rem; text-align: center; }
+    .back { display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mint-dark); text-decoration: none; margin-bottom: 1rem; }
+    .back:hover { color: var(--wood-dark); }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); color: var(--wood-deep); line-height: 1.2; }
+    .page-head p.sub { max-width: 480px; margin: 0.8rem auto 0; color: var(--text-mid); font-weight: 300; line-height: 1.7; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto 0; border-radius: 2px; }
+
+    #historias { background: var(--cream2); padding: 3.5rem 2rem 4.5rem; }
+    .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; max-width: 1100px; margin: 0 auto; align-items: start; }
+    .post { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+    .post:hover { transform: translateY(-4px); box-shadow: 0 12px 30px var(--shadow); }
+    .post img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--wood-deep); cursor: zoom-in; }
+    .post-body { padding: 1.2rem 1.4rem 1.5rem; }
+    .post-meta { font-size: 0.75rem; color: var(--text-mid); font-weight: 600; margin-bottom: 0.5rem; }
+    .tag { display: inline-block; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.65rem; border-radius: 20px; margin-right: 0.5rem; }
+    .post h2 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--wood-deep); line-height: 1.3; margin-bottom: 0.5rem; }
+    .post p.txt { font-size: 0.9rem; color: var(--text-mid); font-weight: 300; line-height: 1.7; }
+    .post-link { display: inline-block; margin-top: 0.8rem; font-size: 0.8rem; font-weight: 700; color: var(--mint-dark); text-decoration: none; }
+    .post-link:hover { color: var(--wood-dark); }
+
+    #lightbox { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; background: rgba(40,25,10,0.93); padding: 1rem; cursor: zoom-out; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; touch-action: pinch-zoom; cursor: default; }
+    #lightbox-close { position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px; border: none; border-radius: 50%; background: rgba(255,255,255,0.15); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; }
+    #lightbox-close:hover { background: var(--mint-dark); }
+
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2rem 2.5rem 1.5rem; font-size: 0.78rem; text-align: center; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; margin-top: 1rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
+
+    @media (max-width: 900px) { .posts { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-title { font-size: 0.95rem; }
+      #historias { padding: 2.5rem 1rem 3.5rem; }
+      .posts { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="esencia-de-monte-y-tradicion.html" class="nav-title">Esencia de Monte y Tradición</a>
+  <button type="button" class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">🛒 Carrito <span class="cart-badge" style="display:none">0</span></button>
+</nav>
+
+<header class="page-head">
+  <a href="esencia-de-monte-y-tradicion.html" class="back">← Volver a la página principal</a>
+  <h1 class="section-title">Historias con raíces</h1>
+  <p class="sub">Novedades, fotos de nuestros clientes y pequeñas historias del taller.</p>
+  <div class="divider"></div>
+</header>
+
+<section id="historias">
+  <!--
+    CÓMO AÑADIR UNA ENTRADA NUEVA: copia este bloque, pégalo el PRIMERO de la lista (lo más reciente arriba)
+    y cambia la foto, la etiqueta (Novedad / Clientes), la fecha, el título y el texto.
+    El enlace del final es opcional: bórralo si no hace falta.
+
+    <article class="post">
+      <img src="images/historias/NOMBRE-DE-LA-FOTO.jpg" alt="Descripción de la foto" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Clientes</span>18 de octubre de 2026</p>
+        <h2>Título de la entrada</h2>
+        <p class="txt">Texto breve.</p>
+        <a class="post-link" href="esencia-tablas.html">Ver producto →</a>
+      </div>
+    </article>
+  -->
+  <div class="posts">
+
+    <article class="post">
+      <img src="images/esencia-chapas.jpg" alt="Chapa de acero inoxidable para perros con dibujo y nombre grabados" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Novedad</span>18 de octubre de 2026</p>
+        <h2>Llegan las chapas para perros</h2>
+        <p class="txt">Chapas de acero inoxidable grabadas por las dos caras, con el nombre de tu perro, hasta dos teléfonos y anilla para la correa.</p>
+        <a class="post-link" href="esencia-chapas.html">Ver chapas →</a>
+      </div>
+    </article>
+
+    <article class="post">
+      <img src="images/esencia-llavero-madera.jpg" alt="Llavero de madera con la cabeza de un perro grabada" loading="lazy">
+      <div class="post-body">
+        <p class="post-meta"><span class="tag">Novedad</span>18 de octubre de 2026</p>
+        <h2>Llaveros con la cabeza de tu perro</h2>
+        <p class="txt">Eliges el animal o la raza y grabo su cabeza en un llavero de madera. Si quieres, con su nombre debajo.</p>
+        <a class="post-link" href="esencia-llaveros.html">Ver llaveros →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button type="button" id="lightbox-close" aria-label="Cerrar">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<footer>
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
+</footer>
+
+<!-- >>> PEGAR AQUÍ el bloque HTML <div id="cookie-banner"> ... </div> del index <<< -->
+<!-- >>> PEGAR AQUÍ el script de consentimiento de cookies del index <<< -->
+
+<script>
+(function () {
+  var box = document.getElementById('lightbox');
+  var big = document.getElementById('lightbox-img');
+  var closeBtn = document.getElementById('lightbox-close');
+  function cerrar() { box.classList.remove('open'); document.body.style.overflow = ''; }
+  document.querySelectorAll('.post img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      big.src = img.src; big.alt = img.alt;
+      box.classList.add('open'); document.body.style.overflow = 'hidden'; closeBtn.focus();
+    });
+  });
+  closeBtn.addEventListener('click', cerrar);
+  box.addEventListener('click', function (e) { if (e.target !== big) cerrar(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('open')) cerrar(); });
+})();
+</script>
+<script src="carrito.js"></script>
+</body>
+</html>
