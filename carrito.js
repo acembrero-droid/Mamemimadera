@@ -124,7 +124,8 @@
 
   function getEstimatedDelivery() {
     const totalQty = cartCount();
-    const hasPersonalizacion = cart.some(item => item.options && item.options['Nombre']);
+    // Se considera personalizado cualquier producto con nombre, dedicatoria o animal/raza a grabar
+    const hasPersonalizacion = cart.some(item => item.options && (item.options['Nombre'] || item.options['Dedicatoria'] || item.options['Animal o raza']));
     if (totalQty > 20) return '15-20 días laborables';
     if (hasPersonalizacion || totalQty > 10) return '7-10 días laborables';
     return '3-5 días laborables en piezas sin personalizar';
