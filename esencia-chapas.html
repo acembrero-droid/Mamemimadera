@@ -71,6 +71,7 @@
     .footer-legal button:hover { color: var(--mint); }
 
     /* Foto ampliable */
+    #foto-producto { transition: opacity 0.2s ease; }
     .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
     .zoom-hint { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(90,58,26,0.65); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.8rem; border-radius: 30px; backdrop-filter: blur(4px); }
     .zoom-btn:hover .zoom-hint { background: var(--mint-dark); }
@@ -132,7 +133,7 @@
   <article class="product" id="chapas">
     <div class="product-img">
       <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto de la chapa">
-        <img id="foto-producto" src="images/esencia-chapas.jpg" alt="Chapa redonda de acero inoxidable con el dibujo de un perro y el nombre Cloe grabados, con anilla para la correa" width="896" height="837">
+        <img id="foto-producto" src="images/esencia-chapas-nombre.jpg" alt="Chapa redonda de acero inoxidable con el nombre Rayo grabado, con anilla en el collar de un perro" width="1062" height="992">
         <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
       </button>
     </div>
@@ -237,12 +238,32 @@
   var sel = $('opcion'), nombre = $('nombre'), raza = $('raza'), tel1 = $('tel1'), tel2 = $('tel2');
   var msg = $('msg'), precio = $('precio');
 
+  // Foto según la opción: solo nombre -> chapa lisa; con dibujo de raza -> chapa con dibujo
+  var FOTOS = {
+    basica: { src: 'images/esencia-chapas-nombre.jpg', w: 1062, h: 992,
+              alt: 'Chapa redonda de acero inoxidable con el nombre Rayo grabado, con anilla en el collar de un perro' },
+    raza:   { src: 'images/esencia-chapas.jpg', w: 896, h: 837,
+              alt: 'Chapa redonda de acero inoxidable con el dibujo de un perro y el nombre Cloe grabados, con anilla para la correa' }
+  };
+  var foto = $('foto-producto');
+  Object.keys(FOTOS).forEach(function (k) { new Image().src = FOTOS[k].src; }); // precarga para que el cambio sea instantáneo
+  function cambiarFoto() {
+    var f = FOTOS[sel.value];
+    if (foto.getAttribute('src') === f.src) return;
+    foto.style.opacity = '0';
+    setTimeout(function () {
+      foto.src = f.src; foto.alt = f.alt; foto.width = f.w; foto.height = f.h;
+      foto.style.opacity = '1';
+    }, 150);
+  }
+
   function actualizar() {
     var conRaza = sel.value === 'raza';
     $('raza-field').classList.toggle('visible', conRaza);
     $('tel2-field').classList.toggle('visible', conRaza);
     precio.textContent = PRECIOS[sel.value] + ' €';
     msg.textContent = '';
+    cambiarFoto();
   }
   sel.addEventListener('change', actualizar);
   nombre.addEventListener('input', function () { nombre.value = nombre.value.replace(/\s/g, ''); });
