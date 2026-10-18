@@ -9,6 +9,11 @@
   const FREE_SHIPPING_THRESHOLD = 60;
   const ENVIOS_INFO_URL = 'envios.html';
 
+  // ── Descuento de packs (productos añadidos con pack: true desde la página de packs) ──
+  const PACK_MIN_PIECES = 3;   // piezas de pack necesarias para aplicar el descuento
+  const PACK_DISCOUNT = 0.10;  // 10 %
+  window.PACK_CONFIG = { minPieces: PACK_MIN_PIECES, discount: PACK_DISCOUNT };
+
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'domicilio';
   if (deliveryMode === 'envio') deliveryMode = 'domicilio'; // migración de un valor antiguo guardado en el navegador
@@ -69,8 +74,23 @@
     saveCart();
   };
 
-  function cartSubtotal() {
+  // Importe bruto, sin descuento
+  function cartGross() {
     return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+  }
+
+  // El descuento se calcula a partir del contenido del carrito: si se quitan piezas del pack, se ajusta solo
+  function cartPackDiscount() {
+    const packItems = cart.filter(i => i.pack);
+    const pieces = packItems.reduce((sum, i) => sum + i.qty, 0);
+    if (pieces < PACK_MIN_PIECES) return 0;
+    const packTotal = packItems.reduce((sum, i) => sum + i.price * i.qty, 0);
+    return Math.round(packTotal * PACK_DISCOUNT * 100) / 100;
+  }
+
+  // Subtotal con el descuento aplicado: es el que se usa para el envío gratis, el total y el pago
+  function cartSubtotal() {
+    return cartGross() - cartPackDiscount();
   }
 
   function cartWeightGrams() {
@@ -301,7 +321,8 @@
     });
     text += `────────────────────────\n`;
     if (deliveryMode === 'tienda') {
-      text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
+      text += `Producto (IVA incluido): ${cartGross().toFixed(2)} €\n`;
+      if (cartPackDiscount() > 0) text += `Descuento pack (-${Math.round(PACK_DISCOUNT * 100)}%): -${cartPackDiscount().toFixed(2)} €\n`;
       text += `Recogida en: Estudi | Caldes d'Estrac (Barcelona)\n`;
       text += `────────────────────────\n`;
       text += `DATOS DE CONTACTO:\n`;
@@ -309,7 +330,8 @@
       text += `Tel: ${customer.telefono}\n`;
       text += `Email: ${customer.email}\n`;
     } else {
-      text += `Producto (IVA incluido): ${subtotal.toFixed(2)} €\n`;
+      text += `Producto (IVA incluido): ${cartGross().toFixed(2)} €\n`;
+      if (cartPackDiscount() > 0) text += `Descuento pack (-${Math.round(PACK_DISCOUNT * 100)}%): -${cartPackDiscount().toFixed(2)} €\n`;
       text += `Peso total del pedido: ${weight} g\n`;
       text += `Envío (${modeLabel}): ${shipping === 0 ? 'GRATIS' : shipping.toFixed(2) + ' €'}\n`;
       text += `────────────────────────\n`;
@@ -525,7 +547,8 @@
       <div class="cart-items-list">${itemsHtml}</div>
       <div class="cart-step-footer">
         <div class="cart-totals">
-          <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
+          <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${cartGross().toFixed(2)} €</span></div>
+          ${cartPackDiscount() > 0 ? `<div class="cart-total-row"><span>Descuento pack (−${Math.round(PACK_DISCOUNT * 100)}%)</span><span>−${cartPackDiscount().toFixed(2)} €</span></div>` : ''}
           ${deliveryMode === 'tienda'
             ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
             : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : getShippingLabel(deliveryMode, region)} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
@@ -683,7 +706,8 @@
       <div class="summary-items">${itemsSummary}</div>
       ${addrSummary}
       <div class="cart-totals" style="padding:0.8rem 1.5rem;border-top:1px dashed #f5e9d6;">
-        <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${subtotal.toFixed(2)} €</span></div>
+        <div class="cart-total-row"><span>Producto (IVA incluido)</span><span>${cartGross().toFixed(2)} €</span></div>
+          ${cartPackDiscount() > 0 ? `<div class="cart-total-row"><span>Descuento pack (−${Math.round(PACK_DISCOUNT * 100)}%)</span><span>−${cartPackDiscount().toFixed(2)} €</span></div>` : ''}
         ${deliveryMode === 'tienda'
           ? `<div class="cart-total-row"><span>Recogida en tienda</span><span>Sin gastos de envío</span></div>`
           : `<div class="cart-total-row"><span>${shipping === 0 ? 'Envío' : getShippingLabel(deliveryMode, region)} <a href="${ENVIOS_INFO_URL}" style="color:#6a9e8a;font-weight:700;text-decoration:none;">ℹ️</a></span><span>${shipping === 0 ? '¡Gratis! 🎉' : shipping.toFixed(2) + ' €'}</span></div>`
