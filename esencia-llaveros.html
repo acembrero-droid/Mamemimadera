@@ -72,9 +72,16 @@
     .soon { max-width: 960px; margin: 0 auto 1.5rem; background: #fff; border-radius: 20px; padding: 1.5rem 2rem; box-shadow: 0 4px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
     .soon h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--wood-deep); }
     .soon-badge { background: var(--mint-dark); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px; }
+    .product + .product, .product + .soon { margin-top: 1.5rem; }
     #tres-en-uno, #cuero, #madera { scroll-margin-top: 90px; }
     #madera { margin-top: 0; }
 
+    .field.tarjeta label.check { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--text); cursor: pointer; margin-bottom: 0; }
+    .field.tarjeta input[type="checkbox"] { width: 18px; height: 18px; padding: 0; accent-color: var(--mint-dark); flex-shrink: 0; }
+    .tarjeta .extra { display: none; }
+    .tarjeta .extra.visible { display: block; }
+    .tarjeta-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; display: block; margin-top: 0.8rem; background: var(--wood-deep); }
+    .tarjeta-pie { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; margin-top: 0.4rem; line-height: 1.5; }
     /* Foto ampliable */
     .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
     .zoom-hint { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(90,58,26,0.65); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.8rem; border-radius: 30px; backdrop-filter: blur(4px); }
@@ -134,8 +141,47 @@
 </header>
 
 <section id="productos">
-  <div class="soon" id="tres-en-uno"><h2>Llavero 3 en 1</h2><span class="soon-badge">Próximamente</span></div>
-  <div class="soon" id="cuero"><h2>Llavero de cuero</h2><span class="soon-badge">Próximamente</span></div>
+  <article class="product" id="tres-en-uno">
+    <div class="product-img">
+      <button type="button" class="zoom-btn" aria-label="Ampliar la foto del llavero 3 en 1">
+        <img src="images/esencia-llavero-3en1.jpg" alt="Llavero 3 en 1 de madera con la frase «El mejor papá» grabada" width="888" height="733">
+        <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
+      </button>
+    </div>
+    <div class="product-info">
+      <h2>Llavero 3 en 1</h2>
+      <p class="product-desc">Llavero 3 en 1 de madera con tu frase corta o tu nombre grabado al láser, ya incluido en el precio. Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
+      <div class="price"><span>13 €</span> <small>IVA incluido · dedicatoria incluida</small></div>
+
+      <div class="field">
+        <label for="texto-3en1">Tu frase corta o nombre</label>
+        <input type="text" id="texto-3en1" maxlength="50" placeholder="Ej.: El mejor papá" autocomplete="off">
+        <p class="field-note">Máximo 5 palabras. Te confirmaré el diseño antes de grabarlo.</p>
+      </div>
+
+      <div class="field tarjeta">
+        <label class="check"><input type="checkbox" id="tarjeta-chk-3en1"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
+        <div class="extra" id="tarjeta-extra-3en1">
+          <img class="tarjeta-img" src="images/esencia-regalo.jpg" alt="Caja de regalo con productos de Esencia y una tarjeta que dice «Para el abuelo»" loading="lazy">
+          <p class="tarjeta-pie">Ejemplo de presentación. Lo que se añade por 5 € es la tarjeta dedicada.</p>
+          <div class="field">
+            <label for="tarjeta-para-3en1">Para quién es</label>
+            <input type="text" id="tarjeta-para-3en1" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="tarjeta-texto-3en1">Dedicatoria</label>
+            <input type="text" id="tarjeta-texto-3en1" maxlength="120" placeholder="Ej.: Con todo mi cariño, Marta" autocomplete="off">
+            <p class="field-note">Hasta 120 caracteres. Se imprime en la tarjeta.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="msg" id="msg-3en1" role="alert"></p>
+      <button type="button" class="btn-primary" id="btn-3en1">Añadir al carrito</button>
+      <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
+    </div>
+  </article>
+
   <article class="product" id="madera">
     <div class="product-img">
       <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto del llavero">
@@ -168,6 +214,23 @@
         <p class="field-note">Una sola palabra, máximo 14 letras. Va grabado debajo de la cabeza. Te confirmaré el diseño antes de grabarlo.</p>
       </div>
 
+      <div class="field tarjeta">
+        <label class="check"><input type="checkbox" id="tarjeta-chk"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
+        <div class="extra" id="tarjeta-extra">
+          <img class="tarjeta-img" src="images/esencia-regalo.jpg" alt="Caja de regalo con productos de Esencia y una tarjeta que dice «Para el abuelo»" loading="lazy">
+          <p class="tarjeta-pie">Ejemplo de presentación. Lo que se añade por 5 € es la tarjeta dedicada.</p>
+          <div class="field">
+            <label for="tarjeta-para">Para quién es</label>
+            <input type="text" id="tarjeta-para" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="tarjeta-texto">Dedicatoria</label>
+            <input type="text" id="tarjeta-texto" maxlength="120" placeholder="Ej.: Con todo mi cariño, Marta" autocomplete="off">
+            <p class="field-note">Hasta 120 caracteres. Se imprime en la tarjeta.</p>
+          </div>
+        </div>
+      </div>
+
       <p class="msg" id="msg" role="alert"></p>
       <button type="button" class="btn-primary" id="btn-add">Añadir al carrito</button>
 
@@ -175,6 +238,7 @@
       <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
     </div>
   </article>
+  <div class="soon" id="cuero"><h2>Llavero de cuero</h2><span class="soon-badge">Próximamente</span></div>
 </section>
 
 <section id="exclusiva">
@@ -278,26 +342,43 @@
 (function () {
   var box = document.getElementById('lightbox');
   var big = document.getElementById('lightbox-img');
-  var trigger = document.getElementById('zoom-btn');
-  var foto = document.getElementById('foto-producto');
   var closeBtn = document.getElementById('lightbox-close');
-  function abrir() {
-    big.src = foto.src; big.alt = foto.alt;
-    box.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    closeBtn.focus();
-  }
-  function cerrar() {
-    box.classList.remove('open');
-    document.body.style.overflow = '';
-    trigger.focus();
-  }
-  trigger.addEventListener('click', abrir);
+  var ultimo = null;
+  function cerrar() { box.classList.remove('open'); document.body.style.overflow = ''; if (ultimo) ultimo.focus(); }
+  document.querySelectorAll('.zoom-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var img = b.querySelector('img'); ultimo = b;
+      big.src = img.src; big.alt = img.alt;
+      box.classList.add('open'); document.body.style.overflow = 'hidden'; closeBtn.focus();
+    });
+  });
   closeBtn.addEventListener('click', cerrar);
   box.addEventListener('click', function (e) { if (e.target !== big) cerrar(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('open')) cerrar(); });
 })();
 </script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var texto = $('texto-3en1'), msg = $('msg-3en1');
+  texto.addEventListener('input', function () {
+    var w = texto.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ').split(' ');
+    texto.value = w.slice(0, 5).join(' ');
+    msg.textContent = '';
+  });
+  $('btn-3en1').addEventListener('click', function () {
+    var t = texto.value.trim().replace(/\s+/g, ' ');
+    if (!t) { msg.textContent = 'Escribe la frase corta o el nombre que quieres grabar (máximo 5 palabras).'; texto.focus(); return; }
+    if (typeof window.addToCart !== 'function') { msg.textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.'; return; }
+    window.addToCart({ id: 'esencia-llavero-3en1', name: 'Esencia · Llavero 3 en 1', price: 13, qty: 1, options: { 'Dedicatoria': t } });
+    msg.textContent = '';
+  });
+})();
+</script>
 <script src="carrito.js"></script>
+<script>
+setupGiftCard({ boton: 'btn-3en1', check: 'tarjeta-chk-3en1', texto: 'tarjeta-texto-3en1', para: 'tarjeta-para-3en1', extra: 'tarjeta-extra-3en1', msg: 'msg-3en1', nombre: 'Llavero 3 en 1' });
+setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Llavero de madera' });
+</script>
 </body>
 </html>
