@@ -11,7 +11,7 @@
 
   // ── Descuento de packs (productos añadidos con pack: true desde la página de packs) ──
   const PACK_MIN_PIECES = 3;   // piezas de pack necesarias para aplicar el descuento
-  const PACK_DISCOUNT = 0.10;  // 10 %
+  const PACK_DISCOUNT = 0;     // desactivado: ahora el pack de regalo se vende como embalaje con suplemento (0.10 = 10 %)
   window.PACK_CONFIG = { minPieces: PACK_MIN_PIECES, discount: PACK_DISCOUNT };
 
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
@@ -60,6 +60,51 @@
     cart = [];
     orderRef = generateRef();
     saveCart();
+  };
+
+  // ── Tarjeta dedicada (5 €), que se ofrece en cada producto de Esencia con la pregunta "¿Es para regalar?" ──
+  const GIFT_CARD_PRICE = 5;
+
+  function cartQtyStored() {
+    try { return JSON.parse(localStorage.getItem('mamemi_cart') || '[]').reduce((sum, i) => sum + i.qty, 0); }
+    catch (e) { return 0; }
+  }
+
+  // Una tarjeta por regalo: si ya hay otra igual (mismo "para" y misma dedicatoria) no se vuelve a cobrar
+  window.addGiftCard = function(para, text) {
+    const options = { 'Para': para, 'Dedicatoria de la tarjeta': text };
+    if (cart.some(i => i.card && JSON.stringify(i.options) === JSON.stringify(options))) return;
+    window.addToCart({ id: 'esencia-tarjeta', name: 'Esencia · Tarjeta de regalo dedicada', price: GIFT_CARD_PRICE, qty: 1, card: true, options });
+  };
+
+  // Engancha la casilla "¿Es para regalar?" al botón "Añadir al carrito" de un producto.
+  // cfg: { boton, check, para, texto, extra, msg }
+  window.setupGiftCard = function(cfg) {
+    const btn = document.getElementById(cfg.boton);
+    const chk = document.getElementById(cfg.check);
+    const para = document.getElementById(cfg.para);
+    const txt = document.getElementById(cfg.texto);
+    const extra = document.getElementById(cfg.extra);
+    const msg = document.getElementById(cfg.msg);
+    if (!btn || !chk || !para || !txt || !extra) return;
+    chk.addEventListener('change', () => extra.classList.toggle('visible', chk.checked));
+    let before = 0;
+    // 1) en fase de captura: si falta algo de la tarjeta, se frena todo antes de añadir el producto
+    btn.addEventListener('click', e => {
+      if (chk.checked && (!para.value.trim() || !txt.value.trim())) {
+        e.stopImmediatePropagation();
+        if (msg) msg.textContent = 'Rellena "Para quién es" y la dedicatoria de la tarjeta, o desmarca la casilla.';
+        (para.value.trim() ? txt : para).focus();
+        return;
+      }
+      before = cartQtyStored();
+    }, true);
+    // 2) después del botón del producto: si el producto se añadió, se añade también la tarjeta
+    btn.addEventListener('click', () => {
+      if (!chk.checked || cartQtyStored() <= before) return;
+      window.addGiftCard(para.value.trim(), txt.value.trim());
+      chk.checked = false; extra.classList.remove('visible'); para.value = ''; txt.value = '';
+    });
   };
 
   // 'domicilio' y 'correos' necesitan dirección; 'tienda' solo necesita datos de contacto
