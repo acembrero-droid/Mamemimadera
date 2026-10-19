@@ -17,7 +17,7 @@
     :root {
       --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
       --wood-deep: #5a3a1a; --mint: #b7c6a6; --mint-light: #e3e9d5;
-      --mint-dark: #7a9366; --cream: #f6eedd; --cream2: #eee3cb;
+      --mint-dark: #7a9366; --forest: #5f7650; --cream: #f6eedd; --cream2: #eee3cb;
       --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,12 +70,16 @@
 
     /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
 
-    .story-banner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; max-width: 1100px; margin: 2.5rem auto 0; background: var(--mint-light); border-radius: 20px; padding: 1.8rem 2.2rem; text-decoration: none; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+    .story-banner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; max-width: 1100px; margin: 2.5rem auto 0; background: var(--forest); border-radius: 20px; padding: 0; overflow: hidden; text-decoration: none; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
     .story-banner:hover { transform: translateY(-4px); box-shadow: 0 14px 36px var(--shadow); }
-    .story-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--wood-deep); }
-    .story-banner p { color: var(--text-mid); font-weight: 300; margin-top: 0.2rem; }
-    .story-btn { background: var(--mint-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; transition: background 0.25s; }
-    .story-banner:hover .story-btn { background: var(--wood-dark); }
+    .story-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); }
+    .story-banner p { color: rgba(246,238,221,0.85); font-weight: 300; margin-top: 0.2rem; }
+    .story-btn { background: rgba(246,238,221,0.2); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; transition: background 0.25s; }
+    .story-banner:hover .story-btn { background: var(--cream); color: var(--forest); }
+    .story-img { width: 36%; max-width: 400px; height: 300px; object-fit: cover; flex-shrink: 0; display: block; }
+    .story-text { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.8rem 2.2rem; }
+    .story-lead { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); line-height: 1.3; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     @media (max-width: 900px) {
       .cat-grid { grid-template-columns: repeat(2, 1fr); }
       .cat-grid .cat-card,
@@ -91,7 +95,9 @@
       .cat-grid { grid-template-columns: 1fr; }
       .cat-grid .cat-card:last-child:nth-child(odd) { grid-column: auto; width: auto; justify-self: stretch; }
       .cat-card .img-wrap { height: 260px; }
-      .story-banner { flex-direction: column; align-items: flex-start; padding: 1.4rem; }
+      .story-banner { flex-direction: column; align-items: stretch; }
+      .story-img { width: 100%; max-width: none; height: 220px; }
+      .story-text { flex-direction: column; align-items: flex-start; padding: 1.4rem; }
     }
   </style>
 </head>
@@ -112,13 +118,6 @@
   <div class="divider"></div>
   <div class="cat-grid">
 
-    <a href="esencia-packs.html" class="cat-card">
-      <span class="img-wrap"><img src="images/esencia-packs.jpg" alt="Packs para regalar" onerror="this.style.display='none'"></span>
-      <span class="cat-arrow">Ver más →</span>
-      <div class="cat-info">
-        <h3>Packs para regalar</h3>
-      </div>
-    </a>
 
     <a href="esencia-tablas.html" class="cat-card">
       <span class="img-wrap"><img src="images/esencia-tablas.jpg" alt="Tablas de madera" onerror="this.style.display='none'"></span>
@@ -168,21 +167,17 @@
       </div>
     </a>
 
-    <div class="cat-card soon-card">
-      <span class="sub-badge">Próximamente</span>
-      <span class="img-wrap"><img src="images/esencia-3d.jpg" alt="Representación de tu perro en 3D" onerror="this.style.display='none'"></span>
-      <div class="cat-info">
-        <h3>Representación de tu perro en 3D</h3>
-      </div>
-    </div>
 
   </div>
   <a href="historias-con-raices.html" class="story-banner">
-    <div>
-      <h2>Historias con raíces</h2>
-      <p>Novedades y fotos de nuestros clientes</p>
+    <img class="story-img" src="images/historias-con-raices.jpg" alt="Tablero de madera con el título Historias con raíces y fotos de perros y familias colgadas en una pared de piedra" loading="lazy">
+    <div class="story-text">
+      <div>
+        <h2 class="sr-only">Historias con raíces</h2>
+        <p class="story-lead">Novedades y fotos de nuestros clientes</p>
+      </div>
+      <span class="story-btn">Leer →</span>
     </div>
-    <span class="story-btn">Leer →</span>
   </a>
 </section>
 
