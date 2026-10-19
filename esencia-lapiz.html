@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chapas para perros · Esencia de Monte y Tradición</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="Chapas para perros · Esencia de Monte y Tradición">
+  <meta property="og:image" content="https://mamemimadera.es/images/esencia-og.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="images/favicon-esencia.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
+      --wood-deep: #5a3a1a; --mint: #b7c6a6; --mint-light: #e3e9d5;
+      --mint-dark: #7a9366; --cream: #f6eedd; --cream2: #eee3cb;
+      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(246,238,221,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
+    .nav-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--wood-deep); text-decoration: none; }
+    nav .cart-btn { background: #7a9366; color: #fff; border: none; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; }
+    nav .cart-btn:hover { background: #627a50; }
+
+    .page-head { background: var(--mint-light); padding: 100px 2rem 2.5rem; text-align: center; }
+    .back { display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mint-dark); text-decoration: none; margin-bottom: 1rem; }
+    .back:hover { color: var(--wood-dark); }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.4rem); color: var(--wood-deep); line-height: 1.2; }
+    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.8rem auto 0; border-radius: 2px; }
+
+    #productos { background: var(--cream2); padding: 3.5rem 2rem; }
+    .product { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 960px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px var(--shadow); }
+    .product-img { background: var(--wood-deep); }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .product-info { padding: 2.5rem 2.5rem 2.5rem 0; display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
+    .product-info h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--wood-deep); line-height: 1.2; }
+    .product-desc { color: var(--text-mid); font-weight: 300; line-height: 1.8; font-size: 0.95rem; }
+    .price { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 700; color: var(--wood-dark); font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+    .price small { font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 400; color: var(--text-mid); }
+    .field label { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.4rem; }
+    .field select, .field input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--wood-light); border-radius: 12px; background: var(--cream); font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text); }
+    .field select:focus, .field input:focus { outline: none; border-color: var(--mint-dark); }
+    .field input::placeholder { color: #a8957c; opacity: 1; }
+    .extra { display: none; }
+    .extra.visible { display: block; }
+    .product-info .field + .field { margin-top: -0.2rem; }
+    .field-note { font-size: 0.75rem; color: var(--text-mid); margin-top: 0.3rem; font-weight: 300; }
+    .teaser { font-size: 0.85rem; color: var(--text-mid); background: var(--mint-light); border-radius: 12px; padding: 0.8rem 1rem; line-height: 1.6; }
+    .teaser a { color: var(--mint-dark); font-weight: 700; }
+    .btn-primary { display: inline-block; padding: 0.9rem 2rem; background: var(--wood-dark); color: #fff; border: none; border-radius: 40px; text-decoration: none; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 16px rgba(139,94,60,0.35); text-align: center; }
+    .btn-primary:hover { background: var(--mint-dark); transform: translateY(-2px); }
+    .btn-secondary { display: inline-block; padding: 0.85rem 2rem; background: transparent; color: var(--wood-dark); border: 2px solid var(--wood-dark); border-radius: 40px; text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.3s; }
+    .btn-secondary:hover { background: var(--wood-light); }
+    .msg { font-size: 0.8rem; color: #a0412d; min-height: 1.1em; }
+    .iva { font-size: 0.78rem; color: var(--text-mid); font-weight: 300; }
+
+    #exclusiva { background: var(--mint-light); padding: 4rem 2rem; text-align: center; }
+    #exclusiva h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--wood-deep); margin-bottom: 1rem; }
+    #exclusiva p { max-width: 560px; margin: 0 auto 0.8rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; }
+    #exclusiva .price { margin: 1rem 0 1.5rem; }
+    .btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    footer { background: var(--wood-deep); color: rgba(253,248,240,0.55); padding: 2rem 2.5rem 1.5rem; font-size: 0.78rem; text-align: center; }
+    footer a { color: rgba(253,248,240,0.6); text-decoration: none; }
+    footer a:hover { color: var(--mint); }
+    .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.2rem; margin-top: 1rem; }
+    .footer-legal button { background: none; border: none; color: rgba(253,248,240,0.6); font-family: inherit; font-size: 0.75rem; cursor: pointer; padding: 0; }
+    .footer-legal button:hover { color: var(--mint); }
+
+    .field.tarjeta label.check { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--text); cursor: pointer; margin-bottom: 0; }
+    .field.tarjeta input[type="checkbox"] { width: 18px; height: 18px; padding: 0; accent-color: var(--mint-dark); flex-shrink: 0; }
+    .tarjeta .extra { display: none; }
+    .tarjeta .extra.visible { display: block; }
+    .tarjeta-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; display: block; margin-top: 0.8rem; background: var(--wood-deep); }
+    .tarjeta-pie { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; margin-top: 0.4rem; line-height: 1.5; }
+    /* Foto ampliable */
+    #foto-producto { transition: opacity 0.2s ease; }
+    .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
+    .zoom-hint { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(90,58,26,0.65); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.8rem; border-radius: 30px; backdrop-filter: blur(4px); }
+    .zoom-btn:hover .zoom-hint { background: var(--mint-dark); }
+    .zoom-btn:focus-visible { outline: 3px solid var(--mint-dark); outline-offset: -3px; }
+    #lightbox { position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center; background: rgba(40,25,10,0.93); padding: 1rem; cursor: zoom-out; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; touch-action: pinch-zoom; cursor: default; }
+    #lightbox-close { position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px; border: none; border-radius: 50%; background: rgba(255,255,255,0.15); color: #fff; font-size: 1.6rem; line-height: 1; cursor: pointer; }
+    #lightbox-close:hover { background: var(--mint-dark); }
+    @media (max-width: 800px) { .zoom-btn { height: auto; } }
+
+    /* Recomendaciones */
+    #tambien { background: var(--cream); padding: 3.5rem 2rem 4rem; }
+    #tambien h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--wood-deep); text-align: center; }
+    .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; max-width: 960px; margin: 1.8rem auto 0; }
+    .rec-card { display: block; background: #fff; border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+    .rec-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px var(--shadow); }
+    .rec-card img { width: 100%; height: 180px; object-fit: cover; display: block; background: var(--wood-deep); }
+    .rec-info { padding: 1rem 1.2rem 1.2rem; }
+    .rec-info h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--wood-deep); margin-bottom: 0.2rem; }
+    .rec-info p { font-size: 0.85rem; font-weight: 700; color: var(--mint-dark); }
+    @media (max-width: 700px) {
+      #tambien { padding: 2.5rem 1rem 3rem; }
+      .rec-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+      .rec-card { display: flex; }
+      .rec-card img { width: 110px; height: auto; flex-shrink: 0; }
+      .rec-info { align-self: center; }
+    }
+
+    /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
+
+    @media (max-width: 800px) {
+      .product { grid-template-columns: 1fr; gap: 0; }
+      .product-img { height: auto; }
+      .product-img img { height: auto; aspect-ratio: 1 / 1; }
+      .product-info { padding: 1.8rem 1.5rem 2rem; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-title { font-size: 0.95rem; }
+      #productos, #exclusiva { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="esencia-de-monte-y-tradicion.html" class="nav-title">Esencia de Monte y Tradición</a>
+  <button type="button" class="cart-btn" onclick="toggleCart()" aria-label="Abrir carrito">🛒 Carrito <span class="cart-badge" style="display:none">0</span></button>
+</nav>
+
+<header class="page-head">
+  <a href="esencia-de-monte-y-tradicion.html" class="back">← Volver a la página principal</a>
+  <h1 class="section-title">Chapas para perros</h1>
+  <div class="divider"></div>
+</header>
+
+<section id="productos">
+  <article class="product" id="chapas">
+    <div class="product-img">
+      <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto de la chapa">
+        <img id="foto-producto" src="images/esencia-chapas-nombre.jpg" alt="Chapa redonda de acero inoxidable con el nombre Rayo grabado, con anilla en el collar de un perro" width="800" height="800">
+        <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
+      </button>
+    </div>
+    <div class="product-info">
+      <h2>Chapa de acero inoxidable para perros</h2>
+      <p class="product-desc">Chapa redonda de acero inoxidable para el collar o la correa de tu perro, grabada al láser por las dos caras y con anilla para colocarla.</p>
+      <div class="price"><span id="precio">10 €</span> <small>IVA incluido</small></div>
+
+      <div class="field">
+        <label for="opcion">Elige una opción</label>
+        <select id="opcion">
+          <option value="basica">Nombre + 1 teléfono (10 €)</option>
+          <option value="raza">Nombre + dibujo de la raza + hasta 2 teléfonos (15 €)</option>
+        </select>
+        <p class="field-note">Precios por chapa grabada por las dos caras, con anilla.</p>
+      </div>
+
+      <div class="field">
+        <label for="nombre">Nombre de tu perro</label>
+        <input type="text" id="nombre" maxlength="14" placeholder="Ej.: Cloe" autocomplete="off">
+        <p class="field-note">Una sola palabra, máximo 14 letras.</p>
+      </div>
+
+      <div class="field extra" id="raza-field">
+        <label for="raza">Raza (o la más parecida)</label>
+        <input type="text" id="raza" maxlength="40" placeholder="Ej.: Labrador" autocomplete="off">
+        <p class="field-note">Con ella elijo el dibujo para la chapa.</p>
+      </div>
+
+      <div class="field">
+        <label for="tel1">Teléfono</label>
+        <input type="tel" id="tel1" maxlength="16" inputmode="tel" placeholder="Ej.: 600 123 456" autocomplete="off">
+      </div>
+
+      <div class="field extra" id="tel2-field">
+        <label for="tel2">Segundo teléfono (opcional)</label>
+        <input type="tel" id="tel2" maxlength="16" inputmode="tel" placeholder="Ej.: 600 654 321" autocomplete="off">
+      </div>
+
+      <div class="field tarjeta">
+        <label class="check"><input type="checkbox" id="tarjeta-chk"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
+        <div class="extra" id="tarjeta-extra">
+          <img class="tarjeta-img" src="images/esencia-regalo.jpg" alt="Caja de regalo con productos de Esencia y una tarjeta que dice «Para el abuelo»" loading="lazy">
+          <p class="tarjeta-pie">Ejemplo de presentación. Lo que se añade por 5 € es la tarjeta dedicada.</p>
+          <div class="field">
+            <label for="tarjeta-para">Para quién es</label>
+            <input type="text" id="tarjeta-para" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="tarjeta-texto">Dedicatoria</label>
+            <input type="text" id="tarjeta-texto" maxlength="120" placeholder="Ej.: Con todo mi cariño, Marta" autocomplete="off">
+            <p class="field-note">Hasta 120 caracteres. Se imprime en la tarjeta.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="msg" id="msg" role="alert"></p>
+      <button type="button" class="btn-primary" id="btn-add">Añadir al carrito</button>
+
+      <p class="teaser">¿Sabías que puedo transformar la fotografía de tu perro en un grabado único sobre su chapa? <a href="#exclusiva">Descubre cómo</a></p>
+      <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
+    </div>
+  </article>
+</section>
+
+<section id="exclusiva">
+  <h2>¿Quieres una chapa 100% personalizada?</h2>
+  <p>A partir de una fotografía de tu perro, creo un dibujo exclusivo para grabarlo en su chapa. Incluye su nombre, hasta dos teléfonos y la anilla, grabado por las dos caras.</p>
+  <p>Antes de grabar te enseño el diseño para que lo apruebes.</p>
+  <div class="price">20 € <small>IVA incluido</small></div>
+  <div class="btns">
+    <a class="btn-primary" target="_blank" rel="noopener" href="https://wa.me/34622562499?text=Hola%20Leticia%2C%20me%20gustar%C3%ADa%20una%20chapa%20para%20mi%20perro%20100%25%20personalizada%20a%20partir%20de%20una%20fotograf%C3%ADa">Escríbeme por WhatsApp</a>
+    <a class="btn-secondary" href="mailto:hola@mamemimadera.es?subject=Chapa%20100%25%20personalizada">Por email</a>
+  </div>
+</section>
+
+<section id="tambien">
+  <h2>También te puede gustar</h2>
+  <div class="rec-grid">
+    <a class="rec-card" href="esencia-llaveros.html#madera">
+      <img src="images/esencia-llavero-madera.jpg" alt="Llavero redondo de madera con grabado" loading="lazy" onerror="this.style.visibility='hidden'">
+      <div class="rec-info"><h3>Llavero de madera</h3><p>Desde 10 €</p></div>
+    </a>
+    <a class="rec-card" href="esencia-vasos-termicos.html">
+      <img src="images/esencia-vasos.jpg" alt="Vaso térmico verde con un ciervo grabado" loading="lazy" onerror="this.style.visibility='hidden'">
+      <div class="rec-info"><h3>Vaso térmico</h3><p>Desde 28 €</p></div>
+    </a>
+    <a class="rec-card" href="esencia-tablas.html">
+      <img src="images/esencia-tablas.jpg" alt="Tabla de cocina con un ciervo grabado" loading="lazy" onerror="this.style.visibility='hidden'">
+      <div class="rec-info"><h3>Tabla de cocina</h3><p>Desde 28 €</p></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
+  <div class="footer-legal">
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="politica-privacidad.html">Política de privacidad</a>
+    <a href="politica-cookies.html">Política de cookies</a>
+    <a href="condiciones-contratacion.html">Condiciones de contratación</a>
+    <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a>
+    <button type="button" id="open-cookie-config">Configurar cookies</button>
+  </div>
+</footer>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button type="button" id="lightbox-close" aria-label="Cerrar">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- >>> PEGAR AQUÍ el bloque HTML <div id="cookie-banner"> ... </div> del index <<< -->
+<!-- >>> PEGAR AQUÍ el <script> de consentimiento de cookies del index <<< -->
+
+<script>
+(function () {
+  var PRECIOS = { basica: 10, raza: 15 };
+  var $ = function (id) { return document.getElementById(id); };
+  var sel = $('opcion'), nombre = $('nombre'), raza = $('raza'), tel1 = $('tel1'), tel2 = $('tel2');
+  var msg = $('msg'), precio = $('precio');
+
+  // Foto según la opción: solo nombre -> chapa lisa; con dibujo de raza -> chapa con dibujo
+  var FOTOS = {
+    basica: { src: 'images/esencia-chapas-nombre.jpg', w: 800, h: 800,
+              alt: 'Chapa redonda de acero inoxidable con el nombre Rayo grabado, con anilla en el collar de un perro' },
+    raza:   { src: 'images/esencia-chapas.jpg', w: 896, h: 837,
+              alt: 'Chapa redonda de acero inoxidable con el dibujo de un perro y el nombre Cloe grabados, con anilla para la correa' }
+  };
+  var foto = $('foto-producto');
+  Object.keys(FOTOS).forEach(function (k) { new Image().src = FOTOS[k].src; }); // precarga para que el cambio sea instantáneo
+  function cambiarFoto() {
+    var f = FOTOS[sel.value];
+    if (foto.getAttribute('src') === f.src) return;
+    foto.style.opacity = '0';
+    setTimeout(function () {
+      foto.src = f.src; foto.alt = f.alt; foto.width = f.w; foto.height = f.h;
+      foto.style.opacity = '1';
+    }, 150);
+  }
+
+  function actualizar() {
+    var conRaza = sel.value === 'raza';
+    $('raza-field').classList.toggle('visible', conRaza);
+    $('tel2-field').classList.toggle('visible', conRaza);
+    precio.textContent = PRECIOS[sel.value] + ' €';
+    msg.textContent = '';
+    cambiarFoto();
+  }
+  sel.addEventListener('change', actualizar);
+  nombre.addEventListener('input', function () { nombre.value = nombre.value.replace(/\s/g, ''); });
+
+  function telValido(v) { return /^\+?\d{9,15}$/.test(v.replace(/[\s.\-]/g, '')); }
+  function error(texto, campo) { msg.textContent = texto; campo.focus(); }
+
+  $('btn-add').addEventListener('click', function () {
+    var conRaza = sel.value === 'raza';
+    var n = nombre.value.trim(), r = raza.value.trim(), t1 = tel1.value.trim(), t2 = tel2.value.trim();
+    if (!n) return error('Escribe el nombre de tu perro (una sola palabra).', nombre);
+    if (conRaza && !r) return error('Escribe la raza de tu perro (o la más parecida).', raza);
+    if (!telValido(t1)) return error('Escribe un teléfono válido para la chapa.', tel1);
+    if (conRaza && t2 && !telValido(t2)) return error('El segundo teléfono no parece válido.', tel2);
+    if (typeof window.addToCart !== 'function') {
+      msg.textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.';
+      return;
+    }
+    var options = { 'Nombre': n };
+    if (conRaza) options['Raza'] = r;
+    options['Teléfono 1'] = t1;
+    if (conRaza && t2) options['Teléfono 2'] = t2;
+    window.addToCart({
+      id: 'esencia-chapa-' + sel.value,
+      name: 'Esencia · Chapa para perros' + (conRaza ? ' con dibujo de raza' : ''),
+      price: PRECIOS[sel.value],
+      qty: 1,
+      options: options
+    });
+    msg.textContent = '';
+  });
+  actualizar();
+})();
+</script>
+<script>
+(function () {
+  var box = document.getElementById('lightbox');
+  var big = document.getElementById('lightbox-img');
+  var trigger = document.getElementById('zoom-btn');
+  var foto = document.getElementById('foto-producto');
+  var closeBtn = document.getElementById('lightbox-close');
+  function abrir() {
+    big.src = foto.src; big.alt = foto.alt;
+    box.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function cerrar() {
+    box.classList.remove('open');
+    document.body.style.overflow = '';
+    trigger.focus();
+  }
+  trigger.addEventListener('click', abrir);
+  closeBtn.addEventListener('click', cerrar);
+  box.addEventListener('click', function (e) { if (e.target !== big) cerrar(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('open')) cerrar(); });
+})();
+</script>
+<script src="carrito.js"></script>
+<script>
+setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Chapa para perros' });
+</script>
+</body>
+</html>
