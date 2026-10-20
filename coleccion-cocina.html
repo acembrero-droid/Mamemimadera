@@ -154,15 +154,22 @@
     }
 
     /* ── Producto agotado ── */
-    .product-card.agotado .product-img img { filter: grayscale(0.6) brightness(0.92); }
-    .agotado-sign { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-5deg); z-index: 3; width: 78%; max-width: 250px; background: var(--cream); border: 2.5px dashed var(--forest); border-radius: 16px; padding: 0.9rem 1rem; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.25); pointer-events: none; }
-    .agotado-title { display: block; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--forest); line-height: 1.1; }
-    .agotado-sub { display: block; margin-top: 0.3rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mid); }
+    .product-card.agotado .product-img img { filter: grayscale(0.3) brightness(0.95); }
+    .agotado-sign { position: absolute; top: 30px; right: -50px; z-index: 3; width: 210px; transform: rotate(45deg); background: var(--forest); text-align: center; padding: 0.3rem 0; border-top: 1.5px dashed rgba(255,255,255,0.65); border-bottom: 1.5px dashed rgba(255,255,255,0.65); box-shadow: 0 3px 10px rgba(0,0,0,0.3); pointer-events: none; }
+    .agotado-title { display: block; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; line-height: 1.15; }
+    .agotado-sub { display: block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.88); }
     .agotado-note { background: var(--mint-light); border: 1.5px solid var(--mint); border-radius: 12px; padding: 0.9rem 1rem; font-size: 0.82rem; color: var(--text-mid); line-height: 1.65; text-align: center; }
     .agotado-note strong { color: var(--wood-deep); }
     .btn-agotado { display: block; width: 100%; padding: 0.65rem 1rem; background: #ddd5c6; color: #8a7d6a; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: not-allowed; }
     .agotado-contact { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .agotado-contact .btn-contact { flex: 1 1 130px; margin-top: 0; }
+
+    /* ── Cintas de esquina (Nueva colección / Próximamente) ── */
+    .cinta { position: absolute; top: 30px; right: -50px; z-index: 3; width: 210px; transform: rotate(45deg); text-align: center; padding: 0.38rem 0; border-top: 1.5px dashed rgba(255,255,255,0.65); border-bottom: 1.5px dashed rgba(255,255,255,0.65); box-shadow: 0 3px 10px rgba(0,0,0,0.3); pointer-events: none; }
+    .cinta-nueva { background: var(--autumn); }
+    .cinta-prox { background: var(--invierno); }
+    .cinta-prox .cinta-title { font-size: 0.76rem; }
+    .cinta-title { display: block; font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 700; color: #fff; line-height: 1.15; }
   </style>
 </head>
 <body>
@@ -191,7 +198,7 @@
       <div class="img-wrap"><img src="images/tablas_cocina.jpg" alt="Tablas de cocina"></div>
       <div class="cat-info">
         <h3>Tablas de cocina</h3>
-        <p>Mar · Montaña · Otoño · Invierno</p>
+        <p>Otoño · Frutos del Bosque · Mar · Montaña</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -218,6 +225,79 @@
 <div class="product-page" id="page-mar-montana">
   <button class="back-btn" onclick="showGrid()">← Volver a Colección Cocina</button>
   <div class="products-grid">
+    <div class="product-card otono fade-in">
+      <div class="product-img" onclick="openLightbox('images/tabla_otono2.jpg')">
+        <img src="images/tabla_otono2.jpg" alt="Tabla cocina Otoño" style="object-position:center 70%;">
+        <span class="otono-badge">🍂 Otoño</span>
+        <div class="cinta cinta-nueva"><span class="cinta-title">Nueva colección</span></div>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
+        <h3>Tabla de cocina · Otoño</h3>
+        <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño de una hoja seca de árbol de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado, por lo que puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
+          <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Quieres añadir una dedicatoria grabada?</label>
+            <select id="opt-tabla-otono-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('otono')">
+              <option value="no">No, la quiero tal cual</option>
+              <option value="si">Sí, quiero una dedicatoria (+5 €)</option>
+            </select>
+          </div>
+          <div id="tabla-otono-dedicatoria-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">Texto de la dedicatoria (máx. 20 palabras)</label>
+            <textarea id="opt-tabla-otono-texto" class="opt-input" rows="2" placeholder="ej. Para los mejores anfitriones, con todo nuestro cariño..." oninput="tablaWordCount('otono')"></textarea>
+            <p class="opt-counter" id="tabla-otono-counter">0 / 20 palabras</p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-otono-total">32 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartTabla('otono')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Oto%C3%B1o" class="btn-contact btn-otono" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card invierno fade-in">
+      <div class="product-img" onclick="openLightbox('images/tabla_invierno.jpg')">
+        <img src="images/tabla_invierno.jpg" alt="Tabla cocina Frutos del Bosque">
+        <span class="invierno-badge">🌲 Frutos del Bosque</span>
+        <div class="cinta cinta-prox"><span class="cinta-title">Reserva ya la tuya</span></div>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
+        <span class="edicion-tag">🎄 Edición Especial Navidad</span>
+        <h3>Tabla de cocina · Frutos del Bosque</h3>
+        <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño del bosque en invierno con ramitas y bayas rojas de forma orgánica, simulando acebo, pequeños frutos rojos, ramitas de pino o abeto e incluso romero, sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado, por lo que puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
+          <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Quieres añadir una dedicatoria grabada?</label>
+            <select id="opt-tabla-invierno-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('invierno')">
+              <option value="no">No, la quiero tal cual</option>
+              <option value="si">Sí, quiero una dedicatoria (+5 €)</option>
+            </select>
+          </div>
+          <div id="tabla-invierno-dedicatoria-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">Texto de la dedicatoria (máx. 20 palabras)</label>
+            <textarea id="opt-tabla-invierno-texto" class="opt-input" rows="2" placeholder="ej. Para los mejores anfitriones, con todo nuestro cariño..." oninput="tablaWordCount('invierno')"></textarea>
+            <p class="opt-counter" id="tabla-invierno-counter">0 / 20 palabras</p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-invierno-total">32 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartTabla('invierno')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Frutos%20del%20Bosque" class="btn-contact btn-invierno" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
     <div class="product-card mar fade-in">
       <div style="position:relative;">
         <div class="carousel" id="mar-carousel">
@@ -292,77 +372,6 @@
           <a href="https://wa.me/34622562499?text=Hola!%20Quer%C3%ADa%20saber%20si%20vas%20a%20volver%20a%20sacar%20la%20tabla%20Monta%C3%B1a" class="btn-contact btn-montana" target="_blank">WhatsApp</a>
           <a href="mailto:hola@mamemimadera.es?subject=Tabla%20Monta%C3%B1a%20agotada" class="btn-contact btn-montana">Email</a>
         </div>
-      </div>
-    </div>
-
-    <div class="product-card otono fade-in">
-      <div class="product-img" onclick="openLightbox('images/tabla_otono.jpg')">
-        <img src="images/tabla_otono.jpg" alt="Tabla cocina Otoño">
-        <span class="otono-badge">🍂 Otoño</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
-        <h3>Tabla de cocina · Otoño</h3>
-        <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño de una hoja seca de árbol de forma orgánica sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado, por lo que puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
-          <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">¿Quieres añadir una dedicatoria grabada?</label>
-            <select id="opt-tabla-otono-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('otono')">
-              <option value="no">No, la quiero tal cual</option>
-              <option value="si">Sí, quiero una dedicatoria (+5 €)</option>
-            </select>
-          </div>
-          <div id="tabla-otono-dedicatoria-wrap" class="opt-row" style="display:none;">
-            <label class="opt-label">Texto de la dedicatoria (máx. 20 palabras)</label>
-            <textarea id="opt-tabla-otono-texto" class="opt-input" rows="2" placeholder="ej. Para los mejores anfitriones, con todo nuestro cariño..." oninput="tablaWordCount('otono')"></textarea>
-            <p class="opt-counter" id="tabla-otono-counter">0 / 20 palabras</p>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-otono-total">32 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartTabla('otono')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Oto%C3%B1o" class="btn-contact btn-otono" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-
-    <div class="product-card invierno fade-in">
-      <div class="product-img" onclick="openLightbox('images/tabla_invierno.jpg')">
-        <img src="images/tabla_invierno.jpg" alt="Tabla cocina Invierno">
-        <span class="invierno-badge">❄️ Invierno</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
-        <span class="edicion-tag">🎄 Edición Especial Navidad</span>
-        <h3>Tabla de cocina · Invierno</h3>
-        <p class="product-desc">Tabla de presentación en madera de gran calidad, decorada a mano mediante la técnica tradicional del decoupage, logrando integrar el diseño del bosque en invierno con ramitas y bayas rojas de forma orgánica, simulando acebo, pinos e incluso romero, sobre la veta natural de la madera. Protegida con un acabado de barniz de grado alimentario satinado, por lo que puedes presentar tus platos con total seguridad por el lado decorado. Por el otro lado, la madera está nutrida con aceite apto para el contacto con alimentos, de calidad mineral.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">32 € / u</span></div>
-          <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">¿Quieres añadir una dedicatoria grabada?</label>
-            <select id="opt-tabla-invierno-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('invierno')">
-              <option value="no">No, la quiero tal cual</option>
-              <option value="si">Sí, quiero una dedicatoria (+5 €)</option>
-            </select>
-          </div>
-          <div id="tabla-invierno-dedicatoria-wrap" class="opt-row" style="display:none;">
-            <label class="opt-label">Texto de la dedicatoria (máx. 20 palabras)</label>
-            <textarea id="opt-tabla-invierno-texto" class="opt-input" rows="2" placeholder="ej. Para los mejores anfitriones, con todo nuestro cariño..." oninput="tablaWordCount('invierno')"></textarea>
-            <p class="opt-counter" id="tabla-invierno-counter">0 / 20 palabras</p>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-invierno-total">32 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartTabla('invierno')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20Invierno" class="btn-contact btn-invierno" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
   </div>
@@ -569,7 +578,7 @@
     mar: { id: 'tabla-mar', name: 'Tabla de cocina · Mar', price: 32, peso: 680 },
     montana: { id: 'tabla-montana', name: 'Tabla de cocina · Montaña', price: 32, peso: 680 },
     otono: { id: 'tabla-otono', name: 'Tabla de cocina · Otoño', price: 32, peso: 680 },
-    invierno: { id: 'tabla-invierno', name: 'Tabla de cocina · Invierno', price: 32, peso: 680 }
+    invierno: { id: 'tabla-invierno', name: 'Tabla de cocina · Frutos del Bosque', price: 32, peso: 680 }
   };
   function tablaWordCount(tipo) {
     const ta = document.getElementById('opt-tabla-' + tipo + '-texto');
