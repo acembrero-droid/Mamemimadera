@@ -74,7 +74,7 @@
     .field.tarjeta input[type="checkbox"] { width: 18px; height: 18px; padding: 0; accent-color: var(--mint-dark); flex-shrink: 0; }
     .tarjeta .extra { display: none; }
     .tarjeta .extra.visible { display: block; }
-    .tarjeta-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; display: block; margin-top: 0.8rem; background: var(--wood-deep); }
+    .tarjeta-img { width: 170px; max-width: 60%; height: auto; border-radius: 12px; display: block; margin: 0.8rem auto 0; }
     .tarjeta-pie { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; margin-top: 0.4rem; line-height: 1.5; }
     /* Foto ampliable */
     #foto-producto { transition: opacity 0.2s ease; }
@@ -182,8 +182,8 @@
       <div class="field tarjeta">
         <label class="check"><input type="checkbox" id="tarjeta-chk"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
         <div class="extra" id="tarjeta-extra">
-          <img class="tarjeta-img" src="images/esencia-regalo.jpg" alt="Caja de regalo con productos de Esencia y una tarjeta que dice «Para el abuelo»" loading="lazy">
-          <p class="tarjeta-pie">Ejemplo de presentación. Lo que se añade por 5 € es la tarjeta dedicada.</p>
+          <img class="tarjeta-img" src="images/esencia-tarjeta.jpg" alt="Tarjeta dedicada de papel kraft con el texto «Para el abuelo» sobre una caja de regalo" width="480" height="616" loading="lazy">
+          <p class="tarjeta-pie">Así queda tu tarjeta dedicada.</p>
           <div class="field">
             <label for="tarjeta-para">Para quién es</label>
             <input type="text" id="tarjeta-para" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
@@ -347,7 +347,7 @@
 </script>
 <script src="carrito.js"></script>
 <script>
-setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Chapa para perros' });
+if (window.setupGiftCard) setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Chapa para perros' });
 </script>
 </body>
 </html>
