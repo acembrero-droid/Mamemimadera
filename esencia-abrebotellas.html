@@ -84,7 +84,7 @@
     .field.tarjeta input[type="checkbox"] { width: 18px; height: 18px; padding: 0; accent-color: var(--mint-dark); flex-shrink: 0; }
     .tarjeta .extra { display: none; }
     .tarjeta .extra.visible { display: block; }
-    .tarjeta-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; display: block; margin-top: 0.8rem; background: var(--wood-deep); }
+    .tarjeta-img { width: 170px; max-width: 60%; height: auto; border-radius: 12px; display: block; margin: 0.8rem auto 0; }
     .tarjeta-pie { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; margin-top: 0.4rem; line-height: 1.5; }
     /* Foto ampliable */
     .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
@@ -181,8 +181,8 @@
       <div class="field tarjeta">
         <label class="check"><input type="checkbox" id="tarjeta-chk-pared"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
         <div class="extra" id="tarjeta-extra-pared">
-          <img class="tarjeta-img" src="images/esencia-regalo.jpg" alt="Caja de regalo con productos de Esencia y una tarjeta que dice «Para el abuelo»" loading="lazy">
-          <p class="tarjeta-pie">Ejemplo de presentación. Lo que se añade por 5 € es la tarjeta dedicada.</p>
+          <img class="tarjeta-img" src="images/esencia-tarjeta.jpg" alt="Tarjeta dedicada de papel kraft con el texto «Para el abuelo» sobre una caja de regalo" width="480" height="616" loading="lazy">
+          <p class="tarjeta-pie">Así queda tu tarjeta dedicada.</p>
           <div class="field">
             <label for="tarjeta-para-pared">Para quién es</label>
             <input type="text" id="tarjeta-para-pared" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
@@ -211,7 +211,7 @@
     <div class="product-info">
       <h2>Abrebotellas de mano</h2>
       <p class="product-desc">Abrebotellas de madera con una frase corta o un nombre grabado al láser, ya incluido en el precio.</p>
-      <div class="price"><span>8 €</span> <small>IVA incluido · grabado incluido</small></div>
+      <div class="price"><span>13 €</span> <small>IVA incluido · grabado incluido</small></div>
 
       <div class="field">
         <label for="texto-mano">Tu frase corta o nombre</label>
@@ -222,8 +222,8 @@
       <div class="field tarjeta">
         <label class="check"><input type="checkbox" id="tarjeta-chk-mano"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
         <div class="extra" id="tarjeta-extra-mano">
-          <img class="tarjeta-img" src="images/esencia-regalo.jpg" alt="Caja de regalo con productos de Esencia y una tarjeta que dice «Para el abuelo»" loading="lazy">
-          <p class="tarjeta-pie">Ejemplo de presentación. Lo que se añade por 5 € es la tarjeta dedicada.</p>
+          <img class="tarjeta-img" src="images/esencia-tarjeta.jpg" alt="Tarjeta dedicada de papel kraft con el texto «Para el abuelo» sobre una caja de regalo" width="480" height="616" loading="lazy">
+          <p class="tarjeta-pie">Así queda tu tarjeta dedicada.</p>
           <div class="field">
             <label for="tarjeta-para-mano">Para quién es</label>
             <input type="text" id="tarjeta-para-mano" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
@@ -252,7 +252,7 @@
     </a>
     <a class="rec-card" href="esencia-lapiz.html">
       <img src="images/esencia-lapiz.jpg" alt="Lápiz de madera con un nombre grabado" loading="lazy" onerror="this.style.visibility='hidden'">
-      <div class="rec-info"><h3>Lápiz de madera</h3><p>5 €</p></div>
+      <div class="rec-info"><h3>Lápiz de madera</h3><p>8 €</p></div>
     </a>
     <a class="rec-card" href="esencia-llaveros.html#madera">
       <img src="images/esencia-llavero-madera.jpg" alt="Llavero redondo de madera con grabado" loading="lazy" onerror="this.style.visibility='hidden'">
@@ -324,7 +324,7 @@
     var t = textoM.value.trim();
     if (!t) return error('msg-mano', 'Escribe la frase corta o el nombre que quieres grabar.', textoM);
     if (sinCarrito('msg-mano')) return;
-    window.addToCart({ id: 'esencia-abrebotellas-mano', name: 'Esencia · Abrebotellas de mano', price: 8, qty: 1, options: { 'Dedicatoria': t } });
+    window.addToCart({ id: 'esencia-abrebotellas-mano', name: 'Esencia · Abrebotellas de mano', price: 13, qty: 1, options: { 'Dedicatoria': t } });
     $('msg-mano').textContent = '';
   });
 })();
@@ -350,8 +350,8 @@
 </script>
 <script src="carrito.js"></script>
 <script>
-setupGiftCard({ boton: 'btn-pared', check: 'tarjeta-chk-pared', texto: 'tarjeta-texto-pared', para: 'tarjeta-para-pared', extra: 'tarjeta-extra-pared', msg: 'msg-pared', nombre: 'Abrebotellas de pared' });
-setupGiftCard({ boton: 'btn-mano', check: 'tarjeta-chk-mano', texto: 'tarjeta-texto-mano', para: 'tarjeta-para-mano', extra: 'tarjeta-extra-mano', msg: 'msg-mano', nombre: 'Abrebotellas de mano' });
+if (window.setupGiftCard) setupGiftCard({ boton: 'btn-pared', check: 'tarjeta-chk-pared', texto: 'tarjeta-texto-pared', para: 'tarjeta-para-pared', extra: 'tarjeta-extra-pared', msg: 'msg-pared', nombre: 'Abrebotellas de pared' });
+if (window.setupGiftCard) setupGiftCard({ boton: 'btn-mano', check: 'tarjeta-chk-mano', texto: 'tarjeta-texto-mano', para: 'tarjeta-para-mano', extra: 'tarjeta-extra-mano', msg: 'msg-mano', nombre: 'Abrebotellas de mano' });
 </script>
 </body>
 </html>
