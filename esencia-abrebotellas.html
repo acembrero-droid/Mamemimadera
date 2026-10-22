@@ -145,6 +145,47 @@
 </header>
 
 <section id="productos">
+  <article class="product horizontal" id="mano">
+    <div class="product-img">
+      <button type="button" class="zoom-btn" aria-label="Ampliar la foto del abrebotellas de mano">
+        <img src="images/esencia-abrebotellas-mano.jpg" alt="Abrebotellas de mano de madera con la frase «Porque nos lo hemos ganado» grabada" width="913" height="586">
+        <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
+      </button>
+    </div>
+    <div class="product-info">
+      <h2>Abrebotellas de mano</h2>
+      <p class="product-desc">Abrebotellas de madera con una frase corta o un nombre grabado al láser, ya incluido en el precio.</p>
+      <div class="price"><span>13 €</span> <small>IVA incluido · grabado incluido</small></div>
+
+      <div class="field">
+        <label for="texto-mano">Tu frase corta o nombre</label>
+        <input type="text" id="texto-mano" maxlength="40" placeholder="Ej.: Porque nos lo hemos ganado" autocomplete="off">
+        <p class="field-note">Máximo 40 caracteres. Te confirmaré el diseño antes de grabarlo.</p>
+      </div>
+
+      <div class="field tarjeta">
+        <label class="check"><input type="checkbox" id="tarjeta-chk-mano"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
+        <div class="extra" id="tarjeta-extra-mano">
+          <img class="tarjeta-img" src="images/esencia-tarjeta.jpg" alt="Tarjeta dedicada de papel kraft con el texto «Para el abuelo» sobre una caja de regalo" width="480" height="616" loading="lazy">
+          <p class="tarjeta-pie">Así queda tu tarjeta dedicada.</p>
+          <div class="field">
+            <label for="tarjeta-para-mano">Para quién es</label>
+            <input type="text" id="tarjeta-para-mano" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="tarjeta-texto-mano">Dedicatoria</label>
+            <input type="text" id="tarjeta-texto-mano" maxlength="120" placeholder="Ej.: Con todo mi cariño, Marta" autocomplete="off">
+            <p class="field-note">Hasta 120 caracteres. Se imprime en la tarjeta.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="msg" id="msg-mano" role="alert"></p>
+      <button type="button" class="btn-primary" id="btn-mano">Añadir al carrito</button>
+      <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
+    </div>
+  </article>
+
   <article class="product" id="pared">
     <div class="product-img">
       <button type="button" class="zoom-btn" aria-label="Ampliar la foto del abrebotellas de pared">
@@ -198,47 +239,6 @@
       <p class="msg" id="msg-pared" role="alert"></p>
       <button type="button" class="btn-primary" id="btn-pared">Añadir al carrito</button>
       <p class="iva">Plazo de envío estimado: 3-5 días laborables (7-10 con personalización)</p>
-    </div>
-  </article>
-
-  <article class="product horizontal" id="mano">
-    <div class="product-img">
-      <button type="button" class="zoom-btn" aria-label="Ampliar la foto del abrebotellas de mano">
-        <img src="images/esencia-abrebotellas-mano.jpg" alt="Abrebotellas de mano de madera con la frase «Porque nos lo hemos ganado» grabada" width="913" height="586">
-        <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
-      </button>
-    </div>
-    <div class="product-info">
-      <h2>Abrebotellas de mano</h2>
-      <p class="product-desc">Abrebotellas de madera con una frase corta o un nombre grabado al láser, ya incluido en el precio.</p>
-      <div class="price"><span>13 €</span> <small>IVA incluido · grabado incluido</small></div>
-
-      <div class="field">
-        <label for="texto-mano">Tu frase corta o nombre</label>
-        <input type="text" id="texto-mano" maxlength="40" placeholder="Ej.: Porque nos lo hemos ganado" autocomplete="off">
-        <p class="field-note">Máximo 40 caracteres. Te confirmaré el diseño antes de grabarlo.</p>
-      </div>
-
-      <div class="field tarjeta">
-        <label class="check"><input type="checkbox" id="tarjeta-chk-mano"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
-        <div class="extra" id="tarjeta-extra-mano">
-          <img class="tarjeta-img" src="images/esencia-tarjeta.jpg" alt="Tarjeta dedicada de papel kraft con el texto «Para el abuelo» sobre una caja de regalo" width="480" height="616" loading="lazy">
-          <p class="tarjeta-pie">Así queda tu tarjeta dedicada.</p>
-          <div class="field">
-            <label for="tarjeta-para-mano">Para quién es</label>
-            <input type="text" id="tarjeta-para-mano" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
-          </div>
-          <div class="field">
-            <label for="tarjeta-texto-mano">Dedicatoria</label>
-            <input type="text" id="tarjeta-texto-mano" maxlength="120" placeholder="Ej.: Con todo mi cariño, Marta" autocomplete="off">
-            <p class="field-note">Hasta 120 caracteres. Se imprime en la tarjeta.</p>
-          </div>
-        </div>
-      </div>
-
-      <p class="msg" id="msg-mano" role="alert"></p>
-      <button type="button" class="btn-primary" id="btn-mano">Añadir al carrito</button>
-      <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
     </div>
   </article>
 </section>
