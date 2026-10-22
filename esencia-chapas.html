@@ -76,6 +76,7 @@
     .tarjeta .extra.visible { display: block; }
     .tarjeta-img { width: 170px; max-width: 60%; height: auto; border-radius: 12px; display: block; margin: 0.8rem auto 0; }
     .tarjeta-pie { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; margin-top: 0.4rem; line-height: 1.5; }
+    .product + .product { margin-top: 1.5rem; }
     /* Foto ampliable */
     #foto-producto { transition: opacity 0.2s ease; }
     .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
@@ -136,70 +137,105 @@
 </header>
 
 <section id="productos">
-  <article class="product" id="chapas">
+  <article class="product" id="chapa-basica">
     <div class="product-img">
-      <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto de la chapa">
-        <img id="foto-producto" src="images/esencia-chapas-nombre.jpg" alt="Chapa redonda de acero inoxidable con el nombre Rayo grabado, con anilla en el collar de un perro" width="800" height="800">
+      <button type="button" class="zoom-btn" aria-label="Ampliar la foto de la chapa">
+        <img src="images/esencia-chapas-nombre.jpg" alt="Chapa redonda de acero inoxidable con el nombre Rayo grabado, con anilla en el collar de un perro" width="800" height="800">
         <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
       </button>
     </div>
     <div class="product-info">
-      <h2>Chapa de acero inoxidable para perros</h2>
-      <p class="product-desc">Chapa redonda de acero inoxidable para el collar o la correa de tu perro, grabada al láser por las dos caras y con anilla para colocarla.</p>
-      <div class="price"><span id="precio">10 €</span> <small>IVA incluido</small></div>
+      <h2>Chapa para perros · Solo nombre</h2>
+      <p class="product-desc">Chapa redonda de acero inoxidable para el collar o la correa de tu perro, grabada al láser por las dos caras, con su nombre, un teléfono y anilla para colocarla.</p>
+      <div class="price"><span>10 €</span> <small>IVA incluido</small></div>
 
       <div class="field">
-        <label for="opcion">Elige una opción</label>
-        <select id="opcion">
-          <option value="basica">Nombre + 1 teléfono (10 €)</option>
-          <option value="raza">Nombre + dibujo de la raza + hasta 2 teléfonos (15 €)</option>
-        </select>
-        <p class="field-note">Precios por chapa grabada por las dos caras, con anilla.</p>
-      </div>
-
-      <div class="field">
-        <label for="nombre">Nombre de tu perro</label>
-        <input type="text" id="nombre" maxlength="14" placeholder="Ej.: Cloe" autocomplete="off">
+        <label for="nombre-basica">Nombre de tu perro</label>
+        <input type="text" id="nombre-basica" maxlength="14" placeholder="Ej.: Rayo" autocomplete="off">
         <p class="field-note">Una sola palabra, máximo 14 letras.</p>
       </div>
 
-      <div class="field extra" id="raza-field">
-        <label for="raza">Raza (o la más parecida)</label>
-        <input type="text" id="raza" maxlength="40" placeholder="Ej.: Labrador" autocomplete="off">
-        <p class="field-note">Con ella elijo el dibujo para la chapa.</p>
-      </div>
-
       <div class="field">
-        <label for="tel1">Teléfono</label>
-        <input type="tel" id="tel1" maxlength="16" inputmode="tel" placeholder="Ej.: 600 123 456" autocomplete="off">
-      </div>
-
-      <div class="field extra" id="tel2-field">
-        <label for="tel2">Segundo teléfono (opcional)</label>
-        <input type="tel" id="tel2" maxlength="16" inputmode="tel" placeholder="Ej.: 600 654 321" autocomplete="off">
+        <label for="tel-basica">Teléfono</label>
+        <input type="tel" id="tel-basica" maxlength="16" placeholder="Ej.: 600 123 456" autocomplete="off" inputmode="tel">
       </div>
 
       <div class="field tarjeta">
-        <label class="check"><input type="checkbox" id="tarjeta-chk"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
-        <div class="extra" id="tarjeta-extra">
+        <label class="check"><input type="checkbox" id="tarjeta-chk-basica"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
+        <div class="extra" id="tarjeta-extra-basica">
           <img class="tarjeta-img" src="images/esencia-tarjeta.jpg" alt="Tarjeta dedicada de papel kraft con el texto «Para el abuelo» sobre una caja de regalo" width="480" height="616" loading="lazy">
           <p class="tarjeta-pie">Así queda tu tarjeta dedicada.</p>
           <div class="field">
-            <label for="tarjeta-para">Para quién es</label>
-            <input type="text" id="tarjeta-para" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
+            <label for="tarjeta-para-basica">Para quién es</label>
+            <input type="text" id="tarjeta-para-basica" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
           </div>
           <div class="field">
-            <label for="tarjeta-texto">Dedicatoria</label>
-            <input type="text" id="tarjeta-texto" maxlength="120" placeholder="Ej.: Con todo mi cariño, Marta" autocomplete="off">
+            <label for="tarjeta-texto-basica">Dedicatoria</label>
+            <input type="text" id="tarjeta-texto-basica" maxlength="120" placeholder="Ej.: Con todo mi cariño, Marta" autocomplete="off">
             <p class="field-note">Hasta 120 caracteres. Se imprime en la tarjeta.</p>
           </div>
         </div>
       </div>
 
-      <p class="msg" id="msg" role="alert"></p>
-      <button type="button" class="btn-primary" id="btn-add">Añadir al carrito</button>
+      <p class="msg" id="msg-basica" role="alert"></p>
+      <button type="button" class="btn-primary" id="btn-basica">Añadir al carrito</button>
+      <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
+    </div>
+  </article>
 
-      <p class="teaser">¿Sabías que puedo transformar la fotografía de tu perro en un grabado único sobre su chapa? <a href="#exclusiva">Descubre cómo</a></p>
+  <article class="product" id="chapa-raza">
+    <div class="product-img">
+      <button type="button" class="zoom-btn" aria-label="Ampliar la foto de la chapa">
+        <img src="images/esencia-chapas.jpg" alt="Chapa redonda de acero inoxidable con el dibujo de un perro y el nombre Cloe grabados, con anilla para la correa" width="896" height="837">
+        <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
+      </button>
+    </div>
+    <div class="product-info">
+      <h2>Chapa para perros · Con dibujo de la raza</h2>
+      <p class="product-desc">Chapa redonda de acero inoxidable para el collar o la correa de tu perro, grabada al láser por las dos caras, con su nombre, un dibujo genérico de su raza, hasta dos teléfonos y anilla para colocarla.</p>
+      <div class="price"><span>15 €</span> <small>IVA incluido</small></div>
+
+      <div class="field">
+        <label for="nombre-raza">Nombre de tu perro</label>
+        <input type="text" id="nombre-raza" maxlength="14" placeholder="Ej.: Cloe" autocomplete="off">
+        <p class="field-note">Una sola palabra, máximo 14 letras.</p>
+      </div>
+
+      <div class="field">
+        <label for="raza-raza">Raza (o la más parecida)</label>
+        <input type="text" id="raza-raza" maxlength="40" placeholder="Ej.: Labrador" autocomplete="off">
+        <p class="field-note">Con ella elijo el dibujo para la chapa.</p>
+      </div>
+
+      <div class="field">
+        <label for="tel1-raza">Teléfono</label>
+        <input type="tel" id="tel1-raza" maxlength="16" placeholder="Ej.: 600 123 456" autocomplete="off" inputmode="tel">
+      </div>
+
+      <div class="field">
+        <label for="tel2-raza">Segundo teléfono (opcional)</label>
+        <input type="tel" id="tel2-raza" maxlength="16" placeholder="Ej.: 600 654 321" autocomplete="off" inputmode="tel">
+      </div>
+
+      <div class="field tarjeta">
+        <label class="check"><input type="checkbox" id="tarjeta-chk-raza"> 🎁 ¿Es para regalar? Añade una tarjeta dedicada (+5 €)</label>
+        <div class="extra" id="tarjeta-extra-raza">
+          <img class="tarjeta-img" src="images/esencia-tarjeta.jpg" alt="Tarjeta dedicada de papel kraft con el texto «Para el abuelo» sobre una caja de regalo" width="480" height="616" loading="lazy">
+          <p class="tarjeta-pie">Así queda tu tarjeta dedicada.</p>
+          <div class="field">
+            <label for="tarjeta-para-raza">Para quién es</label>
+            <input type="text" id="tarjeta-para-raza" maxlength="30" placeholder="Ej.: el abuelo" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="tarjeta-texto-raza">Dedicatoria</label>
+            <input type="text" id="tarjeta-texto-raza" maxlength="120" placeholder="Ej.: Con todo mi cariño, Marta" autocomplete="off">
+            <p class="field-note">Hasta 120 caracteres. Se imprime en la tarjeta.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="msg" id="msg-raza" role="alert"></p>
+      <button type="button" class="btn-primary" id="btn-raza">Añadir al carrito</button>
       <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
     </div>
   </article>
@@ -256,90 +292,58 @@
 
 <script>
 (function () {
-  var PRECIOS = { basica: 10, raza: 15 };
   var $ = function (id) { return document.getElementById(id); };
-  var sel = $('opcion'), nombre = $('nombre'), raza = $('raza'), tel1 = $('tel1'), tel2 = $('tel2');
-  var msg = $('msg'), precio = $('precio');
-
-  // Foto según la opción: solo nombre -> chapa lisa; con dibujo de raza -> chapa con dibujo
-  var FOTOS = {
-    basica: { src: 'images/esencia-chapas-nombre.jpg', w: 800, h: 800,
-              alt: 'Chapa redonda de acero inoxidable con el nombre Rayo grabado, con anilla en el collar de un perro' },
-    raza:   { src: 'images/esencia-chapas.jpg', w: 896, h: 837,
-              alt: 'Chapa redonda de acero inoxidable con el dibujo de un perro y el nombre Cloe grabados, con anilla para la correa' }
-  };
-  var foto = $('foto-producto');
-  Object.keys(FOTOS).forEach(function (k) { new Image().src = FOTOS[k].src; }); // precarga para que el cambio sea instantáneo
-  function cambiarFoto() {
-    var f = FOTOS[sel.value];
-    if (foto.getAttribute('src') === f.src) return;
-    foto.style.opacity = '0';
-    setTimeout(function () {
-      foto.src = f.src; foto.alt = f.alt; foto.width = f.w; foto.height = f.h;
-      foto.style.opacity = '1';
-    }, 150);
-  }
-
-  function actualizar() {
-    var conRaza = sel.value === 'raza';
-    $('raza-field').classList.toggle('visible', conRaza);
-    $('tel2-field').classList.toggle('visible', conRaza);
-    precio.textContent = PRECIOS[sel.value] + ' €';
-    msg.textContent = '';
-    cambiarFoto();
-  }
-  sel.addEventListener('change', actualizar);
-  nombre.addEventListener('input', function () { nombre.value = nombre.value.replace(/\s/g, ''); });
-
   function telValido(v) { return /^\+?\d{9,15}$/.test(v.replace(/[\s.\-]/g, '')); }
-  function error(texto, campo) { msg.textContent = texto; campo.focus(); }
-
-  $('btn-add').addEventListener('click', function () {
-    var conRaza = sel.value === 'raza';
-    var n = nombre.value.trim(), r = raza.value.trim(), t1 = tel1.value.trim(), t2 = tel2.value.trim();
-    if (!n) return error('Escribe el nombre de tu perro (una sola palabra).', nombre);
-    if (conRaza && !r) return error('Escribe la raza de tu perro (o la más parecida).', raza);
-    if (!telValido(t1)) return error('Escribe un teléfono válido para la chapa.', tel1);
-    if (conRaza && t2 && !telValido(t2)) return error('El segundo teléfono no parece válido.', tel2);
-    if (typeof window.addToCart !== 'function') {
-      msg.textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.';
-      return;
-    }
-    var options = { 'Nombre': n };
-    if (conRaza) options['Raza'] = r;
-    options['Teléfono 1'] = t1;
-    if (conRaza && t2) options['Teléfono 2'] = t2;
-    window.addToCart({
-      id: 'esencia-chapa-' + sel.value,
-      name: 'Esencia · Chapa para perros' + (conRaza ? ' con dibujo de raza' : ''),
-      price: PRECIOS[sel.value],
-      qty: 1,
-      options: options
-    });
-    msg.textContent = '';
+  function error(id, texto, campo) { $(id).textContent = texto; if (campo) campo.focus(); }
+  function sinCarrito(id) {
+    if (typeof window.addToCart === 'function') return false;
+    $(id).textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.';
+    return true;
+  }
+  ['nombre-basica', 'nombre-raza'].forEach(function (id) {
+    $(id).addEventListener('input', function () { this.value = this.value.replace(/\s/g, ''); });
   });
-  actualizar();
+
+  // Chapa solo nombre: 10 €
+  $('btn-basica').addEventListener('click', function () {
+    var n = $('nombre-basica').value.trim(), t = $('tel-basica').value.trim();
+    if (!n) return error('msg-basica', 'Escribe el nombre de tu perro (una sola palabra).', $('nombre-basica'));
+    if (!telValido(t)) return error('msg-basica', 'Escribe un teléfono válido para la chapa.', $('tel-basica'));
+    if (sinCarrito('msg-basica')) return;
+    window.addToCart({ id: 'esencia-chapa-basica', name: 'Esencia · Chapa para perros (solo nombre)', price: 10, qty: 1,
+      options: { 'Nombre': n, 'Teléfono 1': t } });
+    $('msg-basica').textContent = '';
+  });
+
+  // Chapa con dibujo de la raza: 15 €
+  $('btn-raza').addEventListener('click', function () {
+    var n = $('nombre-raza').value.trim(), r = $('raza-raza').value.trim(), t1 = $('tel1-raza').value.trim(), t2 = $('tel2-raza').value.trim();
+    if (!n) return error('msg-raza', 'Escribe el nombre de tu perro (una sola palabra).', $('nombre-raza'));
+    if (!r) return error('msg-raza', 'Escribe la raza de tu perro (o la más parecida).', $('raza-raza'));
+    if (!telValido(t1)) return error('msg-raza', 'Escribe un teléfono válido para la chapa.', $('tel1-raza'));
+    if (t2 && !telValido(t2)) return error('msg-raza', 'El segundo teléfono no parece válido.', $('tel2-raza'));
+    if (sinCarrito('msg-raza')) return;
+    var o = { 'Nombre': n, 'Raza': r, 'Teléfono 1': t1 };
+    if (t2) o['Teléfono 2'] = t2;
+    window.addToCart({ id: 'esencia-chapa-raza', name: 'Esencia · Chapa para perros con dibujo de raza', price: 15, qty: 1, options: o });
+    $('msg-raza').textContent = '';
+  });
 })();
 </script>
 <script>
 (function () {
   var box = document.getElementById('lightbox');
   var big = document.getElementById('lightbox-img');
-  var trigger = document.getElementById('zoom-btn');
-  var foto = document.getElementById('foto-producto');
   var closeBtn = document.getElementById('lightbox-close');
-  function abrir() {
-    big.src = foto.src; big.alt = foto.alt;
-    box.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    closeBtn.focus();
-  }
-  function cerrar() {
-    box.classList.remove('open');
-    document.body.style.overflow = '';
-    trigger.focus();
-  }
-  trigger.addEventListener('click', abrir);
+  var ultimo = null;
+  function cerrar() { box.classList.remove('open'); document.body.style.overflow = ''; if (ultimo) ultimo.focus(); }
+  document.querySelectorAll('.zoom-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var img = b.querySelector('img'); ultimo = b;
+      big.src = img.src; big.alt = img.alt;
+      box.classList.add('open'); document.body.style.overflow = 'hidden'; closeBtn.focus();
+    });
+  });
   closeBtn.addEventListener('click', cerrar);
   box.addEventListener('click', function (e) { if (e.target !== big) cerrar(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('open')) cerrar(); });
@@ -347,7 +351,8 @@
 </script>
 <script src="carrito.js"></script>
 <script>
-if (window.setupGiftCard) setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Chapa para perros' });
+if (window.setupGiftCard) setupGiftCard({ boton: 'btn-basica', check: 'tarjeta-chk-basica', texto: 'tarjeta-texto-basica', para: 'tarjeta-para-basica', extra: 'tarjeta-extra-basica', msg: 'msg-basica', nombre: 'Chapa para perros (solo nombre)' });
+if (window.setupGiftCard) setupGiftCard({ boton: 'btn-raza', check: 'tarjeta-chk-raza', texto: 'tarjeta-texto-raza', para: 'tarjeta-para-raza', extra: 'tarjeta-extra-raza', msg: 'msg-raza', nombre: 'Chapa para perros con dibujo de raza' });
 </script>
 </body>
 </html>
