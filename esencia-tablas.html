@@ -75,6 +75,23 @@
     .tarjeta .extra.visible { display: block; }
     .tarjeta-img { width: 170px; max-width: 60%; height: auto; border-radius: 12px; display: block; margin: 0.8rem auto 0; }
     .tarjeta-pie { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; margin-top: 0.4rem; line-height: 1.5; }
+    .grabados { margin: 0.2rem 0; }
+    .grabados-titulo { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.5rem; }
+    .gr-wrap { position: relative; }
+    .gr-pista { display: flex; gap: 0.6rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 0.2rem 0.1rem 0.6rem; scrollbar-width: thin; }
+    .gr-item { flex: 0 0 92px; scroll-snap-align: start; border: 2px solid var(--wood-light); background: #fff; border-radius: 12px; padding: 0.3rem; cursor: pointer; text-align: center; font-family: 'Nunito', sans-serif; transition: border-color 0.2s, background 0.2s; }
+    .gr-item:hover { border-color: var(--mint-dark); }
+    .gr-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 8px; background: #fff; }
+    .gr-item span { display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-mid); margin-top: 0.25rem; line-height: 1.2; }
+    .gr-item.sel { border-color: var(--mint-dark); background: var(--mint-light); }
+    .gr-item.sel span { color: var(--wood-deep); }
+    .gr-flecha { display: none; position: absolute; top: calc(50% - 1.2rem); width: 30px; height: 30px; border: none; border-radius: 50%; background: rgba(90,58,26,0.78); color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; z-index: 2; }
+    .gr-flecha:hover { background: var(--mint-dark); }
+    .gr-prev { left: -10px; } .gr-next { right: -10px; }
+    @media (hover: hover) and (pointer: fine) { .gr-flecha { display: block; } }
+    .gr-elegido { font-size: 0.85rem; color: var(--text-mid); }
+    .gr-elegido strong { color: var(--wood-deep); }
+    .gr-ver { background: none; border: none; padding: 0; font-family: inherit; font-size: 0.8rem; font-weight: 700; color: var(--mint-dark); text-decoration: underline; cursor: pointer; }
     /* Foto ampliable */
     .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
     .zoom-hint { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(90,58,26,0.65); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.8rem; border-radius: 30px; backdrop-filter: blur(4px); }
@@ -142,9 +159,19 @@
       </button>
     </div>
     <div class="product-info">
-      <h2>Tabla de cocina · Ciervo</h2>
-      <p class="product-desc">Tabla de madera con un ciervo grabado al láser. Lleva un cordón de yute con abalorios de madera como detalle decorativo. Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
+      <h2>Tabla de cocina</h2>
+      <p class="product-desc">Tabla de madera con el grabado láser que elijas. Lleva un cordón de yute con abalorios de madera como detalle decorativo. Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
       <div class="price"><span id="precio">28 €</span> <small>IVA incluido</small></div>
+
+      <div class="grabados">
+        <p class="grabados-titulo">Elige tu grabado</p>
+        <div class="gr-wrap">
+          <button type="button" class="gr-flecha gr-prev" id="gr-prev" aria-label="Diseños anteriores">‹</button>
+          <div class="gr-pista" id="gr-pista" role="listbox" aria-label="Diseños de grabado"></div>
+          <button type="button" class="gr-flecha gr-next" id="gr-next" aria-label="Más diseños">›</button>
+        </div>
+        <p class="gr-elegido">Grabado elegido: <strong id="gr-nombre">Ciervo</strong> · <button type="button" class="gr-ver" id="gr-ver">Ver grande</button></p>
+      </div>
 
       <div class="field">
         <label for="opcion">Elige una opción</label>
@@ -237,6 +264,60 @@
 
 <script>
 (function () {
+  var $ = function (id) { return document.getElementById(id); };
+  // Diseños disponibles para las tablas. El primero es el que viene elegido por defecto (el de la foto).
+  var DISENOS = [
+    { id: 'ciervo',          nombre: 'Ciervo' },
+    { id: 'jabali',          nombre: 'Jabalí' },
+    { id: 'corzo',           nombre: 'Corzo' },
+    { id: 'zorro',           nombre: 'Zorro' },
+    { id: 'podenco-andaluz', nombre: 'Podenco andaluz' },
+    { id: 'breton',          nombre: 'Bretón' }
+  ];
+  var elegido = DISENOS[0].id;
+  var pista = $('gr-pista');
+  function mini(d) { return 'images/grabados/tabla-' + d.id + '-mini.jpg'; }
+  function grande(d) { return 'images/grabados/tabla-' + d.id + '.jpg'; }
+  function actual() { return DISENOS.filter(function (d) { return d.id === elegido; })[0]; }
+
+  function pintar(enfocar) {
+    // la que se elige pasa a ser la primera de la tira
+    var orden = [actual()].concat(DISENOS.filter(function (d) { return d.id !== elegido; }));
+    pista.innerHTML = '';
+    orden.forEach(function (d) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'gr-item' + (d.id === elegido ? ' sel' : '');
+      b.setAttribute('role', 'option'); b.setAttribute('aria-selected', d.id === elegido ? 'true' : 'false');
+      b.dataset.id = d.id;
+      var img = document.createElement('img'); img.src = mini(d); img.alt = 'Diseño ' + d.nombre; img.width = 240; img.height = 240; img.loading = 'lazy';
+      var t = document.createElement('span'); t.textContent = d.nombre;
+      b.appendChild(img); b.appendChild(t); pista.appendChild(b);
+      if (enfocar && d.id === elegido) b.focus({ preventScroll: true });
+    });
+    pista.scrollTo({ left: 0 });
+    $('gr-nombre').textContent = actual().nombre;
+  }
+  pista.addEventListener('click', function (e) {
+    var b = e.target.closest('.gr-item'); if (!b) return;
+    elegido = b.dataset.id; pintar(true);
+  });
+  $('gr-prev').addEventListener('click', function () { pista.scrollBy({ left: -200 }); });
+  $('gr-next').addEventListener('click', function () { pista.scrollBy({ left: 200 }); });
+
+  // "Ver grande": usa el visor de fotos de la página
+  $('gr-ver').addEventListener('click', function () {
+    var big = $('lightbox-img'), box = $('lightbox'); if (!big || !box) return;
+    big.src = grande(actual()); big.alt = 'Diseño de grabado: ' + actual().nombre;
+    box.classList.add('open'); document.body.style.overflow = 'hidden';
+    var c = $('lightbox-close'); if (c) c.focus();
+  });
+
+  window.grabadoElegido = function () { return actual().nombre; };
+  pintar(false);
+})();
+</script>
+<script>
+(function () {
   var PRECIO_BASE = 28, EXTRA_DEDICATORIA = 5;
   var sel = document.getElementById('opcion');
   var campo = document.getElementById('dedicatoria-field');
@@ -265,12 +346,13 @@
       return;
     }
     var producto = {
-      id: 'esencia-tabla-ciervo' + (conDedicatoria ? '-dedicatoria' : ''),
-      name: 'Esencia · Tabla de cocina Ciervo',
+      id: 'esencia-tabla' + (conDedicatoria ? '-dedicatoria' : ''),
+      name: 'Esencia · Tabla de cocina',
       price: total(),
       qty: 1
     };
-    if (conDedicatoria) producto.options = { 'Dedicatoria': dedic };
+    producto.options = { 'Grabado': (window.grabadoElegido ? window.grabadoElegido() : 'Ciervo') };
+    if (conDedicatoria) producto.options['Dedicatoria'] = dedic;
     window.addToCart(producto);
     msg.textContent = '';
   });
@@ -302,7 +384,7 @@
 </script>
 <script src="carrito.js"></script>
 <script>
-if (window.setupGiftCard) setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Tabla de cocina Ciervo' });
+if (window.setupGiftCard) setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Tabla de cocina' });
 </script>
 </body>
 </html>
