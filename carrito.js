@@ -560,18 +560,23 @@
     } else {
       noteHtml = `✨ Envoltorio mimado para entregar como regalo`;
       if (region === 'peninsula') {
+        const pct = Math.min(100, Math.round(subtotal / FREE_SHIPPING_THRESHOLD * 100));
         if (shipping === 0) {
-          noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">🎉 ¡Envío gratis conseguido!</span>`;
+          noteHtml += `<div style="margin:0.6rem 0 0.2rem;padding:0.55rem 0.7rem;border-radius:10px;background:#e3efe6;border:1px solid #6a9e8a;font-size:0.8rem;font-weight:700;color:#2f5d4a;">🎉 ¡Envío gratis conseguido!</div>`;
         } else {
           const remainingEur = FREE_SHIPPING_THRESHOLD - subtotal;
-          noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ ¡Te faltan solo ${remainingEur.toFixed(2)} € para conseguir el envío gratis! (a partir de ${FREE_SHIPPING_THRESHOLD}€)</span>`;
+          noteHtml += `<div style="margin:0.6rem 0 0.2rem;padding:0.55rem 0.7rem;border-radius:10px;background:#fff;border:1px solid #6a9e8a;font-size:0.8rem;font-weight:600;color:#2f5d4a;">🚚 Envío gratis desde ${FREE_SHIPPING_THRESHOLD} € · te faltan solo <strong>${remainingEur.toFixed(2)} €</strong><div style="height:6px;border-radius:4px;background:#e3efe6;margin-top:0.45rem;overflow:hidden;"><div style="width:${pct}%;height:100%;background:#6a9e8a;"></div></div></div>`;
         }
         noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
       } else {
         noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ El envío gratis solo aplica a envíos dentro de la Península</span>`;
       }
     }
-    noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">📦 Plazo de envío estimado: <strong>${getEstimatedDelivery()}</strong> · Todos los envíos son certificados con seguimiento${deliveryMode === 'tienda' ? ' (te avisaré por WhatsApp/email)' : ' (puede ampliarse en fechas de alta demanda)'}</span>`;
+    if (deliveryMode === 'tienda') {
+      noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">📦 Plazo estimado para recoger tu pedido: <strong>${getEstimatedDelivery()}</strong> · Te avisaré por WhatsApp/email cuando esté listo</span>`;
+    } else {
+      noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">📦 Plazo de envío estimado: <strong>${getEstimatedDelivery()}</strong> · Todos los envíos son certificados con seguimiento (puede ampliarse en fechas de alta demanda)</span>`;
+    }
 
     body.innerHTML = `
       <div class="delivery-selector">
