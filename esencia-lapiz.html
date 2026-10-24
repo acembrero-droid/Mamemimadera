@@ -159,8 +159,8 @@
 
       <div class="field">
         <label for="nombre-lapiz">Nombre para grabar</label>
-        <input type="text" id="nombre-lapiz" maxlength="14" placeholder="Ej.: Antonio" autocomplete="off">
-        <p class="field-note">Una sola palabra, máximo 14 letras. Te confirmaré el diseño antes de grabarlo.</p>
+        <input type="text" id="nombre-lapiz" maxlength="40" placeholder="Ej.: Antonio" autocomplete="off">
+        <p class="field-note">Máximo 3 palabras. Te confirmaré el diseño antes de grabarlo.</p>
       </div>
 
       <div class="field tarjeta">
@@ -229,10 +229,14 @@
 (function () {
   var nombre = document.getElementById('nombre-lapiz');
   var msg = document.getElementById('msg-lapiz');
-  nombre.addEventListener('input', function () { nombre.value = nombre.value.replace(/\s/g, ''); msg.textContent = ''; });
+  nombre.addEventListener('input', function () {
+    var w = nombre.value.replace(/^\s+/, '').replace(/\s{2,}/g, ' ').split(' ');
+    nombre.value = w.slice(0, 3).join(' ');
+    msg.textContent = '';
+  });
   document.getElementById('btn-lapiz').addEventListener('click', function () {
-    var n = nombre.value.trim();
-    if (!n) { msg.textContent = 'Escribe el nombre que quieres grabar (una sola palabra).'; nombre.focus(); return; }
+    var n = nombre.value.trim().replace(/\s+/g, ' ');
+    if (!n) { msg.textContent = 'Escribe el nombre que quieres grabar (máximo 3 palabras).'; nombre.focus(); return; }
     if (typeof window.addToCart !== 'function') { msg.textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.'; return; }
     window.addToCart({ id: 'esencia-lapiz', name: 'Esencia · Lápiz de madera', price: 8, qty: 1, options: { 'Nombre': n } });
     msg.textContent = '';
