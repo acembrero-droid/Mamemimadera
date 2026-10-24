@@ -92,6 +92,27 @@
     .gr-elegido { font-size: 0.85rem; color: var(--text-mid); }
     .gr-elegido strong { color: var(--wood-deep); }
     .gr-ver { background: none; border: none; padding: 0; font-family: inherit; font-size: 0.8rem; font-weight: 700; color: var(--mint-dark); text-decoration: underline; cursor: pointer; }
+    .cantidad { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin: 0.2rem 0; }
+    .cantidad-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); }
+    .stepper { display: flex; align-items: center; border: 1.5px solid var(--wood-light); border-radius: 30px; background: var(--cream); overflow: hidden; }
+    .stepper button { width: 38px; height: 38px; border: none; background: none; font-size: 1.25rem; line-height: 1; cursor: pointer; color: var(--wood-dark); }
+    .stepper button:hover:not(:disabled) { background: var(--wood-light); }
+    .stepper button:disabled { opacity: 0.35; cursor: default; }
+    .stepper span { min-width: 34px; text-align: center; font-weight: 700; color: var(--wood-deep); }
+    .cant-total { font-size: 0.9rem; font-weight: 700; color: var(--mint-dark); }
+    .gr-slots { display: none; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+    .gr-slot { border: 1.5px solid var(--wood-light); background: #fff; border-radius: 20px; padding: 0.3rem 0.8rem; font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text-mid); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+    .gr-slot small { font-size: 0.72rem; font-weight: 400; opacity: 0.85; }
+    .gr-slot.act { border-color: var(--mint-dark); background: var(--mint-light); color: var(--wood-deep); }
+    .gr-item { position: relative; }
+    .gr-item.act { box-shadow: 0 0 0 2px var(--mint-dark); }
+    .gr-item.sin-foto { display: flex; align-items: center; justify-content: center; min-height: 64px; }
+    .gr-item.sin-foto span { margin-top: 0; font-size: 0.8rem; }
+    .gr-item .gr-badge { position: absolute; top: 5px; left: 5px; margin: 0; padding: 0 0.4rem; border-radius: 10px; background: var(--mint-dark); color: #fff; font-size: 0.62rem; line-height: 1.5; z-index: 1; }
+    .field label.pregunta { text-transform: none; letter-spacing: 0; font-size: 0.9rem; font-weight: 700; color: var(--wood-deep); line-height: 1.4; }
+    .field textarea { width: 100%; padding: 0.7rem 1rem; border: 1.5px solid var(--wood-light); border-radius: 12px; background: var(--cream); font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text); resize: vertical; }
+    .field textarea:focus { outline: none; border-color: var(--mint-dark); }
+    .field textarea::placeholder { color: #a8957c; opacity: 1; }
     /* Foto ampliable */
     .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
     .zoom-hint { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(90,58,26,0.65); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.8rem; border-radius: 30px; backdrop-filter: blur(4px); }
@@ -163,28 +184,39 @@
       <p class="product-desc">Tabla de madera con el grabado láser que elijas. Lleva un cordón de yute con abalorios de madera como detalle decorativo. Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
       <div class="price"><span id="precio">28 €</span> <small>IVA incluido</small></div>
 
+      <div class="cantidad">
+        <span class="cantidad-label">Cantidad</span>
+        <div class="stepper">
+          <button type="button" id="cant-menos" aria-label="Quitar una">−</button>
+          <span id="cant-valor" aria-live="polite">1</span>
+          <button type="button" id="cant-mas" aria-label="Añadir una">+</button>
+        </div>
+        <span class="cant-total" id="cant-total"></span>
+      </div>
+
       <div class="grabados">
         <p class="grabados-titulo">Elige tu grabado</p>
+        <div class="gr-slots" id="gr-slots"></div>
         <div class="gr-wrap">
           <button type="button" class="gr-flecha gr-prev" id="gr-prev" aria-label="Diseños anteriores">‹</button>
           <div class="gr-pista" id="gr-pista" role="listbox" aria-label="Diseños de grabado"></div>
           <button type="button" class="gr-flecha gr-next" id="gr-next" aria-label="Más diseños">›</button>
         </div>
-        <p class="gr-elegido">Grabado elegido: <strong id="gr-nombre">Ciervo</strong> · <button type="button" class="gr-ver" id="gr-ver">Ver grande</button></p>
+        <p class="gr-elegido" id="gr-resumen"></p>
       </div>
 
       <div class="field">
-        <label for="opcion">Elige una opción</label>
+        <label class="pregunta" id="ded-pregunta" for="opcion">¿Querrías añadir una dedicatoria o algo personal grabado al láser en la tabla?</label>
         <select id="opcion">
-          <option value="sin">Tal cual (28 €)</option>
-          <option value="dedicatoria">Con dedicatoria (+5 €)</option>
+          <option value="sin">No</option>
+          <option value="dedicatoria">Sí (+5 €)</option>
         </select>
       </div>
 
       <div class="field" id="dedicatoria-field">
-        <label for="dedicatoria">Tu dedicatoria</label>
-        <input type="text" id="dedicatoria" maxlength="60" placeholder="Ej.: Felicidades papá">
-        <p class="field-note">Máximo 60 caracteres. Te confirmaré el diseño antes de grabarla.</p>
+        <label for="dedicatoria">Tu dedicatoria o texto personal</label>
+        <textarea id="dedicatoria" rows="3" maxlength="250" placeholder="Ej.: Feliz Navidad, papá. Con todo nuestro cariño"></textarea>
+        <p class="field-note"><span id="ded-cuenta">0</span>/20 palabras. Te confirmaré el diseño antes de grabarlo.</p>
       </div>
 
       <div class="field tarjeta">
@@ -265,6 +297,7 @@
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
+  var MAX = 10, BASE = 28, EXTRA = 5, MAX_PAL = 20;
   // Diseños disponibles para las tablas. El primero es el que viene elegido por defecto (el de la foto).
   var DISENOS = [
     { id: 'ciervo',          nombre: 'Ciervo' },
@@ -274,86 +307,179 @@
     { id: 'podenco-andaluz', nombre: 'Podenco andaluz' },
     { id: 'breton',          nombre: 'Bretón' }
   ];
-  var elegido = DISENOS[0].id;
+  var qty = 1, activo = 0;
+  var asign = [DISENOS[0].id];   // asign[i] = diseño de la tabla i+1; si una no se elige, lleva el de la tabla 1
+  var elegida = [];              // elegida[i] = true cuando el cliente ha escogido el diseño de esa tabla
+  var dedics = [];               // dedics[i] = { si, texto }: dedicatoria de la tabla i+1
   var pista = $('gr-pista');
+  function buscar(id) { return DISENOS.filter(function (d) { return d.id === id; })[0]; }
+  function efectivo(i) { return (i > 0 && !elegida[i]) ? asign[0] : asign[i]; }
+  function ded(i) { return dedics[i] || (dedics[i] = { si: false, texto: '' }); }
+  function primeraSinElegir() { for (var i = 0; i < qty; i++) if (!elegida[i]) return i; return -1; }
   function mini(d) { return 'images/grabados/tabla-' + d.id + '-mini.jpg'; }
   function grande(d) { return 'images/grabados/tabla-' + d.id + '.jpg'; }
-  function actual() { return DISENOS.filter(function (d) { return d.id === elegido; })[0]; }
+  function usados() {
+    var u = [];
+    for (var i = 0; i < qty; i++) { var id = efectivo(i); if (u.indexOf(id) < 0) u.push(id); }
+    return u;
+  }
+  function textoLimpio(i) { return ded(i).si ? ded(i).texto.trim().replace(/\s+/g, ' ') : ''; }
+  function contar(t) { t = t.trim(); return t ? t.split(/\s+/).length : 0; }
 
-  function pintar(enfocar) {
-    // la que se elige pasa a ser la primera de la tira
-    var orden = [actual()].concat(DISENOS.filter(function (d) { return d.id !== elegido; }));
+  function pintarSlots() {
+    var cont = $('gr-slots'); cont.innerHTML = '';
+    cont.style.display = qty > 1 ? 'flex' : 'none';
+    for (var i = 0; i < qty; i++) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'gr-slot' + (i === activo ? ' act' : ''); b.dataset.i = i;
+      var d = buscar(efectivo(i));
+      b.appendChild(document.createTextNode('Tabla ' + (i + 1) + ': '));
+      var extra = (i > 0 && !elegida[i]) ? ' (como la 1)' : '';
+      if (ded(i).si) extra += textoLimpio(i) ? ' · con dedicatoria' : ' · falta el texto';
+      var s = document.createElement('small'); s.textContent = d.nombre + extra;
+      b.appendChild(s); cont.appendChild(b);
+    }
+  }
+  function pintarTira(enfocar) {
+    // los diseños elegidos pasan a ser los primeros de la tira
+    var u = usados();
+    var orden = u.map(buscar).concat(DISENOS.filter(function (d) { return u.indexOf(d.id) < 0; }));
+    var idAct = efectivo(activo);
     pista.innerHTML = '';
     orden.forEach(function (d) {
-      var b = document.createElement('button');
-      b.type = 'button'; b.className = 'gr-item' + (d.id === elegido ? ' sel' : '');
-      b.setAttribute('role', 'option'); b.setAttribute('aria-selected', d.id === elegido ? 'true' : 'false');
-      b.dataset.id = d.id;
+      var usado = u.indexOf(d.id) >= 0;
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'gr-item' + (usado ? ' sel' : '') + (d.id === idAct ? ' act' : '');
+      b.setAttribute('role', 'option'); b.setAttribute('aria-selected', usado ? 'true' : 'false'); b.dataset.id = d.id;
+      if (qty > 1 && usado) {
+        var nums = []; for (var i = 0; i < qty; i++) if (efectivo(i) === d.id) nums.push(i + 1);
+        var bd = document.createElement('span'); bd.className = 'gr-badge'; bd.textContent = nums.join('·'); b.appendChild(bd);
+      }
       var img = document.createElement('img'); img.src = mini(d); img.alt = 'Diseño ' + d.nombre; img.width = 240; img.height = 240; img.loading = 'lazy';
+      img.onerror = function () {
+        if (!this.dataset.reintento) { this.dataset.reintento = '1'; this.src = 'images/tabla-' + d.id + '-mini.jpg'; }
+        else { this.style.display = 'none'; b.classList.add('sin-foto'); }
+      };
       var t = document.createElement('span'); t.textContent = d.nombre;
       b.appendChild(img); b.appendChild(t); pista.appendChild(b);
-      if (enfocar && d.id === elegido) b.focus({ preventScroll: true });
+      if (enfocar && d.id === idAct) b.focus({ preventScroll: true });
     });
     pista.scrollTo({ left: 0 });
-    $('gr-nombre').textContent = actual().nombre;
   }
+  function pintarResumen() {
+    var d = buscar(efectivo(activo));
+    $('gr-resumen').innerHTML = qty === 1
+      ? 'Grabado elegido: <strong>' + d.nombre + '</strong> · <button type="button" class="gr-ver">Ver grande</button>'
+      : 'Toca un diseño para la <strong>Tabla ' + (activo + 1) + '</strong>. Las que no elijas llevarán el mismo que la Tabla 1. · <button type="button" class="gr-ver">Ver grande</button>';
+  }
+  function pintarDedicatoria() {   // la pregunta de la dedicatoria es de la tabla marcada
+    var x = ded(activo);
+    $('ded-pregunta').textContent = qty === 1
+      ? '¿Querrías añadir una dedicatoria o algo personal grabado al láser en la tabla?'
+      : 'Tabla ' + (activo + 1) + ' · ¿Querrías añadir una dedicatoria o algo personal grabado al láser en esta tabla?';
+    $('opcion').value = x.si ? 'dedicatoria' : 'sin';
+    $('dedicatoria-field').classList.toggle('visible', x.si);
+    $('dedicatoria').value = x.texto;
+    $('ded-cuenta').textContent = contar(x.texto);
+  }
+  function pintarPrecio() {
+    var suma = 0, conDed = 0;
+    for (var i = 0; i < qty; i++) { suma += BASE + (textoLimpio(i) || ded(i).si ? EXTRA : 0); if (ded(i).si) conDed++; }
+    if (qty === 1) {
+      $('precio').textContent = suma + ' €'; $('cant-total').textContent = '';
+    } else {
+      $('precio').textContent = BASE + ' €';
+      $('cant-total').textContent = 'Total: ' + suma + ' € (' + qty + ' tablas' + (conDed ? ', ' + conDed + ' con dedicatoria' : '') + ')';
+    }
+  }
+  function todo(enfocar) {
+    $('cant-valor').textContent = qty;
+    $('cant-menos').disabled = qty <= 1; $('cant-mas').disabled = qty >= MAX;
+    pintarSlots(); pintarTira(enfocar); pintarResumen(); pintarDedicatoria(); pintarPrecio();
+  }
+
   pista.addEventListener('click', function (e) {
     var b = e.target.closest('.gr-item'); if (!b) return;
-    elegido = b.dataset.id; pintar(true);
+    asign[activo] = b.dataset.id; elegida[activo] = true;
+    if (qty > 1) { var sig = primeraSinElegir(); if (sig >= 0) activo = sig; }   // pasa a la siguiente tabla sin elegir
+    todo(true);
   });
+  $('gr-slots').addEventListener('click', function (e) {
+    var b = e.target.closest('.gr-slot'); if (!b) return;
+    activo = parseInt(b.dataset.i, 10); todo(false);
+  });
+  $('cant-menos').addEventListener('click', function () { if (qty > 1) { qty--; if (activo >= qty) activo = qty - 1; todo(false); } });
+  $('cant-mas').addEventListener('click', function () { if (qty < MAX) { qty++; var sig = primeraSinElegir(); activo = sig >= 0 ? sig : qty - 1; todo(false); } });
   $('gr-prev').addEventListener('click', function () { pista.scrollBy({ left: -200 }); });
   $('gr-next').addEventListener('click', function () { pista.scrollBy({ left: 200 }); });
-
-  // "Ver grande": usa el visor de fotos de la página
-  $('gr-ver').addEventListener('click', function () {
+  $('gr-resumen').addEventListener('click', function (e) {   // "Ver grande": usa el visor de fotos de la página
+    if (!e.target.closest('.gr-ver')) return;
     var big = $('lightbox-img'), box = $('lightbox'); if (!big || !box) return;
-    big.src = grande(actual()); big.alt = 'Diseño de grabado: ' + actual().nombre;
+    var d = buscar(efectivo(activo));
+    big.dataset.reintento = '';
+    big.onerror = function () {   // por si las fotos se subieron a images/ sin la subcarpeta "grabados"
+      if (!big.dataset.reintento) { big.dataset.reintento = '1'; big.src = 'images/tabla-' + d.id + '.jpg'; }
+    };
+    big.src = grande(d); big.alt = 'Diseño de grabado: ' + d.nombre;
     box.classList.add('open'); document.body.style.overflow = 'hidden';
     var c = $('lightbox-close'); if (c) c.focus();
   });
 
-  window.grabadoElegido = function () { return actual().nombre; };
-  pintar(false);
+  // Dedicatoria de la tabla marcada (Sí / No) y su texto, con un máximo de 20 palabras
+  $('opcion').addEventListener('change', function () {
+    ded(activo).si = this.value === 'dedicatoria';
+    $('dedicatoria-field').classList.toggle('visible', ded(activo).si);
+    if (ded(activo).si) $('dedicatoria').focus();
+    $('msg').textContent = ''; pintarSlots(); pintarPrecio();
+  });
+  $('dedicatoria').addEventListener('input', function () {
+    var w = this.value.replace(/^\s+/, '').split(/\s+/);
+    if (w.length > MAX_PAL) this.value = w.slice(0, MAX_PAL).join(' ');
+    ded(activo).texto = this.value;
+    $('ded-cuenta').textContent = contar(this.value);
+    $('msg').textContent = ''; pintarSlots();
+  });
+
+  window.tabla = {
+    // devuelve el aviso si alguna tabla con "Sí" no tiene texto (y se sitúa en esa tabla)
+    validar: function () {
+      for (var i = 0; i < qty; i++) {
+        if (ded(i).si && !textoLimpio(i)) {
+          activo = i; todo(false); $('dedicatoria').focus();
+          return (qty > 1 ? 'Tabla ' + (i + 1) + ': escribe' : 'Escribe') + ' la dedicatoria o el texto que quieres grabar (máximo 20 palabras), o elige No.';
+        }
+      }
+      return '';
+    },
+    // una línea de carrito por cada combinación distinta de grabado y dedicatoria
+    lineas: function () {
+      var g = {}, orden = [];
+      for (var i = 0; i < qty; i++) {
+        var t = textoLimpio(i), nom = buscar(efectivo(i)).nombre, k = nom + '|' + t;
+        if (!g[k]) { g[k] = { grabado: nom, dedic: t, qty: 0, price: BASE + (t ? EXTRA : 0) }; orden.push(k); }
+        g[k].qty++;
+      }
+      return orden.map(function (k) { return g[k]; });
+    }
+  };
+  todo(false);
 })();
 </script>
 <script>
 (function () {
-  var PRECIO_BASE = 28, EXTRA_DEDICATORIA = 5;
-  var sel = document.getElementById('opcion');
-  var campo = document.getElementById('dedicatoria-field');
-  var texto = document.getElementById('dedicatoria');
-  var precio = document.getElementById('precio');
   var msg = document.getElementById('msg');
-
-  function total() { return PRECIO_BASE + (sel.value === 'dedicatoria' ? EXTRA_DEDICATORIA : 0); }
-  function actualizar() {
-    campo.classList.toggle('visible', sel.value === 'dedicatoria');
-    precio.textContent = total() + ' €';
-    msg.textContent = '';
-  }
-  sel.addEventListener('change', actualizar);
-
   document.getElementById('btn-add').addEventListener('click', function () {
-    var conDedicatoria = sel.value === 'dedicatoria';
-    var dedic = texto.value.trim();
-    if (conDedicatoria && !dedic) {
-      msg.textContent = 'Escribe la dedicatoria que quieres grabar.';
-      texto.focus();
-      return;
-    }
+    var aviso = window.tabla ? window.tabla.validar() : '';
+    if (aviso) { msg.textContent = aviso; return; }
     if (typeof window.addToCart !== 'function') {
       msg.textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.';
       return;
     }
-    var producto = {
-      id: 'esencia-tabla' + (conDedicatoria ? '-dedicatoria' : ''),
-      name: 'Esencia · Tabla de cocina',
-      price: total(),
-      qty: 1
-    };
-    producto.options = { 'Grabado': (window.grabadoElegido ? window.grabadoElegido() : 'Ciervo') };
-    if (conDedicatoria) producto.options['Dedicatoria'] = dedic;
-    window.addToCart(producto);
+    window.tabla.lineas().forEach(function (l) {
+      var producto = { id: 'esencia-tabla' + (l.dedic ? '-dedicatoria' : ''), name: 'Esencia · Tabla de cocina', price: l.price, qty: l.qty, options: { 'Grabado': l.grabado } };
+      if (l.dedic) producto.options['Dedicatoria'] = l.dedic;
+      window.addToCart(producto);
+    });
     msg.textContent = '';
   });
 })();
