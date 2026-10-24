@@ -567,7 +567,7 @@
           const remainingEur = FREE_SHIPPING_THRESHOLD - subtotal;
           noteHtml += `<div style="margin:0.6rem 0 0.2rem;padding:0.55rem 0.7rem;border-radius:10px;background:#fff;border:1px solid #6a9e8a;font-size:0.8rem;font-weight:600;color:#2f5d4a;">🚚 Envío gratis desde ${FREE_SHIPPING_THRESHOLD} € · te faltan solo <strong>${remainingEur.toFixed(2)} €</strong><div style="height:6px;border-radius:4px;background:#e3efe6;margin-top:0.45rem;overflow:hidden;"><div style="width:${pct}%;height:100%;background:#6a9e8a;"></div></div></div>`;
         }
-        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: si recoges en tienda, tampoco se suman gastos de envío</span>`;
+        noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">💡 Recuerda: en recogida en tienda no se cobran gastos de envío</span>`;
       } else {
         noteHtml += `<br><span style="font-size:0.68rem;opacity:0.8;">✦ El envío gratis solo aplica a envíos dentro de la Península</span>`;
       }
