@@ -33,6 +33,7 @@
 
     #productos { background: var(--cream2); padding: 3.5rem 2rem; }
     .product { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 960px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: clip; box-shadow: 0 4px 20px var(--shadow); }
+    .product > * { min-width: 0; }
     .product-img { background: var(--wood-deep); align-self: start; }
     .product-img .grabados { background: var(--cream); padding: 1rem 1.1rem 1.1rem; margin: 0; }
     .product-img .gr-prev { left: 4px; } .product-img .gr-next { right: 4px; }
@@ -83,7 +84,7 @@
     .gr-pista { display: flex; gap: 0.6rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 0.2rem 0.1rem 0.6rem; scrollbar-width: thin; }
     .gr-item { flex: 0 0 92px; scroll-snap-align: start; border: 2px solid var(--wood-light); background: #fff; border-radius: 12px; padding: 0.3rem; cursor: pointer; text-align: center; font-family: 'Nunito', sans-serif; transition: border-color 0.2s, background 0.2s; }
     .gr-item:hover { border-color: var(--mint-dark); }
-    .gr-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 8px; background: #fff; }
+    .gr-item img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 8px; background: #fff; }
     .gr-item span { display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-mid); margin-top: 0.25rem; line-height: 1.2; }
     .gr-item.sel { border-color: var(--mint-dark); background: var(--mint-light); }
     .gr-item.sel span { color: var(--wood-deep); }
