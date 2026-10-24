@@ -36,6 +36,7 @@
     .product > * { min-width: 0; }
     .product-img { background: var(--wood-deep); align-self: start; }
     .product-img .grabados { background: var(--cream); padding: 1rem 1.1rem 1.1rem; margin: 0; }
+    @media (min-width: 801px) { .product-img { align-self: stretch; display: flex; flex-direction: column; } .product-img .grabados { flex: 1 1 auto; } }
     .product-img .gr-prev { left: 4px; } .product-img .gr-next { right: 4px; }
     .product-img img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
     .product-info { padding: 2.5rem 2.5rem 2.5rem 0; display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
@@ -169,7 +170,7 @@
       .nav-title { font-size: 0.95rem; }
       #productos, #exclusiva { padding-left: 1rem; padding-right: 1rem; }
     }
-  </style>
+    </style>
 </head>
 <body>
 
