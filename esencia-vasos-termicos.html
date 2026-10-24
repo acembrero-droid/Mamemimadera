@@ -32,9 +32,12 @@
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.8rem auto 0; border-radius: 2px; }
 
     #productos { background: var(--cream2); padding: 3.5rem 2rem; }
-    .product { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 960px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px var(--shadow); }
-    .product-img { background: var(--wood-deep); }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .product { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 960px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: clip; box-shadow: 0 4px 20px var(--shadow); }
+    .product > * { min-width: 0; }
+    .product-img { background: var(--cream); align-self: stretch; }
+    .product-img .grabados { background: var(--cream); padding: 1rem 1.1rem 1.1rem; margin: 0; }
+    .product-img .gr-prev { left: 4px; } .product-img .gr-next { right: 4px; }
+    .product-img img { width: 100%; height: auto; display: block; }
     .product-info { padding: 2.5rem 2.5rem 2.5rem 0; display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
     .product-info h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--wood-deep); line-height: 1.2; }
     .product-desc { color: var(--text-mid); font-weight: 300; line-height: 1.8; font-size: 0.95rem; }
@@ -75,6 +78,57 @@
     .tarjeta .extra.visible { display: block; }
     .tarjeta-img { width: 170px; max-width: 60%; height: auto; border-radius: 12px; display: block; margin: 0.8rem auto 0; }
     .tarjeta-pie { font-size: 0.75rem; color: var(--text-mid); font-weight: 300; margin-top: 0.4rem; line-height: 1.5; }
+    .grabados { margin: 0.2rem 0; }
+    .grabados-titulo { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.5rem; }
+    .gr-wrap { position: relative; }
+    .gr-pista { display: flex; gap: 0.6rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 0.2rem 0.1rem 0.6rem; scrollbar-width: thin; }
+    .gr-item { flex: 0 0 92px; scroll-snap-align: start; border: 2px solid var(--wood-light); background: #fff; border-radius: 12px; padding: 0.3rem; cursor: pointer; text-align: center; font-family: 'Nunito', sans-serif; transition: border-color 0.2s, background 0.2s; }
+    .gr-item:hover { border-color: var(--mint-dark); }
+    .gr-item img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 8px; background: #fff; }
+    .gr-item span { display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-mid); margin-top: 0.25rem; line-height: 1.2; }
+    .gr-item.sel { border-color: var(--mint-dark); background: var(--mint-light); }
+    .gr-item.sel span { color: var(--wood-deep); }
+    .gr-flecha { display: none; position: absolute; top: calc(50% - 1.2rem); width: 30px; height: 30px; border: none; border-radius: 50%; background: rgba(90,58,26,0.78); color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; z-index: 2; }
+    .gr-flecha:hover { background: var(--mint-dark); }
+    .gr-prev { left: -10px; } .gr-next { right: -10px; }
+    @media (hover: hover) and (pointer: fine) { .gr-flecha { display: block; } }
+    .gr-elegido { font-size: 0.85rem; color: var(--text-mid); }
+    .gr-elegido strong { color: var(--wood-deep); }
+    .gr-ver { background: none; border: none; padding: 0; font-family: inherit; font-size: 0.8rem; font-weight: 700; color: var(--mint-dark); text-decoration: underline; cursor: pointer; }
+    .cantidad { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin: 0.2rem 0; }
+    .cantidad-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); }
+    .stepper { display: flex; align-items: center; border: 1.5px solid var(--wood-light); border-radius: 30px; background: var(--cream); overflow: hidden; }
+    .stepper button { width: 38px; height: 38px; border: none; background: none; font-size: 1.25rem; line-height: 1; cursor: pointer; color: var(--wood-dark); }
+    .stepper button:hover:not(:disabled) { background: var(--wood-light); }
+    .stepper button:disabled { opacity: 0.35; cursor: default; }
+    .stepper span { min-width: 34px; text-align: center; font-weight: 700; color: var(--wood-deep); }
+    .cant-total { font-size: 0.9rem; font-weight: 700; color: var(--mint-dark); }
+    .gr-slots { display: none; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+    .gr-slot { border: 1.5px solid var(--wood-light); background: #fff; border-radius: 20px; padding: 0.3rem 0.8rem; font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text-mid); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+    .gr-slot small { font-size: 0.72rem; font-weight: 400; opacity: 0.85; }
+    .gr-slot.act { border-color: var(--mint-dark); background: var(--mint-light); color: var(--wood-deep); }
+    .gr-item { position: relative; }
+    .gr-item.act { box-shadow: 0 0 0 2px var(--mint-dark); }
+    .gr-item.sin-foto { display: flex; align-items: center; justify-content: center; min-height: 64px; }
+    .gr-item.sin-foto span { margin-top: 0; font-size: 0.8rem; }
+    .gr-item .gr-badge { position: absolute; top: 5px; left: 5px; margin: 0; padding: 0 0.4rem; border-radius: 10px; background: var(--mint-dark); color: #fff; font-size: 0.62rem; line-height: 1.5; z-index: 1; }
+    .field label.pregunta { text-transform: none; letter-spacing: 0; font-size: 0.9rem; font-weight: 700; color: var(--wood-deep); line-height: 1.4; }
+    .field textarea { width: 100%; padding: 0.7rem 1rem; border: 1.5px solid var(--wood-light); border-radius: 12px; background: var(--cream); font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text); resize: vertical; }
+    .field textarea:focus { outline: none; border-color: var(--mint-dark); }
+    .field textarea::placeholder { color: #a8957c; opacity: 1; }
+    .colores { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .color-op { display: flex; align-items: center; gap: 0.5rem; border: 2px solid var(--wood-light); background: #fff; border-radius: 30px; padding: 0.45rem 1.1rem 0.45rem 0.6rem; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--text-mid); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+    .color-op:hover { border-color: var(--mint-dark); }
+    .color-op i { width: 20px; height: 20px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.25); display: inline-block; }
+    .color-op.sel { border-color: var(--mint-dark); background: var(--mint-light); color: var(--wood-deep); }
+    .galeria.una .gal-flecha, .galeria.una .gal-puntos { display: none; }
+    .galeria { position: relative; }
+    .gal-flecha { position: absolute; top: calc(50% - 20px); width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(90,58,26,0.65); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; z-index: 2; }
+    .gal-flecha:hover { background: var(--mint-dark); }
+    .gal-prev { left: 0.6rem; } .gal-next { right: 0.6rem; }
+    .gal-puntos { position: absolute; bottom: 0.9rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.45rem; z-index: 2; }
+    .gal-punto { width: 10px; height: 10px; padding: 0; border: none; border-radius: 50%; background: rgba(255,255,255,0.6); box-shadow: 0 0 0 1px rgba(90,58,26,0.35); cursor: pointer; }
+    .gal-punto.act { background: #fff; transform: scale(1.25); }
     /* Foto ampliable */
     .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
     .zoom-hint { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(90,58,26,0.65); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.8rem; border-radius: 30px; backdrop-filter: blur(4px); }
@@ -109,8 +163,7 @@
 
     @media (max-width: 800px) {
       .product { grid-template-columns: 1fr; gap: 0; }
-      .product-img { height: auto; }
-      .product-img img { height: auto; aspect-ratio: 3 / 4; }
+      .product-img { height: auto; position: static; }
       .product-info { padding: 1.8rem 1.5rem 2rem; }
     }
     @media (max-width: 640px) {
@@ -134,30 +187,66 @@
 </header>
 
 <section id="productos">
-  <article class="product" id="vaso-ciervo">
+  <article class="product" id="vaso-termico">
     <div class="product-img">
-      <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto del vaso">
-        <img id="foto-producto" src="images/esencia-vasos.jpg" alt="Vaso térmico verde con tapa, con un ciervo y el nombre Esencia de Monte y Tradición grabados" width="896" height="665">
-        <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
-      </button>
+      <div class="galeria" id="galeria">
+        <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto del vaso">
+          <img id="foto-producto" src="images/esencia-vasos.jpg" alt="Vaso térmico verde con tapa, con un ciervo y el nombre Esencia de Monte y Tradición grabados" width="896" height="665">
+          <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
+        </button>
+        <button type="button" class="gal-flecha gal-prev" id="gal-prev" aria-label="Foto anterior">‹</button>
+        <button type="button" class="gal-flecha gal-next" id="gal-next" aria-label="Foto siguiente">›</button>
+        <div class="gal-puntos" id="gal-puntos"></div>
+      </div>
     </div>
     <div class="product-info">
-      <h2>Vaso térmico · Ciervo</h2>
-      <p class="product-desc">Vaso térmico verde con tapa, con un ciervo y el nombre de Esencia de Monte y Tradición grabados al láser. Para llevar contigo al monte, al trabajo o a donde quieras.</p>
+      <h2>Vaso térmico</h2>
+      <p class="product-desc">Vaso térmico con tapa y grabado láser, en verde militar o negro mate. Eliges el dibujo (hasta 10 vasos, cada uno con el suyo) y qué llevará debajo: la marca de Esencia de Monte y Tradición, un nombre o dedicatoria, o nada. Para llevar contigo al monte, al trabajo o a donde quieras.</p>
       <div class="price"><span id="precio">28 €</span> <small>IVA incluido</small></div>
 
+      <div class="cantidad">
+        <span class="cantidad-label">Cantidad</span>
+        <div class="stepper">
+          <button type="button" id="cant-menos" aria-label="Quitar un vaso">−</button>
+          <span id="cant-valor" aria-live="polite">1</span>
+          <button type="button" id="cant-mas" aria-label="Añadir un vaso">+</button>
+        </div>
+        <span class="cant-total" id="cant-total"></span>
+      </div>
+
+      <div class="grabados" id="grabados">
+        <p class="grabados-titulo">Elige tu grabado</p>
+        <div class="gr-slots" id="gr-slots"></div>
+        <div class="gr-wrap">
+          <button type="button" class="gr-flecha gr-prev" id="gr-prev" aria-label="Diseños anteriores">‹</button>
+          <div class="gr-pista" id="gr-pista" role="listbox" aria-label="Diseños de grabado"></div>
+          <button type="button" class="gr-flecha gr-next" id="gr-next" aria-label="Más diseños">›</button>
+        </div>
+        <p class="gr-elegido" id="gr-resumen"></p>
+      </div>
+
       <div class="field">
-        <label for="opcion">Elige una opción</label>
+        <label class="pregunta" id="color-pregunta">¿De qué color quieres el vaso?</label>
+        <div class="colores" id="colores" role="radiogroup" aria-labelledby="color-pregunta">
+          <button type="button" class="color-op sel" data-c="verde" role="radio" aria-checked="true"><i style="background:#4b5a3c"></i>Verde militar</button>
+          <button type="button" class="color-op" data-c="negro" role="radio" aria-checked="false"><i style="background:#1c1c1c"></i>Negro mate</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="pregunta" id="ded-pregunta" for="opcion">¿Qué quieres grabar debajo del dibujo?</label>
         <select id="opcion">
-          <option value="sin">Tal cual (28 €)</option>
-          <option value="dedicatoria">Con nombre o dedicatoria (+5 €)</option>
+          <option value="marca">Marca: Esencia de Monte y Tradición</option>
+          <option value="dedicatoria">Un nombre o dedicatoria (+5 €)</option>
+          <option value="nada">Nada, solo el dibujo</option>
         </select>
+        <p class="field-note" id="op-nota">Va grabada en letra pequeña debajo del dibujo, como en la foto, sin coste extra.</p>
       </div>
 
       <div class="field" id="dedicatoria-field">
         <label for="dedicatoria">Tu nombre o dedicatoria</label>
-        <input type="text" id="dedicatoria" maxlength="40" placeholder="Ej.: Mi compañero de monte">
-        <p class="field-note">Máximo 40 caracteres. Te confirmaré el diseño antes de grabarlo.</p>
+        <input type="text" id="dedicatoria" placeholder="Ej.: Mi compañero de monte" autocomplete="off">
+        <p class="field-note"><span id="ded-cuenta">0</span>/6 palabras. Te confirmaré el diseño antes de grabarlo.</p>
       </div>
 
       <div class="field tarjeta">
@@ -236,43 +325,257 @@
 
 <script>
 (function () {
-  var PRECIO_BASE = 28, EXTRA_DEDICATORIA = 5;
-  var sel = document.getElementById('opcion');
-  var campo = document.getElementById('dedicatoria-field');
-  var texto = document.getElementById('dedicatoria');
-  var precio = document.getElementById('precio');
-  var msg = document.getElementById('msg');
-
-  function total() { return PRECIO_BASE + (sel.value === 'dedicatoria' ? EXTRA_DEDICATORIA : 0); }
-  function actualizar() {
-    campo.classList.toggle('visible', sel.value === 'dedicatoria');
-    precio.textContent = total() + ' €';
-    msg.textContent = '';
+  var $ = function (id) { return document.getElementById(id); };
+  var MAX = 10, BASE = 28, EXTRA = 5, MAX_PAL = 6;
+  // Diseños disponibles para los vasos. El primero es el que viene elegido por defecto (el de la foto).
+  var DISENOS = [
+    { id: 'ciervo',          nombre: 'Ciervo' },
+    { id: 'jabali',          nombre: 'Jabalí' },
+    { id: 'corzo',           nombre: 'Corzo' },
+    { id: 'zorro',           nombre: 'Zorro' },
+    { id: 'podenco-andaluz', nombre: 'Podenco andaluz' },
+    { id: 'breton',          nombre: 'Bretón (cuerpo)' },
+    { id: 'breton-cabeza',    nombre: 'Bretón (cabeza)' },
+    { id: 'podenco-cabeza',  nombre: 'Podenco (cabeza)' }
+  ];
+  var COLORES = { verde: 'Verde militar', negro: 'Negro mate' };
+  var qty = 1, activo = 0;
+  var asign = [DISENOS[0].id];   // asign[i] = diseño del vaso i+1; si uno no se elige, lleva el del vaso 1
+  var elegida = [];              // elegida[i] = true cuando el cliente ha escogido el diseño de ese vaso
+  var colores = [];              // colores[i] = 'verde' | 'negro'; si no se elige, lleva el del vaso 1
+  var modos = [];                // modos[i] = 'marca' | 'dedicatoria' | 'nada' (por defecto 'marca')
+  var textos = [];               // textos[i] = nombre o dedicatoria del vaso i+1
+  var pista = $('gr-pista');
+  function buscar(id) { return DISENOS.filter(function (d) { return d.id === id; })[0]; }
+  function efectivo(i) { return (i > 0 && !elegida[i]) ? asign[0] : asign[i]; }
+  function color(i) { return colores[i] || colores[0] || 'verde'; }
+  function modo(i) { return modos[i] || 'marca'; }
+  function primeraSinElegir() { for (var i = 0; i < qty; i++) if (!elegida[i]) return i; return -1; }
+  function mini(d) { return 'images/grabados/vaso-' + d.id + '-mini.jpg'; }
+  function grande(d) { return 'images/grabados/vaso-' + d.id + '.jpg'; }
+  function usados() {
+    var u = [];
+    for (var i = 0; i < qty; i++) { var id = efectivo(i); if (u.indexOf(id) < 0) u.push(id); }
+    return u;
   }
-  sel.addEventListener('change', actualizar);
+  function contar(t) { t = t.trim(); return t ? t.split(/\s+/).length : 0; }
+  function textoLimpio(i) { return modo(i) === 'dedicatoria' ? (textos[i] || '').trim().replace(/\s+/g, ' ') : ''; }
 
-  document.getElementById('btn-add').addEventListener('click', function () {
-    var conDedicatoria = sel.value === 'dedicatoria';
-    var dedic = texto.value.trim();
-    if (conDedicatoria && !dedic) {
-      msg.textContent = 'Escribe el nombre o la dedicatoria que quieres grabar.';
-      texto.focus();
-      return;
+  function pintarSlots() {
+    var cont = $('gr-slots'); cont.innerHTML = '';
+    cont.style.display = qty > 1 ? 'flex' : 'none';
+    for (var i = 0; i < qty; i++) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'gr-slot' + (i === activo ? ' act' : ''); b.dataset.i = i;
+      var d = buscar(efectivo(i));
+      b.appendChild(document.createTextNode('Vaso ' + (i + 1) + ': '));
+      var extra = (i > 0 && !elegida[i]) ? ' (como el 1)' : '';
+      extra += ' · ' + COLORES[color(i)];
+      if (modo(i) === 'dedicatoria') extra += textoLimpio(i) ? ' · con dedicatoria' : ' · falta el texto';
+      else if (modo(i) === 'nada') extra += ' · sin marca';
+      var s = document.createElement('small'); s.textContent = d.nombre + extra;
+      b.appendChild(s); cont.appendChild(b);
     }
+  }
+  function pintarTira(enfocar) {
+    // los diseños elegidos pasan a ser los primeros de la tira
+    var u = usados();
+    var orden = u.map(buscar).concat(DISENOS.filter(function (d) { return u.indexOf(d.id) < 0; }));
+    var idAct = efectivo(activo);
+    pista.innerHTML = '';
+    orden.forEach(function (d) {
+      var usado = u.indexOf(d.id) >= 0;
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'gr-item' + (usado ? ' sel' : '') + (d.id === idAct ? ' act' : '');
+      b.setAttribute('role', 'option'); b.setAttribute('aria-selected', usado ? 'true' : 'false'); b.dataset.id = d.id;
+      if (qty > 1 && usado) {
+        var nums = []; for (var i = 0; i < qty; i++) if (efectivo(i) === d.id) nums.push(i + 1);
+        var bd = document.createElement('span'); bd.className = 'gr-badge'; bd.textContent = nums.join('·'); b.appendChild(bd);
+      }
+      var img = document.createElement('img'); img.src = mini(d); img.alt = 'Diseño ' + d.nombre; img.width = 240; img.height = 240; img.loading = 'lazy';
+      img.onerror = function () {   // por si las fotos se subieron a images/ sin la subcarpeta "grabados"
+        if (!this.dataset.reintento) { this.dataset.reintento = '1'; this.src = 'images/vaso-' + d.id + '-mini.jpg'; }
+        else { this.style.display = 'none'; b.classList.add('sin-foto'); }
+      };
+      var t = document.createElement('span'); t.textContent = d.nombre;
+      b.appendChild(img); b.appendChild(t); pista.appendChild(b);
+      if (enfocar && d.id === idAct) b.focus({ preventScroll: true });
+    });
+    if (pista.scrollTo) pista.scrollTo({ left: 0 }); else pista.scrollLeft = 0;
+  }
+  function pintarResumen() {
+    var d = buscar(efectivo(activo));
+    $('gr-resumen').innerHTML = qty === 1
+      ? 'Grabado elegido: <strong>' + d.nombre + '</strong> · <button type="button" class="gr-ver">Ver grande</button>'
+      : 'Toca un diseño para el <strong>Vaso ' + (activo + 1) + '</strong>. Los que no elijas llevarán el mismo que el Vaso 1. · <button type="button" class="gr-ver">Ver grande</button>';
+  }
+  function pintarOpciones() {   // el color y lo grabado debajo son del vaso marcado
+    var pre = qty === 1 ? '' : 'Vaso ' + (activo + 1) + ' · ';
+    $('color-pregunta').textContent = pre + '¿De qué color quieres el vaso?';
+    Array.prototype.forEach.call($('colores').children, function (b) {
+      var on = b.dataset.c === color(activo);
+      b.classList.toggle('sel', on); b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    $('ded-pregunta').textContent = pre + '¿Qué quieres grabar debajo del dibujo?';
+    $('opcion').value = modo(activo);
+    $('dedicatoria-field').classList.toggle('visible', modo(activo) === 'dedicatoria');
+    $('op-nota').style.display = modo(activo) === 'marca' ? '' : 'none';
+    $('dedicatoria').value = textos[activo] || '';
+    $('ded-cuenta').textContent = contar($('dedicatoria').value);
+  }
+  function pintarPrecio() {
+    var suma = 0, conDed = 0;
+    for (var i = 0; i < qty; i++) {
+      var d = modo(i) === 'dedicatoria';
+      suma += BASE + (d ? EXTRA : 0); if (d) conDed++;
+    }
+    if (qty === 1) {
+      $('precio').textContent = suma + ' €'; $('cant-total').textContent = '';
+    } else {
+      var det = [qty + ' vasos']; if (conDed) det.push(conDed + ' con nombre o dedicatoria');
+      $('precio').textContent = BASE + ' €';
+      $('cant-total').textContent = 'Total: ' + suma + ' € (' + det.join(', ') + ')';
+    }
+  }
+  function todo(enfocar) {
+    $('cant-valor').textContent = qty;
+    $('cant-menos').disabled = qty <= 1; $('cant-mas').disabled = qty >= MAX;
+    pintarSlots(); pintarTira(enfocar); pintarResumen(); pintarOpciones(); pintarPrecio();
+  }
+
+  pista.addEventListener('click', function (e) {
+    var b = e.target.closest('.gr-item'); if (!b) return;
+    asign[activo] = b.dataset.id; elegida[activo] = true;
+    if (qty > 1) { var sig = primeraSinElegir(); if (sig >= 0) activo = sig; }   // pasa al siguiente vaso sin elegir
+    todo(true);
+  });
+  $('gr-slots').addEventListener('click', function (e) {
+    var b = e.target.closest('.gr-slot'); if (!b) return;
+    activo = parseInt(b.dataset.i, 10); todo(false);
+  });
+  $('cant-menos').addEventListener('click', function () { if (qty > 1) { qty--; if (activo >= qty) activo = qty - 1; todo(false); } });
+  $('cant-mas').addEventListener('click', function () { if (qty < MAX) { qty++; var sig = primeraSinElegir(); activo = sig >= 0 ? sig : qty - 1; todo(false); } });
+  $('gr-prev').addEventListener('click', function () { pista.scrollBy({ left: -200 }); });
+  $('gr-next').addEventListener('click', function () { pista.scrollBy({ left: 200 }); });
+  $('gr-resumen').addEventListener('click', function (e) {   // "Ver grande": usa el visor de fotos de la página
+    if (!e.target.closest('.gr-ver')) return;
+    var big = $('lightbox-img'), box = $('lightbox'); if (!big || !box) return;
+    var d = buscar(efectivo(activo));
+    big.dataset.reintento = '';
+    big.onerror = function () {   // por si las fotos se subieron a images/ sin la subcarpeta "grabados"
+      if (!big.dataset.reintento) { big.dataset.reintento = '1'; big.src = 'images/vaso-' + d.id + '.jpg'; }
+    };
+    big.src = grande(d); big.alt = 'Diseño de grabado: ' + d.nombre;
+    box.classList.add('open'); document.body.style.overflow = 'hidden';
+    var c = $('lightbox-close'); if (c) c.focus();
+  });
+
+  // Color del vaso marcado
+  $('colores').addEventListener('click', function (e) {
+    var b = e.target.closest('.color-op'); if (!b) return;
+    colores[activo] = b.dataset.c;
+    $('msg').textContent = ''; pintarSlots(); pintarOpciones();
+  });
+  // Qué va debajo del dibujo (marca / nombre o dedicatoria / nada) y su texto (máx. 40 caracteres)
+  $('opcion').addEventListener('change', function () {
+    modos[activo] = this.value;
+    $('dedicatoria-field').classList.toggle('visible', this.value === 'dedicatoria');
+    $('op-nota').style.display = this.value === 'marca' ? '' : 'none';
+    if (this.value === 'dedicatoria') $('dedicatoria').focus();
+    $('msg').textContent = ''; pintarSlots(); pintarPrecio();
+  });
+  $('dedicatoria').addEventListener('input', function () {
+    var w = this.value.replace(/^\s+/, '').split(/\s+/);
+    if (w.length > MAX_PAL) this.value = w.slice(0, MAX_PAL).join(' ');
+    textos[activo] = this.value;
+    $('ded-cuenta').textContent = contar(this.value);
+    $('msg').textContent = ''; pintarSlots();
+  });
+
+  window.vaso = {
+    // devuelve el aviso si algún vaso con nombre o dedicatoria no tiene texto (y se sitúa en ese vaso)
+    validar: function () {
+      for (var i = 0; i < qty; i++) {
+        if (modo(i) === 'dedicatoria' && !textoLimpio(i)) {
+          activo = i; todo(false); $('dedicatoria').focus();
+          return (qty > 1 ? 'Vaso ' + (i + 1) + ': escribe' : 'Escribe') + ' el nombre o la dedicatoria que quieres grabar, o elige otra opción.';
+        }
+      }
+      return '';
+    },
+    // una línea de carrito por cada combinación distinta de grabado, color y texto
+    lineas: function () {
+      var g = {}, orden = [];
+      for (var i = 0; i < qty; i++) {
+        var t = textoLimpio(i), m = modo(i), c = color(i), nom = buscar(efectivo(i)).nombre, k = nom + '|' + c + '|' + m + '|' + t;
+        if (!g[k]) { g[k] = { grabado: nom, color: COLORES[c], modo: m, dedic: t, qty: 0, price: BASE + (t ? EXTRA : 0) }; orden.push(k); }
+        g[k].qty++;
+      }
+      return orden.map(function (k) { return g[k]; });
+    }
+  };
+  todo(false);
+})();
+</script>
+<script>
+(function () {
+  var msg = document.getElementById('msg');
+  document.getElementById('btn-add').addEventListener('click', function () {
+    var aviso = window.vaso ? window.vaso.validar() : '';
+    if (aviso) { msg.textContent = aviso; return; }
     if (typeof window.addToCart !== 'function') {
       msg.textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.';
       return;
     }
-    var producto = {
-      id: 'esencia-vaso-ciervo' + (conDedicatoria ? '-dedicatoria' : ''),
-      name: 'Esencia · Vaso térmico Ciervo',
-      price: total(),
-      qty: 1
-    };
-    if (conDedicatoria) producto.options = { 'Dedicatoria': dedic };
-    window.addToCart(producto);
+    window.vaso.lineas().forEach(function (l) {
+      var producto = { id: 'esencia-vaso', name: 'Esencia · Vaso térmico', price: l.price, qty: l.qty, options: { 'Grabado': l.grabado, 'Color': l.color } };
+      if (l.dedic) producto.options['Dedicatoria'] = l.dedic;
+      else producto.options['Debajo del dibujo'] = l.modo === 'marca' ? 'Marca: Esencia de Monte y Tradición' : 'Nada';
+      window.addToCart(producto);
+    });
     msg.textContent = '';
   });
+})();
+</script>
+<script>
+(function () {
+  if (!window.matchMedia) return;
+  var bloque = document.getElementById('grabados'), izquierda = document.querySelector('.product-img');
+  if (!bloque || !izquierda) return;
+  var padre = bloque.parentNode, siguiente = bloque.nextElementSibling;
+  var mq = window.matchMedia('(min-width: 801px)');
+  function colocar() { if (mq.matches) izquierda.appendChild(bloque); else padre.insertBefore(bloque, siguiente); }
+  colocar();
+  if (mq.addEventListener) mq.addEventListener('change', colocar); else if (mq.addListener) mq.addListener(colocar);
+})();
+</script>
+<script>
+(function () {
+  // Para añadir más fotos del vaso (por ejemplo el negro mate), añade una línea más aquí.
+  var FOTOS = [
+    { src: 'images/esencia-vasos.jpg', w: 896, h: 665, alt: 'Vaso térmico verde con tapa, con un ciervo y el nombre Esencia de Monte y Tradición grabados' }
+  ];
+  var i = 0, foto = document.getElementById('foto-producto'), puntos = document.getElementById('gal-puntos');
+  function ir(k) {
+    i = (k + FOTOS.length) % FOTOS.length;
+    var f = FOTOS[i]; foto.src = f.src; foto.alt = f.alt; foto.width = f.w; foto.height = f.h;
+    Array.prototype.forEach.call(puntos.children, function (p, j) { p.classList.toggle('act', j === i); });
+  }
+  FOTOS.forEach(function (f, k) {
+    new Image().src = f.src;   // precarga para que el cambio sea instantáneo
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'gal-punto' + (k === 0 ? ' act' : '');
+    b.setAttribute('aria-label', 'Foto ' + (k + 1) + ' de ' + FOTOS.length);
+    b.addEventListener('click', function () { ir(k); }); puntos.appendChild(b);
+  });
+  if (FOTOS.length < 2) document.getElementById('galeria').classList.add('una');
+  document.getElementById('gal-prev').addEventListener('click', function () { ir(i - 1); });
+  document.getElementById('gal-next').addEventListener('click', function () { ir(i + 1); });
+  var x0 = null, zona = document.getElementById('galeria');   // deslizar con el dedo
+  zona.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  zona.addEventListener('touchend', function (e) {
+    if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) ir(dx < 0 ? i + 1 : i - 1);
+  }, { passive: true });
 })();
 </script>
 <script>
@@ -301,7 +604,7 @@
 </script>
 <script src="carrito.js"></script>
 <script>
-if (window.setupGiftCard) setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Vaso térmico Ciervo' });
+if (window.setupGiftCard) setupGiftCard({ boton: 'btn-add', check: 'tarjeta-chk', texto: 'tarjeta-texto', para: 'tarjeta-para', extra: 'tarjeta-extra', msg: 'msg', nombre: 'Vaso térmico' });
 </script>
 </body>
 </html>
