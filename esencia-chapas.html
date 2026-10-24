@@ -108,6 +108,9 @@
       .rec-info { align-self: center; }
     }
 
+    .wa-ayuda { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; margin-top: 0.5rem; }
+    .wa-ayuda a { color: var(--mint-dark); font-weight: 700; }
+
     /* >>> PEGAR AQUÍ el CSS del banner de cookies del index (#cookie-banner ... #cookie-save:hover) <<< */
 
     @media (max-width: 800px) {
@@ -121,6 +124,7 @@
       .nav-title { font-size: 0.95rem; }
       #productos, #exclusiva { padding-left: 1rem; padding-right: 1rem; }
     }
+        .envio-nota { font-size: 0.78rem; color: var(--text-mid); text-align: center; margin: 0.55rem 0 0; line-height: 1.4; }
   </style>
 </head>
 <body>
@@ -179,6 +183,7 @@
 
       <p class="msg" id="msg-basica" role="alert"></p>
       <button type="button" class="btn-primary" id="btn-basica">Añadir al carrito</button>
+      <p class="envio-nota">🚚 Envío gratis en pedidos desde 60 € (península)</p>
       <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
     </div>
   </article>
@@ -205,6 +210,7 @@
         <label for="raza-raza">Raza (o la más parecida)</label>
         <input type="text" id="raza-raza" maxlength="40" placeholder="Ej.: Labrador" autocomplete="off">
         <p class="field-note">Con ella elijo el dibujo para la chapa.</p>
+        <p class="wa-ayuda">¿No encuentras el animal o la raza que buscas? <a target="_blank" rel="noopener" href="https://wa.me/34622562499?text=Hola%2C%20estaba%20viendo%20tu%20p%C3%A1gina%20web%20Esencia%20de%20Monte%20y%20Tradici%C3%B3n%2C%20el%20apartado%20de%20chapas%20para%20perros%20con%20dibujo%20de%20la%20raza%2C%20y%20no%20encuentro%20el%20animal%20o%20la%20raza%20que%20busco.%20Quer%C3%ADa%20pedirte%3A%20">Escríbeme por WhatsApp</a></p>
       </div>
 
       <div class="field">
@@ -236,6 +242,7 @@
 
       <p class="msg" id="msg-raza" role="alert"></p>
       <button type="button" class="btn-primary" id="btn-raza">Añadir al carrito</button>
+      <p class="envio-nota">🚚 Envío gratis en pedidos desde 60 € (península)</p>
       <p class="iva">Plazo de envío estimado: 7-10 días laborables</p>
     </div>
   </article>
@@ -247,7 +254,7 @@
   <p>Antes de grabar te enseño el diseño para que lo apruebes.</p>
   <div class="price">20 € <small>IVA incluido</small></div>
   <div class="btns">
-    <a class="btn-primary" target="_blank" rel="noopener" href="https://wa.me/34622562499?text=Hola%20Leticia%2C%20me%20gustar%C3%ADa%20una%20chapa%20para%20mi%20perro%20100%25%20personalizada%20a%20partir%20de%20una%20fotograf%C3%ADa">Escríbeme por WhatsApp</a>
+    <a class="btn-primary" target="_blank" rel="noopener" href="https://wa.me/34622562499?text=Hola%2C%20estaba%20viendo%20tu%20p%C3%A1gina%20web%20Esencia%20de%20Monte%20y%20Tradici%C3%B3n%2C%20el%20apartado%20de%20chapas%20para%20perros%2C%20y%20me%20gustar%C3%ADa%20una%20chapa%20para%20mi%20perro%20100%25%20personalizada%20a%20partir%20de%20una%20fotograf%C3%ADa">Escríbeme por WhatsApp</a>
     <a class="btn-secondary" href="mailto:hola@mamemimadera.es?subject=Chapa%20100%25%20personalizada">Por email</a>
   </div>
 </section>
