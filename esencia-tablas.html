@@ -32,9 +32,11 @@
     .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.8rem auto 0; border-radius: 2px; }
 
     #productos { background: var(--cream2); padding: 3.5rem 2rem; }
-    .product { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 960px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px var(--shadow); }
-    .product-img { background: var(--wood-deep); }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .product { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; max-width: 960px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: clip; box-shadow: 0 4px 20px var(--shadow); }
+    .product-img { background: var(--wood-deep); align-self: start; }
+    .product-img .grabados { background: var(--cream); padding: 1rem 1.1rem 1.1rem; margin: 0; }
+    .product-img .gr-prev { left: 4px; } .product-img .gr-next { right: 4px; }
+    .product-img img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
     .product-info { padding: 2.5rem 2.5rem 2.5rem 0; display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
     .product-info h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--wood-deep); line-height: 1.2; }
     .product-desc { color: var(--text-mid); font-weight: 300; line-height: 1.8; font-size: 0.95rem; }
@@ -113,6 +115,13 @@
     .field textarea { width: 100%; padding: 0.7rem 1rem; border: 1.5px solid var(--wood-light); border-radius: 12px; background: var(--cream); font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--text); resize: vertical; }
     .field textarea:focus { outline: none; border-color: var(--mint-dark); }
     .field textarea::placeholder { color: #a8957c; opacity: 1; }
+    .galeria { position: relative; }
+    .gal-flecha { position: absolute; top: calc(50% - 20px); width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(90,58,26,0.65); color: #fff; font-size: 1.4rem; line-height: 1; cursor: pointer; z-index: 2; }
+    .gal-flecha:hover { background: var(--mint-dark); }
+    .gal-prev { left: 0.6rem; } .gal-next { right: 0.6rem; }
+    .gal-puntos { position: absolute; bottom: 0.9rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.45rem; z-index: 2; }
+    .gal-punto { width: 10px; height: 10px; padding: 0; border: none; border-radius: 50%; background: rgba(255,255,255,0.6); box-shadow: 0 0 0 1px rgba(90,58,26,0.35); cursor: pointer; }
+    .gal-punto.act { background: #fff; transform: scale(1.25); }
     /* Foto ampliable */
     .zoom-btn { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
     .zoom-hint { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(90,58,26,0.65); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.8rem; border-radius: 30px; backdrop-filter: blur(4px); }
@@ -147,7 +156,7 @@
 
     @media (max-width: 800px) {
       .product { grid-template-columns: 1fr; gap: 0; }
-      .product-img { height: auto; }
+      .product-img { height: auto; position: static; }
       .product-img img { height: auto; aspect-ratio: 3 / 4; }
       .product-info { padding: 1.8rem 1.5rem 2rem; }
     }
@@ -174,14 +183,19 @@
 <section id="productos">
   <article class="product" id="tabla-ciervo">
     <div class="product-img">
-      <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto de la tabla">
-        <img id="foto-producto" src="images/esencia-tabla-ciervo.jpg" alt="Tabla de madera con ciervo grabado al láser y cordón de yute decorativo con abalorios de madera" width="811" height="1082">
-        <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
-      </button>
+      <div class="galeria" id="galeria">
+        <button type="button" class="zoom-btn" id="zoom-btn" aria-label="Ampliar la foto de la tabla">
+          <img id="foto-producto" src="images/esencia-tabla-ciervo.jpg" alt="Tabla de madera con ciervo grabado al láser y cordón de yute decorativo con abalorios de madera" width="811" height="1082">
+          <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
+        </button>
+        <button type="button" class="gal-flecha gal-prev" id="gal-prev" aria-label="Foto anterior">‹</button>
+        <button type="button" class="gal-flecha gal-next" id="gal-next" aria-label="Foto siguiente">›</button>
+        <div class="gal-puntos" id="gal-puntos"></div>
+      </div>
     </div>
     <div class="product-info">
       <h2>Tabla de cocina</h2>
-      <p class="product-desc">Tabla de madera con el grabado láser que elijas. Lleva un cordón de yute con abalorios de madera como detalle decorativo. Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
+      <p class="product-desc">Tabla de madera con el grabado láser que elijas, siempre con la tarjeta de Esencia. Si quieres, puedes añadir una cuerda de yute con abalorios de madera como detalle decorativo (+1 €). Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
       <div class="price"><span id="precio">28 €</span> <small>IVA incluido</small></div>
 
       <div class="cantidad">
@@ -194,7 +208,7 @@
         <span class="cant-total" id="cant-total"></span>
       </div>
 
-      <div class="grabados">
+      <div class="grabados" id="grabados">
         <p class="grabados-titulo">Elige tu grabado</p>
         <div class="gr-slots" id="gr-slots"></div>
         <div class="gr-wrap">
@@ -203,6 +217,15 @@
           <button type="button" class="gr-flecha gr-next" id="gr-next" aria-label="Más diseños">›</button>
         </div>
         <p class="gr-elegido" id="gr-resumen"></p>
+      </div>
+
+      <div class="field">
+        <label class="pregunta" id="cuerda-pregunta" for="cuerda">¿Quieres incluir la decoración de cuerda de yute con abalorios de madera?</label>
+        <select id="cuerda">
+          <option value="no">No</option>
+          <option value="si">Sí (+1 €)</option>
+        </select>
+        <p class="field-note">La tarjeta de Esencia va siempre, con o sin cuerda.</p>
       </div>
 
       <div class="field">
@@ -297,7 +320,7 @@
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
-  var MAX = 10, BASE = 28, EXTRA = 5, MAX_PAL = 20;
+  var MAX = 10, BASE = 28, EXTRA = 5, CUERDA = 1, MAX_PAL = 20;
   // Diseños disponibles para las tablas. El primero es el que viene elegido por defecto (el de la foto).
   var DISENOS = [
     { id: 'ciervo',          nombre: 'Ciervo' },
@@ -311,6 +334,7 @@
   var asign = [DISENOS[0].id];   // asign[i] = diseño de la tabla i+1; si una no se elige, lleva el de la tabla 1
   var elegida = [];              // elegida[i] = true cuando el cliente ha escogido el diseño de esa tabla
   var dedics = [];               // dedics[i] = { si, texto }: dedicatoria de la tabla i+1
+  var cuerdas = [];              // cuerdas[i] = true si la tabla i+1 lleva la decoración de cuerda
   var pista = $('gr-pista');
   function buscar(id) { return DISENOS.filter(function (d) { return d.id === id; })[0]; }
   function efectivo(i) { return (i > 0 && !elegida[i]) ? asign[0] : asign[i]; }
@@ -336,6 +360,7 @@
       b.appendChild(document.createTextNode('Tabla ' + (i + 1) + ': '));
       var extra = (i > 0 && !elegida[i]) ? ' (como la 1)' : '';
       if (ded(i).si) extra += textoLimpio(i) ? ' · con dedicatoria' : ' · falta el texto';
+      if (cuerdas[i]) extra += ' · con cuerda';
       var s = document.createElement('small'); s.textContent = d.nombre + extra;
       b.appendChild(s); cont.appendChild(b);
     }
@@ -356,7 +381,7 @@
         var bd = document.createElement('span'); bd.className = 'gr-badge'; bd.textContent = nums.join('·'); b.appendChild(bd);
       }
       var img = document.createElement('img'); img.src = mini(d); img.alt = 'Diseño ' + d.nombre; img.width = 240; img.height = 240; img.loading = 'lazy';
-      img.onerror = function () {
+      img.onerror = function () {   // por si las fotos se subieron a images/ sin la subcarpeta "grabados"
         if (!this.dataset.reintento) { this.dataset.reintento = '1'; this.src = 'images/tabla-' + d.id + '-mini.jpg'; }
         else { this.style.display = 'none'; b.classList.add('sin-foto'); }
       };
@@ -372,30 +397,36 @@
       ? 'Grabado elegido: <strong>' + d.nombre + '</strong> · <button type="button" class="gr-ver">Ver grande</button>'
       : 'Toca un diseño para la <strong>Tabla ' + (activo + 1) + '</strong>. Las que no elijas llevarán el mismo que la Tabla 1. · <button type="button" class="gr-ver">Ver grande</button>';
   }
-  function pintarDedicatoria() {   // la pregunta de la dedicatoria es de la tabla marcada
-    var x = ded(activo);
-    $('ded-pregunta').textContent = qty === 1
+  function pintarOpciones() {   // las preguntas de la cuerda y de la dedicatoria son de la tabla marcada
+    var x = ded(activo), pre = qty === 1 ? '' : 'Tabla ' + (activo + 1) + ' · ';
+    $('cuerda-pregunta').textContent = pre + '¿Quieres incluir la decoración de cuerda de yute con abalorios de madera?';
+    $('cuerda').value = cuerdas[activo] ? 'si' : 'no';
+    $('ded-pregunta').textContent = pre + (qty === 1
       ? '¿Querrías añadir una dedicatoria o algo personal grabado al láser en la tabla?'
-      : 'Tabla ' + (activo + 1) + ' · ¿Querrías añadir una dedicatoria o algo personal grabado al láser en esta tabla?';
+      : '¿Querrías añadir una dedicatoria o algo personal grabado al láser en esta tabla?');
     $('opcion').value = x.si ? 'dedicatoria' : 'sin';
     $('dedicatoria-field').classList.toggle('visible', x.si);
     $('dedicatoria').value = x.texto;
     $('ded-cuenta').textContent = contar(x.texto);
   }
   function pintarPrecio() {
-    var suma = 0, conDed = 0;
-    for (var i = 0; i < qty; i++) { suma += BASE + (textoLimpio(i) || ded(i).si ? EXTRA : 0); if (ded(i).si) conDed++; }
+    var suma = 0, conDed = 0, conCuerda = 0;
+    for (var i = 0; i < qty; i++) {
+      suma += BASE + (ded(i).si ? EXTRA : 0) + (cuerdas[i] ? CUERDA : 0);
+      if (ded(i).si) conDed++; if (cuerdas[i]) conCuerda++;
+    }
     if (qty === 1) {
       $('precio').textContent = suma + ' €'; $('cant-total').textContent = '';
     } else {
+      var det = [qty + ' tablas']; if (conDed) det.push(conDed + ' con dedicatoria'); if (conCuerda) det.push(conCuerda + ' con cuerda');
       $('precio').textContent = BASE + ' €';
-      $('cant-total').textContent = 'Total: ' + suma + ' € (' + qty + ' tablas' + (conDed ? ', ' + conDed + ' con dedicatoria' : '') + ')';
+      $('cant-total').textContent = 'Total: ' + suma + ' € (' + det.join(', ') + ')';
     }
   }
   function todo(enfocar) {
     $('cant-valor').textContent = qty;
     $('cant-menos').disabled = qty <= 1; $('cant-mas').disabled = qty >= MAX;
-    pintarSlots(); pintarTira(enfocar); pintarResumen(); pintarDedicatoria(); pintarPrecio();
+    pintarSlots(); pintarTira(enfocar); pintarResumen(); pintarOpciones(); pintarPrecio();
   }
 
   pista.addEventListener('click', function (e) {
@@ -425,6 +456,11 @@
     var c = $('lightbox-close'); if (c) c.focus();
   });
 
+  // Cuerda de yute con abalorios (+1 €) de la tabla marcada
+  $('cuerda').addEventListener('change', function () {
+    cuerdas[activo] = this.value === 'si';
+    $('msg').textContent = ''; pintarSlots(); pintarPrecio();
+  });
   // Dedicatoria de la tabla marcada (Sí / No) y su texto, con un máximo de 20 palabras
   $('opcion').addEventListener('change', function () {
     ded(activo).si = this.value === 'dedicatoria';
@@ -451,12 +487,12 @@
       }
       return '';
     },
-    // una línea de carrito por cada combinación distinta de grabado y dedicatoria
+    // una línea de carrito por cada combinación distinta de grabado, dedicatoria y cuerda
     lineas: function () {
       var g = {}, orden = [];
       for (var i = 0; i < qty; i++) {
-        var t = textoLimpio(i), nom = buscar(efectivo(i)).nombre, k = nom + '|' + t;
-        if (!g[k]) { g[k] = { grabado: nom, dedic: t, qty: 0, price: BASE + (t ? EXTRA : 0) }; orden.push(k); }
+        var t = textoLimpio(i), c = !!cuerdas[i], nom = buscar(efectivo(i)).nombre, k = nom + '|' + t + '|' + c;
+        if (!g[k]) { g[k] = { grabado: nom, dedic: t, cuerda: c, qty: 0, price: BASE + (t ? EXTRA : 0) + (c ? CUERDA : 0) }; orden.push(k); }
         g[k].qty++;
       }
       return orden.map(function (k) { return g[k]; });
@@ -476,12 +512,53 @@
       return;
     }
     window.tabla.lineas().forEach(function (l) {
-      var producto = { id: 'esencia-tabla' + (l.dedic ? '-dedicatoria' : ''), name: 'Esencia · Tabla de cocina', price: l.price, qty: l.qty, options: { 'Grabado': l.grabado } };
+      var producto = { id: 'esencia-tabla', name: 'Esencia · Tabla de cocina', price: l.price, qty: l.qty, options: { 'Grabado': l.grabado } };
       if (l.dedic) producto.options['Dedicatoria'] = l.dedic;
+      if (l.cuerda) producto.options['Cuerda de yute con abalorios'] = 'Sí';
       window.addToCart(producto);
     });
     msg.textContent = '';
   });
+})();
+</script>
+<script>
+(function () {
+  if (!window.matchMedia) return;
+  var bloque = document.getElementById('grabados'), izquierda = document.querySelector('.product-img');
+  if (!bloque || !izquierda) return;
+  var padre = bloque.parentNode, siguiente = bloque.nextElementSibling;
+  var mq = window.matchMedia('(min-width: 801px)');
+  function colocar() { if (mq.matches) izquierda.appendChild(bloque); else padre.insertBefore(bloque, siguiente); }
+  colocar();
+  if (mq.addEventListener) mq.addEventListener('change', colocar); else if (mq.addListener) mq.addListener(colocar);
+})();
+</script>
+<script>
+(function () {
+  var FOTOS = [
+    { src: 'images/esencia-tabla-ciervo.jpg',  w: 811, h: 1082, alt: 'Tabla de madera con ciervo grabado al láser y cordón de yute decorativo con abalorios de madera' },
+    { src: 'images/esencia-tabla-tarjeta.jpg', w: 834, h: 1051, alt: 'Tabla de madera con un ciervo grabado y la tarjeta redonda de Esencia de Monte y Tradición colgada' }
+  ];
+  var i = 0, foto = document.getElementById('foto-producto'), puntos = document.getElementById('gal-puntos');
+  function ir(k) {
+    i = (k + FOTOS.length) % FOTOS.length;
+    var f = FOTOS[i]; foto.src = f.src; foto.alt = f.alt; foto.width = f.w; foto.height = f.h;
+    Array.prototype.forEach.call(puntos.children, function (p, j) { p.classList.toggle('act', j === i); });
+  }
+  FOTOS.forEach(function (f, k) {
+    new Image().src = f.src;   // precarga para que el cambio sea instantáneo
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'gal-punto' + (k === 0 ? ' act' : '');
+    b.setAttribute('aria-label', 'Foto ' + (k + 1) + ' de ' + FOTOS.length);
+    b.addEventListener('click', function () { ir(k); }); puntos.appendChild(b);
+  });
+  document.getElementById('gal-prev').addEventListener('click', function () { ir(i - 1); });
+  document.getElementById('gal-next').addEventListener('click', function () { ir(i + 1); });
+  var x0 = null, zona = document.getElementById('galeria');   // deslizar con el dedo
+  zona.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  zona.addEventListener('touchend', function (e) {
+    if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) ir(dx < 0 ? i + 1 : i - 1);
+  }, { passive: true });
 })();
 </script>
 <script>
