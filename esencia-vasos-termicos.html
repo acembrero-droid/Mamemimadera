@@ -474,6 +474,7 @@
   $('colores').addEventListener('click', function (e) {
     var b = e.target.closest('.color-op'); if (!b) return;
     colores[activo] = b.dataset.c;
+    if (window.galeriaIr) window.galeriaIr(b.dataset.c === 'negro' ? 1 : 0);   // enseña la foto del color elegido
     $('msg').textContent = ''; pintarSlots(); pintarOpciones();
   });
   // Qué va debajo del dibujo (marca / nombre o dedicatoria / nada) y su texto (máx. 40 caracteres)
@@ -553,7 +554,8 @@
 (function () {
   // Para añadir más fotos del vaso (por ejemplo el negro mate), añade una línea más aquí.
   var FOTOS = [
-    { src: 'images/esencia-vasos.jpg', w: 896, h: 665, alt: 'Vaso térmico verde con tapa, con un ciervo y el nombre Esencia de Monte y Tradición grabados' }
+    { src: 'images/esencia-vasos.jpg', w: 896, h: 665, alt: 'Vaso térmico verde con tapa, con un ciervo y el nombre Esencia de Monte y Tradición grabados' },
+    { src: 'images/esencia-vaso-negro.jpg', w: 896, h: 1195, alt: 'Vaso térmico negro mate con tapa y la cabeza de un bretón grabada al láser, sostenido en el monte' }
   ];
   var i = 0, foto = document.getElementById('foto-producto'), puntos = document.getElementById('gal-puntos');
   function ir(k) {
@@ -568,6 +570,7 @@
     b.addEventListener('click', function () { ir(k); }); puntos.appendChild(b);
   });
   if (FOTOS.length < 2) document.getElementById('galeria').classList.add('una');
+  window.galeriaIr = ir;   // lo usa el selector de color para enseñar la foto del vaso verde o negro
   document.getElementById('gal-prev').addEventListener('click', function () { ir(i - 1); });
   document.getElementById('gal-next').addEventListener('click', function () { ir(i + 1); });
   var x0 = null, zona = document.getElementById('galeria');   // deslizar con el dedo
