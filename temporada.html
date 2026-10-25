@@ -185,7 +185,6 @@
   <h1 id="t-titulo">Cositas de Temporada</h1>
   <div class="divider"></div>
   <p id="t-intro">Ediciones especiales para cada momento del año.</p>
-  <img class="t-hero-img" id="t-hero-img" alt="" style="display:none;">
 </div>
 
 <section class="cat-section" id="t-seccion">
@@ -313,7 +312,7 @@
   <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
-<script src="temporada-config.js"></script>
+<script src="temporada-config.js?v=20261025c"></script>
 <script>
   (function () {
     var cfg = window.TEMPORADA_CONFIG || {};
@@ -332,7 +331,6 @@
     document.getElementById('t-titulo').textContent = t.titulo;
     document.getElementById('t-intro').textContent = t.intro;
     document.getElementById('t-label').textContent = t.etiqueta || 'De temporada';
-    if (t.imagenHero) { var hi = document.getElementById('t-hero-img'); hi.src = t.imagenHero; hi.alt = t.titulo; hi.style.display = 'block'; }
     if (t.aviso) { var av = document.getElementById('t-aviso'); av.textContent = t.aviso; av.style.display = 'block'; }
 
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -398,6 +396,8 @@
     }
     var grid = document.getElementById('t-grid');
     (t.productos || []).forEach(function (p, i) {
+      // por si el archivo de configuración es una versión antigua (con enlaces a otras páginas): se abre la ficha completa igualmente
+      if (!p.ficha && p.enlace) { var mf = /#(tabla-navidad|adorno-navidad)$/.exec(p.enlace); if (mf) p.ficha = mf[1]; }
       if (p.ficha) {
         var tp = document.getElementById('ficha-' + p.ficha);
         if (tp) grid.appendChild(tp.content.cloneNode(true));
