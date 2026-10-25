@@ -10,17 +10,18 @@
 //  · etiqueta:  el texto pequeño que sale sobre el título de la tarjeta
 //  · palabras:  palabras extra para que el buscador (la lupa) lo encuentre
 //
+//  'primero' (en cada apartado): el producto que sale en primer lugar, el de la foto de la portada.
 //  Para añadir un regalo nuevo: pega su tarjeta en regalos-unicos.html (dentro de #todos)
 //  y añade aquí una línea con su título. Si no lo pones aquí, solo saldrá en "Todos los regalos".
 // ──────────────────────────────────────────────────────────────────────────────
 window.REGALOS = {
   categorias: [
-    { id: 'peques', nombre: 'Para peques', sub: 'Letras 3D · Nombre para la puerta · Banderín · Collar', imagen: 'images/letra3d.jpg', palabras: 'peque peques nino nina niños infantil bebe hijo hija habitacion' },
-    { id: 'mama', nombre: 'Para mamá y abuela', sub: 'Llaveros · Marcapáginas · Collares', imagen: 'images/llavero.jpg', palabras: 'mama madre mami abuela abuelita abu yaya nana dia de la madre' },
-    { id: 'profes', nombre: 'Para profes', sub: 'Placa de profe · Libretas · Marcapáginas', imagen: 'images/placa_profe.jpg', palabras: 'profe profes profesor profesora maestra maestro cole colegio fin de curso' },
-    { id: 'cumple', nombre: 'Cumpleaños y felicitaciones', sub: 'Placas y discos para felicitar · Llaveros', imagen: 'images/placa_cumple.jpg', palabras: 'cumpleaños cumple aniversario felicitar felicitacion regalo detalle' },
-    { id: 'casa', nombre: 'Para casa y recuerdos', sub: 'Imanes · Abrebotellas · Discos', imagen: 'images/iman_elefante.jpg', palabras: 'casa hogar cocina mesa recuerdo recuerdos pueblo baides decoracion' },
-    { id: 'lectores', nombre: 'Para lectores', sub: 'Marcapáginas · Discos Sant Jordi', imagen: 'images/marcapag_cafe.jpg', palabras: 'lector lectora libro libros leer lectura sant jordi' }
+    { id: 'peques', primero: 'Letra 3D autoportante', nombre: 'Para peques', sub: 'Letras 3D · Nombre para la puerta · Banderín · Collar', imagen: 'images/letra3d.jpg', palabras: 'peque peques nino nina niños infantil bebe hijo hija habitacion' },
+    { id: 'mama', primero: 'Llavero · Mamá', nombre: 'Para mamá y abuela', sub: 'Llaveros · Marcapáginas · Collares', imagen: 'images/llavero.jpg', palabras: 'mama madre mami abuela abuelita abu yaya nana dia de la madre' },
+    { id: 'profes', primero: 'Placa de profe', nombre: 'Para profes', sub: 'Placa de profe · Libretas · Marcapáginas', imagen: 'images/placa_profe.jpg', palabras: 'profe profes profesor profesora maestra maestro cole colegio fin de curso' },
+    { id: 'cumple', primero: 'Placa de felicitación', nombre: 'Cumpleaños y felicitaciones', sub: 'Placas y discos para felicitar · Llaveros', imagen: 'images/placa_cumple.jpg', palabras: 'cumpleaños cumple aniversario felicitar felicitacion regalo detalle' },
+    { id: 'casa', primero: 'Imán · Mandala Elefante', nombre: 'Para casa y recuerdos', sub: 'Imanes · Abrebotellas · Discos', imagen: 'images/iman_elefante.jpg', palabras: 'casa hogar cocina mesa recuerdo recuerdos pueblo baides decoracion' },
+    { id: 'lectores', primero: 'Marcapáginas grabado', nombre: 'Para lectores', sub: 'Marcapáginas · Discos Sant Jordi', imagen: 'images/marcapag_cafe.jpg', palabras: 'lector lectora libro libros leer lectura sant jordi' }
   ],
   tipos: { llaveros: 'Llaveros', imanes: 'Imanes', discos: 'Discos y placas', marcapaginas: 'Marcapáginas', decoracion: 'Decoración', joyas: 'Collares', papeleria: 'Libretas', mesa: 'Para la mesa', otros: 'Otros' },
   tecnicas: { '3d': 'Con impresión 3D', madera: 'En madera', cuero: 'De cuero' },
