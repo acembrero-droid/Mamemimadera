@@ -196,7 +196,7 @@
       <div class="img-wrap"><img src="images/nacimiento.jpg" alt="Detallitos para bebés"></div>
       <div class="cat-info">
         <h3>Detallitos para bebés</h3>
-        <p>Placa de nacimiento · Chupetero · Letra 3D · Banderín · Nombre para puerta</p>
+        <p>Placa de nacimiento · Chupetero · Letra 3D · Banderín · Nombre para puerta · Adorno Mi primera Navidad</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -232,6 +232,58 @@
   <h2 class="section-title" style="text-align:center;margin-bottom:0.5rem;">Detallitos para bebés</h2>
   <div class="cat-divider" style="margin:0.5rem auto 2rem;"></div>
   <div class="products-grid">
+
+    <!-- Adorno Mi primera Navidad -->
+    <div class="product-card fade-in" id="adorno-navidad">
+      <div class="product-img" onclick="openLightbox('images/adorno-primera-navidad.jpg')">
+        <img src="images/adorno-primera-navidad.jpg" alt="Adorno navideño Mi primera Navidad">
+        <span class="personalizable-badge">Edición Navidad</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Detallitos para bebés · 🎄 Navidad</p>
+        <h3>Adorno · Mi primera Navidad</h3>
+        <p class="product-desc">Adorno de madera grabado al láser con una corona de acebo y bayas, el calcetín navideño y la frase «Mi primera Navidad». Con el nombre del bebé y el año, y un lazo de hilo rojo y verde para colgarlo en el árbol. Un recuerdo para guardar año tras año.</p>
+        <div class="price-block">
+          <div class="price-row"><span>1–2 unidades</span><span class="amount">15 € / u</span></div>
+          <div class="price-row"><span>3–9 unidades</span><span class="amount">13 € / u</span></div>
+          <div class="price-row"><span>10 unidades o más</span><span class="amount">10 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Nombre grabado sin suplemento</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de grabarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Cantidad:</label>
+            <input type="number" id="adorno-qty" class="opt-input" min="1" value="1" oninput="updateAdorno()">
+            <p class="price-note" id="adorno-tramo" style="margin-top:0.3rem;">1–2 unidades: 15 €/u</p>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">Idioma de la frase</label>
+            <select class="opt-input" id="adorno-idioma">
+              <option value="Castellano · Mi primera Navidad">Castellano · «Mi primera Navidad»</option>
+              <option value="Català · El meu primer Nadal">Català · «El meu primer Nadal»</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Quieres añadir un nombre? (sin suplemento)</label>
+            <select class="opt-input" id="adorno-nombre-sel" onchange="updateAdorno()">
+              <option value="si">Sí, con nombre</option>
+              <option value="no">No, sin nombre</option>
+            </select>
+          </div>
+          <div class="opt-row" id="adorno-nombre-wrap">
+            <label class="opt-label">Nombre (si pides varias unidades con nombres distintos, sepáralos con comas)</label>
+            <textarea class="opt-input" id="adorno-nombre" rows="2" maxlength="120" placeholder="ej. Carla"></textarea>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="adorno-total">15 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartAdorno()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20adorno%20Mi%20primera%20Navidad" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
 
     <!-- Placa de nacimiento -->
     <div class="product-card fade-in">
@@ -1092,6 +1144,39 @@
     const opts = {};
     nombres.forEach((n, i) => { opts['Nombre ' + (i + 1)] = n + (colores[i] ? ' (' + colores[i] + ')' : ''); });
     addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: tier, qty, peso: 55, options: opts });
+  }
+
+  // ── ADORNO MI PRIMERA NAVIDAD ──
+  function adornoPrecio(qty) { return qty >= 10 ? 10 : (qty >= 3 ? 13 : 15); }
+  function updateAdorno() {
+    const qi = document.getElementById('adorno-qty');
+    let qty = parseInt(qi.value) || 1;
+    if (qty < 1) { qty = 1; qi.value = 1; }
+    const unit = adornoPrecio(qty);
+    document.getElementById('adorno-tramo').textContent =
+      qty >= 10 ? '10 unidades o más: 10 €/u (descuento aplicado)' :
+      qty >= 3 ? '3–9 unidades: 13 €/u (descuento aplicado)' : '1–2 unidades: 15 €/u';
+    document.getElementById('adorno-nombre-wrap').style.display =
+      document.getElementById('adorno-nombre-sel').value === 'si' ? 'block' : 'none';
+    document.getElementById('adorno-total').textContent = (unit * qty) + ' €';
+  }
+  function addCartAdorno() {
+    const qty = Math.max(1, parseInt(document.getElementById('adorno-qty').value) || 1);
+    const conNombre = document.getElementById('adorno-nombre-sel').value === 'si';
+    const nombre = document.getElementById('adorno-nombre').value.trim();
+    if (conNombre && !nombre) { alert('Por favor escribe el nombre que quieres grabar, o elige "No, sin nombre".'); return; }
+    const opts = { 'Frase': document.getElementById('adorno-idioma').value, 'Año grabado': '2026' };
+    opts['Nombre'] = conNombre ? nombre : 'Sin nombre';
+    addToCart({ id: 'adorno-navidad-' + Date.now(), name: 'Adorno · Mi primera Navidad', price: adornoPrecio(qty), qty, peso: 20, options: opts });
+  }
+
+  // Apertura directa desde Cositas de Temporada (#adorno-navidad)
+  if (location.hash === '#adorno-navidad') {
+    showDetalles();
+    setTimeout(() => {
+      const el = document.getElementById('adorno-navidad');
+      if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); el.style.transition = 'box-shadow 0.4s ease'; el.style.boxShadow = '0 0 0 3px var(--mint-dark)'; setTimeout(() => { el.style.boxShadow = ''; }, 2000); }
+    }, 350);
   }
 </script>
 <script src="carrito.js"></script>
