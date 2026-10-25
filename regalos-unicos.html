@@ -133,7 +133,8 @@
             /* ---------- Marcapáginas grabado (una sola ficha) ---------- */
     .mp-card { --mp-acento: var(--mint-dark); --mp-suave: var(--mint-light); }
     .mp-card .product-img { height: auto; background: #fff; cursor: zoom-in; position: relative; overflow: hidden; }
-    .mp-card .product-img img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; background: #fff; padding: 0.6rem; box-sizing: border-box; }
+    .mp-card .product-img img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; display: block; background: #fff; }
+    .mp-card .product-img img.solo-dibujo { object-fit: contain; padding: 0.6rem; box-sizing: border-box; }
     .mp-card .mp-field { margin-bottom: 1.2rem; }
     .mp-field > label, .mp-field > .mp-q { display: block; font-size: 0.78rem; font-weight: 700; color: var(--wood-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
     .mp-colores { display: flex; gap: 0.7rem; flex-wrap: wrap; }
@@ -2736,7 +2737,12 @@
   }
   function pintar(enfocar) {
     var c = col(color(activo));
-    var dd = buscar(efectivo(activo)); $('mp-foto').src = dd.imagen; $('mp-foto').alt = 'Marcapáginas ' + dd.nombre + ' en ' + c.nombre.toLowerCase();
+    var dd = buscar(efectivo(activo)), fo = $('mp-foto');
+    fo.classList.remove('solo-dibujo');
+    fo.onerror = function () { fo.onerror = null; fo.classList.add('solo-dibujo'); fo.src = dd.imagen; };
+    var nueva = dd.foto || dd.imagen; if (!dd.foto) fo.classList.add('solo-dibujo');
+    if (fo.getAttribute('data-src') !== nueva) { fo.setAttribute('data-src', nueva); fo.src = nueva; }
+    fo.alt = 'Marcapáginas ' + dd.nombre;
     $('mp-color-q').textContent = (qty === 1 ? '' : 'Marcapáginas ' + (activo + 1) + ' · ') + 'Color: ' + c.nombre;
     Array.prototype.forEach.call($('mp-colores').children, function (b) { var s = b.dataset.c === color(activo); b.classList.toggle('sel', s); b.setAttribute('aria-checked', s); });
     $('mp-cant').textContent = qty;
@@ -2782,7 +2788,7 @@
   $('mpg-next').onclick = function () { pista.scrollBy({ left: 200 }); };
   $('mpg-resumen').addEventListener('click', function (e) {
     if (!e.target.closest('.mpg-ver')) return;
-    var d = buscar(efectivo(activo)); if (d.imagen) openLightbox(d.imagen);
+    var d = buscar(efectivo(activo)); if (d.foto || d.imagen) openLightbox(document.getElementById('mp-foto').src);
   });
 
   $('mp-add').onclick = function () {
