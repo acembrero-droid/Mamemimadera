@@ -1224,7 +1224,9 @@
 
   updateAdorno();
 
-  // Apertura directa desde Cositas de Temporada (#adorno-navidad)
+  // Apertura directa desde el menú de la portada (#nacimiento, #detalles) y desde Cositas de Temporada (#adorno-navidad)
+  if (location.hash === '#nacimiento') showPage('nacimiento');
+  if (location.hash === '#detalles') showDetalles();
   if (location.hash === '#adorno-navidad') {
     showDetalles();
     setTimeout(() => {
