@@ -51,11 +51,11 @@ window.REGALOS = {
       { id: 'marron', nombre: 'Marrón', hex: '#6b4a2f' }
     ],
     disenos: [
-      { id: 'cafe', foto: 'images/marcapag_cafe.jpg', nombre: 'Café entre libros', imagen: "grabados/marcapaginas/cafe.jpg?v=20261025" },
-      { id: 'floreciente', foto: 'images/marcapag_floreciente.jpg', nombre: 'Libro floreciente', imagen: "grabados/marcapaginas/floreciente.jpg?v=20261025" },
-      { id: 'corazones', foto: 'images/marcapag_corazones.jpg', nombre: 'Libro y corazones', imagen: "grabados/marcapaginas/corazones.jpg?v=20261025" },
-      { id: 'margarita', foto: 'images/marcapag_margarita.jpg', nombre: 'Margarita', imagen: "grabados/marcapaginas/margarita.jpg?v=20261025" },
-      { id: 'pata', foto: 'images/marcapag_pata.jpg', nombre: 'Pata lectora', imagen: "grabados/marcapaginas/pata.jpg?v=20261025" }
+      { id: 'cafe', foto: 'images/marcapag_cafe.jpg', nombre: 'Café entre libros', imagen: "images/grabados/marcapaginas/cafe.jpg?v=20261025" },
+      { id: 'floreciente', foto: 'images/marcapag_floreciente.jpg', nombre: 'Libro floreciente', imagen: "images/grabados/marcapaginas/floreciente.jpg?v=20261025" },
+      { id: 'corazones', foto: 'images/marcapag_corazones.jpg', nombre: 'Libro y corazones', imagen: "images/grabados/marcapaginas/corazones.jpg?v=20261025" },
+      { id: 'margarita', foto: 'images/marcapag_margarita.jpg', nombre: 'Margarita', imagen: "images/grabados/marcapaginas/margarita.jpg?v=20261025" },
+      { id: 'pata', foto: 'images/marcapag_pata.jpg', nombre: 'Pata lectora', imagen: "images/grabados/marcapaginas/pata.jpg?v=20261025" }
     ]
   },
   productos: {
