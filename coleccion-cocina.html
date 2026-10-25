@@ -519,6 +519,15 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Colección Cocina';
   }
+  // Apertura directa desde el menú de la portada: #tablas, #mesa, #abrepared (y #tabla-navidad abre la tabla de Navidad)
+  (function () {
+    const h = location.hash.replace('#', '');
+    const mapa = { tablas: 'mar-montana', 'tabla-navidad': 'mar-montana', mesa: 'mesa', abrepared: 'abrepared' };
+    if (!mapa[h]) return;
+    showPage(mapa[h]);
+    if (h === 'tabla-navidad') setTimeout(function () { const el = document.getElementById('tabla-navidad'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
+  })();
+
   let lightboxImages = [];
   let lightboxIdx = 0;
   function openLightbox(src, el) {
