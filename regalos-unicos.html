@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Regalos Bonitos – MAMEMI Madera</title>
+  <title>Regalos Únicos – MAMEMI Madera</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
+    .handmade-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; z-index: 2; }
     :root {
       --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
       --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
@@ -129,6 +130,69 @@
     .product-collapsible { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s ease, opacity 0.3s ease; }
     .product-collapsible > div { overflow: hidden; }
     .product-card.expanded .product-collapsible { grid-template-rows: 1fr; opacity: 1; }
+            /* ---------- Marcapáginas grabado (una sola ficha) ---------- */
+    .mp-card { --mp-acento: var(--mint-dark); --mp-suave: var(--mint-light); }
+    .mp-card .product-img { height: auto; background: #fff; cursor: zoom-in; position: relative; overflow: hidden; }
+    .mp-card .product-img img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; background: #fff; padding: 0.6rem; box-sizing: border-box; }
+    .mp-card .mp-field { margin-bottom: 1.2rem; }
+    .mp-field > label, .mp-field > .mp-q { display: block; font-size: 0.78rem; font-weight: 700; color: var(--wood-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+    .mp-colores { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+    .mp-color { width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: 2px solid var(--wood-light); background: #fff; border-radius: 50%; cursor: pointer; }
+    .mp-color i { width: 26px; height: 26px; border-radius: 50%; display: block; border: 1px solid rgba(0,0,0,0.15); }
+    .mp-color.sel { border-color: var(--wood-dark); box-shadow: 0 0 0 2px var(--wood-light); }
+    .mp-stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--wood-mid); border-radius: 30px; background: #fff; }
+    .mp-stepper button { width: 38px; height: 38px; border: none; background: none; font-size: 1.2rem; cursor: pointer; color: var(--wood-dark); }
+    .mp-stepper span { min-width: 2rem; text-align: center; font-weight: 700; }
+    .mp-total { margin-left: 0.8rem; font-size: 0.85rem; color: var(--text-mid, #7a5c3e); }
+    .mp-titulo { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid, #7a5c3e); margin-bottom: 0.5rem; }
+    .mpg-wrap { position: relative; }
+    .mpg-pista { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; padding: 0.2rem 0 0.6rem; }
+    .mpg-item { position: relative; min-width: 0; border: 2px solid var(--wood-light); background: #fff; border-radius: 12px; padding: 0.4rem; cursor: pointer; text-align: center; font-family: 'Nunito', sans-serif; transition: border-color 0.2s, background 0.2s; }
+    .mpg-item:hover { border-color: var(--mp-acento); }
+    .mpg-item img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 8px; background: #fff; }
+    .mpg-item span { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-mid, #7a5c3e); margin-top: 0.25rem; line-height: 1.2; }
+    .mpg-item.sel { border-color: var(--mp-acento); background: var(--mp-suave); }
+    .mpg-item.sel span { color: var(--wood-deep); }
+    .mpg-item.act { box-shadow: 0 0 0 2px var(--mp-acento); }
+    .mpg-item.sin-foto { display: flex; align-items: center; justify-content: center; min-height: 64px; }
+    .mpg-item.sin-foto span { margin-top: 0; font-size: 0.8rem; }
+    .mpg-item.sel .mpg-badge, .mpg-item .mpg-badge { position: absolute; top: 5px; left: 5px; margin: 0; padding: 0 0.4rem; border-radius: 10px; background: var(--mp-acento); color: #fff !important; font-size: 0.62rem; line-height: 1.5; z-index: 1; }
+    .mpg-flecha { display: none; position: absolute; top: calc(50% - 1.2rem); width: 30px; height: 30px; border: none; border-radius: 50%; background: rgba(90,58,26,0.78); color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; z-index: 2; }
+    .mpg-prev { left: -10px; } .mpg-next { right: -10px; }
+    .mpg-flecha { display: none !important; }
+    .mpg-slots { display: none; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+    .mpg-slot { border: 1.5px solid var(--wood-light); background: #fff; border-radius: 20px; padding: 0.3rem 0.8rem; font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text-mid, #7a5c3e); cursor: pointer; }
+    .mpg-slot small { font-size: 0.72rem; font-weight: 400; opacity: 0.85; }
+    .mpg-slot.act { border-color: var(--mp-acento); background: var(--mp-suave); color: var(--wood-deep); }
+    .mpg-elegido { font-size: 0.85rem; color: var(--text-mid, #7a5c3e); margin: 0.2rem 0 0.4rem; }
+    .mpg-elegido strong { color: var(--wood-deep); }
+    .mpg-ver { background: none; border: none; padding: 0; font-family: inherit; font-size: 0.8rem; font-weight: 700; color: var(--mp-acento); text-decoration: underline; cursor: pointer; }
+    .mp-custom { background: var(--mp-suave); border-radius: 12px; padding: 0.9rem 1rem; }
+    .mp-custom strong { display: block; color: var(--wood-deep); margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .mp-custom p { font-size: 0.85rem; color: var(--text-mid, #7a5c3e); font-weight: 300; line-height: 1.6; margin-bottom: 0.7rem; }
+    .mp-custom .mp-custom-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .mp-custom a { display: inline-block; padding: 0.55rem 1.2rem; border-radius: 30px; border: 2px solid var(--wood-dark); color: var(--wood-dark); background: #fff; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+    .mp-custom a:hover { background: var(--wood-dark); color: #fff; }
+    .mp-nota { font-size: 0.8rem; color: var(--text-mid, #7a5c3e); font-weight: 300; margin-top: 0.5rem; }
+    .mp-nota a { color: var(--mp-acento); font-weight: 700; }
+    .mp-msg { color: #b3261e; font-size: 0.85rem; min-height: 1.2rem; margin-bottom: 0.4rem; }
+    .mp-envio { font-size: 0.78rem; color: var(--text-mid, #7a5c3e); text-align: center; margin-top: 0.6rem; }
+
+    /* ---------- También te puede gustar ---------- */
+    .rb-tambien { margin-top: 3.2rem; padding-top: 2.4rem; border-top: 1.5px dashed var(--wood-mid); }
+    .rb-tambien .section-label { text-align: center; }
+    .rb-tambien-titulo { font-family: 'Playfair Display', serif; font-weight: 400; color: var(--wood-deep); font-size: 1.5rem; text-align: center; margin: 0.2rem 0 1.6rem; }
+    .rb-tambien-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 280px)); gap: 1.4rem; justify-content: center; }
+    .rb-tb-card { display: flex; flex-direction: column; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 18px rgba(90,58,26,0.10); text-decoration: none; color: inherit; transition: transform .2s, box-shadow .2s; }
+    .rb-tb-card:hover { transform: translateY(-3px); box-shadow: 0 8px 26px rgba(90,58,26,0.16); }
+    .rb-tb-img { aspect-ratio: 4/3; background: var(--wood-light); overflow: hidden; }
+    .rb-tb-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .rb-tb-body { padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; flex: 1; }
+    .rb-tb-body h3 { font-family: 'Playfair Display', serif; font-weight: 400; color: var(--wood-deep); font-size: 1.12rem; margin: 0; }
+    .rb-tb-sub { font-size: 0.78rem; color: var(--text-mid, #7a5c3e); margin: 0; line-height: 1.45; }
+    .rb-tb-precio { font-size: 0.82rem; color: var(--text-mid, #7a5c3e); margin: 0.2rem 0 0.6rem; }
+    .rb-tb-precio strong { color: var(--wood-dark); font-size: 1.05rem; }
+    .rb-tb-btn { margin-top: auto; align-self: flex-start; background: var(--mint-dark); color: #fff; font-weight: 700; font-size: 0.82rem; padding: 0.55rem 1.1rem; border-radius: 22px; }
     /* ---------- Buscador y vista de regalos ---------- */
     .rb-buscador { background: var(--mint-light); padding: 0 1.5rem 2.2rem; margin-top: -1px; }
     .rb-buscador form { position: relative; max-width: 560px; margin: 0 auto; }
@@ -164,8 +228,8 @@
 </nav>
 
 <div class="page-hero">
-  <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Regalos Bonitos</p>
-  <h1>Regalos Bonitos</h1>
+  <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Regalos Únicos</p>
+  <h1>Regalos Únicos</h1>
   <div class="divider"></div>
   <p>Detalles con alma a tu medida. Doy vida a regalos únicos exclusivamente para ti, donde cada pieza se convierte en el reflejo del nombre, la historia o la personalidad de quien la recibe.</p>
 </div>
@@ -188,8 +252,8 @@
       <div class="cat-info"><h3>Para peques</h3><p>Letras 3D · Nombre para la puerta · Banderín</p><span class="cat-arrow">Ver regalos →</span></div>
     </a>
     <a class="cat-card fade-in" href="#mama" data-para="mama">
-      <div class="img-wrap"><img src="images/llavero.jpg" alt="Para mamá"></div>
-      <div class="cat-info"><h3>Para mamá</h3><p>Llaveros · Marcapáginas · Collares</p><span class="cat-arrow">Ver regalos →</span></div>
+      <div class="img-wrap"><img src="images/llavero.jpg" alt="Para mamá y abuela"></div>
+      <div class="cat-info"><h3>Para mamá y abuela</h3><p>Llaveros · Marcapáginas · Collares</p><span class="cat-arrow">Ver regalos →</span></div>
     </a>
     <a class="cat-card fade-in" href="#profes" data-para="profes">
       <div class="img-wrap"><img src="images/placa_profe.jpg" alt="Para profes"></div>
@@ -386,6 +450,52 @@
       </div>
     </div>
 <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/nacimiento.jpg')">
+        <img src="images/nacimiento.jpg" alt="Placa nacimiento">
+        <span class="personalizable-badge">Personalizable</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">En madera</p>
+        <h3>Placa de nacimiento</h3>
+        <p class="product-desc">Disco de madera natural grabado al láser con el nombre del bebé, fecha, hora, peso, talla y frase especial. El nombre en 3D con decoración. Un recuerdo único e irrepetible.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Con nombre en 3D y decoración</span><span class="amount">38 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
+        <div class="product-options">
+          <p class="opt-label" style="margin-bottom:0.6rem;">Datos para la placa:</p>
+          <div class="opt-row"><label class="opt-label">Nombre del bebé</label><input type="text" class="opt-input" id="pnac-m-nombre" placeholder="Nombre del bebé"></div>
+          <div class="opt-row"><label class="opt-label">Nombre de la madre</label><input type="text" class="opt-input" id="pnac-m-madre" placeholder="Nombre de la madre"></div>
+          <div class="opt-row"><label class="opt-label">Nombre del padre</label><input type="text" class="opt-input" id="pnac-m-padre" placeholder="Nombre del padre"></div>
+          <div class="opt-row"><label class="opt-label">Fecha completa de nacimiento</label><input type="text" class="opt-input" id="pnac-m-fecha" placeholder="ej. 22 de febrero de 2026"></div>
+          <div class="opt-row"><label class="opt-label">Hora del nacimiento</label><input type="text" class="opt-input" id="pnac-m-hora" placeholder="ej. 14:15h"></div>
+          <div class="opt-row"><label class="opt-label">Peso al nacer</label><input type="text" class="opt-input" id="pnac-m-peso" placeholder="ej. 3.200 kg"></div>
+          <div class="opt-row"><label class="opt-label">Longitud al nacer</label><input type="text" class="opt-input" id="pnac-m-longitud" placeholder="ej. 50 cm"></div>
+          <div class="opt-row">
+            <label class="opt-label">Color del nombre y estrellitas en 3D</label>
+            <select class="opt-input" id="pnac-m-color">
+              <option value="">Elige color</option>
+              <option value="Verde menta">Verde menta</option>
+              <option value="Blanco">Blanco</option>
+              <option value="Negro">Negro</option>
+              <option value="Burdeos">Burdeos</option>
+              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
+            </select>
+            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong>38 €</strong></div>
+        </div>
+        <button class="btn-add-cart" onclick="addCartPlacaNac('pnac-m')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
       <div class="product-img" style="position:relative; height:250px;">
         <div class="mini-carousel">
           <div class="mini-track" id="chupeteTrack">
@@ -460,7 +570,7 @@
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Llaveros</p>
+        <p class="product-cat">Regalos Únicos · Llaveros</p>
         <h3>Llavero · Mamá</h3>
         <p class="product-desc">Llavero redondo de madera natural grabado al láser con diseño de corazones y la palabra "Mamá". Con anilla metálica y borla de gamuza en el color que prefieras. Disponible en cajita kraft o bolsita de tela, listo para regalar.</p>
         <div class="price-block">
@@ -649,68 +759,154 @@
       </div>
     </div>
 <div class="product-card fade-in">
-      <div class="product-img" style="position:relative; height:250px;">
-        <div class="mini-carousel">
-          <div class="mini-track" id="marcaTrack">
-            <img src="images/marcapag.jpg" alt="Marcapáginas" onclick="openLightbox(this.src, this)">
-            <img src="images/marcapag2.jpg" alt="Marcapáginas rojo" onclick="openLightbox(this.src, this)">
-            <img src="images/coral.jpg" alt="Marcapáginas coral" onclick="openLightbox(this.src, this)">
-          </div>
-          <button class="mc-btn mc-prev" onclick="moveMarca(-1)">‹</button>
-          <button class="mc-btn mc-next" onclick="moveMarca(1)">›</button>
-          <div class="mc-dots">
-            <div class="mc-dot active" onclick="goMarca(0)"></div>
-            <div class="mc-dot" onclick="goMarca(1)"></div>
-            <div class="mc-dot" onclick="goMarca(2)"></div>
+      <div class="product-img" onclick="openLightbox('images/collar_sol_luna.jpg')">
+        <img src="images/collar_sol_luna.jpg" alt="Collar Sol y Luna">
+        <span class="handmade-badge">Hecho a mano</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Joyitas Mamemi</p>
+        <h3>Collar Sol y Luna</h3>
+        <p class="product-desc">Collar de bisutería con cadena dorada con delicados detalles en blanco, y un colgante de sol y luna con circonitas. Una pieza de bisutería hecha a mano de forma artesanal, con ese punto especial para brillar todos los días.</p>
+        <div class="price-block"><div class="price-row"><span>Precio</span><span>18,00 €</span></div></div>
+        <button class="btn-add-cart" onclick="addToCart({id:'collar-sol-luna',name:'Collar Sol y Luna',price:18,peso:20,options:{}})">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Collar%20Sol%20y%20Luna" class="btn-contact" target="_blank">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/collar_flor.jpg')">
+        <img src="images/collar_flor.jpg" alt="Collar Flor">
+        <span class="handmade-badge">Hecho a mano</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Joyitas Mamemi</p>
+        <h3>Collar Flor</h3>
+        <p class="product-desc">Collar de bisutería con cadena dorada con delicados detalles blancos y un colgante de flor en tono nacarado. Una pieza de bisutería hecha a mano de forma artesanal, dulce y elegante, perfecta para el día a día.</p>
+        <div class="price-block"><div class="price-row"><span>Precio</span><span>18,00 €</span></div></div>
+        <button class="btn-add-cart" onclick="addToCart({id:'collar-flor',name:'Collar Flor',price:18,peso:20,options:{}})">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Collar%20Flor" class="btn-contact" target="_blank">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/collar_luna_negra.jpg')">
+        <img src="images/collar_luna_negra.jpg" alt="Collar Luna Dorada">
+        <span class="handmade-badge">Hecho a mano</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Joyitas Mamemi</p>
+        <h3>Collar Luna Dorada</h3>
+        <p class="product-desc">Collar de bisutería con cadena dorada con delicados detalles en negro y un colgante circular en esmalte negro con una luna dorada en el centro. Una pieza de bisutería hecha a mano de forma artesanal, con un aire místico.</p>
+        <div class="price-block"><div class="price-row"><span>Precio</span><span>18,00 €</span></div></div>
+        <button class="btn-add-cart" onclick="addToCart({id:'collar-luna-negra',name:'Collar Luna Negra',price:18,peso:20,options:{}})">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Collar%20Luna%20Negra" class="btn-contact" target="_blank">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+    <div class="product-card fade-in">
+      <div class="product-img" onclick="openLightbox('images/collar_lagrima.jpg')">
+        <img src="images/collar_lagrima.jpg" alt="Collar Lágrima">
+        <span class="handmade-badge">Hecho a mano</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Joyitas Mamemi</p>
+        <h3>Collar Lágrima</h3>
+        <p class="product-desc">Collar de bisutería con la posibiliadd de elegir el color de los detalles de la cadena dorada, que lleva un colgante en forma de lágrima esmaltado. Una pieza de bisutería hecha a mano de forma artesanal con gran presencia.</p>
+        <div class="price-block"><div class="price-row"><span>Precio</span><span>18,00 €</span></div></div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">Color de la cadena</label>
+            <select id="rb-lagrima-color" class="opt-input">
+              <option value="Detalles en blanco">Detalles en blanco</option>
+              <option value="Detalles en negro">Detalles en negro</option>
+            </select>
           </div>
         </div>
+        <button class="btn-add-cart" onclick="addCartLagrimaRB()">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Collar%20L%C3%A1grima" class="btn-contact" target="_blank">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
+
+
+<div class="product-card fade-in mp-card" id="prod-marcapaginas">
+      <div class="product-img" onclick="openLightbox(document.getElementById('mp-foto').src)">
+        <img id="mp-foto" src="" alt="Marcapáginas grabado">
+        <span class="limited-badge">Edición Mamemi</span>
         <span class="zoom-icon">🔍</span>
-        <span class="personalizable-badge">Personalizable</span>
       </div>
       <div class="product-body">
         <p class="product-cat">De cuero</p>
-        <h3>Marcapáginas personalizado</h3>
-        <p class="product-desc">Marcapáginas magnético de piel vegana de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con el diseño que elijas.</p>
+        <h3>Marcapáginas grabado</h3>
+        <p class="product-desc">Marcapáginas magnético de piel vegana de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con el dibujo que elijas, en el color que más te guste. Presentado en bolsita de tela, listo para regalar.</p>
         <div class="price-block">
-          <div class="price-row"><span>Diseño y grabado 1 cara</span><span class="amount">20 €</span></div>
-          <div class="price-row"><span>Diseño y grabado 2 caras</span><span class="amount">25 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+          <div class="price-row"><span>Precio por unidad</span><span class="amount" id="mp-precio">18 €</span></div>
+          <p class="price-note">✦ IVA incluido · Dibujo grabado incluido en el precio · Nombre o dedicatoria: +<span id="mp-rec-nombre">5</span> €</p>
         </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Al ser un diseño 100% personalizado, me pondré en contacto contigo después de la compra para concretar juntas el diseño exacto que necesitas. Antes de fabricarlo, te envío una propuesta digital para que me confirmes que es tal y como lo quieres.</div>
         <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
+          <div class="mp-field">
+            <span class="mp-q" id="mp-color-q">Color</span>
+            <div class="mp-colores" id="mp-colores" role="radiogroup" aria-labelledby="mp-color-q"></div>
           </div>
-          <div class="opt-row">
-            <label class="opt-label">Grabado</label>
-            <select id="opt-marca-caras" onchange="updateMarca()">
-              <option value="20">Diseño y grabado 1 cara — 20 €</option>
-              <option value="25">Diseño y grabado 2 caras — 25 €</option>
-            </select>
+
+          <div class="mp-field">
+            <span class="mp-q">Cantidad</span>
+            <div class="mp-stepper">
+              <button type="button" id="mp-menos" aria-label="Quitar uno">−</button>
+              <span id="mp-cant" aria-live="polite">1</span>
+              <button type="button" id="mp-mas" aria-label="Añadir uno">+</button>
+            </div>
+            <span class="mp-total" id="mp-total"></span>
           </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-caja" onchange="updateMarca()">
+
+          <div class="mp-field" id="mp-grabado-wrap">
+            <p class="mp-titulo">Elige tu dibujo</p>
+            <div class="mpg-slots" id="mpg-slots"></div>
+            <div class="mpg-wrap">
+              <button type="button" class="mpg-flecha mpg-prev" id="mpg-prev" aria-label="Dibujos anteriores">‹</button>
+              <div class="mpg-pista" id="mpg-pista" role="listbox" aria-label="Dibujos para grabar"></div>
+              <button type="button" class="mpg-flecha mpg-next" id="mpg-next" aria-label="Más dibujos">›</button>
+            </div>
+            <p class="mpg-elegido" id="mpg-resumen"></p>
+            <p class="mp-nota" id="mp-grabado-nota"></p>
+          </div>
+
+          <div class="mp-field" id="mp-pers-wrap">
+            <span class="mp-q" id="mp-pers-q">¿Quieres personalizarlo?</span>
+            <p class="mp-nota" style="margin:0 0 0.5rem;">Puedes añadir tu nombre o el de a quien se lo quieres regalar (máximo 3 palabras). <strong>+<span id="mp-rec-nombre2">5</span> € por unidad.</strong></p>
+            <select class="opt-input" id="mp-pers" style="margin-top:0;">
+              <option value="no">No, solo el dibujo</option>
+              <option value="si">Sí, añadir nombre o dedicatoria</option>
+            </select>
+            <input type="text" class="opt-input" id="mp-pers-txt" maxlength="40" placeholder="ej. Laura" style="display:none;">
+            <p class="mp-nota" id="mp-pers-nota" style="display:none;">Máximo 3 palabras. <span id="mp-pers-cuenta">0</span>/3</p>
+          </div>
+
+          <div class="mp-field">
+            <span class="mp-q">Presentación</span>
+            <select class="opt-input" id="mp-caja" style="margin-top:0;">
               <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
+              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € por unidad (sustituye a la bolsita)</option>
             </select>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-total">20 €</strong></div>
         </div>
-        <button class="btn-add-cart" onclick="addCartMarca()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20marcap%C3%A1ginas%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
+        <div class="mp-custom">
+          <strong>¿Quieres un marcapáginas personalizado al 100%?</strong>
+          <p>Si lo que buscas no está entre los dibujos, puedo diseñarlo solo para ti. Escríbeme y lo hablamos: <strong style="display:inline;">20 €</strong> con grabado en una cara y <strong style="display:inline;">25 €</strong> con grabado en las dos.</p>
+          <div class="mp-custom-btns">
+            <a id="mp-wa" target="_blank" rel="noopener" href="#">WhatsApp</a>
+            <a id="mp-mail" href="#">Email</a>
+          </div>
+        </div>
+        <p class="mp-msg" id="mp-msg" role="alert"></p>
+        <button type="button" class="btn-add-cart" id="mp-add">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20marcap%C3%A1ginas%20grabado" class="btn-contact" target="_blank" rel="noopener" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
+
 <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/placa_profe.jpg')">
         <img src="images/placa_profe.jpg" alt="Placa profe">
@@ -914,7 +1110,7 @@
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Discos de madera</p>
+        <p class="product-cat">Regalos Únicos · Discos de madera</p>
         <h3>Disco · Cultiva tu propia magia</h3>
         <p class="product-desc">Disco de madera natural grabado al láser con el diseño "Cultiva tu propia magia". Disponible solo grabado o con un delicado toque de color pintado a mano. Se puede añadir el nombre de alguien por 3 € más.</p>
         <div class="price-block">
@@ -952,7 +1148,7 @@
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Llaveros</p>
+        <p class="product-cat">Regalos Únicos · Llaveros</p>
         <h3>Llavero · Protección Animal</h3>
         <p class="product-desc">Llavero redondo de madera natural grabado al láser con dos manos protegiendo la huella de una mascota, un pequeño homenaje a quienes cuidan y protegen a los animales. Con anilla metálica y borla de gamuza en el color que prefieras. Disponible en cajita kraft o bolsita de tela, listo para regalar.</p>
         <div class="price-block">
@@ -1005,7 +1201,7 @@
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Llaveros</p>
+        <p class="product-cat">Regalos Únicos · Llaveros</p>
         <h3>Llavero · Corazón de Mar</h3>
         <p class="product-desc">Llavero redondo de madera natural grabado al láser con un corazón formado por conchas, caracolas y una estrella de mar, perfecto para los amantes del mar. Con anilla metálica y borla de gamuza en el color que prefieras. Disponible en cajita kraft o bolsita de tela, listo para regalar.</p>
         <div class="price-block">
@@ -1058,7 +1254,7 @@
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Llaveros</p>
+        <p class="product-cat">Regalos Únicos · Llaveros</p>
         <h3>Llavero · Montaña</h3>
         <p class="product-desc">Llavero redondo de madera natural grabado al láser con la silueta de unas montañas enmarcadas en un círculo, ideal para los amantes de la naturaleza y la aventura. Con anilla metálica y borla de gamuza en el color que prefieras. Disponible en cajita kraft o bolsita de tela, listo para regalar.</p>
         <div class="price-block">
@@ -1111,7 +1307,7 @@
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Llaveros</p>
+        <p class="product-cat">Regalos Únicos · Llaveros</p>
         <h3>Llavero · Mandala</h3>
         <p class="product-desc">Llavero redondo de madera natural grabado al láser con un delicado diseño de mandala floral, símbolo de armonía y equilibrio. Con anilla metálica y borla de gamuza en el color que prefieras. Disponible en cajita kraft o bolsita de tela, listo para regalar.</p>
         <div class="price-block">
@@ -1164,7 +1360,7 @@
         <span class="zoom-icon">🔍</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Llaveros</p>
+        <p class="product-cat">Regalos Únicos · Llaveros</p>
         <h3>Llavero · Deportes</h3>
         <p class="product-desc">Llavero redondo de madera natural grabado al láser con diseño deportivo: raqueta, balones y botella. Con anilla metálica y borla de gamuza en el color que prefieras. Disponible en cajita kraft o bolsita de tela, listo para regalar.</p>
         <div class="price-block">
@@ -1225,7 +1421,7 @@
         <span class="limited-badge">Edición Mamemi</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Imanes</p>
+        <p class="product-cat">Regalos Únicos · Imanes</p>
         <h3>Imán · Mandala Elefante</h3>
         <p class="product-desc">Imán cuadrado de 10×10cm en madera contrachapada con grabado al láser de elefante mandala con flores de loto. Diseño exclusivo Mamemi. Presentado envuelto en papel celofán con lazo, listo para regalar.</p>
         <div class="price-block">
@@ -1264,7 +1460,7 @@
         <span class="limited-badge">Edición Mamemi</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Imanes</p>
+        <p class="product-cat">Regalos Únicos · Imanes</p>
         <h3>Imán · Baides está en mi corazón</h3>
         <p class="product-desc">Imán cuadrado de 10×10cm en madera contrachapada grabado al láser con girasol, abeja y la frase "Baides está en mi corazón". Diseño exclusivo Mamemi. Presentado envuelto en papel celofán con lazo, listo para regalar.</p>
         <div class="price-block">
@@ -1303,7 +1499,7 @@
         <span class="limited-badge">Edición Mamemi</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Discos de madera</p>
+        <p class="product-cat">Regalos Únicos · Discos de madera</p>
         <h3>Disco · Baides está en mi corazón</h3>
         <p class="product-desc">Disco de madera natural grabado al láser con girasol y la frase "Baides está en mi corazón". Disponible solo grabado o con un delicado toque de color pintado a mano. Se puede añadir el nombre de alguien por 3 € más.</p>
         <div class="price-block">
@@ -1513,234 +1709,6 @@
       </div>
     </div>
 <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_cafe.jpg')">
-        <img src="images/marcapag_cafe.jpg" alt="Marcapáginas Café entre libros">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Marcapáginas</p>
-        <h3>Marcapáginas · Café entre libros</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de taza de café humeante sobre una pila de libros. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-cafe-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-cafe-caja" onchange="updateMarcaCositas('cafe')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-cafe-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('cafe','Marcapáginas · Café entre libros')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Caf%C3%A9%20entre%20libros" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-<div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_floreciente.jpg')">
-        <img src="images/marcapag_floreciente.jpg" alt="Marcapáginas Libro floreciente">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Marcapáginas</p>
-        <h3>Marcapáginas · Libro floreciente</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de libro abierto del que crece una planta. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-floreciente-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-floreciente-caja" onchange="updateMarcaCositas('floreciente')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-floreciente-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('floreciente','Marcapáginas · Libro floreciente')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Libro%20floreciente" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-<div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_corazones.jpg')">
-        <img src="images/marcapag_corazones.jpg" alt="Marcapáginas Libro y corazones">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Marcapáginas</p>
-        <h3>Marcapáginas · Libro y corazones</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de libro abierto del que salen volando corazones. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-corazones-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-corazones-caja" onchange="updateMarcaCositas('corazones')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-corazones-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('corazones','Marcapáginas · Libro y corazones')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Libro%20y%20corazones" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-<div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_margarita.jpg')">
-        <img src="images/marcapag_margarita.jpg" alt="Marcapáginas Margarita">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Marcapáginas</p>
-        <h3>Marcapáginas · Margarita</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de margarita. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-margarita-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-margarita-caja" onchange="updateMarcaCositas('margarita')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-margarita-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('margarita','Marcapáginas · Margarita')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Margarita" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-<div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_ramo.jpg')">
-        <img src="images/marcapag_ramo.jpg" alt="Marcapáginas Ramo de regalo">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Marcapáginas</p>
-        <h3>Marcapáginas · Ramo de regalo</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de ramo de flores envuelto para regalar. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-ramo-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-ramo-caja" onchange="updateMarcaCositas('ramo')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-ramo-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('ramo','Marcapáginas · Ramo de regalo')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Ramo%20de%20regalo" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-<div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/marcapag_pata.jpg')">
-        <img src="images/marcapag_pata.jpg" alt="Marcapáginas Pata lectora">
-        <span class="limited-badge">Edición Mamemi</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Marcapáginas</p>
-        <h3>Marcapáginas · Pata lectora</h3>
-        <p class="product-desc">Marcapáginas magnético de piel sintética de alta calidad con imán integrado para un agarre perfecto a la página. Grabado al láser con diseño de pata cargando una pila de libros. Presentado en bolsita de tela, listo para regalar.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Precio por unidad</span><span class="amount">18 €</span></div>
-          <p class="price-note">✦ IVA incluido · Diseño propio · Hasta agotar existencias</p>
-        </div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Color del marcapáginas</label>
-            <select id="opt-marca-pata-color">
-              <option value="Blanco">Blanco</option>
-              <option value="Rojo vivo">Rojo vivo</option>
-              <option value="Verde botella">Verde botella</option>
-              <option value="Gris oscuro">Gris oscuro</option>
-              <option value="Marrón">Marrón</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Presentación</label>
-            <select id="opt-marca-pata-caja" onchange="updateMarcaCositas('pata')">
-              <option value="0">Bolsita de tela — incluida en el precio</option>
-              <option value="2">Cajita Kraft con papel de seda y viruta — +2 € (sustituye a la bolsita)</option>
-            </select>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-marca-pata-total">18 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartMarcaCositas('pata','Marcapáginas · Pata lectora')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20marcap%C3%A1ginas%20Pata%20lectora" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-<div class="product-card fade-in">
       <div class="product-img" style="position:relative; height:250px;">
         <div class="mini-carousel">
           <div class="mini-track" id="discoSantJordiTrack">
@@ -1760,7 +1728,7 @@
         <span class="limited-badge">Edición Mamemi</span>
       </div>
       <div class="product-body">
-        <p class="product-cat">Regalos Bonitos · Discos de madera</p>
+        <p class="product-cat">Regalos Únicos · Discos de madera</p>
         <h3>Disco · Sant Jordi 2026</h3>
         <p class="product-desc">Disco de madera natural grabado al láser con los diseños de Sant Jordi: dragón o rosa, a tu elección. Disponible solo grabado o con un delicado toque de color pintado a mano. Se puede añadir el nombre de alguien por 3 € más.</p>
         <div class="price-block">
@@ -1798,6 +1766,11 @@
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20disco%20Sant%20Jordi%202026" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
+  </div>
+  <div class="rb-tambien" id="rb-tambien" style="display:none;">
+    <p class="section-label">También te puede gustar</p>
+    <h2 class="rb-tambien-titulo">Otras ideas de MAMEMI</h2>
+    <div class="rb-tambien-grid" id="rb-tambien-grid"></div>
   </div>
 </section>
 
@@ -1864,16 +1837,41 @@
     if (st.tipo) return RB.tipos[st.tipo] || 'Regalos';
     return 'Todos los regalos';
   }
+  // ── TAMBIÉN TE PUEDE GUSTAR (productos de otras páginas) ──
+  function rbPintarTambien(st) {
+    const box = document.getElementById('rb-tambien'), grid = document.getElementById('rb-tambien-grid');
+    if (!box || !grid) return;
+    const lista = (RB.tambien || []).filter(t => {
+      if (st.tipo || st.tec) return false;
+      if (st.q) { const ps = rbNorm(st.q).split(/\s+/).filter(Boolean); const tx = rbNorm([t.titulo, t.sub, t.palabras].join(' ')); return ps.every(p => tx.indexOf(p) >= 0); }
+      if (st.para) return (t.para || []).indexOf(st.para) >= 0;
+      return true;   // "Ver todos los regalos"
+    });
+    grid.innerHTML = '';
+    lista.forEach(t => {
+      const a = document.createElement('a'); a.className = 'rb-tb-card'; { const p = t.href.split('#'); a.href = p[0] + '?desde=regalos&a=' + (st.para || 'todo') + (p[1] ? '#' + p[1] : ''); }
+      const img = document.createElement('div'); img.className = 'rb-tb-img'; const im = document.createElement('img'); im.src = t.imagen; im.alt = t.titulo; im.loading = 'lazy'; img.appendChild(im);
+      const body = document.createElement('div'); body.className = 'rb-tb-body';
+      const h = document.createElement('h3'); h.textContent = t.titulo;
+      const sub = document.createElement('p'); sub.className = 'rb-tb-sub'; sub.textContent = t.sub || '';
+      const pr = document.createElement('p'); pr.className = 'rb-tb-precio'; pr.innerHTML = 'desde <strong></strong>'; pr.querySelector('strong').textContent = t.desde;
+      const bt = document.createElement('span'); bt.className = 'rb-tb-btn'; bt.textContent = 'Ir a verlo →';
+      body.appendChild(h); body.appendChild(sub); body.appendChild(pr); body.appendChild(bt);
+      a.appendChild(img); a.appendChild(body); grid.appendChild(a);
+    });
+    box.style.display = lista.length ? 'block' : 'none';
+    return lista.length;
+  }
   function rbPintar() {
     const home = document.getElementById('catGrid'), vista = document.getElementById('productosVista'), bc = document.getElementById('breadcrumb');
     if (!rbEstado) {
       home.style.display = 'block'; vista.style.display = 'none';
-      bc.innerHTML = '<a href="index.html">Inicio</a> · Regalos Bonitos';
+      bc.innerHTML = '<a href="index.html">Inicio</a> · Regalos Únicos';
       return;
     }
     home.style.display = 'none'; vista.style.display = 'block';
     const st = rbEstado, titulo = rbTitulo(st);
-    bc.innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Regalos Bonitos</a> · ' + titulo.replace(/[<>&]/g, '');
+    bc.innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Regalos Únicos</a> · ' + titulo.replace(/[<>&]/g, '');
     document.getElementById('rb-titulo').textContent = titulo;
     // botones de tipo (con cuántos hay en esta vista)
     const cont = {}; let total = 0;
@@ -1889,6 +1887,8 @@
     rbCards.forEach(it => { const ok = rbCoincide(it, st, false); it.card.style.display = ok ? '' : 'none'; if (ok) n++; });
     document.getElementById('rb-count').textContent = n + (n === 1 ? ' regalo' : ' regalos');
     document.getElementById('rb-vacio').style.display = n ? 'none' : 'block';
+    const nt = rbPintarTambien(st);
+    if (!n && nt) document.getElementById('rb-vacio').style.display = 'none';
     if (window.__rbFloat) window.__rbFloat();
   }
   function rbIr(st, hash, noPush) {
@@ -1935,14 +1935,6 @@
   window.addEventListener('hashchange', () => { if (rbQ) rbQ.value = ''; rbAplicarHash(location.hash, false); });
   rbAplicarHash(location.hash, false);
 
-  let marcaIdx = 0;
-  function moveMarca(dir) { marcaIdx = (marcaIdx + dir + 3) % 3; goMarca(marcaIdx); }
-  function goMarca(i) {
-    marcaIdx = i;
-    document.getElementById('marcaTrack').style.transform = `translateX(-${i * 100}%)`;
-    document.getElementById('marcaTrack').closest('.mini-carousel').querySelectorAll('.mc-dot').forEach((d,j) => d.classList.toggle('active', j===i));
-  }
-  setInterval(() => moveMarca(1), 3500);
 
   let chupeteIdx = 0;
   function moveChupete(dir) { chupeteIdx = (chupeteIdx + dir + 2) % 2; goChupete(chupeteIdx); }
@@ -2021,6 +2013,11 @@
       opts['Diseño'] = 'Diseño personalizado a confirmar por WhatsApp';
     }
     addToCart({ id: 'collar-resina-' + Date.now(), name: 'Collar grabado en madera y resina', price: 22, peso: 20, options: opts });
+  }
+
+  function addCartLagrimaRB() {
+    const color = document.getElementById('rb-lagrima-color').value;
+    addToCart({ id: 'collar-lagrima', name: 'Collar Lágrima', price: 18, peso: 20, options: { 'Color de la cadena': color } });
   }
 
   // ── LLAVERO PERSONALIZADO ──
@@ -2656,6 +2653,164 @@
     const opts = price > 9 ? { 'Acabado': 'Con toque de color' } : { 'Acabado': 'Sin color' };
     addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: opts });
   }
+</script>
+<script>
+(function () {
+  var cfg = window.REGALOS.marcapaginas, $ = function (id) { return document.getElementById(id); };
+  var MAX = 30, qty = 1, activo = 0;
+  var asign = [cfg.disenos[0].id];      // asign[i] = diseño de la marcapáginas i+1 ('' = sin grabado); si no se elige, lleva el de la 1
+  var elegida = [];      // elegida[i] = true cuando el cliente ha escogido el diseño de esa marcapáginas
+  var modos = [], textos = [];   // personalización por unidad: 'no' | 'si' + texto (máx. 3 palabras)
+  var colores = [];      // colores[i]; si no se elige, lleva el de la 1
+  var pista = $('mpg-pista');
+  var DIS = cfg.disenos;
+  function col(id) { return cfg.colores.filter(function (c) { return c.id === id; })[0]; }
+  function buscar(id) { return DIS.filter(function (d) { return d.id === id; })[0] || DIS[0]; }
+  function efectivo(i) { return (i > 0 && !elegida[i]) ? asign[0] : asign[i]; }
+  function color(i) { return colores[i] || colores[0] || cfg.colores[0].id; }
+  function primeraSinElegir() { for (var i = 0; i < qty; i++) if (!elegida[i]) return i; return -1; }
+  function usados() { var u = []; for (var i = 0; i < qty; i++) { var id = efectivo(i); if (u.indexOf(id) < 0) u.push(id); } return u; }
+  function pers(i) { return modos[i] === 'si' ? (textos[i] || '').trim().replace(/\s+/g, ' ') : ''; }
+  function unit(i) { return cfg.precio + (cfg.recargoNombre && modos[i] === 'si' ? cfg.recargoNombre : 0) + cajaExtra(); }
+  function cajaExtra() { return parseFloat($('mp-caja').value) || 0; }
+  function palabras(t) { t = t.trim(); return t ? t.split(/\s+/).length : 0; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  
+  $('mp-rec-nombre').textContent = $('mp-rec-nombre2').textContent = cfg.recargoNombre || 0;
+  $('mp-precio').textContent = cfg.precio + ' €';
+  // colores + miniaturas
+  cfg.colores.forEach(function (c) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'mp-color'; b.dataset.c = c.id; b.setAttribute('role', 'radio');
+    b.innerHTML = '<i style="background:' + c.hex + '"></i>'; b.title = c.nombre; b.setAttribute('aria-label', c.nombre);
+    b.onclick = function () { colores[activo] = c.id; $('mp-msg').textContent = ''; pintar(); };
+    $('mp-colores').appendChild(b);
+  });
+
+  var txt = 'Hola, estaba viendo los marcapáginas de tu web y me gustaría uno personalizado al 100%. Mi idea es: ';
+  var wa = 'https://wa.me/34622562499?text=' + encodeURIComponent(txt);
+  $('mp-wa').href = wa;
+  $('mp-mail').href = 'mailto:hola@mamemimadera.es?subject=' + encodeURIComponent('Marcapáginas personalizado al 100%') + '&body=' + encodeURIComponent(txt);
+  $('mp-grabado-nota').innerHTML = 'Grabado incluido en el precio. Te confirmaré el diseño antes de grabarlo.';
+
+  function pintarSlots() {
+    var cont = $('mpg-slots'); cont.innerHTML = '';
+    cont.style.display = qty > 1 ? 'flex' : 'none';
+    for (var i = 0; i < qty; i++) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'mpg-slot' + (i === activo ? ' act' : ''); b.dataset.i = i;
+      b.appendChild(document.createTextNode('Marcapáginas ' + (i + 1) + ': '));
+      var s = document.createElement('small');
+      s.textContent = buscar(efectivo(i)).nombre + ((i > 0 && !elegida[i]) ? ' (como la 1)' : '') + ' · ' + col(color(i)).nombre + (modos[i] === 'si' ? (pers(i) ? ' · con nombre' : ' · falta el texto') : '');
+      b.appendChild(s); cont.appendChild(b);
+    }
+  }
+  function pintarTira(enfocar) {
+    var u = usados();
+    var orden = DIS;
+    var idAct = efectivo(activo);
+    pista.innerHTML = '';
+    orden.forEach(function (d) {
+      var usado = u.indexOf(d.id) >= 0;
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'mpg-item' + (usado ? ' sel' : '') + (d.id === idAct ? ' act' : '') + (d.imagen ? '' : ' sin-foto');
+      b.setAttribute('role', 'option'); b.setAttribute('aria-selected', usado ? 'true' : 'false'); b.dataset.id = d.id;
+      if (qty > 1 && usado) {
+        var nums = []; for (var i = 0; i < qty; i++) if (efectivo(i) === d.id) nums.push(i + 1);
+        var bd = document.createElement('span'); bd.className = 'mpg-badge'; bd.textContent = nums.join('·'); b.appendChild(bd);
+      }
+      if (d.imagen) { var img = document.createElement('img'); img.src = d.imagen; img.alt = 'Diseño ' + d.nombre; b.appendChild(img); }
+      var t = document.createElement('span'); t.textContent = d.nombre; b.appendChild(t);
+      pista.appendChild(b);
+      if (enfocar && d.id === idAct) b.focus({ preventScroll: true });
+    });
+    if (pista.scrollTo) pista.scrollTo({ left: 0 }); else pista.scrollLeft = 0;
+  }
+  function pintarResumen() {
+    var d = buscar(efectivo(activo));
+    var ver = d.imagen ? ' · <button type="button" class="mpg-ver">Ver grande</button>' : '';
+    $('mpg-resumen').innerHTML = qty === 1
+      ? 'Dibujo elegido: <strong>' + esc(d.nombre) + '</strong>' + ver
+      : 'Toca un dibujo para la <strong>Marcapáginas ' + (activo + 1) + '</strong>. Las que no elijas llevarán el mismo que la 1.' + ver;
+  }
+  function pintar(enfocar) {
+    var c = col(color(activo));
+    var dd = buscar(efectivo(activo)); $('mp-foto').src = dd.imagen; $('mp-foto').alt = 'Marcapáginas ' + dd.nombre + ' en ' + c.nombre.toLowerCase();
+    $('mp-color-q').textContent = (qty === 1 ? '' : 'Marcapáginas ' + (activo + 1) + ' · ') + 'Color: ' + c.nombre;
+    Array.prototype.forEach.call($('mp-colores').children, function (b) { var s = b.dataset.c === color(activo); b.classList.toggle('sel', s); b.setAttribute('aria-checked', s); });
+    $('mp-cant').textContent = qty;
+    $('mp-menos').disabled = qty <= 1; $('mp-mas').disabled = qty >= MAX;
+    var suma = 0; for (var i = 0; i < qty; i++) suma += unit(i);
+    $('mp-precio').textContent = (qty === 1 ? suma : cfg.precio) + ' €';
+    $('mp-total').textContent = qty > 1 ? 'Total: ' + suma + ' €' : '';
+    var pq = (qty === 1 ? '' : 'Marcapáginas ' + (activo + 1) + ' · ') + '¿Quieres personalizarlo?';
+    $('mp-pers-q').textContent = pq;
+    $('mp-pers').value = modos[activo] || 'no';
+    $('mp-pers-txt').style.display = $('mp-pers-nota').style.display = modos[activo] === 'si' ? '' : 'none';
+    $('mp-pers-txt').value = textos[activo] || '';
+    $('mp-pers-cuenta').textContent = palabras($('mp-pers-txt').value);
+    pintarSlots(); pintarTira(enfocar); pintarResumen();
+  }
+
+  pista.addEventListener('click', function (e) {
+    var b = e.target.closest('.mpg-item'); if (!b) return;
+    asign[activo] = b.dataset.id; elegida[activo] = true;
+    if (qty > 1) { var sig = primeraSinElegir(); if (sig >= 0) activo = sig; }
+    pintar(true);
+  });
+  $('mpg-slots').addEventListener('click', function (e) {
+    var b = e.target.closest('.mpg-slot'); if (!b) return;
+    activo = parseInt(b.dataset.i, 10); pintar();
+  });
+  $('mp-pers').addEventListener('change', function () {
+    modos[activo] = this.value; $('mp-msg').textContent = '';
+    if (this.value === 'si') $('mp-pers-txt').focus();
+    pintar();
+  });
+  $('mp-pers-txt').addEventListener('input', function () {
+    var w = this.value.replace(/^\s+/, '').split(/\s+/);
+    if (w.length > 3) this.value = w.slice(0, 3).join(' ');
+    textos[activo] = this.value; $('mp-msg').textContent = '';
+    $('mp-pers-cuenta').textContent = palabras(this.value);
+    pintarSlots();
+  });
+  $('mp-caja').addEventListener('change', function () { pintar(); });
+  $('mp-menos').onclick = function () { if (qty > 1) { qty--; if (activo >= qty) activo = qty - 1; pintar(); } };
+  $('mp-mas').onclick = function () { if (qty < MAX) { qty++; var sig = primeraSinElegir(); activo = sig >= 0 ? sig : qty - 1; pintar(); } };
+  $('mpg-prev').onclick = function () { pista.scrollBy({ left: -200 }); };
+  $('mpg-next').onclick = function () { pista.scrollBy({ left: 200 }); };
+  $('mpg-resumen').addEventListener('click', function (e) {
+    if (!e.target.closest('.mpg-ver')) return;
+    var d = buscar(efectivo(activo)); if (d.imagen) openLightbox(d.imagen);
+  });
+
+  $('mp-add').onclick = function () {
+    if (typeof window.addToCart !== 'function') { $('mp-msg').textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.'; return; }
+    for (var j = 0; j < qty; j++) {
+      if (modos[j] === 'si' && !pers(j)) {
+        activo = j; pintar(); $('mp-pers-txt').focus();
+        $('mp-msg').textContent = (qty > 1 ? 'Marcapáginas ' + (j + 1) + ': escribe' : 'Escribe') + ' el nombre o la dedicatoria que quieres grabar, o elige «No».';
+        return;
+      }
+    }
+    $('mp-msg').textContent = '';
+    var g = {}, orden = [];
+    for (var i = 0; i < qty; i++) {
+      var d = buscar(efectivo(i)), c = col(color(i)), t = pers(i), k = d.id + '|' + c.id + '|' + t;
+      if (!g[k]) { g[k] = { grabado: d.nombre, color: c.nombre, texto: t, price: unit(i), qty: 0 }; orden.push(k); }
+      g[k].qty++;
+    }
+    var caja = cajaExtra();
+    orden.forEach(function (k) {
+      var l = g[k];
+      var op = { 'Color': l.color, 'Dibujo': l.grabado }; if (l.texto) op['Nombre o dedicatoria'] = l.texto;
+      op['Presentación'] = caja > 0 ? 'Cajita Kraft con papel de seda y viruta' : 'Bolsita de tela';
+      window.addToCart({ id: 'marcapaginas-grabado', name: 'Marcapáginas grabado', price: l.price, qty: l.qty, peso: 12, options: op });
+    });
+  };
+  pintar();
+})();
 </script>
 <script src="cookies-banner.js"></script>
 <script>
