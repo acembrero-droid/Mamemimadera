@@ -1,244 +1,73 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cositas de Temporada – MAMEMI Madera</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
-      --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
-      --mint-dark: #6a9e8a; --cream: #fdf8f0; --cream2: #f9f2e4;
-      --text: #3a2510; --text-mid: #6b4c2a; --shadow: rgba(90,58,26,0.13);
+// ──────────────────────────────────────────────────────────────────────────────
+//  CONFIGURACIÓN DE "COSITAS DE TEMPORADA"
+//  Para cambiar de temporada solo hay que tocar la línea  activa: '...'  (abajo).
+//  Cambia automáticamente: la página temporada.html, la tarjeta de la portada,
+//  los colores y los productos. El nombre del apartado y el menú no cambian.
+//
+//  imagenPortada = foto de la tarjeta en la portada · imagenHero = foto grande de la página (opcional).
+//  Para añadir una temporada nueva: copia un bloque de "temporadas", cámbiale la
+//  clave (p. ej. verano, otono, sanvalentin…) y rellénalo.
+//  Para probar una temporada sin publicarla: temporada.html?t=primavera
+//
+//  Cada producto puede ser:
+//    · una tarjeta que lleva a otra página:  enlace: 'coleccion-cocina.html#tabla-navidad'
+//    · o un producto sencillo con carrito:   carrito: true  (usa id, nombre, precio y peso)
+//    · o un aviso "Próximamente":            proximamente: true
+// ──────────────────────────────────────────────────────────────────────────────
+window.TEMPORADA_CONFIG = {
+
+  activa: 'navidad',
+
+  temporadas: {
+
+    navidad: {
+      emoji: '🎄',
+      etiqueta: '🎄 Navidad',
+      titulo: 'Cositas de Navidad',
+      intro: 'Pequeños detalles navideños hechos a mano, para regalar o para vestir tu casa. Ediciones especiales que solo aparecen en estas fechas.',
+      subPortada: 'Detalles navideños hechos a mano · Edición especial',
+      imagenPortada: 'images/temporada-navidad.jpg',
+      imagenHero: 'images/temporada-navidad.jpg',
+      colores: { acento: '#9c3b3b', suave: '#f6e3df', fondo: '#fdf4f1' },
+      aviso: '🎁 Si quieres tu pedido personalizado para Navidad, hazlo con tiempo: en fechas de alta demanda los plazos se amplían.',
+      productos: [
+        {
+          nombre: 'Tabla de cocina · Navidad',
+          descripcion: 'Tabla de presentación decorada a mano con decoupage navideño: acebo, bayas y mucho cariño. Con dedicatoria grabada opcional.',
+          precio: '32 €',
+          imagen: 'images/tabla_invierno.jpg',
+          etiqueta: 'Edición especial',
+          enlace: 'coleccion-cocina.html#tabla-navidad',
+          textoEnlace: 'Ver la tabla'
+        },
+        {
+          nombre: 'Más cositas navideñas',
+          descripcion: 'Estoy preparando nuevas piezas para esta Navidad. Pronto las verás aquí.',
+          proximamente: true
+        }
+      ]
+    },
+
+    primavera: {
+      emoji: '🌸',
+      etiqueta: '🌸 Bodas y comuniones',
+      titulo: 'Cositas para Bodas y Comuniones',
+      intro: 'Detalles para los días más especiales de la primavera: bodas, comuniones y celebraciones. Personalizados para que cada invitado se lleve un recuerdo.',
+      subPortada: 'Bodas · Comuniones · Detalles para invitados',
+      imagenPortada: 'images/marcasitio2.jpg',
+      colores: { acento: '#6a9e8a', suave: '#e0ede8', fondo: '#f6faf8' },
+      aviso: '💌 Para bodas y comuniones, escríbeme con tiempo: los pedidos de más de 10 unidades tienen plazos propios.',
+      productos: [
+        {
+          nombre: 'Detallitos para Eventos',
+          descripcion: 'Marcasitios, imanes abrebotellas, libretas y posavasos personalizados, con precios por volumen desde 10 unidades.',
+          imagen: 'images/marcasitio2.jpg',
+          etiqueta: 'Bodas y comuniones',
+          enlace: 'detallitos-eventos.html',
+          textoEnlace: 'Ver detallitos'
+        }
+      ]
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
-    nav { position: fixed; top: 0; width: 100%; z-index: 200; background: rgba(253,248,240,0.97); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--wood-light); box-shadow: 0 2px 20px var(--shadow); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 70px; }
-    .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
-    .nav-logo img { height: 48px; width: auto; object-fit: contain; display: block; max-width: 160px; }
-    .nav-back { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-back:hover { color: var(--mint-dark); }
-    .nav-cta { background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.5rem 1.2rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
-    .nav-cta:hover { background: var(--mint-dark); }
-    .page-hero { padding: 110px 2rem 3rem; background: var(--mint-light); text-align: center; }
-    .breadcrumb { font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.8rem; letter-spacing: 0.1em; }
-    .breadcrumb a { color: var(--mint-dark); text-decoration: none; }
-    .breadcrumb a:hover { text-decoration: underline; }
-    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); color: var(--wood-deep); margin-bottom: 0.8rem; }
-    .page-hero p { max-width: 580px; margin: 0 auto; color: var(--text-mid); font-size: 1rem; line-height: 1.8; font-weight: 300; }
-    .divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 1rem auto; border-radius: 2px; }
-    .cat-section { padding: 4rem 2rem 5rem; }
-    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; }
-    .cat-divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
-    .cat-card { position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; display: block; }
-    .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
-    .cat-card .img-wrap { width: 100%; height: 260px; overflow: hidden; }
-    .cat-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .cat-card:hover .img-wrap img { transform: scale(1.07); }
-    .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.5rem 1.2rem; background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%); color: #fff; }
-    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.25rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
-    .cat-info p { font-size: 0.78rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
-    .cat-arrow { display: inline-block; margin-top: 0.5rem; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(4px); transition: background 0.25s; }
-    .cat-card:hover .cat-arrow { background: var(--mint-dark); }
-    .product-page { display: none; padding: 2rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
-    .product-page.active { display: block; }
-    .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
-    .back-btn:hover { background: var(--wood-light); }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; align-items: start; }
-    @media (max-width: 640px) {
-      .products-grid { grid-template-columns: 1fr; }
-    }
-    .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
-    .product-img { position: relative; height: 250px; overflow: hidden; cursor: zoom-in; }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .product-card:hover .product-img img { transform: scale(1.06); }
-    .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
-    .product-card:hover .zoom-icon { opacity: 1; }
-    .personalizable-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
-    .limited-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--wood-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
-    .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
-    .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
-    .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
-    .product-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; flex: 1; }
-    .price-block { margin-top: 0.5rem; border-top: 1px dashed var(--wood-light); padding-top: 0.7rem; }
-    .price-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.82rem; color: var(--text-mid); padding: 0.25rem 0; border-bottom: 1px dashed var(--wood-light); }
-    .price-row:last-of-type { border-bottom: none; }
-    .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.92rem; }
-    .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; line-height: 1.5; }
-    .price-alert { font-size: 0.78rem; color: var(--wood-dark); font-weight: 600; background: var(--wood-light); border-radius: 8px; padding: 0.5rem 0.75rem; margin-top: 0.5rem; line-height: 1.5; }
-    .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
-    .btn-contact:hover { background: var(--mint-dark); }
-    .mini-carousel { position: relative; width: 100%; overflow: hidden; }
-    .mini-track { display: flex; transition: transform 0.4s ease; }
-    .mini-track img { width: 100%; height: 250px; object-fit: cover; flex-shrink: 0; cursor: zoom-in; }
-    .mc-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,248,240,0.9); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px var(--shadow); }
-    .mc-prev { left: 0.5rem; } .mc-next { right: 0.5rem; }
-    .mc-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.35rem; }
-    .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
-    .mc-dot.active { background: #fff; }
-    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
-    .lightbox.active { display: flex; }
-    .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
-    .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
-    .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 2rem; width: 52px; height: 52px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1001; transition: background 0.2s; }
-    .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
-    .lightbox-nav.prev { left: 1rem; }
-    .lightbox-nav.next { right: 1rem; }
-    @media (max-width: 640px) { .lightbox-nav { width: 42px; height: 42px; font-size: 1.6rem; } .lightbox-nav.prev { left: 0.4rem; } .lightbox-nav.next { right: 0.4rem; } }
-    .lightbox-close:hover { background: rgba(255,255,255,0.3); }
-    footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
-    footer img { height: 36px; opacity: 0.6; filter: invert(1); }
-    footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
-    footer a:hover { color: var(--mint); }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 640px) {
-      nav { padding: 0 0.8rem; }
-      .nav-actions { gap: 0.4rem; }
-      .nav-back { font-size: 0.7rem; }
-      .nav-cta { padding: 0.45rem 0.8rem !important; font-size: 0.68rem !important; }
-      .cart-btn { padding: 0.45rem 0.8rem; font-size: 0.68rem; }
-      .cat-grid, .products-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; }
-    }
-    @media (max-width: 380px) { .nav-back { display: none; } }
-    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
-    .btn-add-cart:hover { background: var(--wood-dark); }
-    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
-    .opt-row { margin-bottom: 0.5rem; }
-    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
-    .opt-row select:focus { border-color: var(--mint-dark); }
-    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
-    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
-    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
-    .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
-    .cart-btn:hover { background: #4d8a72; }
-    .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
-    .cart-btn:active { outline: none !important; }
-    .btn-personalize { display: flex; align-items: center; justify-content: center; gap: 0.4rem; width: 100%; margin-top: 0.7rem; padding: 0.65rem 1rem; background: #fff; color: var(--wood-dark); border: 1.5px solid var(--wood-mid); border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
-    .btn-personalize:hover { background: var(--wood-light); }
-    .btn-personalize .chev { display: inline-block; transition: transform 0.3s ease; font-size: 0.7rem; }
-    .product-card.expanded .btn-personalize .chev { transform: rotate(180deg); }
-    .product-card.expanded .btn-personalize { background: var(--wood-light); }
-    .product-collapsible { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s ease, opacity 0.3s ease; }
-    .product-collapsible > div { overflow: hidden; }
-    .product-card.expanded .product-collapsible { grid-template-rows: 1fr; opacity: 1; }
-  
-    /* ---------- COSITAS DE TEMPORADA ---------- */
-    :root { --t-acento: #9c3b3b; --t-suave: #f6e3df; --t-fondo: #fdf4f1; }
-    body.temporada-page { background: var(--t-fondo); }
-    .temporada-page .page-hero { background: var(--t-suave); border-bottom: 3px solid var(--t-acento); }
-    .temporada-page .page-hero h1 { color: var(--t-acento); }
-    .temporada-page .page-hero .divider, .temporada-page .cat-divider { background: var(--t-acento); }
-    .temporada-aviso { max-width: 760px; margin: 0 auto 2rem; padding: 0.9rem 1.2rem; background: #fff; border: 1.5px dashed var(--t-acento); border-radius: 14px; font-size: 0.86rem; color: var(--text-mid); text-align: center; }
-    .t-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.6rem; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 4rem; }
-    .t-card { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 24px var(--shadow); display: flex; flex-direction: column; border-top: 4px solid var(--t-acento); }
-    .t-card .t-img { position: relative; aspect-ratio: 4/3; background: var(--t-suave); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
-    .t-card .t-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .t-card .t-tag { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--t-acento); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 20px; }
-    .t-card .t-body { padding: 1.2rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
-    .t-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--wood-deep); }
-    .t-card p { font-size: 0.88rem; color: var(--text-mid); font-weight: 300; }
-    .t-card .t-price { font-weight: 700; color: var(--t-acento); font-size: 1.05rem; margin-top: auto; }
-    .t-btn { display: block; text-align: center; margin-top: 0.4rem; padding: 0.7rem 1rem; background: var(--t-acento); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: opacity 0.2s; }
-    .t-btn:hover { opacity: 0.85; }
-    .t-card.prox { opacity: 0.8; border-top-style: dashed; }
-    .t-card.prox .t-img { font-size: 3.2rem; }
-    .t-otras { text-align: center; max-width: 760px; margin: 0 auto 4rem; padding: 0 1.5rem; font-size: 0.88rem; color: var(--text-mid); }
-    .t-otras a { color: var(--t-acento); font-weight: 700; }
-  </style>
-</head>
-<body class="temporada-page">
-<nav>
-  <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
-  <a href="index.html" class="nav-back">← Inicio</a>
-  <div class="nav-actions">
-    <a href="https://wa.me/34622562499?text=Hola!%20Tengo%20una%20duda" target="_blank" class="nav-cta">¿Hablamos?</a>
-    <button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="cart-badge">0</span></button>
-  </div>
-</nav>
 
-<div class="page-hero">
-  <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Cositas de Temporada</p>
-  <h1 id="t-titulo">Cositas de Temporada</h1>
-  <div class="divider"></div>
-  <p id="t-intro">Ediciones especiales para cada momento del año.</p>
-</div>
-
-<section class="cat-section" id="t-seccion">
-  <p class="section-label" id="t-label">De temporada</p>
-  <div class="cat-divider"></div>
-  <div class="temporada-aviso" id="t-aviso" style="display:none;"></div>
-  <div class="t-grid" id="t-grid"></div>
-  <p class="t-otras">¿Buscas algo que no ves aquí? Mira <a href="regalos-bonitos.html">Regalos Bonitos</a> o <a href="detallitos-eventos.html">Detallitos para Eventos</a>, o <a href="https://wa.me/34622562499" target="_blank">escríbeme</a>.</p>
-</section>
-
-<footer>
-  <img src="images/logo.png" alt="MAMEMI Madera">
-  <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
-  <span><a href="mailto:hola@mamemimadera.es">hola@mamemimadera.es</a> · <a href="https://wa.me/34622562499" target="_blank">WhatsApp</a></span>
-  <span><a href="aviso-legal.html">Aviso legal</a> · <a href="politica-privacidad.html">Privacidad</a> · <a href="politica-cookies.html">Cookies</a> · <a href="condiciones-contratacion.html">Condiciones</a> · <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a> · <a href="#" id="open-cookie-config">Configurar cookies</a></span>
-</footer>
-
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <span class="lightbox-close" onclick="closeLightbox(event)">✕</span>
-  <button class="lightbox-nav prev" id="lightbox-prev" onclick="lightboxMove(event, -1)" style="display:none;">‹</button>
-  <button class="lightbox-nav next" id="lightbox-next" onclick="lightboxMove(event, 1)" style="display:none;">›</button>
-  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
-</div>
-
-<script src="temporada-config.js"></script>
-<script>
-  (function () {
-    var cfg = window.TEMPORADA_CONFIG || {};
-    var qs = new URLSearchParams(location.search).get('t');
-    var key = (qs && cfg.temporadas && cfg.temporadas[qs]) ? qs : cfg.activa;
-    var t = cfg.temporadas && cfg.temporadas[key];
-    if (!t) return;
-
-    var root = document.documentElement.style;
-    if (t.colores) {
-      root.setProperty('--t-acento', t.colores.acento);
-      root.setProperty('--t-suave', t.colores.suave);
-      root.setProperty('--t-fondo', t.colores.fondo);
-    }
-    document.title = t.titulo + ' – MAMEMI Madera';
-    document.getElementById('t-titulo').textContent = t.titulo;
-    document.getElementById('t-intro').textContent = t.intro;
-    document.getElementById('t-label').textContent = t.etiqueta || 'De temporada';
-    if (t.aviso) { var av = document.getElementById('t-aviso'); av.textContent = t.aviso; av.style.display = 'block'; }
-
-    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-    var grid = document.getElementById('t-grid');
-    (t.productos || []).forEach(function (p, i) {
-      var card = document.createElement('div');
-      card.className = 't-card fade-in visible' + (p.proximamente ? ' prox' : '');
-      var img = p.imagen ? '<img src="' + esc(p.imagen) + '" alt="' + esc(p.nombre) + '">' : (p.proximamente ? '✨' : t.emoji || '');
-      var tag = p.proximamente ? 'Próximamente' : p.etiqueta;
-      var action = '';
-      if (p.carrito) action = '<button class="t-btn" data-i="' + i + '">Añadir al carrito</button>';
-      else if (p.enlace) action = '<a class="t-btn" href="' + esc(p.enlace) + '">' + esc(p.textoEnlace || 'Ver más') + '</a>';
-      card.innerHTML =
-        '<div class="t-img">' + img + (tag ? '<span class="t-tag">' + esc(tag) + '</span>' : '') + '</div>' +
-        '<div class="t-body"><h3>' + esc(p.nombre) + '</h3><p>' + esc(p.descripcion) + '</p>' +
-        (p.precio ? '<p class="t-price">' + esc(p.precio) + '</p>' : '') + action + '</div>';
-      grid.appendChild(card);
-    });
-    grid.addEventListener('click', function (e) {
-      var b = e.target.closest('button[data-i]');
-      if (!b || typeof addToCart !== 'function') return;
-      var p = t.productos[+b.dataset.i];
-      addToCart({ id: p.id || ('temporada-' + key + '-' + b.dataset.i), name: p.nombre, price: p.precioNumero || parseFloat(p.precio), peso: p.peso || 100, options: {} });
-    });
-  })();
-</script>
-<script src="cookies-banner.js"></script>
-<script src="carrito.js"></script>
-</body>
-</html>
+  }
+};
