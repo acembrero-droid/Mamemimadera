@@ -37,6 +37,7 @@ window.REGALOS = {
   // ── MARCAPÁGINAS (una sola ficha con dibujo a elegir) ──
   // precio: por unidad · recargoNombre: lo que se suma si añaden nombre/dedicatoria (máx. 3 palabras)
   // Para añadir un dibujo nuevo: copia una línea de "disenos" (id único, nombre e imagen).
+  // Si un dibujo no tiene 'foto' (como floreciente, de momento), la foto grande muestra el dibujo en línea.
   // 'foto' = la foto grande del producto con ese dibujo (images/…); 'imagen' = el dibujo en línea para la cuadrícula.
   // Las imágenes de los dibujos van dentro de este archivo (no hay que subirlas a images/).
   // Si prefieres, en 'imagen' puedes poner una ruta como 'images/mi-dibujo.jpg'.
@@ -52,7 +53,7 @@ window.REGALOS = {
     ],
     disenos: [
       { id: 'cafe', foto: 'images/marcapag_cafe.jpg', nombre: 'Café entre libros', imagen: "images/grabados/marcapaginas/cafe.jpg?v=20261025" },
-      { id: 'floreciente', foto: 'images/marcapag_floreciente.jpg', nombre: 'Libro floreciente', imagen: "images/grabados/marcapaginas/floreciente.jpg?v=20261025" },
+      { id: 'floreciente', nombre: 'Libro floreciente', imagen: "images/grabados/marcapaginas/floreciente.jpg?v=20261025" },
       { id: 'corazones', foto: 'images/marcapag_corazones.jpg', nombre: 'Libro y corazones', imagen: "images/grabados/marcapaginas/corazones.jpg?v=20261025" },
       { id: 'margarita', foto: 'images/marcapag_margarita.jpg', nombre: 'Margarita', imagen: "images/grabados/marcapaginas/margarita.jpg?v=20261025" },
       { id: 'pata', foto: 'images/marcapag_pata.jpg', nombre: 'Pata lectora', imagen: "images/grabados/marcapaginas/pata.jpg?v=20261025" }
