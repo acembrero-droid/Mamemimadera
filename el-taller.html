@@ -4,6 +4,15 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>¿Quieres entrar en mi taller? – MAMEMI Madera</title>
+  <meta name="description" content="Mi rincón más personal: novedades, encargos y momentos del día a día en el taller de MAMEMI Madera.">
+  <link rel="canonical" href="https://mamemimadera.es/el-taller.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MAMEMI Madera">
+  <meta property="og:title" content="¿Quieres entrar en mi taller? – MAMEMI Madera">
+  <meta property="og:description" content="Novedades, encargos y momentos del día a día en el taller de MAMEMI Madera.">
+  <meta property="og:url" content="https://mamemimadera.es/el-taller.html">
+  <meta property="og:image" content="https://mamemimadera.es/images/og-mamemi.jpg">
+  <meta property="og:locale" content="es_ES">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -41,6 +50,19 @@
     .taller-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); margin-bottom: 0.5rem; }
     .taller-card-body p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
     .taller-card-date { font-size: 0.7rem; color: var(--wood-mid); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    /* ---------- Compartir entradas ---------- */
+    .taller-card { scroll-margin-top: 90px; }
+    .taller-card.resaltada { animation: tallerResalte 2.4s ease; }
+    @keyframes tallerResalte { 0%,60% { box-shadow: 0 0 0 4px var(--mint-dark), 0 12px 32px var(--shadow); } 100% { box-shadow: 0 4px 20px var(--shadow); } }
+    .compartir { position: relative; margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .compartir-btn { display: inline-flex; align-items: center; gap: 0.45rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.4rem 1rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .compartir-btn:hover { background: var(--wood-light); }
+    .compartir-btn svg { width: 14px; height: 14px; }
+    .compartir-menu { display: none; flex-wrap: wrap; gap: 0.4rem; width: 100%; }
+    .compartir.abierto .compartir-menu { display: flex; }
+    .compartir-menu a, .compartir-menu button { display: inline-block; background: var(--mint-light); color: var(--wood-deep); border: none; border-radius: 20px; padding: 0.35rem 0.85rem; font-family: 'Nunito', sans-serif; font-size: 0.74rem; font-weight: 700; text-decoration: none; cursor: pointer; }
+    .compartir-menu a:hover, .compartir-menu button:hover { background: var(--mint); }
+    .compartir-ok { font-size: 0.74rem; color: var(--mint-dark); font-weight: 700; }
     .taller-card-highlight { border-color: var(--mint-dark); }
     .taller-card-link { display: inline-block; margin-top: 0.7rem; color: var(--mint-dark); font-weight: 700; text-decoration: none; font-size: 0.82rem; border-bottom: 1.5px solid var(--mint-dark); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
     .taller-card-link:hover { color: var(--wood-dark); border-color: var(--wood-dark); }
@@ -218,6 +240,64 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // ── COMPARTIR ENTRADAS ──
+  // Cada tarjeta recibe su propio enlace (#titulo-de-la-entrada). Si quieres un enlace fijo,
+  // ponle tú un id a la tarjeta: <div class="taller-card" id="mi-enlace"> y no cambiará aunque edites el título.
+  (function () {
+    var BASE = 'https://mamemimadera.es/el-taller.html';
+    var usados = {};
+    function slug(t) {
+      return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'entrada';
+    }
+    document.querySelectorAll('.taller-card').forEach(function (card) {
+      var h = card.querySelector('h3'); if (!h) return;
+      var titulo = h.textContent.trim();
+      var id = card.id || slug(titulo);
+      var base = id, n = 2; while (usados[id]) { id = base + '-' + (n++); }
+      usados[id] = true; card.id = id;
+      var url = BASE + '#' + id, texto = titulo + ' · MAMEMI Madera';
+      var cuerpo = card.querySelector('.taller-card-body');
+      var box = document.createElement('div'); box.className = 'compartir';
+      var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'compartir-btn';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Compartir';
+      var menu = document.createElement('div'); menu.className = 'compartir-menu';
+      var e = encodeURIComponent;
+      [['WhatsApp', 'https://wa.me/?text=' + e(texto + ' ' + url)],
+       ['Facebook', 'https://www.facebook.com/sharer/sharer.php?u=' + e(url)],
+       ['X', 'https://twitter.com/intent/tweet?text=' + e(texto) + '&url=' + e(url)],
+       ['Correo', 'mailto:?subject=' + e(texto) + '&body=' + e(texto + '\n' + url)]].forEach(function (x) {
+        var a = document.createElement('a'); a.textContent = x[0]; a.href = x[1];
+        if (x[0] !== 'Correo') { a.target = '_blank'; a.rel = 'noopener'; }
+        menu.appendChild(a);
+      });
+      var cp = document.createElement('button'); cp.type = 'button'; cp.textContent = 'Copiar enlace';
+      var ok = document.createElement('span'); ok.className = 'compartir-ok'; ok.setAttribute('role', 'status');
+      cp.onclick = function () {
+        function listo() { ok.textContent = '¡Enlace copiado!'; setTimeout(function () { ok.textContent = ''; }, 2200); }
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(listo, function () { window.prompt('Copia este enlace:', url); });
+        else window.prompt('Copia este enlace:', url);
+      };
+      menu.appendChild(cp); menu.appendChild(ok);
+      btn.onclick = function () {
+        var movil = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+        if (movil && navigator.share) { navigator.share({ title: texto, text: texto, url: url }).catch(function () {}); return; }
+        var ab = box.classList.toggle('abierto'); btn.setAttribute('aria-expanded', ab);
+      };
+      box.appendChild(btn); box.appendChild(menu); cuerpo.appendChild(box);
+    });
+    document.addEventListener('click', function (ev) {
+      document.querySelectorAll('.compartir.abierto').forEach(function (b) { if (!b.contains(ev.target)) { b.classList.remove('abierto'); b.firstChild.setAttribute('aria-expanded', 'false'); } });
+    });
+    function ir() {
+      var id = decodeURIComponent(location.hash.replace('#', '')); if (!id) return;
+      var el = document.getElementById(id); if (!el || !el.classList.contains('taller-card')) return;
+      el.classList.add('visible');
+      setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.classList.remove('resaltada'); void el.offsetWidth; el.classList.add('resaltada'); }, 250);
+    }
+    window.addEventListener('hashchange', ir); ir();
+  })();
 </script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
