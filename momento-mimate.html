@@ -155,8 +155,9 @@
     .t-otras a { color: var(--t-acento); font-weight: 700; }
   
     /* ---------- MOMENTO MÍMATE ---------- */
-    :root { --t-acento: #1f7a8c; --t-suave: #e2f0f2; --t-fondo: #f7fbfb; }
+    :root { --t-acento: #6a9e8a; --t-suave: #e0ede8; --t-fondo: #fdf8f0; }
     .mm-wrap { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+    .mm-wrap > * { min-width: 0; }
     .mm-gal img.mm-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 18px; box-shadow: 0 8px 30px var(--shadow); cursor: zoom-in; display: block; background: var(--t-suave); }
     .mm-thumbs { display: flex; gap: 0.7rem; margin-top: 0.8rem; }
     .mm-thumbs button { padding: 0; border: 2px solid transparent; border-radius: 12px; overflow: hidden; width: 72px; height: 72px; cursor: pointer; background: none; opacity: 0.75; }
@@ -164,22 +165,47 @@
     .mm-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .mm-info h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--wood-deep); margin-bottom: 0.5rem; }
     .mm-desc { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 1rem; }
-    .mm-price { font-size: 1.5rem; font-weight: 700; color: var(--t-acento); margin-bottom: 1.2rem; }
+    .mm-price { font-size: 1.5rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 1.2rem; }
     .mm-price small { font-size: 0.72rem; font-weight: 400; color: var(--text-mid); margin-left: 0.4rem; }
     .mm-field { margin-bottom: 1.2rem; }
     .mm-field > label, .mm-field > .mm-q { display: block; font-size: 0.78rem; font-weight: 700; color: var(--wood-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
     .mm-colores { display: flex; gap: 0.7rem; flex-wrap: wrap; }
     .mm-color { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1rem; border: 2px solid var(--wood-light); background: #fff; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text-mid); cursor: pointer; }
     .mm-color i { width: 18px; height: 18px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,0.15); }
-    .mm-color.sel { border-color: var(--t-acento); color: var(--t-acento); }
+    .mm-color.sel { border-color: var(--t-acento); background: var(--t-suave); color: var(--wood-deep); }
     .mm-stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--wood-mid); border-radius: 30px; background: #fff; }
     .mm-stepper button { width: 38px; height: 38px; border: none; background: none; font-size: 1.2rem; cursor: pointer; color: var(--wood-dark); }
     .mm-stepper span { min-width: 2rem; text-align: center; font-weight: 700; }
     .mm-total { margin-left: 0.8rem; font-size: 0.85rem; color: var(--text-mid); }
-    .mm-disenos { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 0.6rem; }
-    .mm-diseno { border: 2px solid var(--wood-light); border-radius: 12px; background: #fff; padding: 0.4rem; cursor: pointer; font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--text-mid); text-align: center; }
-    .mm-diseno img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; margin-bottom: 0.3rem; }
-    .mm-diseno.sel { border-color: var(--t-acento); color: var(--t-acento); }
+    .grabados-titulo { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.5rem; }
+    .gr-wrap { position: relative; }
+    .gr-pista { display: flex; gap: 0.6rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 0.2rem 0.1rem 0.6rem; scrollbar-width: thin; }
+    .gr-item { position: relative; flex: 0 0 92px; scroll-snap-align: start; border: 2px solid var(--wood-light); background: #fff; border-radius: 12px; padding: 0.3rem; cursor: pointer; text-align: center; font-family: 'Nunito', sans-serif; transition: border-color 0.2s, background 0.2s; }
+    .gr-item:hover { border-color: var(--t-acento); }
+    .gr-item img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 8px; background: #fff; }
+    .gr-item span { display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-mid); margin-top: 0.25rem; line-height: 1.2; }
+    .gr-item.sel { border-color: var(--t-acento); background: var(--t-suave); }
+    .gr-item.sel span { color: var(--wood-deep); }
+    .gr-item.act { box-shadow: 0 0 0 2px var(--t-acento); }
+    .gr-item.sin-foto { display: flex; align-items: center; justify-content: center; min-height: 64px; }
+    .gr-item.sin-foto span { margin-top: 0; font-size: 0.8rem; }
+    .gr-item.sel .gr-badge, .gr-item .gr-badge { position: absolute; top: 5px; left: 5px; margin: 0; padding: 0 0.4rem; border-radius: 10px; background: var(--t-acento); color: #fff !important; font-size: 0.62rem; line-height: 1.5; z-index: 1; }
+    .gr-flecha { display: none; position: absolute; top: calc(50% - 1.2rem); width: 30px; height: 30px; border: none; border-radius: 50%; background: rgba(90,58,26,0.78); color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; z-index: 2; }
+    .gr-prev { left: -10px; } .gr-next { right: -10px; }
+    @media (hover: hover) and (pointer: fine) { .gr-flecha { display: block; } }
+    .gr-slots { display: none; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+    .gr-slot { border: 1.5px solid var(--wood-light); background: #fff; border-radius: 20px; padding: 0.3rem 0.8rem; font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text-mid); cursor: pointer; }
+    .gr-slot small { font-size: 0.72rem; font-weight: 400; opacity: 0.85; }
+    .gr-slot.act { border-color: var(--t-acento); background: var(--t-suave); color: var(--wood-deep); }
+    .gr-elegido { font-size: 0.85rem; color: var(--text-mid); margin: 0.2rem 0 0.4rem; }
+    .gr-elegido strong { color: var(--wood-deep); }
+    .gr-ver { background: none; border: none; padding: 0; font-family: inherit; font-size: 0.8rem; font-weight: 700; color: var(--t-acento); text-decoration: underline; cursor: pointer; }
+    .mm-custom { background: var(--t-suave); border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: 1.2rem; }
+    .mm-custom strong { display: block; color: var(--wood-deep); margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .mm-custom p { font-size: 0.85rem; color: var(--text-mid); font-weight: 300; line-height: 1.6; margin-bottom: 0.7rem; }
+    .mm-custom .mm-custom-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .mm-custom a { display: inline-block; padding: 0.55rem 1.2rem; border-radius: 30px; border: 2px solid var(--wood-dark); color: var(--wood-dark); background: #fff; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+    .mm-custom a:hover { background: var(--wood-dark); color: #fff; }
     .mm-nota { font-size: 0.8rem; color: var(--text-mid); font-weight: 300; margin-top: 0.5rem; }
     .mm-nota a { color: var(--t-acento); font-weight: 700; }
     .mm-msg { color: #b3261e; font-size: 0.85rem; min-height: 1.2rem; margin-bottom: 0.4rem; }
@@ -201,8 +227,8 @@
   <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Momento Mímate</p>
   <h1>Momento Mímate</h1>
   <div class="divider"></div>
-  <p>Cantimplora motivacional que siempre te acompaña: el rato de yoga, el paseo, el café de la tarde. Elige tu color y, si quieres, una frase o un diseño grabado.</p>
-  <img class="t-hero-img" src="images/momento-mimate.jpg" alt="Cantimplora azul petróleo sobre una toalla, junto a una esterilla de yoga y una vela">
+  <p>Cantimplora motivacional que siempre te acompaña: el rato de yoga, el paseo, el día a día. Elige tu color y, si quieres, un diseño grabado.</p>
+  <img class="t-hero-img" id="mm-portada" src="images/momento-mimate.jpg" alt="Cantimplora azul petróleo sobre una toalla, junto a una esterilla de yoga y una vela">
 </div>
 
 <section class="cat-section" id="mm-producto">
@@ -232,15 +258,28 @@
       </div>
 
       <div class="mm-field" id="mm-grabado-wrap">
-        <span class="mm-q">Grabado</span>
-        <div class="mm-disenos" id="mm-disenos" role="radiogroup" aria-label="Diseños de grabado"></div>
+        <p class="grabados-titulo">Elige tu grabado</p>
+        <div class="gr-slots" id="gr-slots"></div>
+        <div class="gr-wrap">
+          <button type="button" class="gr-flecha gr-prev" id="gr-prev" aria-label="Diseños anteriores">‹</button>
+          <div class="gr-pista" id="gr-pista" role="listbox" aria-label="Diseños de grabado"></div>
+          <button type="button" class="gr-flecha gr-next" id="gr-next" aria-label="Más diseños">›</button>
+        </div>
+        <p class="gr-elegido" id="gr-resumen"></p>
         <p class="mm-nota" id="mm-grabado-nota"></p>
+      </div>
+
+      <div class="mm-custom">
+        <strong>¿Quieres una cantimplora totalmente personalizada?</strong>
+        <p>Puedo grabarla con tu propio diseño, frase o nombre. Cuéntame qué tienes en mente y te preparo una propuesta.</p>
+        <div class="mm-custom-btns">
+          <a id="mm-wa" target="_blank" rel="noopener" href="#">WhatsApp</a>
+          <a id="mm-mail" href="#">Email</a>
+        </div>
       </div>
 
       <p class="mm-msg" id="mm-msg" role="alert"></p>
       <button type="button" class="btn-add-cart" id="mm-add">Añadir al carrito</button>
-      <p class="mm-envio">🚚 Envío gratis en pedidos desde 60 € (península)</p>
-      <p class="mm-nota" style="text-align:center;">Cada pedido lleva un solo color. Si quieres varios colores, añádelos por separado.</p>
     </div>
   </div>
 </section>
@@ -259,67 +298,135 @@
   <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
-<script src="momento-mimate-config.js"></script>
+<script src="momento-mimate-config.js?v=20261025b"></script>
 <script>
 (function () {
   var cfg = window.MOMENTO_MIMATE, $ = function (id) { return document.getElementById(id); };
-  var MAX = 20, qty = 1, color = cfg.colores[0].id, diseno = '';
+  var MAX = 20, qty = 1, activo = 0;
+  var asign = [''];      // asign[i] = diseño de la cantimplora i+1 ('' = sin grabado); si no se elige, lleva el de la 1
+  var elegida = [];      // elegida[i] = true cuando el cliente ha escogido el diseño de esa cantimplora
+  var colores = [];      // colores[i]; si no se elige, lleva el de la 1
+  var pista = $('gr-pista');
+  var SIN = { id: '', nombre: 'Sin grabado', imagen: '' };
+  var DIS = [SIN].concat(cfg.disenos);
   function col(id) { return cfg.colores.filter(function (c) { return c.id === id; })[0]; }
-  function dis(id) { return cfg.disenos.filter(function (d) { return d.id === id; })[0]; }
-  function unit() { return cfg.precio + (diseno ? (cfg.recargoGrabado || 0) : 0); }
+  function buscar(id) { return DIS.filter(function (d) { return d.id === id; })[0] || SIN; }
+  function efectivo(i) { return (i > 0 && !elegida[i]) ? asign[0] : asign[i]; }
+  function color(i) { return colores[i] || colores[0] || cfg.colores[0].id; }
+  function primeraSinElegir() { for (var i = 0; i < qty; i++) if (!elegida[i]) return i; return -1; }
+  function usados() { var u = []; for (var i = 0; i < qty; i++) { var id = efectivo(i); if (u.indexOf(id) < 0) u.push(id); } return u; }
+  function unit(i) { return cfg.precio + (efectivo(i) ? (cfg.recargoGrabado || 0) : 0); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  if (cfg.portada) $('mm-portada').src = cfg.portada;
+  if (cfg.disenos.length) document.querySelector('.mm-desc').textContent += ' Puedes elegir un grabado entre los diseños de Momento Mímate.';
 
   // colores + miniaturas
   cfg.colores.forEach(function (c) {
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'mm-color'; b.dataset.c = c.id; b.setAttribute('role', 'radio');
     b.innerHTML = '<i style="background:' + c.hex + '"></i>' + esc(c.nombre);
-    b.onclick = function () { color = c.id; pintar(); };
+    b.onclick = function () { colores[activo] = c.id; $('mm-msg').textContent = ''; pintar(); };
     $('mm-colores').appendChild(b);
     var t = document.createElement('button');
     t.type = 'button'; t.dataset.c = c.id; t.setAttribute('aria-label', c.nombre);
     t.innerHTML = '<img src="' + esc(c.foto) + '" alt="' + esc(c.nombre) + '">';
-    t.onclick = function () { color = c.id; pintar(); };
+    t.onclick = function () { colores[activo] = c.id; pintar(); };
     $('mm-thumbs').appendChild(t);
   });
 
-  // grabados
-  var wrap = $('mm-disenos');
-  function addOpcion(id, nombre, img) {
-    var b = document.createElement('button');
-    b.type = 'button'; b.className = 'mm-diseno'; b.dataset.d = id; b.setAttribute('role', 'radio');
-    b.innerHTML = (img ? '<img src="' + esc(img) + '" alt="">' : '<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:1.6rem;">○</div>') + esc(nombre);
-    b.onclick = function () { diseno = id; pintar(); };
-    wrap.appendChild(b);
+  var txt = 'Hola, estaba viendo Momento Mímate en tu web y me gustaría una cantimplora totalmente personalizada. Mi idea es: ';
+  var wa = 'https://wa.me/34622562499?text=' + encodeURIComponent(txt);
+  $('mm-wa').href = wa;
+  $('mm-mail').href = 'mailto:hola@mamemimadera.es?subject=' + encodeURIComponent('Cantimplora personalizada · Momento Mímate') + '&body=' + encodeURIComponent(txt);
+  $('mm-grabado-nota').innerHTML = (cfg.recargoGrabado ? 'Grabado: +' + cfg.recargoGrabado + ' € por unidad. ' : 'Grabado incluido en el precio. ') + 'Te confirmaré el diseño antes de grabarlo.';
+
+  function pintarSlots() {
+    var cont = $('gr-slots'); cont.innerHTML = '';
+    cont.style.display = qty > 1 ? 'flex' : 'none';
+    for (var i = 0; i < qty; i++) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'gr-slot' + (i === activo ? ' act' : ''); b.dataset.i = i;
+      b.appendChild(document.createTextNode('Cantimplora ' + (i + 1) + ': '));
+      var s = document.createElement('small');
+      s.textContent = buscar(efectivo(i)).nombre + ((i > 0 && !elegida[i]) ? ' (como la 1)' : '') + ' · ' + col(color(i)).nombre;
+      b.appendChild(s); cont.appendChild(b);
+    }
   }
-  addOpcion('', 'Sin grabado', '');
-  cfg.disenos.forEach(function (d) { addOpcion(d.id, d.nombre, d.imagen); });
-  if (cfg.disenos.length) document.querySelector('.mm-desc').textContent += ' Puedes elegir un grabado entre los diseños de Momento Mímate.';
-  var wa = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola, estaba viendo Momento Mímate en tu web y me gustaría preguntarte por un grabado para la cantimplora: ');
-  if (!cfg.disenos.length) {
-    $('mm-grabado-nota').innerHTML = 'Muy pronto: diseños de grabado exclusivos de Momento Mímate. Si tienes una idea, <a target="_blank" rel="noopener" href="' + wa + '">escríbeme por WhatsApp</a>.';
-  } else {
-    $('mm-grabado-nota').innerHTML = (cfg.recargoGrabado ? 'Grabado: +' + cfg.recargoGrabado + ' € por unidad. ' : 'Grabado incluido en el precio. ') + 'Te confirmaré el diseño antes de grabarlo. ¿Otra idea? <a target="_blank" rel="noopener" href="' + wa + '">Escríbeme por WhatsApp</a>.';
+  function pintarTira(enfocar) {
+    var u = usados();
+    var orden = u.map(buscar).concat(DIS.filter(function (d) { return u.indexOf(d.id) < 0; }));
+    var idAct = efectivo(activo);
+    pista.innerHTML = '';
+    orden.forEach(function (d) {
+      var usado = u.indexOf(d.id) >= 0;
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'gr-item' + (usado ? ' sel' : '') + (d.id === idAct ? ' act' : '') + (d.imagen ? '' : ' sin-foto');
+      b.setAttribute('role', 'option'); b.setAttribute('aria-selected', usado ? 'true' : 'false'); b.dataset.id = d.id;
+      if (qty > 1 && usado) {
+        var nums = []; for (var i = 0; i < qty; i++) if (efectivo(i) === d.id) nums.push(i + 1);
+        var bd = document.createElement('span'); bd.className = 'gr-badge'; bd.textContent = nums.join('·'); b.appendChild(bd);
+      }
+      if (d.imagen) { var img = document.createElement('img'); img.src = d.imagen; img.alt = 'Diseño ' + d.nombre; b.appendChild(img); }
+      var t = document.createElement('span'); t.textContent = d.nombre; b.appendChild(t);
+      pista.appendChild(b);
+      if (enfocar && d.id === idAct) b.focus({ preventScroll: true });
+    });
+    if (pista.scrollTo) pista.scrollTo({ left: 0 }); else pista.scrollLeft = 0;
+  }
+  function pintarResumen() {
+    var d = buscar(efectivo(activo));
+    var ver = d.imagen ? ' · <button type="button" class="gr-ver">Ver grande</button>' : '';
+    $('gr-resumen').innerHTML = qty === 1
+      ? 'Grabado elegido: <strong>' + esc(d.nombre) + '</strong>' + ver
+      : 'Toca un diseño para la <strong>Cantimplora ' + (activo + 1) + '</strong>. Las que no elijas llevarán el mismo que la 1.' + ver;
+  }
+  function pintar(enfocar) {
+    var c = col(color(activo));
+    $('mm-foto').src = c.foto; $('mm-foto').alt = 'Cantimplora Momento Mímate en ' + c.nombre.toLowerCase();
+    $('mm-color-q').textContent = (qty === 1 ? '' : 'Cantimplora ' + (activo + 1) + ' · ') + 'Color';
+    Array.prototype.forEach.call($('mm-colores').children, function (b) { var s = b.dataset.c === color(activo); b.classList.toggle('sel', s); b.setAttribute('aria-checked', s); });
+    Array.prototype.forEach.call($('mm-thumbs').children, function (b) { b.classList.toggle('sel', b.dataset.c === color(activo)); });
+    $('mm-cant').textContent = qty;
+    $('mm-menos').disabled = qty <= 1; $('mm-mas').disabled = qty >= MAX;
+    var suma = 0; for (var i = 0; i < qty; i++) suma += unit(i);
+    $('mm-precio').textContent = (qty === 1 ? suma : cfg.precio) + ' €';
+    $('mm-total').textContent = qty > 1 ? 'Total: ' + suma + ' €' : '';
+    pintarSlots(); pintarTira(enfocar); pintarResumen();
   }
 
-  function pintar() {
-    var c = col(color);
-    $('mm-foto').src = c.foto; $('mm-foto').alt = 'Cantimplora Momento Mímate en ' + c.nombre.toLowerCase();
-    Array.prototype.forEach.call($('mm-colores').children, function (b) { var s = b.dataset.c === color; b.classList.toggle('sel', s); b.setAttribute('aria-checked', s); });
-    Array.prototype.forEach.call($('mm-thumbs').children, function (b) { b.classList.toggle('sel', b.dataset.c === color); });
-    Array.prototype.forEach.call(wrap.children, function (b) { var s = b.dataset.d === diseno; b.classList.toggle('sel', s); b.setAttribute('aria-checked', s); });
-    $('mm-cant').textContent = qty;
-    $('mm-precio').textContent = unit() + ' €';
-    $('mm-total').textContent = qty > 1 ? 'Total: ' + (unit() * qty) + ' €' : '';
-  }
-  $('mm-menos').onclick = function () { if (qty > 1) { qty--; pintar(); } };
-  $('mm-mas').onclick = function () { if (qty < MAX) { qty++; pintar(); } };
+  pista.addEventListener('click', function (e) {
+    var b = e.target.closest('.gr-item'); if (!b) return;
+    asign[activo] = b.dataset.id; elegida[activo] = true;
+    if (qty > 1) { var sig = primeraSinElegir(); if (sig >= 0) activo = sig; }
+    pintar(true);
+  });
+  $('gr-slots').addEventListener('click', function (e) {
+    var b = e.target.closest('.gr-slot'); if (!b) return;
+    activo = parseInt(b.dataset.i, 10); pintar();
+  });
+  $('mm-menos').onclick = function () { if (qty > 1) { qty--; if (activo >= qty) activo = qty - 1; pintar(); } };
+  $('mm-mas').onclick = function () { if (qty < MAX) { qty++; var sig = primeraSinElegir(); activo = sig >= 0 ? sig : qty - 1; pintar(); } };
+  $('gr-prev').onclick = function () { pista.scrollBy({ left: -200 }); };
+  $('gr-next').onclick = function () { pista.scrollBy({ left: 200 }); };
+  $('gr-resumen').addEventListener('click', function (e) {
+    if (!e.target.closest('.gr-ver')) return;
+    var d = buscar(efectivo(activo)); if (d.imagen) window.openLightbox(d.imagen);
+  });
 
   $('mm-add').onclick = function () {
     if (typeof window.addToCart !== 'function') { $('mm-msg').textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.'; return; }
     $('mm-msg').textContent = '';
-    var opts = { 'Color': col(color).nombre, 'Grabado': diseno ? dis(diseno).nombre : 'Sin grabado' };
-    window.addToCart({ id: 'momento-mimate-cantimplora', name: 'Momento Mímate · Cantimplora 500 ml', price: unit(), qty: qty, options: opts });
+    var g = {}, orden = [];
+    for (var i = 0; i < qty; i++) {
+      var d = buscar(efectivo(i)), c = col(color(i)), k = d.id + '|' + c.id;
+      if (!g[k]) { g[k] = { grabado: d.nombre, color: c.nombre, price: unit(i), qty: 0 }; orden.push(k); }
+      g[k].qty++;
+    }
+    orden.forEach(function (k) {
+      var l = g[k];
+      window.addToCart({ id: 'momento-mimate-cantimplora', name: 'Momento Mímate · Cantimplora 500 ml', price: l.price, qty: l.qty, options: { 'Color': l.color, 'Grabado': l.grabado } });
+    });
   };
 
   // ampliar foto
