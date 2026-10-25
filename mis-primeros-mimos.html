@@ -248,7 +248,7 @@
           <div class="price-row"><span>1–2 unidades</span><span class="amount">15 € / u</span></div>
           <div class="price-row"><span>3–9 unidades</span><span class="amount">13 € / u</span></div>
           <div class="price-row"><span>10 unidades o más</span><span class="amount">10 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Nombre grabado sin suplemento</p>
+          <p class="price-note">✦ IVA incluido · Nombre del bebé sin suplemento · Grabar el otro lado con el nombre de quien lo recibe: +3 € / u</p>
         </div>
         <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
         <div class="product-collapsible"><div>
@@ -276,6 +276,17 @@
           <div class="opt-row" id="adorno-nombre-wrap">
             <label class="opt-label">Nombre (si pides varias unidades con nombres distintos, sepáralos con comas)</label>
             <textarea class="opt-input" id="adorno-nombre" rows="2" maxlength="120" placeholder="ej. Carla"></textarea>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Grabamos también el otro lado con el nombre de a quién va dirigido el adorno? (+3 € / u)</label>
+            <select class="opt-input" id="adorno-otrolado" onchange="updateAdorno()">
+              <option value="no">No, solo una cara</option>
+              <option value="si">Sí, grabar el otro lado (+3 € por unidad)</option>
+            </select>
+          </div>
+          <div class="opt-row" id="adorno-otrolado-wrap" style="display:none;">
+            <label class="opt-label">Nombre de quien lo recibe (si pides varias unidades, sepáralos con comas)</label>
+            <textarea class="opt-input" id="adorno-otrolado-texto" rows="2" maxlength="120" placeholder="ej. Para la abuela Maria"></textarea>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="adorno-total">15 €</strong></div>
         </div>
@@ -1158,16 +1169,22 @@
       qty >= 3 ? '3–9 unidades: 13 €/u (descuento aplicado)' : '1–2 unidades: 15 €/u';
     document.getElementById('adorno-nombre-wrap').style.display =
       document.getElementById('adorno-nombre-sel').value === 'si' ? 'block' : 'none';
-    document.getElementById('adorno-total').textContent = (unit * qty) + ' €';
+    const otro = document.getElementById('adorno-otrolado').value === 'si';
+    document.getElementById('adorno-otrolado-wrap').style.display = otro ? 'block' : 'none';
+    document.getElementById('adorno-total').textContent = ((unit + (otro ? 3 : 0)) * qty) + ' €';
   }
   function addCartAdorno() {
     const qty = Math.max(1, parseInt(document.getElementById('adorno-qty').value) || 1);
     const conNombre = document.getElementById('adorno-nombre-sel').value === 'si';
     const nombre = document.getElementById('adorno-nombre').value.trim();
     if (conNombre && !nombre) { alert('Por favor escribe el nombre que quieres grabar, o elige "No, sin nombre".'); return; }
+    const otro = document.getElementById('adorno-otrolado').value === 'si';
+    const destinatario = document.getElementById('adorno-otrolado-texto').value.trim();
+    if (otro && !destinatario) { alert('Por favor escribe el nombre de quien recibe el adorno, o elige "No, solo una cara".'); return; }
     const opts = { 'Frase': document.getElementById('adorno-idioma').value, 'Año grabado': '2026' };
     opts['Nombre'] = conNombre ? nombre : 'Sin nombre';
-    addToCart({ id: 'adorno-navidad-' + Date.now(), name: 'Adorno · Mi primera Navidad', price: adornoPrecio(qty), qty, peso: 20, options: opts });
+    if (otro) opts['Otro lado (a quién va dirigido) · +3 €/u'] = destinatario;
+    addToCart({ id: 'adorno-navidad-' + Date.now(), name: 'Adorno · Mi primera Navidad', price: adornoPrecio(qty) + (otro ? 3 : 0), qty, peso: 20, options: opts });
   }
 
   // Apertura directa desde Cositas de Temporada (#adorno-navidad)
