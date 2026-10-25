@@ -150,7 +150,13 @@
       #sobre { grid-template-columns: 1fr; } .sobre-img { height: 420px; min-height: 420px; }
       .sobre-text { padding: 3rem 2rem; } .cat-grid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 640px) {
+    /* Menú superior: con 13 apartados no cabe en una fila en pantallas medianas, así que pasa a menú de hamburguesa hasta 1560 px */
+    @media (min-width: 1561px) {
+      .nav-links > li > .nav-item-row > a { padding: 0 0.3rem 0 0.6rem; font-size: 0.74rem; letter-spacing: 0.04em; }
+      .nav-links > li > a { padding: 0 0.6rem; font-size: 0.74rem; letter-spacing: 0.04em; }
+      .nav-cta { padding: 0.5rem 1rem !important; font-size: 0.72rem !important; }
+    }
+    @media (max-width: 1560px) {
       nav { padding: 0 1rem; }
       .nav-links { display: none; flex-direction: column; position: fixed; top: 70px; left: 0; right: 0; background: var(--cream); border-bottom: 1.5px solid var(--wood-light); padding: 0.4rem 1rem 1rem; gap: 0; box-shadow: 0 8px 20px var(--shadow); max-height: calc(100vh - 70px); overflow-y: auto; }
       .nav-links.open { display: flex; }
@@ -164,7 +170,10 @@
       .has-dropdown.open .dropdown-toggle .arrow { transform: rotate(180deg); }
       .dropdown a { font-size: 0.8rem; padding: 0.6rem 1rem; }
       .dropdown .sub-label { padding: 0.5rem 1rem; }
-      .hamburger { display: flex; } .cat-grid { grid-template-columns: 1fr; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 640px) {
+      .cat-grid { grid-template-columns: 1fr; }
       .footer-top { flex-direction: column; text-align: center; }
     }
     .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
@@ -193,16 +202,20 @@
         <a href="regalos-bonitos.html#marcapaginas">Marcapáginas</a>
       </div>
     </li>
-    <li><a href="temporada.html">Cositas de Temporada</a></li>
+    <li class="has-dropdown" id="navTemporadaLi">
+      <div class="nav-item-row">
+        <a href="temporada.html">Cositas de Temporada</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar productos de temporada"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown" id="navTemporada"></div>
+    </li>
     <li class="has-dropdown">
       <div class="nav-item-row">
         <a href="joyitas-mamemi.html">Joyitas Mamemi</a>
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Joyitas Mamemi"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="joyitas-mamemi.html">Brazaletes</a>
         <a href="joyitas-mamemi.html">Collares</a>
-        <a href="joyitas-mamemi.html">Pulseras</a>
       </div>
     </li>
     <li class="has-dropdown">
@@ -211,8 +224,8 @@
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Mis Primeros Mimos"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="mis-primeros-mimos.html">Packs de nacimiento</a>
-        <a href="mis-primeros-mimos.html">Detallitos para bebés</a>
+        <a href="mis-primeros-mimos.html#nacimiento">Packs de nacimiento</a>
+        <a href="mis-primeros-mimos.html#detalles">Detallitos para bebés</a>
       </div>
     </li>
     <li class="has-dropdown">
@@ -221,8 +234,9 @@
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Colección Cocina"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="coleccion-cocina.html">Tablas de cocina</a>
-        <a href="coleccion-cocina.html">Servilleteros</a>
+        <a href="coleccion-cocina.html#tablas">Tablas de cocina</a>
+        <a href="coleccion-cocina.html#mesa">Mamemi en la mesa</a>
+        <a href="coleccion-cocina.html#abrepared">Abrebotellas de pared</a>
       </div>
     </li>
     <li class="has-dropdown">
@@ -231,12 +245,15 @@
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Detallitos para Eventos"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="detallitos-eventos.html">Bodas · Marcasitios</a>
-        <a href="detallitos-eventos.html">Imanes abrebotellas</a>
-        <a href="detallitos-eventos.html">Libretas personalizadas</a>
-        <a href="detallitos-eventos.html">Posavasos</a>
+        <a href="detallitos-eventos.html#marcasitios">Marcasitios para boda</a>
+        <a href="detallitos-eventos.html#imanes">Imanes abrebotellas</a>
+        <a href="detallitos-eventos.html#llaveros">Llaveros para eventos</a>
+        <a href="detallitos-eventos.html#posavasos">Posavasos para eventos</a>
+        <a href="detallitos-eventos.html#libretas">Libretas personalizadas</a>
+        <a href="detallitos-eventos.html#cajavino">Cajas de vino personalizadas</a>
       </div>
     </li>
+    <li><a href="momento-mimate.html">Momento Mímate</a></li>
     <li class="has-dropdown">
       <div class="nav-item-row">
         <a href="estudio-creativo.html">Estudio Creativo</a>
@@ -578,7 +595,7 @@
   });
 </script>
 
-<script src="temporada-config.js"></script>
+<script src="temporada-config.js?v=20261025c"></script>
 <script>
   (function () {
     var c = window.TEMPORADA_CONFIG; if (!c) return;
@@ -587,6 +604,14 @@
     if (b && t.etiqueta) b.textContent = t.etiqueta;
     if (i && t.imagenPortada) i.src = t.imagenPortada;
     if (s && t.subPortada) s.textContent = t.subPortada;
+    // desplegable del menú: los productos de la temporada activa (se actualiza solo al cambiar de temporada)
+    var dd = document.getElementById('navTemporada'), li = document.getElementById('navTemporadaLi');
+    var n = 0;
+    (t.productos || []).forEach(function (p) {
+      var ancla = p.ficha || (p.carrito && p.id); if (p.proximamente || !ancla || !p.nombre) return;
+      var a = document.createElement('a'); a.href = 'temporada.html#' + ancla; a.textContent = p.nombre; dd.appendChild(a); n++;
+    });
+    if (!n && li) { var tg = li.querySelector('.dropdown-toggle'); if (tg) tg.style.display = 'none'; dd.style.display = 'none'; li.classList.remove('has-dropdown'); }
   })();
 </script>
 <script src="cookies-banner.js"></script>
