@@ -266,16 +266,16 @@
               <option value="Català · El meu primer Nadal">Català · «El meu primer Nadal»</option>
             </select>
           </div>
-          <div class="opt-row">
-            <label class="opt-label">¿Quieres añadir un nombre? (sin suplemento)</label>
-            <select class="opt-input" id="adorno-nombre-sel" onchange="updateAdorno()">
-              <option value="si">Sí, con nombre</option>
-              <option value="no">No, sin nombre</option>
+          <div class="opt-row" id="adorno-mismo-wrap" style="display:none;">
+            <label class="opt-label">¿Todos los adornos son para el mismo bebé?</label>
+            <select class="opt-input" id="adorno-mismo" onchange="updateAdorno()">
+              <option value="si">Sí, el mismo bebé</option>
+              <option value="no">No, cada adorno para un bebé distinto</option>
             </select>
           </div>
-          <div class="opt-row" id="adorno-nombre-wrap">
-            <label class="opt-label">Nombre (si pides varias unidades con nombres distintos, sepáralos con comas)</label>
-            <textarea class="opt-input" id="adorno-nombre" rows="2" maxlength="120" placeholder="ej. Carla"></textarea>
+          <div class="opt-row">
+            <label class="opt-label">Nombre del bebé (sin suplemento)</label>
+            <div id="adorno-nombres"></div>
           </div>
           <div class="opt-row">
             <label class="opt-label">¿Grabamos también el otro lado con el nombre de a quién va dirigido el adorno? (+3 € / u)</label>
@@ -285,8 +285,8 @@
             </select>
           </div>
           <div class="opt-row" id="adorno-otrolado-wrap" style="display:none;">
-            <label class="opt-label">Nombre de quien lo recibe (si pides varias unidades, sepáralos con comas)</label>
-            <textarea class="opt-input" id="adorno-otrolado-texto" rows="2" maxlength="120" placeholder="ej. Para la abuela Maria"></textarea>
+            <label class="opt-label">Nombre de quien recibe el adorno (por el otro lado)</label>
+            <div id="adorno-otros"></div>
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="adorno-total">15 €</strong></div>
         </div>
@@ -1159,33 +1159,70 @@
 
   // ── ADORNO MI PRIMERA NAVIDAD ──
   function adornoPrecio(qty) { return qty >= 10 ? 10 : (qty >= 3 ? 13 : 15); }
+  // Un campo por adorno: así no se olvida ningún nombre. Se conserva lo ya escrito al cambiar la cantidad.
+  function adornoCampos(idCont, qty, etiqueta, ejemplo) {
+    const cont = document.getElementById(idCont);
+    const previos = Array.from(cont.querySelectorAll('input')).map(i => i.value);
+    cont.innerHTML = '';
+    for (let i = 0; i < qty; i++) {
+      const inp = document.createElement('input');
+      inp.type = 'text'; inp.className = 'opt-input'; inp.maxLength = 40;
+      inp.placeholder = (qty > 1 ? etiqueta + ' ' + (i + 1) + ' · ' : '') + ejemplo;
+      inp.setAttribute('aria-label', etiqueta + (qty > 1 ? ' ' + (i + 1) : ''));
+      inp.value = previos[i] || '';
+      inp.addEventListener('input', function () { this.classList.remove('field-required'); });
+      cont.appendChild(inp);
+    }
+  }
   function updateAdorno() {
     const qi = document.getElementById('adorno-qty');
     let qty = parseInt(qi.value) || 1;
     if (qty < 1) { qty = 1; qi.value = 1; }
+    if (qty > 50) { qty = 50; qi.value = 50; }
     const unit = adornoPrecio(qty);
     document.getElementById('adorno-tramo').textContent =
       qty >= 10 ? '10 unidades o más: 10 €/u (descuento aplicado)' :
       qty >= 3 ? '3–9 unidades: 13 €/u (descuento aplicado)' : '1–2 unidades: 15 €/u';
-    document.getElementById('adorno-nombre-wrap').style.display =
-      document.getElementById('adorno-nombre-sel').value === 'si' ? 'block' : 'none';
+    document.getElementById('adorno-mismo-wrap').style.display = qty > 1 ? 'block' : 'none';
+    const mismo = qty > 1 && document.getElementById('adorno-mismo').value === 'si';
+    adornoCampos('adorno-nombres', mismo ? 1 : qty, 'Nombre del bebé', 'ej. Carla');
     const otro = document.getElementById('adorno-otrolado').value === 'si';
     document.getElementById('adorno-otrolado-wrap').style.display = otro ? 'block' : 'none';
+    if (otro) adornoCampos('adorno-otros', qty, 'Para', 'ej. Para la abuela María');
     document.getElementById('adorno-total').textContent = ((unit + (otro ? 3 : 0)) * qty) + ' €';
   }
   function addCartAdorno() {
-    const qty = Math.max(1, parseInt(document.getElementById('adorno-qty').value) || 1);
-    const conNombre = document.getElementById('adorno-nombre-sel').value === 'si';
-    const nombre = document.getElementById('adorno-nombre').value.trim();
-    if (conNombre && !nombre) { alert('Por favor escribe el nombre que quieres grabar, o elige "No, sin nombre".'); return; }
+    const qty = Math.max(1, Math.min(50, parseInt(document.getElementById('adorno-qty').value) || 1));
     const otro = document.getElementById('adorno-otrolado').value === 'si';
-    const destinatario = document.getElementById('adorno-otrolado-texto').value.trim();
-    if (otro && !destinatario) { alert('Por favor escribe el nombre de quien recibe el adorno, o elige "No, solo una cara".'); return; }
-    const opts = { 'Frase': document.getElementById('adorno-idioma').value, 'Año grabado': '2026' };
-    opts['Nombre'] = conNombre ? nombre : 'Sin nombre';
-    if (otro) opts['Otro lado (a quién va dirigido) · +3 €/u'] = destinatario;
-    addToCart({ id: 'adorno-navidad-' + Date.now(), name: 'Adorno · Mi primera Navidad', price: adornoPrecio(qty) + (otro ? 3 : 0), qty, peso: 20, options: opts });
+    const mismo = qty > 1 && document.getElementById('adorno-mismo').value === 'si';
+    const nombres = Array.from(document.querySelectorAll('#adorno-nombres input'));
+    const otros = otro ? Array.from(document.querySelectorAll('#adorno-otros input')) : [];
+    let falta = null;
+    nombres.concat(otros).forEach(function (inp) { if (!inp.value.trim()) { inp.classList.add('field-required'); if (!falta) falta = inp; } });
+    if (falta) {
+      falta.focus();
+      alert(qty > 1 ? 'Por favor rellena todos los nombres (faltan algunos).' : 'Por favor escribe el nombre que quieres grabar.');
+      return;
+    }
+    const idioma = document.getElementById('adorno-idioma').value;
+    const precio = adornoPrecio(qty) + (otro ? 3 : 0);   // el tramo de precio lo marca el total de adornos del pedido
+    const grupos = {}, orden = [];
+    for (let i = 0; i < qty; i++) {
+      const n = nombres[mismo ? 0 : i].value.trim().replace(/\s+/g, ' ');
+      const d = otro ? otros[i].value.trim().replace(/\s+/g, ' ') : '';
+      const k = n + '|' + d;
+      if (!grupos[k]) { grupos[k] = { n: n, d: d, qty: 0 }; orden.push(k); }
+      grupos[k].qty++;
+    }
+    orden.forEach(function (k, idx) {
+      const g = grupos[k];
+      const opts = { 'Frase': idioma, 'Año grabado': '2026', 'Nombre del bebé': g.n };
+      if (otro) opts['Otro lado (a quién va dirigido) · +3 €/u'] = g.d;
+      addToCart({ id: 'adorno-navidad-' + Date.now() + '-' + idx, name: 'Adorno · Mi primera Navidad', price: precio, qty: g.qty, peso: 20, options: opts });
+    });
   }
+
+  updateAdorno();
 
   // Apertura directa desde Cositas de Temporada (#adorno-navidad)
   if (location.hash === '#adorno-navidad') {
