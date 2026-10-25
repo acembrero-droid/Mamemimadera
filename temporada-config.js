@@ -11,7 +11,18 @@
 //
 //  Cada producto puede ser:
 //    · una tarjeta que lleva a otra página:  enlace: 'coleccion-cocina.html#tabla-navidad'
-//    · o un producto sencillo con carrito:   carrito: true  (usa id, nombre, precio y peso)
+//    · o la ficha completa de un producto (con sus opciones y carrito):  ficha: 'adorno-navidad'  (plantilla <template id="ficha-…"> en temporada.html)
+//    · o un producto NUEVO que solo existe en esta temporada (se compra aquí mismo):
+//        {
+//          carrito: true, id: 'adorno-estrella', nombre: 'Adorno estrella', descripcion: '...',
+//          precio: '8 €', peso: 40, imagen: 'images/adorno-estrella.jpg', etiqueta: 'Novedad',
+//          nota: 'Hecho a mano',                       // (opcional) texto pequeño bajo el precio
+//          opciones: [                                 // (opcional) lo que puede elegir o escribir el cliente
+//            { nombre: 'Color', valores: ['Rojo', 'Verde', { texto: 'Dorado', extra: 2 }] },   // extra = suplemento en €
+//            { nombre: 'Nombre a grabar', tipo: 'texto', placeholder: 'ej. Carla', maximo: 30, obligatorio: false }
+//          ]
+//        }
+//      Para quitarlo cuando acabe la temporada, borra su bloque (o cambia la temporada activa).
 //    · o un aviso "Próximamente":            proximamente: true
 // ──────────────────────────────────────────────────────────────────────────────
 window.TEMPORADA_CONFIG = {
@@ -31,24 +42,8 @@ window.TEMPORADA_CONFIG = {
       colores: { acento: '#9c3b3b', suave: '#f6e3df', fondo: '#fdf4f1' },
       aviso: '🎁 Si quieres tu pedido personalizado para Navidad, hazlo con tiempo: en fechas de alta demanda los plazos se amplían.',
       productos: [
-        {
-          nombre: 'Tabla de cocina · Navidad',
-          descripcion: 'Tabla de presentación decorada a mano con decoupage navideño: acebo, bayas y mucho cariño. Con dedicatoria grabada opcional.',
-          precio: '32 €',
-          imagen: 'images/tabla_invierno.jpg',
-          etiqueta: 'Edición especial',
-          enlace: 'coleccion-cocina.html#tabla-navidad',
-          textoEnlace: 'Ver la tabla'
-        },
-        {
-          nombre: 'Adorno · Mi primera Navidad',
-          descripcion: 'Adorno de madera grabado al láser con el nombre del bebé (sin suplemento). 15 € · 13 €/u desde 3 unidades · 10 €/u desde 10 unidades.',
-          precio: '15 €',
-          imagen: 'images/adorno-primera-navidad.jpg',
-          etiqueta: 'Edición Navidad',
-          enlace: 'mis-primeros-mimos.html#adorno-navidad',
-          textoEnlace: 'Ver el adorno'
-        },
+        { ficha: 'tabla-navidad' },
+        { ficha: 'adorno-navidad' },
         {
           nombre: 'Más cositas navideñas',
           descripcion: 'Estoy preparando nuevas piezas para esta Navidad. Pronto las verás aquí.',
