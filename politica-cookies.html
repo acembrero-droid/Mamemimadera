@@ -270,8 +270,8 @@
     <h2>4. ¿Qué cookies utilizamos?</h2>
     <p>A continuación se detallan las cookies utilizadas en este sitio web, clasificadas por categoría, con indicación de su nombre, proveedor, finalidad, tipo y duración:</p>
 
-    <h3>4.1. Cookies técnicas (exentas de consentimiento)</h3>
-    <p>Son imprescindibles para el funcionamiento del sitio web y no pueden desactivarse. Se utilizan para gestionar el carrito de compra, mantener la sesión del usuario y recordar las preferencias básicas.</p>
+    <h3>4.1. Cookies y almacenamiento técnico (exentos de consentimiento)</h3>
+    <p>Son imprescindibles para el funcionamiento del sitio web y no pueden desactivarse. Se utilizan para recordar tu elección sobre cookies, mantener el carrito de la compra y no tener que escribir de nuevo tus datos al hacer un pedido. Esta web no utiliza cookies de sesión de servidor: estos datos se guardan en el <em>localStorage</em> de tu navegador, no se envían a terceros y se pueden borrar en cualquier momento. Se aplican tanto a la tienda principal como a la sección «Esencia de Monte y Tradición».</p>
 
     <table class="legal-table">
       <thead>
@@ -287,31 +287,47 @@
         <tr>
           <td><strong>mamemi_consent_v1</strong></td>
           <td>mamemimadera.es</td>
-          <td>Guarda la elección del usuario sobre el consentimiento de cookies</td>
-          <td>Técnica (exenta)</td>
+          <td>Guarda tu elección sobre las cookies analíticas (aceptar o rechazar)</td>
+          <td>Técnica (exenta) · localStorage</td>
           <td>24 meses</td>
         </tr>
         <tr>
           <td><strong>mamemi_cart</strong></td>
           <td>mamemimadera.es</td>
-          <td>Mantiene los productos en el carrito de compra durante la sesión</td>
-          <td>Técnica (exenta)</td>
-          <td>Sesión</td>
+          <td>Mantiene los productos (y sus personalizaciones) en el carrito de compra</td>
+          <td>Técnica (exenta) · localStorage</td>
+          <td>Hasta que vacíes el carrito, completes el pedido o borres los datos del navegador</td>
         </tr>
         <tr>
-          <td><strong>PHPSESSID</strong></td>
+          <td><strong>mamemi_delivery</strong></td>
           <td>mamemimadera.es</td>
-          <td>Identifica la sesión del usuario en el servidor</td>
-          <td>Técnica (exenta)</td>
-          <td>Sesión</td>
+          <td>Recuerda el método de entrega elegido (envío o recogida en tienda)</td>
+          <td>Técnica (exenta) · localStorage</td>
+          <td>Hasta que completes el pedido o borres los datos del navegador</td>
+        </tr>
+        <tr>
+          <td><strong>mamemi_orderref</strong></td>
+          <td>mamemimadera.es</td>
+          <td>Guarda la referencia del pedido en curso para poder confirmarlo tras el pago</td>
+          <td>Técnica (exenta) · localStorage</td>
+          <td>Hasta que completes el pedido o borres los datos del navegador</td>
+        </tr>
+        <tr>
+          <td><strong>mamemi_address</strong>, <strong>mamemi_contact</strong></td>
+          <td>mamemimadera.es</td>
+          <td>Conservan los datos de envío y contacto que escribes en el carrito, para no repetirlos si recargas la página. Solo se envían cuando finalizas tu pedido</td>
+          <td>Técnica (exenta) · localStorage</td>
+          <td>Hasta que completes el pedido o borres los datos del navegador</td>
         </tr>
       </tbody>
     </table>
 
-    <p class="legal-note">Las cookies técnicas están exceptuadas del deber de consentimiento según el artículo 22.2 de la LSSI-CE y el Dictamen 04/2012 del Grupo de Trabajo del Artículo 29. No obstante, se informa de su uso en cumplimiento del principio de transparencia.</p>
+    <p class="legal-note">Estas tecnologías están exceptuadas del deber de consentimiento según el artículo 22.2 de la LSSI-CE y el Dictamen 04/2012 del Grupo de Trabajo del Artículo 29, por ser necesarias para prestar el servicio que solicitas. Se informa de su uso en cumplimiento del principio de transparencia.</p>
+
+    <p><strong>Pasarela de pago.</strong> Al pagar con tarjeta o Bizum se te redirige a la plataforma segura de Redsys (entidad financiera), que puede utilizar sus propias cookies técnicas y de seguridad para procesar el pago y prevenir el fraude. Se rigen por la política de cookies de Redsys y de tu entidad bancaria; mamemimadera.es no tiene acceso a ellas ni a los datos de tu tarjeta.</p>
 
     <h3>4.2. Cookies analíticas (requieren consentimiento)</h3>
-    <p>Utilizamos Google Analytics para medir el número de visitas, las páginas más vistas y el comportamiento general de los usuarios en la web. Esta información nos permite mejorar nuestros contenidos y la experiencia de navegación. Estas cookies <strong>solo se instalan si el usuario acepta expresamente</strong> las cookies analíticas a través del banner de configuración.</p>
+    <p>Utilizamos Google Analytics para medir el número de visitas, las páginas más vistas y el comportamiento general de los usuarios en la web. Esta información nos permite mejorar nuestros contenidos y la experiencia de navegación. Estas cookies <strong>solo se instalan si el usuario acepta expresamente</strong> las cookies analíticas a través del banner de cookies (en cualquier página de la web, incluida la sección Esencia). Si las rechazas, Google Analytics no se carga y no se recoge ningún dato de visita.</p>
 
     <table class="legal-table">
       <thead>
@@ -327,28 +343,23 @@
         <tr>
           <td><strong>_ga</strong></td>
           <td>Google Analytics</td>
-          <td>Distingue a los usuarios únicos mediante un identificador anónimo</td>
+          <td>Distingue a los usuarios únicos mediante un identificador aleatorio</td>
           <td>Analítica</td>
           <td>24 meses</td>
         </tr>
         <tr>
           <td><strong>_ga_9MM0BBNL5N</strong></td>
           <td>Google Analytics</td>
-          <td>Mantiene el estado de la sesión de Google Analytics</td>
+          <td>Mantiene el estado de la sesión de Google Analytics (propiedad G-9MM0BBNL5N)</td>
           <td>Analítica</td>
           <td>24 meses</td>
-        </tr>
-        <tr>
-          <td><strong>_gid</strong></td>
-          <td>Google Analytics</td>
-          <td>Distingue a los usuarios para obtener estadísticas agregadas</td>
-          <td>Analítica</td>
-          <td>24 horas</td>
         </tr>
       </tbody>
     </table>
 
     <p>Google Analytics está configurado con la <strong>anonimización de IP activada</strong> (<code>anonymize_ip: true</code>), de modo que no se almacena la dirección IP completa del usuario. Google actúa como encargado del tratamiento y aplica las cláusulas contractuales tipo de la Comisión Europea para transferencias internacionales de datos.</p>
+
+    <p class="legal-note">Para mostrar la tipografía, las páginas cargan fuentes de Google Fonts. Este servicio no instala cookies en tu dispositivo, pero tu navegador se conecta a los servidores de Google, que reciben tu dirección IP como en cualquier descarga de un recurso externo.</p>
 
     <p class="legal-note">No utilizamos cookies publicitarias, de remarketing ni de redes sociales. Si en el futuro se incorporan, se informará en esta política y se solicitará el consentimiento correspondiente.</p>
   </div>
@@ -360,7 +371,7 @@
 
     <h3>5.1. Desde el banner de configuración de la web</h3>
     <p>El banner que aparece en tu primera visita te permite <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> las cookies por categorías. Si ya has tomado una decisión y quieres cambiarla, puedes volver a abrir el panel de configuración desde el enlace "Configurar cookies" disponible en el pie de página de cualquier sección del sitio, o directamente desde el siguiente botón:</p>
-    <a href="index.html#configurar-cookies" class="btn-config-cookies">Configurar mis preferencias de cookies</a>
+    <a href="#configurar-cookies" id="open-cookie-config" class="btn-config-cookies">Configurar mis preferencias de cookies</a>
 
     <h3>5.2. Desde la configuración de tu navegador</h3>
     <p>Puedes configurar tu navegador para bloquear o eliminar cookies. Ten en cuenta que, si desactivas las cookies técnicas, es posible que algunas funcionalidades del sitio (como el carrito de la compra) no funcionen correctamente. A continuación tienes los enlaces a las instrucciones de los navegadores más habituales:</p>
@@ -372,7 +383,7 @@
     </ul>
 
     <h3>5.3. Revocación del consentimiento</h3>
-    <p>Puedes retirar el consentimiento otorgado para las cookies analíticas en cualquier momento. Al hacerlo, se eliminarán las cookies de Google Analytics instaladas previamente y no se volverán a instalar salvo que vuelvas a aceptarlas. La retirada del consentimiento no afecta a la licitud del tratamiento basado en el consentimiento previo a su retirada.</p>
+    <p>Puedes retirar el consentimiento otorgado para las cookies analíticas en cualquier momento. Al hacerlo, se eliminarán las cookies de Google Analytics instaladas previamente y no se volverán a instalar salvo que vuelvas a aceptarlas. Al guardar tu nueva elección en el panel de configuración, se aplica de inmediato en todas las páginas de la web. La retirada del consentimiento no afecta a la licitud del tratamiento basado en el consentimiento previo a su retirada.</p>
   </div>
 
   <!-- ===== 6. TRANSFERENCIAS INTERNACIONALES ===== -->
@@ -398,7 +409,7 @@
 
   <!-- ===== FECHA DE ACTUALIZACIÓN ===== -->
   <div class="legal-block" style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--wood-light);">
-    <p style="font-size: 0.82rem; text-align: center;"><strong>Última actualización:</strong> septiembre de 2026</p>
+    <p style="font-size: 0.82rem; text-align: center;"><strong>Última actualización:</strong> octubre de 2026</p>
   </div>
 
 </main>
@@ -461,6 +472,8 @@
     document.getElementById('navLinks').classList.remove('open');
   });
 </script>
+
+<script src="cookies-banner.js"></script>
 
 </body>
 </html>
