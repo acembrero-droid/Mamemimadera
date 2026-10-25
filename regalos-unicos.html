@@ -1885,7 +1885,8 @@
       Object.keys(RB.tipos).forEach(k => { if (cont[k]) mk(k, RB.tipos[k] + ' (' + cont[k] + ')'); });
     }
     let n = 0;
-    rbCards.forEach(it => { const ok = rbCoincide(it, st, false); it.card.style.display = ok ? '' : 'none'; if (ok) n++; });
+    const catSel = st.para ? RB.categorias.find(x => x.id === st.para) : null;
+    rbCards.forEach(it => { const ok = rbCoincide(it, st, false); it.card.style.display = ok ? '' : 'none'; it.card.style.order = (ok && catSel && catSel.primero === it.titulo && !st.q) ? '-1' : ''; if (ok) n++; });
     document.getElementById('rb-count').textContent = n + (n === 1 ? ' regalo' : ' regalos');
     document.getElementById('rb-vacio').style.display = n ? 'none' : 'block';
     const nt = rbPintarTambien(st);
