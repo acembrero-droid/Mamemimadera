@@ -4,12 +4,12 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MAMEMI Madera – Regalos únicos y mimados en madera</title>
-  <meta name="description" content="Regalos exclusivos que pueden ser personalizados. Placas de nacimiento, de felicitación, joyitas, packs para regalar, nombres impresos en 3D, detallitos para eventos y mucho más. Envíos a toda España."/>
+  <meta name="description" content="Regalos exclusivos que pueden ser personalizados. Placas de nacimiento, de felicitación, joyitas, regalos para bebés (Mis Primeros Mimos), nombres impresos en 3D, detallitos para eventos y mucho más. Envíos a toda España."/>
  <link rel="canonical" href="https://mamemimadera.es/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MAMEMI Madera">
 <meta property="og:title" content="MAMEMI Madera – Regalos únicos y mimados que pueden ser personalizados">
-<meta property="og:description" content="Regalos exclusivos que pueden ser personalizados. Placas de nacimiento, de felicitación, joyitas, packs para regalar, nombres impresos en 3D, detallitos para eventos y mucho más.">
+<meta property="og:description" content="Regalos exclusivos que pueden ser personalizados. Placas de nacimiento, de felicitación, joyitas, regalos para bebés (Mis Primeros Mimos), nombres impresos en 3D, detallitos para eventos y mucho más.">
 <meta property="og:url" content="https://mamemimadera.es/">
 <meta property="og:image" content="https://mamemimadera.es/images/og-mamemi.jpg">
 <meta property="og:image:width" content="1200">
@@ -180,27 +180,20 @@
   <ul class="nav-links" id="navLinks">
     <li class="has-dropdown">
       <div class="nav-item-row">
-        <a href="regalos-personalizados.html">Regalos Bonitos</a>
+        <a href="regalos-bonitos.html">Regalos Bonitos</a>
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Regalos Bonitos"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="regalos-bonitos.html">Letra 3D autoportante</a>
-        <a href="regalos-bonitos.html">Placa de nacimiento</a>
-        <a href="regalos-bonitos.html">Placa de profe</a>
-        <a href="regalos-bonitos.html">Nombre para puerta</a>
-        <a href="regalos-bonitos.html">Marcapáginas</a>
+        <a href="regalos-bonitos.html#3d">Con impresión 3D</a>
+        <a href="regalos-bonitos.html#madera">En madera</a>
+        <a href="regalos-bonitos.html#cuero">De cuero</a>
+        <a href="regalos-bonitos.html#llaveros">Llaveros</a>
+        <a href="regalos-bonitos.html#imanes">Imanes</a>
+        <a href="regalos-bonitos.html#discos">Discos de madera</a>
+        <a href="regalos-bonitos.html#marcapaginas">Marcapáginas</a>
       </div>
     </li>
-    <li class="has-dropdown">
-      <div class="nav-item-row">
-        <a href="cositas-mamemi.html">Cositas Mamemi</a>
-        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Cositas Mamemi"><span class="arrow">▾</span></button>
-      </div>
-      <div class="dropdown">
-        <a href="cositas-mamemi.html">Llaveros</a>
-        <a href="cositas-mamemi.html">Imanes</a>
-      </div>
-    </li>
+    <li><a href="temporada.html">Cositas de Temporada</a></li>
     <li class="has-dropdown">
       <div class="nav-item-row">
         <a href="joyitas-mamemi.html">Joyitas Mamemi</a>
@@ -214,11 +207,12 @@
     </li>
     <li class="has-dropdown">
       <div class="nav-item-row">
-        <a href="packs-para-regalar.html">Mis Primeros Mimos</a>
+        <a href="mis-primeros-mimos.html">Mis Primeros Mimos</a>
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Mis Primeros Mimos"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="mis-primeros-mimos.html">Mis Primeros Mimos</a>
+        <a href="mis-primeros-mimos.html">Packs de nacimiento</a>
+        <a href="mis-primeros-mimos.html">Detallitos para bebés</a>
       </div>
     </li>
     <li class="has-dropdown">
@@ -326,20 +320,21 @@
   <div class="divider"></div>
   <div class="cat-grid">
 
-    <a href="regalos-bonitos.html" class="cat-card fade-in" id="cat-regalos">
-      <div class="img-wrap"><img src="images/letra3d.jpg" alt="Regalos Bonitos"></div>
+    <a href="temporada.html" class="cat-card fade-in" id="cat-temporada">
+      <span class="sub-badge" id="temporada-badge">🎄 De temporada</span>
+      <div class="img-wrap"><img id="temporada-img" src="images/tabla_invierno.jpg" alt="Cositas de Temporada"></div>
       <div class="cat-info">
-        <h3>Regalos Bonitos</h3>
-        <p>Para la mejor Mamá · Mejor Profe · Súper Abu · BFF</p>
+        <h3>Cositas de Temporada</h3>
+        <p id="temporada-sub">Ediciones especiales para cada momento del año</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
 
-    <a href="cositas-mamemi.html" class="cat-card fade-in" id="cat-cositas">
-      <div class="img-wrap"><img src="images/llavero.jpg" alt="Cositas Mamemi"></div>
+    <a href="regalos-bonitos.html" class="cat-card fade-in" id="cat-regalos">
+      <div class="img-wrap"><img src="images/letra3d.jpg" alt="Regalos Bonitos"></div>
       <div class="cat-info">
-        <h3>Cositas Mamemi</h3>
-        <p>Ediciones limitadas · Diseños exclusivos Mamemi</p>
+        <h3>Regalos Bonitos</h3>
+        <p>Para la mejor Mamá · Mejor Profe · Súper Abu · BFF · Llaveros · Imanes · Marcapáginas</p>
         <span class="cat-arrow">Ver más →</span>
       </div>
     </a>
@@ -382,9 +377,9 @@
     </div>
     <div class="cat-card fade-in" id="cat-sorbo" style="cursor:default;">
       <span class="sub-badge">Próximamente</span>
-      <div class="img-wrap"><img src="images/sorbo-sorbito.jpg" alt="Sorbo Sorbito"></div>
+      <div class="img-wrap"><img src="images/sorbo-sorbito.jpg" alt="Momento Mímate"></div>
       <div class="cat-info">
-        <h3>Sorbo Sorbito</h3>
+        <h3>Momento Mímate</h3>
         <p>Vasos térmicos para tus momentos de calma 🍵</p>
       </div>
     </div>
@@ -583,6 +578,17 @@
   });
 </script>
 
+<script src="temporada-config.js"></script>
+<script>
+  (function () {
+    var c = window.TEMPORADA_CONFIG; if (!c) return;
+    var t = c.temporadas && c.temporadas[c.activa]; if (!t) return;
+    var b = document.getElementById('temporada-badge'), i = document.getElementById('temporada-img'), s = document.getElementById('temporada-sub');
+    if (b && t.etiqueta) b.textContent = t.etiqueta;
+    if (i && t.imagenPortada) i.src = t.imagenPortada;
+    if (s && t.subPortada) s.textContent = t.subPortada;
+  })();
+</script>
 <script src="cookies-banner.js"></script>
 
 <script src="carrito.js"></script>
