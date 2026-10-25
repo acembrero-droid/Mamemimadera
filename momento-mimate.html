@@ -475,5 +475,25 @@
 </script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
+<script>
+// Si llegas desde "También te puede gustar" de Regalos Únicos, aparece un botón para volver allí.
+(function () {
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('desde') !== 'regalos') return;
+    var a = (q.get('a') || 'todo').replace(/[^a-z0-9-]/gi, '');
+    var hero = document.querySelector('.page-hero');
+    if (!hero) return;
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'max-width:1100px;margin:1.4rem auto 0;padding:0 1.5rem;';
+    var l = document.createElement('a');
+    l.href = 'regalos-unicos.html#' + a;
+    l.textContent = '← Volver a Regalos Únicos';
+    l.style.cssText = "display:inline-flex;align-items:center;gap:0.5rem;background:#fff;border:1.5px solid var(--wood-mid);color:var(--wood-dark);border-radius:30px;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:700;text-decoration:none;font-family:'Nunito',sans-serif;";
+    wrap.appendChild(l);
+    hero.insertAdjacentElement('afterend', wrap);
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
