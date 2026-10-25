@@ -41,6 +41,15 @@ window.TEMPORADA_CONFIG = {
           textoEnlace: 'Ver la tabla'
         },
         {
+          nombre: 'Adorno · Mi primera Navidad',
+          descripcion: 'Adorno de madera grabado al láser con el nombre del bebé (sin suplemento). 15 € · 13 €/u desde 3 unidades · 10 €/u desde 10 unidades.',
+          precio: '15 €',
+          imagen: 'images/adorno-primera-navidad.jpg',
+          etiqueta: 'Edición Navidad',
+          enlace: 'mis-primeros-mimos.html#adorno-navidad',
+          textoEnlace: 'Ver el adorno'
+        },
+        {
           nombre: 'Más cositas navideñas',
           descripcion: 'Estoy preparando nuevas piezas para esta Navidad. Pronto las verás aquí.',
           proximamente: true
