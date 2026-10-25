@@ -241,7 +241,7 @@
         <p class="mm-desc">Cantimplora de 500 ml de acabado mate con tapa y asa de silicona, en rosa fucsia o azul petróleo. Para llevarla contigo a todas partes.</p>
         <div class="price-block">
           <div class="price-display"><span class="label">Precio por unidad</span><span class="amount" id="mm-precio">33 €</span></div>
-          <p class="price-note">✦ IVA incluido · Grabado incluido en el precio</p>
+          <p class="price-note">✦ IVA incluido · Grabado incluido en el precio · Nombre o dedicatoria: +5 €</p>
         </div>
         <div class="product-options">
       <div class="mm-field">
@@ -269,6 +269,17 @@
         </div>
         <p class="gr-elegido" id="gr-resumen"></p>
         <p class="mm-nota" id="mm-grabado-nota"></p>
+      </div>
+
+      <div class="mm-field" id="mm-pers-wrap">
+        <span class="mm-q" id="mm-pers-q">¿Quieres personalizarla?</span>
+        <p class="mm-nota" style="margin:0 0 0.5rem;">Puedes añadir debajo del dibujo tu nombre o el de a quien se la quieres regalar (máximo 3 palabras). <strong>+5 € por unidad.</strong></p>
+        <select class="opt-input" id="mm-pers" style="margin-top:0;">
+          <option value="no">No, solo el dibujo</option>
+          <option value="si">Sí, añadir nombre o dedicatoria (+5 €)</option>
+        </select>
+        <input type="text" class="opt-input" id="mm-pers-txt" maxlength="40" placeholder="ej. Laura" style="display:none;">
+        <p class="mm-nota" id="mm-pers-nota" style="display:none;">Máximo 3 palabras. <span id="mm-pers-cuenta">0</span>/3</p>
       </div>
 
         </div>
@@ -310,6 +321,7 @@
   var MAX = 20, qty = 1, activo = 0;
   var asign = [cfg.disenos[0].id];      // asign[i] = diseño de la cantimplora i+1 ('' = sin grabado); si no se elige, lleva el de la 1
   var elegida = [];      // elegida[i] = true cuando el cliente ha escogido el diseño de esa cantimplora
+  var modos = [], textos = [];   // personalización por unidad: 'no' | 'si' + texto (máx. 3 palabras)
   var colores = [];      // colores[i]; si no se elige, lleva el de la 1
   var pista = $('gr-pista');
   var DIS = cfg.disenos;
@@ -319,7 +331,9 @@
   function color(i) { return colores[i] || colores[0] || cfg.colores[0].id; }
   function primeraSinElegir() { for (var i = 0; i < qty; i++) if (!elegida[i]) return i; return -1; }
   function usados() { var u = []; for (var i = 0; i < qty; i++) { var id = efectivo(i); if (u.indexOf(id) < 0) u.push(id); } return u; }
-  function unit(i) { return cfg.precio + (cfg.recargoGrabado || 0); }
+  function pers(i) { return modos[i] === 'si' ? (textos[i] || '').trim().replace(/\s+/g, ' ') : ''; }
+  function unit(i) { return cfg.precio + (cfg.recargoGrabado || 0) + (modos[i] === 'si' ? (cfg.recargoNombre || 0) : 0); }
+  function palabras(t) { t = t.trim(); return t ? t.split(/\s+/).length : 0; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
   if (cfg.disenos.length) document.querySelector('.mm-desc').textContent += ' Puedes elegir un grabado entre los diseños de Momento Mímate.';
@@ -347,7 +361,7 @@
       b.className = 'gr-slot' + (i === activo ? ' act' : ''); b.dataset.i = i;
       b.appendChild(document.createTextNode('Cantimplora ' + (i + 1) + ': '));
       var s = document.createElement('small');
-      s.textContent = buscar(efectivo(i)).nombre + ((i > 0 && !elegida[i]) ? ' (como la 1)' : '') + ' · ' + col(color(i)).nombre;
+      s.textContent = buscar(efectivo(i)).nombre + ((i > 0 && !elegida[i]) ? ' (como la 1)' : '') + ' · ' + col(color(i)).nombre + (modos[i] === 'si' ? (pers(i) ? ' · con nombre' : ' · falta el texto') : '');
       b.appendChild(s); cont.appendChild(b);
     }
   }
@@ -389,6 +403,12 @@
     var suma = 0; for (var i = 0; i < qty; i++) suma += unit(i);
     $('mm-precio').textContent = (qty === 1 ? suma : cfg.precio) + ' €';
     $('mm-total').textContent = qty > 1 ? 'Total: ' + suma + ' €' : '';
+    var pq = (qty === 1 ? '' : 'Cantimplora ' + (activo + 1) + ' · ') + '¿Quieres personalizarla?';
+    $('mm-pers-q').textContent = pq;
+    $('mm-pers').value = modos[activo] || 'no';
+    $('mm-pers-txt').style.display = $('mm-pers-nota').style.display = modos[activo] === 'si' ? '' : 'none';
+    $('mm-pers-txt').value = textos[activo] || '';
+    $('mm-pers-cuenta').textContent = palabras($('mm-pers-txt').value);
     pintarSlots(); pintarTira(enfocar); pintarResumen();
   }
 
@@ -402,6 +422,18 @@
     var b = e.target.closest('.gr-slot'); if (!b) return;
     activo = parseInt(b.dataset.i, 10); pintar();
   });
+  $('mm-pers').addEventListener('change', function () {
+    modos[activo] = this.value; $('mm-msg').textContent = '';
+    if (this.value === 'si') $('mm-pers-txt').focus();
+    pintar();
+  });
+  $('mm-pers-txt').addEventListener('input', function () {
+    var w = this.value.replace(/^\s+/, '').split(/\s+/);
+    if (w.length > 3) this.value = w.slice(0, 3).join(' ');
+    textos[activo] = this.value; $('mm-msg').textContent = '';
+    $('mm-pers-cuenta').textContent = palabras(this.value);
+    pintarSlots();
+  });
   $('mm-menos').onclick = function () { if (qty > 1) { qty--; if (activo >= qty) activo = qty - 1; pintar(); } };
   $('mm-mas').onclick = function () { if (qty < MAX) { qty++; var sig = primeraSinElegir(); activo = sig >= 0 ? sig : qty - 1; pintar(); } };
   $('gr-prev').onclick = function () { pista.scrollBy({ left: -200 }); };
@@ -413,16 +445,24 @@
 
   $('mm-add').onclick = function () {
     if (typeof window.addToCart !== 'function') { $('mm-msg').textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.'; return; }
+    for (var j = 0; j < qty; j++) {
+      if (modos[j] === 'si' && !pers(j)) {
+        activo = j; pintar(); $('mm-pers-txt').focus();
+        $('mm-msg').textContent = (qty > 1 ? 'Cantimplora ' + (j + 1) + ': escribe' : 'Escribe') + ' el nombre o la dedicatoria que quieres grabar, o elige «No».';
+        return;
+      }
+    }
     $('mm-msg').textContent = '';
     var g = {}, orden = [];
     for (var i = 0; i < qty; i++) {
-      var d = buscar(efectivo(i)), c = col(color(i)), k = d.id + '|' + c.id;
-      if (!g[k]) { g[k] = { grabado: d.nombre, color: c.nombre, price: unit(i), qty: 0 }; orden.push(k); }
+      var d = buscar(efectivo(i)), c = col(color(i)), t = pers(i), k = d.id + '|' + c.id + '|' + t;
+      if (!g[k]) { g[k] = { grabado: d.nombre, color: c.nombre, texto: t, price: unit(i), qty: 0 }; orden.push(k); }
       g[k].qty++;
     }
     orden.forEach(function (k) {
       var l = g[k];
-      window.addToCart({ id: 'momento-mimate-cantimplora', name: 'Momento Mímate · Cantimplora 500 ml', price: l.price, qty: l.qty, options: { 'Color': l.color, 'Grabado': l.grabado } });
+      var op = { 'Color': l.color, 'Grabado': l.grabado }; if (l.texto) op['Nombre o dedicatoria'] = l.texto;
+      window.addToCart({ id: 'momento-mimate-cantimplora', name: 'Momento Mímate · Cantimplora 500 ml', price: l.price, qty: l.qty, options: op });
     });
   };
 
