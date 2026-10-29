@@ -255,7 +255,7 @@
     </div>
     <div class="product-info">
       <h2>Abrebotellas de pared</h2>
-      <p class="product-desc">Abrebotellas de madera para colgar en la pared, con recogetapas de rejilla. Puedes grabarle un dibujo, un nombre o una frase (hasta 10 abrebotellas, cada uno con lo suyo). Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
+      <p class="product-desc">Abrebotellas de madera para colgar en la pared, con recogetapas de rejilla. Sin grabar, 20 €. Cada grabado suma 3 €: un dibujo, un nombre o una frase, 23 €; dibujo y nombre (o frase), 26 € (hasta 10 abrebotellas, cada uno con lo suyo). Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
       <div class="price"><span id="precio-pared">20 €</span> <small>IVA incluido</small></div>
 
       <div class="cantidad">
@@ -280,10 +280,11 @@
       <div class="field" id="tipo-field">
         <label class="pregunta" for="tipo">¿Qué quieres grabar?</label>
         <select id="tipo">
-          <option value="dibujo">Un dibujo (sin coste)</option>
-          <option value="nombre">Un nombre (sin coste)</option>
-          <option value="nombredibujo">Un nombre y un dibujo (+5 €)</option>
-          <option value="frase">Una frase o dedicatoria (+5 €)</option>
+          <option value="dibujo">Un dibujo (23 €)</option>
+          <option value="nombredibujo">Un dibujo y un nombre (26 €)</option>
+          <option value="frasedibujo">Un dibujo y una frase o dedicatoria (26 €)</option>
+          <option value="nombre">Solo un nombre, sin dibujo (23 €)</option>
+          <option value="frase">Solo una frase o dedicatoria, sin dibujo (23 €)</option>
         </select>
         <p class="field-note" id="tipo-nota"></p>
       </div>
@@ -376,7 +377,7 @@
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
-  var MAX = 10, BASE = 20, EXTRA = 5, MAX_NOMBRE = 2, MAX_FRASE = 10;
+  var MAX = 10, BASE = 20, EXTRA = 3, MAX_NOMBRE = 2, MAX_FRASE = 10;
   // Diseños disponibles (van dentro de la página). El primero viene elegido por defecto.
   var DISENOS = [
     { id: 'jabali', nombre: 'Jabalí', m: 'images/grabados/abrebotellas-jabali-mini.jpg?v=20261025b', g: 'images/grabados/abrebotellas-jabali.jpg?v=20261025b' },
@@ -396,13 +397,14 @@
   function buscar(id) { return DISENOS.filter(function (d) { return d.id === id; })[0]; }
   function efectivo(i) { return (i > 0 && !elegida[i]) ? asign[0] : asign[i]; }
   function modo(i) { return grabarSi[i] === false ? 'no' : (tipos[i] || 'dibujo'); }
-  function conDibujo(i) { var m = modo(i); return m === 'dibujo' || m === 'nombredibujo'; }
+  function conDibujo(i) { var m = modo(i); return m === 'dibujo' || m === 'nombredibujo' || m === 'frasedibujo'; }
   function conNombre(i) { var m = modo(i); return m === 'nombre' || m === 'nombredibujo'; }
-  function precioDe(i) { var m = modo(i); return BASE + ((m === 'nombredibujo' || m === 'frase') ? EXTRA : 0); }
+  function conFrase(i) { var m = modo(i); return m === 'frase' || m === 'frasedibujo'; }
+  function precioDe(i) { if (modo(i) === 'no') return BASE; return BASE + (conDibujo(i) ? EXTRA : 0) + ((conNombre(i) || conFrase(i)) ? EXTRA : 0); }
   function limpio(t) { return (t || '').trim().replace(/\s+/g, ' '); }
   function contar(t) { t = t.trim(); return t ? t.split(/\s+/).length : 0; }
   function nombreDe(i) { return conNombre(i) ? limpio(nombres[i]) : ''; }
-  function fraseDe(i) { return modo(i) === 'frase' ? limpio(frases[i]) : ''; }
+  function fraseDe(i) { return conFrase(i) ? limpio(frases[i]) : ''; }
   function primeraSinElegir() { for (var i = 0; i < qty; i++) if (conDibujo(i) && !elegida[i]) return i; return -1; }
   function mini(d) { return d.m; }
   function grande(d) { return d.g; }
@@ -425,6 +427,7 @@
       else if (m === 'dibujo') t = d.nombre + como;
       else if (m === 'nombre') t = nombreDe(i) ? 'nombre: ' + nombreDe(i) : 'falta el nombre';
       else if (m === 'nombredibujo') t = d.nombre + como + (nombreDe(i) ? ' + ' + nombreDe(i) : ' · falta el nombre');
+      else if (m === 'frasedibujo') t = d.nombre + como + (fraseDe(i) ? ' + frase' : ' · falta la frase');
       else t = fraseDe(i) ? 'con frase' : 'falta la frase';
       var s = document.createElement('small'); s.textContent = t;
       b.appendChild(s); cont.appendChild(b);
@@ -462,7 +465,8 @@
     dibujo: '',
     nombre: 'Solo el nombre, sin dibujo.',
     nombredibujo: 'El dibujo y el nombre juntos.',
-    frase: 'Con frase o dedicatoria no se graba ni nombre ni dibujo.'
+    frase: 'Solo la frase o dedicatoria, sin dibujo.',
+    frasedibujo: 'El dibujo y la frase o dedicatoria juntos.'
   };
   function pintarOpciones() {   // las preguntas son del abrebotellas marcado
     var pre = qty === 1 ? '' : 'Abrebotellas ' + (activo + 1) + ' · ';
@@ -475,19 +479,18 @@
     $('tipo-nota').style.display = NOTAS[$('tipo').value] ? '' : 'none';
     $('grabados').hidden = !conDibujo(activo);
     $('nombre-field').classList.toggle('visible', conNombre(activo));
-    $('dedicatoria-field').classList.toggle('visible', m === 'frase');
+    $('dedicatoria-field').classList.toggle('visible', conFrase(activo));
     $('nombre-ab').value = nombres[activo] || ''; $('nombre-cuenta').textContent = contar($('nombre-ab').value);
     $('dedicatoria').value = frases[activo] || ''; $('ded-cuenta').textContent = contar($('dedicatoria').value);
   }
   function pintarPrecio() {
-    var suma = 0, k = 0;
-    for (var i = 0; i < qty; i++) { suma += precioDe(i); if (precioDe(i) > BASE) k++; }
+    var suma = 0;
+    for (var i = 0; i < qty; i++) suma += precioDe(i);
     if (qty === 1) {
       $('precio-pared').textContent = suma + ' €'; $('cant-total').textContent = '';
     } else {
-      var det = [qty + ' abrebotellas']; if (k) det.push(k + ' con suplemento');
-      $('precio-pared').textContent = BASE + ' €';
-      $('cant-total').textContent = 'Total: ' + suma + ' € (' + det.join(', ') + ')';
+      $('precio-pared').textContent = 'Desde ' + BASE + ' €';
+      $('cant-total').textContent = 'Total: ' + suma + ' € (' + qty + ' abrebotellas)';
     }
   }
   function todo(enfocar) {
@@ -526,7 +529,7 @@
   // Qué grabar: dibujo, nombre, nombre y dibujo, o frase
   $('tipo').addEventListener('change', function () {
     tipos[activo] = this.value; aviso(); todo(false);
-    if (conNombre(activo)) $('nombre-ab').focus(); else if (modo(activo) === 'frase') $('dedicatoria').focus();
+    if (conNombre(activo)) $('nombre-ab').focus(); else if (conFrase(activo)) $('dedicatoria').focus();
   });
   function limitar(input, max, destino, guardar) {
     input.addEventListener('input', function () {
@@ -544,7 +547,7 @@
       for (var i = 0; i < qty; i++) {
         var pre = qty > 1 ? 'Abrebotellas ' + (i + 1) + ': ' : '', m = modo(i);
         if (conNombre(i) && !nombreDe(i)) { activo = i; todo(false); $('nombre-ab').focus(); return pre + 'escribe el nombre que quieres grabar (máximo 2 palabras).'; }
-        if (m === 'frase' && !fraseDe(i)) { activo = i; todo(false); $('dedicatoria').focus(); return pre + 'escribe la frase o dedicatoria que quieres grabar (máximo 10 palabras).'; }
+        if (conFrase(i) && !fraseDe(i)) { activo = i; todo(false); $('dedicatoria').focus(); return pre + 'escribe la frase o dedicatoria que quieres grabar (máximo 10 palabras).'; }
       }
       return '';
     },
@@ -572,7 +575,7 @@
       if (l.dibujo) options['Grabado'] = l.dibujo;
       if (l.nombre) options['Nombre'] = l.nombre;
       if (l.frase) options['Dedicatoria'] = l.frase;
-      window.addToCart({ id: 'esencia-abrebotellas-pared' + (l.price > BASE ? '-personalizado' : ''), name: 'Esencia · Abrebotellas de pared', price: l.price, qty: l.qty, options: options });
+      window.addToCart({ id: 'esencia-abrebotellas-pared' + (l.price > BASE ? '-' + l.price : ''), name: 'Esencia · Abrebotellas de pared', price: l.price, qty: l.qty, options: options });
     });
     $('msg-pared').textContent = '';
   });
