@@ -255,7 +255,7 @@
     </div>
     <div class="product-info">
       <h2>Abrebotellas de pared</h2>
-      <p class="product-desc">Abrebotellas de madera para colgar en la pared, con recogetapas de rejilla. Sin grabar, 20 €. Cada grabado suma 3 €: un dibujo, un nombre o una frase, 23 €; dibujo y nombre (o frase), 26 € (hasta 10 abrebotellas, cada uno con lo suyo). Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
+      <p class="product-desc">Abrebotellas de madera para colgar en la pared, con recogetapas de rejilla. Va desde los 20 € sin grabar hasta los 28 € con dibujo y dedicatoria, para que puedas adaptarlo a lo que buscas con distintas combinaciones (hasta 10 abrebotellas, cada uno con lo suyo). Cada pieza es única: las vetas y los tonos de la madera cambian de una a otra.</p>
       <div class="price"><span id="precio-pared">20 €</span> <small>IVA incluido</small></div>
 
       <div class="cantidad">
@@ -280,11 +280,11 @@
       <div class="field" id="tipo-field">
         <label class="pregunta" for="tipo">¿Qué quieres grabar?</label>
         <select id="tipo">
-          <option value="dibujo">Un dibujo (23 €)</option>
-          <option value="nombredibujo">Un dibujo y un nombre (26 €)</option>
-          <option value="frasedibujo">Un dibujo y una frase o dedicatoria (26 €)</option>
+          <option value="dibujo">Un dibujo de las propuestas (23 €)</option>
+          <option value="nombredibujo">Un dibujo y un nombre (25 €)</option>
+          <option value="frasedibujo">Un dibujo y una frase o dedicatoria (28 €)</option>
           <option value="nombre">Solo un nombre, sin dibujo (23 €)</option>
-          <option value="frase">Solo una frase o dedicatoria, sin dibujo (23 €)</option>
+          <option value="frase">Solo una frase o dedicatoria, sin dibujo (25 €)</option>
         </select>
         <p class="field-note" id="tipo-nota"></p>
       </div>
@@ -400,7 +400,8 @@
   function conDibujo(i) { var m = modo(i); return m === 'dibujo' || m === 'nombredibujo' || m === 'frasedibujo'; }
   function conNombre(i) { var m = modo(i); return m === 'nombre' || m === 'nombredibujo'; }
   function conFrase(i) { var m = modo(i); return m === 'frase' || m === 'frasedibujo'; }
-  function precioDe(i) { if (modo(i) === 'no') return BASE; return BASE + (conDibujo(i) ? EXTRA : 0) + ((conNombre(i) || conFrase(i)) ? EXTRA : 0); }
+  var PRECIOS = { no: 20, dibujo: 23, nombre: 23, nombredibujo: 25, frase: 25, frasedibujo: 28 };
+  function precioDe(i) { return PRECIOS[modo(i)]; }
   function limpio(t) { return (t || '').trim().replace(/\s+/g, ' '); }
   function contar(t) { t = t.trim(); return t ? t.split(/\s+/).length : 0; }
   function nombreDe(i) { return conNombre(i) ? limpio(nombres[i]) : ''; }
