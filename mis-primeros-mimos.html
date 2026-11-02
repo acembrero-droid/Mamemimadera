@@ -161,6 +161,8 @@
     .mc-dot.active { background:#fff; }
     @media (max-width:640px) { .products-grid { grid-template-columns:1fr; } }
   </style>
+  <link rel="icon" type="image/png" href="/images/favicon-mamemi.png">
+  <link rel="apple-touch-icon" href="/images/favicon-mamemi.png">
 </head>
 <body>
 <nav>
@@ -245,10 +247,9 @@
         <h3>Adorno · Mi primera Navidad</h3>
         <p class="product-desc">Adorno de madera grabado al láser con una corona de acebo y bayas, el calcetín navideño y la frase «Mi primera Navidad». Con el nombre del bebé y el año, y un lazo de hilo rojo y verde para colgarlo en el árbol. Un recuerdo para guardar año tras año.</p>
         <div class="price-block">
-          <div class="price-row"><span>1–2 unidades</span><span class="amount">15 € / u</span></div>
-          <div class="price-row"><span>3–9 unidades</span><span class="amount">13 € / u</span></div>
-          <div class="price-row"><span>10 unidades o más</span><span class="amount">10 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Nombre del bebé sin suplemento · Grabar el otro lado con el nombre de quien lo recibe: +3 € / u</p>
+          <div class="price-row"><span>1–5 unidades</span><span class="amount">12 € / u</span></div>
+          <div class="price-row"><span>6 unidades o más</span><span class="amount">10 € / u</span></div>
+          <p class="price-note">✦ IVA incluido · Nombre del bebé sin suplemento · Grabar el otro lado con el nombre de quien lo recibe: +3 € / u · Toque de color pintado a mano: +3 € / u</p>
         </div>
         <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
         <div class="product-collapsible"><div>
@@ -257,7 +258,7 @@
           <div class="opt-row">
             <label class="opt-label">Cantidad:</label>
             <input type="number" id="adorno-qty" class="opt-input" min="1" value="1" oninput="updateAdorno()">
-            <p class="price-note" id="adorno-tramo" style="margin-top:0.3rem;">1–2 unidades: 15 €/u</p>
+            <p class="price-note" id="adorno-tramo" style="margin-top:0.3rem;">1–5 unidades: 12 €/u</p>
           </div>
           <div class="opt-row">
             <label class="opt-label">Idioma de la frase</label>
@@ -288,7 +289,15 @@
             <label class="opt-label">Nombre de quien recibe el adorno (por el otro lado)</label>
             <div id="adorno-otros"></div>
           </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="adorno-total">15 €</strong></div>
+          <div class="opt-row">
+            <label class="opt-label">¿Con toque de color pintado a mano? (+3 € / u)</label>
+            <select class="opt-input" id="adorno-color" onchange="updateAdorno()">
+              <option value="no">No, solo grabado</option>
+              <option value="si">Sí, con toque de color (+3 € por unidad)</option>
+            </select>
+            <p class="price-note" id="adorno-color-nota" style="display:none;">Después del pedido te escribo para que me cuentes qué colores prefieres.</p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="adorno-total">12 €</strong></div>
         </div>
         <button class="btn-add-cart" onclick="addCartAdorno()">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20adorno%20Mi%20primera%20Navidad" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
@@ -1158,7 +1167,7 @@
   }
 
   // ── ADORNO MI PRIMERA NAVIDAD ──
-  function adornoPrecio(qty) { return qty >= 10 ? 10 : (qty >= 3 ? 13 : 15); }
+  function adornoPrecio(qty) { return qty >= 6 ? 10 : 12; }
   // Un campo por adorno: así no se olvida ningún nombre. Se conserva lo ya escrito al cambiar la cantidad.
   function adornoCampos(idCont, qty, etiqueta, ejemplo) {
     const cont = document.getElementById(idCont);
@@ -1181,15 +1190,16 @@
     if (qty > 50) { qty = 50; qi.value = 50; }
     const unit = adornoPrecio(qty);
     document.getElementById('adorno-tramo').textContent =
-      qty >= 10 ? '10 unidades o más: 10 €/u (descuento aplicado)' :
-      qty >= 3 ? '3–9 unidades: 13 €/u (descuento aplicado)' : '1–2 unidades: 15 €/u';
+      qty >= 6 ? '6 unidades o más: 10 €/u (descuento aplicado)' : '1–5 unidades: 12 €/u';
     document.getElementById('adorno-mismo-wrap').style.display = qty > 1 ? 'block' : 'none';
     const mismo = qty > 1 && document.getElementById('adorno-mismo').value === 'si';
     adornoCampos('adorno-nombres', mismo ? 1 : qty, 'Nombre del bebé', 'ej. Carla');
     const otro = document.getElementById('adorno-otrolado').value === 'si';
     document.getElementById('adorno-otrolado-wrap').style.display = otro ? 'block' : 'none';
     if (otro) adornoCampos('adorno-otros', qty, 'Para', 'ej. Para la abuela María');
-    document.getElementById('adorno-total').textContent = ((unit + (otro ? 3 : 0)) * qty) + ' €';
+    const color = document.getElementById('adorno-color').value === 'si';
+    document.getElementById('adorno-color-nota').style.display = color ? 'block' : 'none';
+    document.getElementById('adorno-total').textContent = ((unit + (otro ? 3 : 0) + (color ? 3 : 0)) * qty) + ' €';
   }
   function addCartAdorno() {
     const qty = Math.max(1, Math.min(50, parseInt(document.getElementById('adorno-qty').value) || 1));
@@ -1205,7 +1215,8 @@
       return;
     }
     const idioma = document.getElementById('adorno-idioma').value;
-    const precio = adornoPrecio(qty) + (otro ? 3 : 0);   // el tramo de precio lo marca el total de adornos del pedido
+    const color = document.getElementById('adorno-color').value === 'si';
+    const precio = adornoPrecio(qty) + (otro ? 3 : 0) + (color ? 3 : 0);   // el tramo de precio lo marca el total de adornos del pedido
     const grupos = {}, orden = [];
     for (let i = 0; i < qty; i++) {
       const n = nombres[mismo ? 0 : i].value.trim().replace(/\s+/g, ' ');
@@ -1218,6 +1229,7 @@
       const g = grupos[k];
       const opts = { 'Frase': idioma, 'Año grabado': '2026', 'Nombre del bebé': g.n };
       if (otro) opts['Otro lado (a quién va dirigido) · +3 €/u'] = g.d;
+      if (color) opts['Toque de color pintado a mano · +3 €/u'] = 'Sí (te escribiré para acordar los colores)';
       addToCart({ id: 'adorno-navidad-' + Date.now() + '-' + idx, name: 'Adorno · Mi primera Navidad', price: precio, qty: g.qty, peso: 20, options: opts });
     });
   }
