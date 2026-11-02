@@ -307,7 +307,9 @@
     </div>
 </template>
 
-<template id="ficha-adorno-mascotas"><div data-adorno-mascotas></div></template>
+<template id="ficha-adorno-perro"><div data-adorno-mascotas="perro"></div></template>
+<template id="ficha-adorno-gato"><div data-adorno-mascotas="gato"></div></template>
+<template id="ficha-adorno-otro-peludo"><div data-adorno-mascotas="otro"></div></template>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <span class="lightbox-close" onclick="closeLightbox(event)">✕</span>
@@ -316,7 +318,7 @@
   <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
-<script src="temporada-config.js?v=20261102"></script>
+<script src="temporada-config.js?v=20261102b"></script>
 <script>
   (function () {
     var cfg = window.TEMPORADA_CONFIG || {};
@@ -544,7 +546,7 @@
   if (document.getElementById('adorno-qty')) updateAdorno();
   if (location.hash) setTimeout(function () { var el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
 </script>
-<script src="adorno-mascotas.js?v=20261102"></script>
+<script src="adorno-mascotas.js?v=20261102d"></script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
 </body>
