@@ -169,6 +169,8 @@
     textarea.opt-input { cursor: text; font-family: 'Nunito', sans-serif; }
     .field-required { border-color: var(--wood-dark) !important; }
   </style>
+  <link rel="icon" type="image/png" href="/images/favicon-mamemi.png">
+  <link rel="apple-touch-icon" href="/images/favicon-mamemi.png">
 </head>
 <body class="temporada-page">
 <nav>
@@ -305,6 +307,8 @@
     </div>
 </template>
 
+<template id="ficha-adorno-mascotas"><div data-adorno-mascotas></div></template>
+
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <span class="lightbox-close" onclick="closeLightbox(event)">✕</span>
   <button class="lightbox-nav prev" id="lightbox-prev" onclick="lightboxMove(event, -1)" style="display:none;">‹</button>
@@ -312,7 +316,7 @@
   <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
-<script src="temporada-config.js?v=20261025c"></script>
+<script src="temporada-config.js?v=20261102"></script>
 <script>
   (function () {
     var cfg = window.TEMPORADA_CONFIG || {};
@@ -540,6 +544,7 @@
   if (document.getElementById('adorno-qty')) updateAdorno();
   if (location.hash) setTimeout(function () { var el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
 </script>
+<script src="adorno-mascotas.js?v=20261102"></script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
 </body>
