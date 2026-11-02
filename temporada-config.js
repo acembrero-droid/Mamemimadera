@@ -42,6 +42,7 @@ window.TEMPORADA_CONFIG = {
       productos: [
         { ficha: 'tabla-navidad', nombre: 'Tabla de cocina · Navidad' },
         { ficha: 'adorno-navidad', nombre: 'Adorno · Mi primera Navidad' },
+        { ficha: 'adorno-mascotas', nombre: 'Adorno navideño · Mi peludo' },
         {
           nombre: 'Más cositas navideñas',
           descripcion: 'Estoy preparando nuevas piezas para esta Navidad. Pronto las verás aquí.',
