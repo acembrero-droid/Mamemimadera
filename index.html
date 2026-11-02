@@ -255,7 +255,25 @@
         <a href="detallitos-eventos.html#cajavino">Cajas de vino personalizadas</a>
       </div>
     </li>
-    <li><a href="momento-mimate.html">Momento Mímate</a></li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="huellitas-mamemi.html">Huellitas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Huellitas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="huellitas-mamemi.html#chapas">Chapas con nombre</a>
+        <a href="huellitas-mamemi.html#navidad-peluda">Navidad Peluda</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="momento-mimate.html">Momento Mímate</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Momento Mímate"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="momento-mimate.html">Cantimplora motivacional</a>
+      </div>
+    </li>
     <li class="has-dropdown">
       <div class="nav-item-row">
         <a href="estudio-creativo.html">Estudio Creativo</a>
@@ -556,7 +574,7 @@
       : 'Leer mi historia completa <span class="chev">▾</span>';
   }
   function toggleSubmenu(e, btn) {
-    if (window.innerWidth > 640) return;
+    if (window.innerWidth > 1560) return;   // en pantallas anchas el menú se abre con el ratón; hasta 1560 px es el menú de hamburguesa
     e.preventDefault();
     e.stopPropagation();
     const li = btn.closest('li');
@@ -596,7 +614,7 @@
   });
 </script>
 
-<script src="temporada-config.js?v=20261102"></script>
+<script src="temporada-config.js?v=20261102b"></script>
 <script>
   (function () {
     var c = window.TEMPORADA_CONFIG; if (!c) return;
