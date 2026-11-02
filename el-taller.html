@@ -50,6 +50,18 @@
     .taller-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
     .taller-card img { width: 100%; height: 280px; object-fit: cover; cursor: zoom-in; transition: transform 0.4s; }
     .taller-card:hover img { transform: scale(1.03); }
+
+    /* ── Carrusel de fotos dentro de una entrada ── */
+    .taller-galeria { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--wood-light); }
+    .taller-card .taller-galeria img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; cursor: default; opacity: 0; transition: opacity 0.4s; transform: none; }
+    .taller-card:hover .taller-galeria img { transform: none; }
+    .taller-card .taller-galeria img.activa { opacity: 1; }
+    .galeria-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; border: none; background: rgba(255,255,255,0.85); color: var(--wood-deep); font-size: 1.5rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2); padding: 0 0 3px; }
+    .galeria-btn:hover { background: #fff; }
+    .galeria-prev { left: 10px; } .galeria-next { right: 10px; }
+    .galeria-dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 7px; }
+    .galeria-dots button { width: 9px; height: 9px; border-radius: 50%; border: none; padding: 0; background: rgba(255,255,255,0.6); cursor: pointer; box-shadow: 0 0 3px rgba(0,0,0,0.35); }
+    .galeria-dots button.activa { background: #fff; transform: scale(1.25); }
     .taller-card-body { padding: 1.2rem 1.4rem 1.5rem; }
     .taller-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); margin-bottom: 0.5rem; }
     .taller-card-body p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
@@ -97,6 +109,8 @@
     .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
     .cart-btn:active { outline: none !important; }
   </style>
+  <link rel="icon" type="image/png" href="/images/favicon-mamemi.png">
+  <link rel="apple-touch-icon" href="/images/favicon-mamemi.png">
 </head>
 <body>
 <nav>
@@ -117,6 +131,24 @@
 
 <section class="taller-section">
   <div class="taller-grid">
+
+     <!-- ── NUEVA ENTRADA — copia este bloque, cambia la imagen, el título, la fecha y el texto ── -->
+    <div class="taller-card fade-in">
+      <div class="taller-galeria" aria-roledescription="carrusel" aria-label="Fotos de la noche de Halloween en el Estudio">
+        <img class="activa" src="images/halloween-estudio-familia.jpg" alt="Mi hermana, yo y mi madre en el Estudio decorado para Halloween">
+        <img src="images/halloween-estudio.jpg" alt="El Estudio de MAMEMI decorado para Halloween con guirnaldas, fantasmitas y telarañas" loading="lazy">
+        <img src="images/halloween-estudio-espejo.jpg" alt="Mi hermana disfrazada de Effie frente al espejo, junto a bolsos de corcho y joyitas Mamemi" loading="lazy">
+        <button type="button" class="galeria-btn galeria-prev" aria-label="Foto anterior">‹</button>
+        <button type="button" class="galeria-btn galeria-next" aria-label="Foto siguiente">›</button>
+        <div class="galeria-dots"></div>
+      </div>
+      <div class="taller-card-body">
+        <p class="taller-card-date">2 de noviembre de 2026</p>
+        <h3>Noche de Halloween en el Estudio</h3>
+        <p>La tarde-noche de Halloween el Estudio se llenó de ilusión 🎃 Mi madre me ayudó a decorarlo para la ocasión, y mi hermana me ayudó a repartir chucherías a todas las familias que se acercaron, ¡y se disfrazó de Effie, de Los Juegos del Hambre!✨ Gracias de corazón a todas las personas que os acercasteis y pasasteis a saludarnos. Y también a quienes os llevasteis a casa alguna joyita Mamemi ya puesta: ver cómo las lucís da muchísima ilusión 💛</p>
+      </div>
+    </div>
+    <!-- ── FIN ENTRADA ── -->
 
      <!-- ── NUEVA ENTRADA — copia este bloque, cambia la imagen, el título, la fecha y el texto ── -->
     <div class="taller-card fade-in">
@@ -244,6 +276,26 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
   const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+
+  // ── CARRUSEL DE FOTOS EN LAS ENTRADAS ──
+  document.querySelectorAll('.taller-galeria').forEach(function (g) {
+    var fotos = g.querySelectorAll('img'), dots = g.querySelector('.galeria-dots'), i = 0, x0 = null;
+    fotos.forEach(function (_, n) {
+      var d = document.createElement('button'); d.type = 'button'; d.setAttribute('aria-label', 'Ir a la foto ' + (n + 1));
+      d.onclick = function () { ir(n); }; dots.appendChild(d);
+    });
+    function ir(n) {
+      i = (n + fotos.length) % fotos.length;
+      fotos.forEach(function (f, k) { f.classList.toggle('activa', k === i); });
+      dots.querySelectorAll('button').forEach(function (d, k) { d.classList.toggle('activa', k === i); });
+    }
+    g.querySelector('.galeria-prev').onclick = function () { ir(i - 1); };
+    g.querySelector('.galeria-next').onclick = function () { ir(i + 1); };
+    g.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    g.addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) ir(i + (dx < 0 ? 1 : -1)); x0 = null; });
+    ir(0);
+  });
 
   // ── COMPARTIR ENTRADAS ──
   // Cada tarjeta recibe su propio enlace (#titulo-de-la-entrada). Si quieres un enlace fijo,
