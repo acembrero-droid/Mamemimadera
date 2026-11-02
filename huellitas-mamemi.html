@@ -189,7 +189,7 @@
     <div class="cat-divider"></div>
     <div class="cat-grid hu-cats">
       <a href="#chapas" class="cat-card fade-in visible" id="cat-hu-chapas">
-        <div class="img-wrap"><img src="images/huellitas-chapa-personalizada.jpg?v=20261102c" alt="Perro con una chapa de acero inoxidable con su retrato grabado"></div>
+        <div class="img-wrap"><img src="images/huellitas-chapa-raza.jpg?v=20261102c" alt="Yorkshire con collar rosa y una chapa de acero inoxidable con su nombre grabado"></div>
         <div class="cat-info">
           <h3>Chapas con nombre</h3>
           <p>Nombre, teléfono y el dibujo de tu peludo</p>
@@ -319,10 +319,12 @@
     <p class="section-label">🎄 Navidad</p>
     <h2 class="section-title">Navidad Peluda</h2>
     <div class="cat-divider"></div>
-    <p class="hu-sub">Adornos para el árbol de los peludos de la casa: perros y gatos también tienen su sitio en Navidad.</p>
-    <div class="products-grid hu-uno">
-      <!-- ADORNO NAVIDEÑO PARA MASCOTAS (se define en adorno-mascotas.js) -->
-      <div data-adorno-mascotas></div>
+    <p class="hu-sub">Adornos para el árbol de los peludos de la casa: perros y gatos también tienen su sitio en Navidad. Y si tu compañero es otro, también hay sitio para él.</p>
+    <div class="products-grid">
+      <!-- ADORNOS NAVIDEÑOS PARA PELUDOS (se definen en adorno-mascotas.js) -->
+      <div data-adorno-mascotas="perro"></div>
+      <div data-adorno-mascotas="gato"></div>
+      <div data-adorno-mascotas="otro"></div>
     </div>
     <p class="hu-nota">¿Buscas otra cosa para tu peludo? <a href="https://wa.me/34622562499" target="_blank" rel="noopener">Escríbeme</a> y lo hablamos.</p>
   </div>
@@ -405,7 +407,7 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') window.closeLightbox(); });
 })();
 </script>
-<script src="adorno-mascotas.js?v=20261102c"></script>
+<script src="adorno-mascotas.js?v=20261102d"></script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
 </body>
