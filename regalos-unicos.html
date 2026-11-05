@@ -7,6 +7,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
     .handmade-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; z-index: 2; }
+    /* ── Producto agotado ── */
+    .product-card.agotado .product-img img { filter: grayscale(0.3) brightness(0.95); }
+    .agotado-sign { position: absolute; top: 30px; right: -50px; z-index: 3; width: 210px; transform: rotate(45deg); background: #5a3a1a; text-align: center; padding: 0.38rem 0; border-top: 1.5px dashed rgba(255,255,255,0.65); border-bottom: 1.5px dashed rgba(255,255,255,0.65); box-shadow: 0 3px 10px rgba(0,0,0,0.3); pointer-events: none; }
+    .agotado-title { display: block; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; line-height: 1.15; }
+    .agotado-note { background: #f5e9d6; border: 1.5px solid #d4a96a; border-radius: 12px; padding: 0.9rem 1rem; margin-top: 0.6rem; font-size: 0.82rem; color: #6b4c2a; line-height: 1.65; text-align: center; }
+    .agotado-note strong { color: #5a3a1a; }
+    .btn-agotado { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: #ddd5c6; color: #8a7d6a; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: not-allowed; }
+    .agotado-contact { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .agotado-contact .btn-contact { flex: 1 1 130px; margin-top: 0; }
     :root {
       --wood-light: #f5e9d6; --wood-mid: #d4a96a; --wood-dark: #8b5e3c;
       --wood-deep: #5a3a1a; --mint: #a8c5b5; --mint-light: #e0ede8;
@@ -217,6 +226,8 @@
     @media (min-width: 641px) and (max-width: 900px) { #catGrid .cat-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px) { .rb-vista { padding: 1.5rem 1rem 3rem; } }
   </style>
+  <link rel="icon" type="image/png" href="/images/favicon-mamemi.png">
+  <link rel="apple-touch-icon" href="/images/favicon-mamemi.png">
 </head>
 <body>
 <nav>
@@ -791,21 +802,7 @@
       </div>
     </div>
 
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/collar_luna_negra.jpg')">
-        <img src="images/collar_luna_negra.jpg" alt="Collar Luna Dorada">
-        <span class="handmade-badge">Hecho a mano</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Joyitas Mamemi</p>
-        <h3>Collar Luna Dorada</h3>
-        <p class="product-desc">Collar de bisutería con cadena dorada con delicados detalles en negro y un colgante circular en esmalte negro con una luna dorada en el centro. Una pieza de bisutería hecha a mano de forma artesanal, con un aire místico.</p>
-        <div class="price-block"><div class="price-row"><span>Precio</span><span>18,00 €</span></div></div>
-        <button class="btn-add-cart" onclick="addToCart({id:'collar-luna-negra',name:'Collar Luna Negra',price:18,peso:20,options:{}})">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Collar%20Luna%20Negra" class="btn-contact" target="_blank">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
+
 
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/collar_lagrima.jpg')">
@@ -1767,6 +1764,7 @@
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20disco%20Sant%20Jordi%202026" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
       </div>
     </div>
+
   </div>
   <div class="rb-tambien" id="rb-tambien" style="display:none;">
     <p class="section-label">También te puede gustar</p>
