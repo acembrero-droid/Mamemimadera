@@ -15,6 +15,33 @@
   window.PACK_CONFIG = { minPieces: PACK_MIN_PIECES, discount: PACK_DISCOUNT };
 
   let cart = JSON.parse(localStorage.getItem('mamemi_cart') || '[]');
+  // ── Unidades disponibles ──
+  // Máximo de unidades que se pueden comprar de cada producto (sumando todas sus líneas del carrito).
+  // 0 = agotado (no se puede añadir). Para cambiar las unidades que quedan, toca solo el número.
+  // El id es el que lleva el producto en su botón «Añadir al carrito».
+  const STOCK_LIMITE = {
+    'tabla-mar': 3,
+    'tabla-otono': 3,
+    'collar-luna-negra': 0
+  };
+  window.STOCK_LIMITE = STOCK_LIMITE;
+  function limiteDe(id) { return Object.prototype.hasOwnProperty.call(STOCK_LIMITE, id) ? STOCK_LIMITE[id] : undefined; }
+  function unidadesEnCarrito(id, salvoIndice) { return cart.reduce((n, i, k) => n + (i.id === id && k !== salvoIndice ? i.qty : 0), 0); }
+  // Si alguien tenía en el carrito más unidades de las que quedan (o un producto ya agotado), se ajusta al abrir la web
+  (function ajustarCarritoAlStock() {
+    let cambiado = false;
+    cart = cart.filter(function (i) { if (limiteDe(i.id) === 0) { cambiado = true; return false; } return true; });
+    Object.keys(STOCK_LIMITE).forEach(function (id) {
+      let restante = STOCK_LIMITE[id];
+      cart.forEach(function (i) {
+        if (i.id !== id) return;
+        if (i.qty > restante) { i.qty = restante; cambiado = true; }
+        restante -= i.qty;
+      });
+    });
+    cart = cart.filter(function (i) { return i.qty > 0; });
+    if (cambiado) localStorage.setItem('mamemi_cart', JSON.stringify(cart));
+  })();
   let deliveryMode = localStorage.getItem('mamemi_delivery') || 'domicilio';
   if (deliveryMode === 'envio') deliveryMode = 'domicilio'; // migración de un valor antiguo guardado en el navegador
   let orderRef = localStorage.getItem('mamemi_orderref') || generateRef();
@@ -34,15 +61,23 @@
   }
 
   window.addToCart = function(product) {
+    let cantidad = product.qty || 1;
+    const lim = limiteDe(product.id);
+    if (lim !== undefined) {
+      const disponibles = lim - unidadesEnCarrito(product.id);
+      if (lim === 0) { showCartWarning(product.name + ' está agotado'); return; }
+      if (disponibles <= 0) { showCartWarning('Solo quedan ' + lim + (lim === 1 ? ' unidad' : ' unidades') + ' y ya ' + (lim === 1 ? 'la tienes' : 'las tienes') + ' en el carrito'); return; }
+      if (cantidad > disponibles) { cantidad = disponibles; showCartWarning('Solo quedan ' + lim + (lim === 1 ? ' unidad' : ' unidades') + ': he añadido ' + cantidad); }
+    }
     const existing = cart.find(i => i.id === product.id && JSON.stringify(i.options) === JSON.stringify(product.options));
     if (existing) {
-      existing.qty += (product.qty || 1);
+      existing.qty += cantidad;
     } else {
-      cart.push({ ...product, qty: product.qty || 1 });
+      cart.push({ ...product, qty: cantidad });
     }
     orderRef = generateRef();
     saveCart();
-    showCartNotification(product.name);
+    if (cantidad === (product.qty || 1)) showCartNotification(product.name);
   };
 
   window.removeFromCart = function(index) {
@@ -52,6 +87,11 @@
 
   window.updateQty = function(index, qty) {
     if (qty < 1) { removeFromCart(index); return; }
+    const lim = limiteDe(cart[index].id);
+    if (lim !== undefined) {
+      const maximo = lim - unidadesEnCarrito(cart[index].id, index);
+      if (qty > maximo) { qty = Math.max(1, maximo); showCartWarning('Solo quedan ' + lim + (lim === 1 ? ' unidad' : ' unidades') + ' de este producto'); }
+    }
     cart[index].qty = qty;
     saveCart();
   };
@@ -213,6 +253,19 @@
       b.textContent = count;
       b.style.display = count > 0 ? 'flex' : 'none';
     });
+  }
+
+  function showCartWarning(texto) {
+    let notif = document.getElementById('cart-notif');
+    if (!notif) {
+      notif = document.createElement('div');
+      notif.id = 'cart-notif';
+      document.body.appendChild(notif);
+    }
+    notif.textContent = '⚠ ' + texto;
+    notif.classList.add('show');
+    clearTimeout(notif._t);
+    notif._t = setTimeout(() => notif.classList.remove('show'), 3500);
   }
 
   function showCartNotification(name) {
@@ -542,12 +595,12 @@
           <div class="cart-item-info">
             <p class="cart-item-name">${esc(item.name)}</p>
             ${optStr ? `<div class="cart-item-opts">${optStr}</div>` : ''}
-            <p class="cart-item-price">${item.price.toFixed(2)} € / u</p>
+            <p class="cart-item-price">${item.price.toFixed(2)} € / u${limiteDe(item.id) !== undefined && limiteDe(item.id) > 0 ? ' · <span class="cart-item-stock">Últimas ' + limiteDe(item.id) + ' unidades</span>' : ''}</p>
           </div>
           <div class="cart-item-controls">
             <button onclick="updateQty(${i}, ${item.qty - 1})">−</button>
             <span>${item.qty}</span>
-            <button onclick="updateQty(${i}, ${item.qty + 1})">+</button>
+            <button onclick="updateQty(${i}, ${item.qty + 1})"${limiteDe(item.id) !== undefined && unidadesEnCarrito(item.id) >= limiteDe(item.id) ? ' disabled title="No quedan más unidades"' : ''}>+</button>
             <button class="cart-remove" onclick="removeFromCart(${i})">✕</button>
           </div>
           <p class="cart-item-subtotal">${(item.price * item.qty).toFixed(2)} €</p>
@@ -829,6 +882,8 @@
       .cart-item-controls { display:flex;align-items:center;gap:0.3rem; }
       .cart-item-controls button { background:#f5e9d6;border:none;border-radius:6px;width:26px;height:26px;font-size:0.9rem;cursor:pointer;font-weight:700;color:#5a3a1a; }
       .cart-item-controls button:hover { background:#d4a96a;color:#fff; }
+      .cart-item-controls button:disabled { opacity:0.35;cursor:not-allowed;background:#f5e9d6;color:#5a3a1a; }
+      .cart-item-stock { color:#b5651d;font-weight:700; }
       .cart-item-controls span { font-size:0.85rem;font-weight:700;min-width:20px;text-align:center; }
       .cart-remove { color:#e74c3c !important; }
       .cart-item-subtotal { font-size:0.88rem;font-weight:700;color:#8b5e3c;text-align:right;white-space:nowrap; }
@@ -922,4 +977,18 @@
     checkRetryParam();
   }
 
+
+  // ── Etiquetas «Últimas N unidades» de las páginas, tomadas de STOCK_LIMITE (un solo sitio donde cambiar el número) ──
+  function rellenarEtiquetasStock() {
+    document.querySelectorAll('[data-stock-label]').forEach(function (el) {
+      const n = limiteDe(el.getAttribute('data-stock-label'));
+      if (n === undefined) return;
+      el.textContent = n === 1 ? 'Última unidad' : 'Últimas ' + n + ' unidades';
+    });
+    document.querySelectorAll('[data-stock-n]').forEach(function (el) {
+      const n = limiteDe(el.getAttribute('data-stock-n'));
+      if (n !== undefined) el.textContent = n;
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', rellenarEtiquetasStock); else rellenarEtiquetasStock();
 })();
