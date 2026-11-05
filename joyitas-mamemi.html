@@ -40,6 +40,15 @@
     .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
     .product-card:hover .zoom-icon { opacity: 1; }
     .handmade-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; z-index: 2; }
+    /* ── Producto agotado ── */
+    .product-card.agotado .product-img img { filter: grayscale(0.3) brightness(0.95); }
+    .agotado-sign { position: absolute; top: 30px; right: -50px; z-index: 3; width: 210px; transform: rotate(45deg); background: #5a3a1a; text-align: center; padding: 0.38rem 0; border-top: 1.5px dashed rgba(255,255,255,0.65); border-bottom: 1.5px dashed rgba(255,255,255,0.65); box-shadow: 0 3px 10px rgba(0,0,0,0.3); pointer-events: none; }
+    .agotado-title { display: block; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #fff; line-height: 1.15; }
+    .agotado-note { background: #f5e9d6; border: 1.5px solid #d4a96a; border-radius: 12px; padding: 0.9rem 1rem; margin-top: 0.6rem; font-size: 0.82rem; color: #6b4c2a; line-height: 1.65; text-align: center; }
+    .agotado-note strong { color: #5a3a1a; }
+    .btn-agotado { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: #ddd5c6; color: #8a7d6a; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: not-allowed; }
+    .agotado-contact { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .agotado-contact .btn-contact { flex: 1 1 130px; margin-top: 0; }
     .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
     .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
     .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
@@ -85,6 +94,8 @@
     .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
     .cart-btn:active { outline: none !important; }
   </style>
+  <link rel="icon" type="image/png" href="/images/favicon-mamemi.png">
+  <link rel="apple-touch-icon" href="/images/favicon-mamemi.png">
 </head>
 <body>
 <nav>
@@ -139,21 +150,7 @@
       </div>
     </div>
 
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/collar_luna_negra.jpg')">
-        <img src="images/collar_luna_negra.jpg" alt="Collar Luna Dorada">
-        <span class="handmade-badge">Hecho a mano</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Joyitas Mamemi · Collares</p>
-        <h3>Collar Luna Dorada</h3>
-        <p class="product-desc">Collar de bisutería con cadena dorada con delicados detalles en negro y un colgante circular en esmalte negro con una luna dorada en el centro. Una pieza de bisutería hecha a mano de forma artesanal, con un aire místico.</p>
-        <div class="price-block"><div class="price-row"><span>Precio</span><span>18,00 €</span></div></div>
-        <button class="btn-add-cart" onclick="addToCart({id:'collar-luna-negra',name:'Collar Luna Negra',price:18,peso:20,options:{}})">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Collar%20Luna%20Negra" class="btn-contact" target="_blank">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
+
 
     <div class="product-card fade-in">
       <div class="product-img" onclick="openLightbox('images/collar_lagrima.jpg')">
@@ -180,6 +177,28 @@
       </div>
     </div>
 
+    <div class="product-card agotado fade-in">
+      <div class="product-img" onclick="openLightbox('images/collar_luna_negra.jpg')">
+        <img src="images/collar_luna_negra.jpg" alt="Collar Luna Dorada (agotado)">
+        <span class="handmade-badge">Hecho a mano</span>
+        <div class="agotado-sign"><span class="agotado-title">¡Agotado!</span></div>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Joyitas Mamemi · Collares</p>
+        <h3>Collar Luna Dorada</h3>
+        <p class="product-desc">Collar de bisutería con cadena dorada con delicados detalles en negro y un colgante circular en esmalte negro con una luna dorada en el centro. Una pieza de bisutería hecha a mano de forma artesanal, con un aire místico.</p>
+        <div class="agotado-note">
+          <strong>Este collar está agotado 🌙</strong><br>
+          Si quieres saber si volveré a hacerlo, o te gustaría uno parecido, escríbeme por WhatsApp o por email y te cuento.
+        </div>
+        <button class="btn-agotado" disabled>Agotado</button>
+        <div class="agotado-contact">
+          <a href="https://wa.me/34622562499?text=Hola!%20Quer%C3%ADa%20saber%20si%20vas%20a%20volver%20a%20hacer%20el%20Collar%20Luna%20Dorada" class="btn-contact" target="_blank">WhatsApp</a>
+          <a href="mailto:hola@mamemimadera.es?subject=Collar%20Luna%20Dorada%20agotado" class="btn-contact">Email</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
