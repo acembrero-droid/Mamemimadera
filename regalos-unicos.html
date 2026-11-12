@@ -1794,6 +1794,7 @@
 </div>
 
 <script src="regalos-config.js?v=20261025e"></script>
+<script src="compartir-producto.js?v=20261112a"></script>
 <script>
   function togglePersonalize(btn) {
     const card = btn.closest('.product-card');
@@ -1912,6 +1913,11 @@
         const el = document.getElementById(productoIds[h]);
         if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); el.style.transition = 'box-shadow 0.4s ease'; el.style.boxShadow = '0 0 0 3px var(--mint-dark)'; setTimeout(() => { el.style.boxShadow = ''; }, 2000); }
       }, 150);
+      return;
+    }
+    if (window.mamemiProductoExiste && window.mamemiProductoExiste(h)) {   // enlace directo a un producto (botón Compartir)
+      rbEstado = { todo: true }; rbPintar();
+      setTimeout(() => window.mamemiResaltar(h), 200);
       return;
     }
     rbEstado = null; rbPintar();
