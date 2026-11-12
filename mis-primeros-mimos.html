@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mis Primeros Mimos – MAMEMI Madera</title>
+  <title>Momento Mímate – MAMEMI Madera</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -33,69 +33,64 @@
     .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mint-dark); text-align: center; margin-bottom: 0.5rem; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--wood-deep); text-align: center; margin-bottom: 0.5rem; }
     .cat-divider { width: 50px; height: 2px; background: var(--wood-mid); margin: 0.6rem auto 2.5rem; border-radius: 2px; }
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; max-width: 900px; margin: 0 auto; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
     .cat-card { position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; display: block; }
     .cat-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px var(--shadow); }
-    .cat-card .img-wrap { width: 100%; height: 280px; overflow: hidden; }
+    .cat-card .img-wrap { width: 100%; height: 260px; overflow: hidden; }
     .cat-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .cat-card:hover .img-wrap img { transform: scale(1.07); }
     .cat-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.5rem 1.2rem; background: linear-gradient(to top, rgba(90,58,26,0.88) 0%, rgba(90,58,26,0.4) 60%, transparent 100%); color: #fff; }
-    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
-    .cat-info p { font-size: 0.8rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+    .cat-info h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.25rem; text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+    .cat-info p { font-size: 0.78rem; opacity: 0.9; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
     .cat-arrow { display: inline-block; margin-top: 0.5rem; background: rgba(255,255,255,0.2); border-radius: 30px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 700; backdrop-filter: blur(4px); transition: background 0.25s; }
     .cat-card:hover .cat-arrow { background: var(--mint-dark); }
-    .product-page { display: none; padding: 2rem 1rem 4rem; max-width: 1300px; margin: 0 auto; }
+    .product-page { display: none; padding: 2rem 2rem 4rem; max-width: 1100px; margin: 0 auto; }
     .product-page.active { display: block; }
     .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 1.5px solid var(--wood-mid); color: var(--wood-dark); border-radius: 30px; padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-bottom: 2rem; transition: all 0.2s; font-family: 'Nunito', sans-serif; }
     .back-btn:hover { background: var(--wood-light); }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; align-items: start; }
+    @media (max-width: 640px) {
+      .products-grid { grid-template-columns: 1fr; }
+    }
     .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px var(--shadow); }
-    .product-img { position: relative; overflow: hidden; cursor: zoom-in; background: var(--cream); display: flex; align-items: center; justify-content: center; }
-    .product-img img { width: 100%; height: auto; max-height: 480px; display: block; transition: transform 0.4s; }
-    .product-card:hover .product-img img { transform: scale(1.05); }
+    .product-img { position: relative; height: 250px; overflow: hidden; cursor: zoom-in; }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .product-card:hover .product-img img { transform: scale(1.06); }
     .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
     .product-card:hover .zoom-icon { opacity: 1; }
-    .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+    .personalizable-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
+    .limited-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--wood-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
+    .product-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
     .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
     .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wood-deep); }
-    .product-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
-    .includes-list { background: var(--cream2); border-radius: 10px; border-left: 3px solid var(--mint-dark); padding: 0.7rem 1rem; }
-    .includes-list p { font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.07em; }
-    .includes-list ul { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
-    .includes-list ul li { font-size: 0.8rem; color: var(--text-mid); }
-    .includes-list ul li::before { content: "✦ "; color: var(--mint-dark); font-size: 0.65rem; }
-    .selector-block { background: var(--mint-light); border-radius: 12px; padding: 0.9rem 1rem; border: 1.5px solid var(--mint); }
-    .selector-label { font-size: 0.78rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.5rem; }
-    .selector-block select { width: 100%; padding: 0.5rem 0.75rem; border-radius: 8px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.85rem; color: var(--text); cursor: pointer; outline: none; }
-    .selector-block select:focus { border-color: var(--mint-dark); }
-    .nombre-note { font-size: 0.75rem; color: var(--mint-dark); font-weight: 600; margin-top: 0.4rem; display: none; }
-    .nombre-note.visible { display: block; }
-    .price-block { border-top: 1px dashed var(--wood-light); padding-top: 0.7rem; }
-    .price-display { display: flex; justify-content: space-between; align-items: center; }
-    .price-display .label { font-size: 0.82rem; color: var(--text-mid); }
-    .price-display .amount { font-weight: 700; color: var(--wood-dark); font-size: 1.1rem; }
-    .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
-    .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; cursor: pointer; border: none; width: 100%; font-family: 'Nunito', sans-serif; }
+    .product-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; flex: 1; }
+    .price-block { margin-top: 0.5rem; border-top: 1px dashed var(--wood-light); padding-top: 0.7rem; }
+    .price-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.82rem; color: var(--text-mid); padding: 0.25rem 0; border-bottom: 1px dashed var(--wood-light); }
+    .price-row:last-of-type { border-bottom: none; }
+    .price-row .amount { font-weight: 700; color: var(--wood-dark); font-size: 0.92rem; }
+    .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; line-height: 1.5; }
+    .price-alert { font-size: 0.78rem; color: var(--wood-dark); font-weight: 600; background: var(--wood-light); border-radius: 8px; padding: 0.5rem 0.75rem; margin-top: 0.5rem; line-height: 1.5; }
+    .btn-contact { display: block; text-align: center; margin-top: 0.9rem; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
     .btn-contact:hover { background: var(--mint-dark); }
-    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
-    .opt-row { margin-bottom: 0.5rem; }
-    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
-    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
-    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
-    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
-    .field-required { border-color: var(--wood-dark) !important; }
-    .req-note { font-size: 0.72rem; color: var(--wood-dark); font-weight: 700; margin-bottom: 0.5rem; background: var(--wood-light); border-radius: 8px; padding: 0.4rem 0.7rem; }
-    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
-    .btn-add-cart:hover { background: var(--wood-dark); }
+    .mini-carousel { position: relative; width: 100%; overflow: hidden; }
+    .mini-track { display: flex; transition: transform 0.4s ease; }
+    .mini-track img { width: 100%; height: 250px; object-fit: cover; flex-shrink: 0; cursor: zoom-in; }
+    .mc-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(253,248,240,0.9); border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; cursor: pointer; z-index: 10; box-shadow: 0 2px 8px var(--shadow); }
+    .mc-prev { left: 0.5rem; } .mc-next { right: 0.5rem; }
+    .mc-dots { position: absolute; bottom: 0.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.35rem; }
+    .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: background 0.2s; }
+    .mc-dot.active { background: #fff; }
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.88); align-items: center; justify-content: center; padding: 1rem; }
     .lightbox.active { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
     .lightbox-close { position: fixed; top: 1.2rem; right: 1.5rem; color: #fff; font-size: 2rem; cursor: pointer; background: rgba(255,255,255,0.15); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+    .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 2rem; width: 52px; height: 52px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1001; transition: background 0.2s; }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+    .lightbox-nav.prev { left: 1rem; }
+    .lightbox-nav.next { right: 1rem; }
+    @media (max-width: 640px) { .lightbox-nav { width: 42px; height: 42px; font-size: 1.6rem; } .lightbox-nav.prev { left: 0.4rem; } .lightbox-nav.next { right: 0.4rem; } }
     .lightbox-close:hover { background: rgba(255,255,255,0.3); }
-    .info-banner { background: var(--wood-deep); color: var(--cream); padding: 2rem; text-align: center; }
-    .info-banner p { font-size: 0.88rem; font-weight: 300; line-height: 1.8; }
-    .info-banner strong { color: var(--wood-mid); }
     footer { background: var(--wood-deep); color: rgba(253,248,240,0.4); padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.06); }
     footer img { height: 36px; opacity: 0.6; filter: invert(1); }
     footer a { color: rgba(253,248,240,0.4); text-decoration: none; }
@@ -108,67 +103,112 @@
       .nav-back { font-size: 0.7rem; }
       .nav-cta { padding: 0.45rem 0.8rem !important; font-size: 0.68rem !important; }
       .cart-btn { padding: 0.45rem 0.8rem; font-size: 0.68rem; }
-      .cat-grid { grid-template-columns: 1fr; }
-      .product-img img { max-height: 360px; }
+      .cat-grid, .products-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
     }
     @media (max-width: 380px) { .nav-back { display: none; } }
+    .btn-add-cart { display: block; width: 100%; margin-top: 0.6rem; padding: 0.65rem 1rem; background: var(--mint-dark); color: #fff; border: none; border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; }
+    .btn-add-cart:hover { background: var(--wood-dark); }
+    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.5rem; border: 1.5px solid var(--wood-light); }
+    .opt-row { margin-bottom: 0.5rem; }
+    .opt-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .opt-row select { width: 100%; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--wood-mid); background: #fff; font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; }
+    .opt-row select:focus { border-color: var(--mint-dark); }
+    .opt-input { width: 100%; margin-top: 0.35rem; padding: 0.4rem 0.6rem; border-radius: 7px; border: 1.5px solid var(--mint-dark); font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--text); outline: none; box-sizing: border-box; }
+    .opt-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; color: var(--text-mid); border-top: 1px dashed var(--wood-light); padding-top: 0.5rem; margin-top: 0.3rem; }
+    .opt-price-row strong { color: var(--wood-dark); font-size: 1rem; }
     .cart-btn { background: #6a9e8a; color: #fff; border: none !important; outline: none !important; border-radius: 30px; padding: 0.5rem 1.2rem; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: background 0.25s; letter-spacing: 0.08em; text-transform: uppercase; position: relative; box-shadow: none !important; -webkit-appearance: none; appearance: none; }
     .cart-btn:hover { background: #4d8a72; }
-    .cart-btn:focus { outline: none !important; box-shadow: none !important; }
+    .cart-btn:focus { outline: none !important; box-shadow: none !important; border: none !important; }
     .cart-btn:active { outline: none !important; }
-
-    /* Input styles shared */
-    .data-input { width:100%; padding:0.4rem 0.6rem; border-radius:7px; border:1.5px solid var(--wood-mid); font-family:Nunito,sans-serif; font-size:0.82rem; margin-bottom:0.4rem; box-sizing:border-box; }
-    .data-input:focus { border-color: var(--mint-dark); outline: none; }
-    .muselina-label { font-size: 0.75rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    .muselina-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 0.6rem; }
-    .muselina-swatch { position: relative; border-radius: 10px; overflow: hidden; cursor: pointer; border: 2.5px solid transparent; transition: border-color 0.2s, transform 0.2s; aspect-ratio: 1; }
-    .muselina-swatch img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .muselina-swatch:hover { transform: scale(1.04); }
-    .muselina-swatch.selected { border-color: var(--mint-dark); box-shadow: 0 2px 10px var(--shadow); }
-    .muselina-swatch.selected::after { content: '✓'; position: absolute; top: 3px; right: 3px; background: var(--mint-dark); color: #fff; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; }
-    .muselina-swatch.any-option { background: var(--mint-light); border: 1.5px dashed var(--mint-dark); display: flex; align-items: center; justify-content: center; text-align: center; padding: 0.3rem; }
-    .muselina-swatch.any-option span { font-size: 0.65rem; font-weight: 700; color: var(--wood-dark); line-height: 1.3; }
-    .muselina-name { font-size: 0.72rem; color: var(--text-mid); text-align: center; margin-top: 0.4rem; font-style: italic; }
-    @media (max-width: 480px) { .muselina-grid { grid-template-columns: repeat(4, 1fr); gap: 0.4rem; } }
-    .data-input.error { border-color: #e74c3c !important; background: #fff5f5; }
-
-    /* ── Productos personalizables (Detallitos para bebés) ── */
-    .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.8rem; align-items:start; max-width:1100px; margin:0 auto; }
-    .products-grid .product-img { height:250px; }
-    .t-galeria { position: relative; }
-    .t-galeria.t-gal-cuadrada { height: auto !important; aspect-ratio: 4 / 5; }
-    .t-galeria img { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: cover; opacity: 0; transition: opacity 0.4s; }
-    .t-galeria img.activa { opacity: 1; }
-    .tg-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: rgba(253,248,240,0.9); color: #5a3e2b; font-size: 1.4rem; line-height: 1; cursor: pointer; }
-    .tg-prev { left: 0.6rem; } .tg-next { right: 0.6rem; }
-    .tg-dots { position: absolute; bottom: 0.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 3; }
-    .tg-dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); }
-    .tg-dots span.on { background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.25); }
-    .products-grid .product-img > img { height:100%; object-fit:cover; max-height:none; }
-    .personalizable-badge { position:absolute; top:0.8rem; left:0.8rem; background:var(--mint-dark); color:#fff; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.3rem 0.75rem; border-radius:20px; }
-    .price-row { display:flex; justify-content:space-between; align-items:baseline; font-size:0.82rem; color:var(--text-mid); padding:0.25rem 0; border-bottom:1px dashed var(--wood-light); }
-    .price-row:last-of-type { border-bottom:none; }
-    .price-row .amount { font-weight:700; color:var(--wood-dark); font-size:0.92rem; }
-    .price-alert { font-size:0.78rem; color:var(--wood-dark); font-weight:600; background:var(--wood-light); border-radius:8px; padding:0.5rem 0.75rem; margin-top:0.5rem; line-height:1.5; }
-    .btn-personalize { display:flex; align-items:center; justify-content:center; gap:0.4rem; width:100%; margin-top:0.7rem; padding:0.65rem 1rem; background:#fff; color:var(--wood-dark); border:1.5px solid var(--wood-mid); border-radius:30px; font-family:'Nunito',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; letter-spacing:0.06em; text-transform:uppercase; transition:background 0.2s; }
-    .btn-personalize:hover { background:var(--wood-light); }
-    .btn-personalize .chev { display:inline-block; transition:transform 0.3s ease; font-size:0.7rem; }
-    .product-card.expanded .btn-personalize .chev { transform:rotate(180deg); }
-    .product-card.expanded .btn-personalize { background:var(--wood-light); }
-    .product-collapsible { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows 0.4s ease, opacity 0.3s ease; }
-    .product-collapsible > div { overflow:hidden; }
-    .product-card.expanded .product-collapsible { grid-template-rows:1fr; opacity:1; }
-    .mini-carousel { position:relative; width:100%; overflow:hidden; }
-    .mini-track { display:flex; transition:transform 0.4s ease; }
-    .mini-track img { width:100%; height:250px; max-height:none; object-fit:cover; flex-shrink:0; cursor:zoom-in; }
-    .mc-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(253,248,240,0.9); border:none; border-radius:50%; width:34px; height:34px; font-size:1.1rem; cursor:pointer; z-index:10; box-shadow:0 2px 8px var(--shadow); }
-    .mc-prev { left:0.5rem; } .mc-next { right:0.5rem; }
-    .mc-dots { position:absolute; bottom:0.5rem; left:50%; transform:translateX(-50%); display:flex; gap:0.35rem; }
-    .mc-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.6); cursor:pointer; }
-    .mc-dot.active { background:#fff; }
-    @media (max-width:640px) { .products-grid { grid-template-columns:1fr; } }
+    .btn-personalize { display: flex; align-items: center; justify-content: center; gap: 0.4rem; width: 100%; margin-top: 0.7rem; padding: 0.65rem 1rem; background: #fff; color: var(--wood-dark); border: 1.5px solid var(--wood-mid); border-radius: 30px; font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+    .btn-personalize:hover { background: var(--wood-light); }
+    .btn-personalize .chev { display: inline-block; transition: transform 0.3s ease; font-size: 0.7rem; }
+    .product-card.expanded .btn-personalize .chev { transform: rotate(180deg); }
+    .product-card.expanded .btn-personalize { background: var(--wood-light); }
+    .product-collapsible { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s ease, opacity 0.3s ease; }
+    .product-collapsible > div { overflow: hidden; }
+    .product-card.expanded .product-collapsible { grid-template-rows: 1fr; opacity: 1; }
+  
+    /* ---------- COSITAS DE TEMPORADA ---------- */
+  
+    /* ---------- MOMENTO MÍMATE ---------- */
+    :root { --t-acento: #6a9e8a; --t-suave: #e0ede8; --t-fondo: #fdf8f0; }
+    .mm-card-wrap { max-width: 460px; margin: 0 auto; }
+    .product-card { background: #fff; border-radius: 20px; border: 1.5px solid var(--wood-light); overflow: hidden; box-shadow: 0 4px 20px var(--shadow); display: flex; flex-direction: column; }
+    .product-card > * { min-width: 0; }
+    .mm-card-wrap .product-img { height: auto; position: relative; overflow: hidden; cursor: zoom-in; background: var(--cream); }
+    .mm-card-wrap .product-img img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; display: block; transition: transform 0.4s; }
+    .product-card:hover .product-img img { transform: scale(1.04); }
+    .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
+    .product-card:hover .zoom-icon { opacity: 1; }
+    .product-body { padding: 1.2rem 1.3rem 1.4rem; display: flex; flex-direction: column; gap: 0.7rem; }
+    .product-cat { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mint-dark); }
+    .product-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--wood-deep); }
+    .product-body .mm-desc { font-size: 0.85rem; line-height: 1.75; margin: 0; }
+    .price-block { border-top: 1px dashed var(--wood-light); padding-top: 0.7rem; }
+    .price-display { display: flex; justify-content: space-between; align-items: center; }
+    .price-display .label { font-size: 0.82rem; color: var(--text-mid); }
+    .price-display .amount { font-weight: 700; color: var(--wood-dark); font-size: 1.1rem; }
+    .price-note { font-size: 0.73rem; color: var(--text-mid); font-style: italic; margin-top: 0.4rem; }
+    .product-options { background: var(--cream2); border-radius: 10px; padding: 0.9rem 1rem 0.3rem; border: 1.5px solid var(--wood-light); }
+    .btn-contact { display: block; text-align: center; background: var(--wood-dark); color: #fff; border-radius: 30px; padding: 0.65rem 1rem; text-decoration: none; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.25s; width: 100%; font-family: 'Nunito', sans-serif; }
+    .btn-contact:hover { background: var(--mint-dark); }
+    .mm-wrap { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+    .mm-wrap > * { min-width: 0; }
+    .mm-gal img.mm-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 18px; box-shadow: 0 8px 30px var(--shadow); cursor: zoom-in; display: block; background: var(--t-suave); }
+    .mm-thumbs { display: flex; gap: 0.7rem; margin-top: 0.8rem; }
+    .mm-thumbs button { padding: 0; border: 2px solid transparent; border-radius: 12px; overflow: hidden; width: 72px; height: 72px; cursor: pointer; background: none; opacity: 0.75; }
+    .mm-thumbs button.sel { border-color: var(--t-acento); opacity: 1; }
+    .mm-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mm-info h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--wood-deep); margin-bottom: 0.5rem; }
+    .mm-desc { font-size: 0.92rem; color: var(--text-mid); font-weight: 300; margin-bottom: 1rem; }
+    .mm-price { font-size: 1.5rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 1.2rem; }
+    .mm-price small { font-size: 0.72rem; font-weight: 400; color: var(--text-mid); margin-left: 0.4rem; }
+    .mm-field { margin-bottom: 1.2rem; }
+    .mm-field > label, .mm-field > .mm-q { display: block; font-size: 0.78rem; font-weight: 700; color: var(--wood-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+    .mm-colores { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+    .mm-color { width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border: 2px solid var(--wood-light); background: #fff; border-radius: 50%; cursor: pointer; }
+    .mm-color i { width: 26px; height: 26px; border-radius: 50%; display: block; border: 1px solid rgba(0,0,0,0.15); }
+    .mm-color.sel { border-color: var(--wood-dark); box-shadow: 0 0 0 2px var(--wood-light); }
+    .mm-stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--wood-mid); border-radius: 30px; background: #fff; }
+    .mm-stepper button { width: 38px; height: 38px; border: none; background: none; font-size: 1.2rem; cursor: pointer; color: var(--wood-dark); }
+    .mm-stepper span { min-width: 2rem; text-align: center; font-weight: 700; }
+    .mm-total { margin-left: 0.8rem; font-size: 0.85rem; color: var(--text-mid); }
+    .grabados-titulo { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 0.5rem; }
+    .gr-wrap { position: relative; }
+    .gr-pista { display: flex; gap: 0.6rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 0.2rem 0.1rem 0.6rem; scrollbar-width: thin; }
+    .gr-item { position: relative; flex: 0 0 92px; scroll-snap-align: start; border: 2px solid var(--wood-light); background: #fff; border-radius: 12px; padding: 0.3rem; cursor: pointer; text-align: center; font-family: 'Nunito', sans-serif; transition: border-color 0.2s, background 0.2s; }
+    .gr-item:hover { border-color: var(--t-acento); }
+    .gr-item img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; border-radius: 8px; background: #fff; }
+    .gr-item span { display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-mid); margin-top: 0.25rem; line-height: 1.2; }
+    .gr-item.sel { border-color: var(--t-acento); background: var(--t-suave); }
+    .gr-item.sel span { color: var(--wood-deep); }
+    .gr-item.act { box-shadow: 0 0 0 2px var(--t-acento); }
+    .gr-item.sin-foto { display: flex; align-items: center; justify-content: center; min-height: 64px; }
+    .gr-item.sin-foto span { margin-top: 0; font-size: 0.8rem; }
+    .gr-item.sel .gr-badge, .gr-item .gr-badge { position: absolute; top: 5px; left: 5px; margin: 0; padding: 0 0.4rem; border-radius: 10px; background: var(--t-acento); color: #fff !important; font-size: 0.62rem; line-height: 1.5; z-index: 1; }
+    .gr-flecha { display: none; position: absolute; top: calc(50% - 1.2rem); width: 30px; height: 30px; border: none; border-radius: 50%; background: rgba(90,58,26,0.78); color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; z-index: 2; }
+    .gr-prev { left: -10px; } .gr-next { right: -10px; }
+    @media (hover: hover) and (pointer: fine) { .gr-flecha { display: block; } }
+    .gr-slots { display: none; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+    .gr-slot { border: 1.5px solid var(--wood-light); background: #fff; border-radius: 20px; padding: 0.3rem 0.8rem; font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--text-mid); cursor: pointer; }
+    .gr-slot small { font-size: 0.72rem; font-weight: 400; opacity: 0.85; }
+    .gr-slot.act { border-color: var(--t-acento); background: var(--t-suave); color: var(--wood-deep); }
+    .gr-elegido { font-size: 0.85rem; color: var(--text-mid); margin: 0.2rem 0 0.4rem; }
+    .gr-elegido strong { color: var(--wood-deep); }
+    .gr-ver { background: none; border: none; padding: 0; font-family: inherit; font-size: 0.8rem; font-weight: 700; color: var(--t-acento); text-decoration: underline; cursor: pointer; }
+    .mm-custom { background: var(--t-suave); border-radius: 12px; padding: 0.9rem 1rem; }
+    .mm-custom strong { display: block; color: var(--wood-deep); margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .mm-custom p { font-size: 0.85rem; color: var(--text-mid); font-weight: 300; line-height: 1.6; margin-bottom: 0.7rem; }
+    .mm-custom .mm-custom-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .mm-custom a { display: inline-block; padding: 0.55rem 1.2rem; border-radius: 30px; border: 2px solid var(--wood-dark); color: var(--wood-dark); background: #fff; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+    .mm-custom a:hover { background: var(--wood-dark); color: #fff; }
+    .mm-nota { font-size: 0.8rem; color: var(--text-mid); font-weight: 300; margin-top: 0.5rem; }
+    .mm-nota a { color: var(--t-acento); font-weight: 700; }
+    .mm-msg { color: #b3261e; font-size: 0.85rem; min-height: 1.2rem; margin-bottom: 0.4rem; }
+    .mm-envio { font-size: 0.78rem; color: var(--text-mid); text-align: center; margin-top: 0.6rem; }
+    @media (max-width: 780px) { .mm-wrap { grid-template-columns: 1fr; gap: 1.5rem; } }
   </style>
   <link rel="icon" type="image/png" href="/images/favicon-mamemi.png">
   <link rel="apple-touch-icon" href="/images/favicon-mamemi.png">
@@ -184,663 +224,84 @@
 </nav>
 
 <div class="page-hero">
-  <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Mis Primeros Mimos</p>
-  <h1>Mis Primeros Mimos</h1>
+  <p class="breadcrumb" id="breadcrumb"><a href="index.html">Inicio</a> · Momento Mímate</p>
+  <h1>Momento Mímate</h1>
   <div class="divider"></div>
-  <p>Regalos únicos para bebés listos para sorprender. Conjuntos pensados con mimo donde la delicadeza trasciende gracias al cuidado de cada elemento, desde el primer detalle hasta el último lazo.</p>
+  <p>Cantimplora motivacional que siempre te acompaña: el rato de yoga, el paseo, el día a día. Elige tu color y, si quieres, un diseño grabado.</p>
 </div>
 
-<section class="cat-section" id="catGrid">
-  <p class="section-label">Colecciones</p>
-  <h2 class="section-title">¿Prefieres regalar un pack completo y exclusivo o un detalle único?</h2>
-  <div class="cat-divider"></div>
-  <div class="cat-grid">
-    <a class="cat-card fade-in" onclick="showPage('nacimiento'); return false;" href="#">
-      <div class="img-wrap"><img src="images/pack_lucia.jpg" alt="Packs de nacimiento"></div>
-      <div class="cat-info">
-        <h3>Packs de nacimiento</h3>
-        <p>Packs con cesta de mimbre, de bambú, y más · Todos personalizables</p>
-        <span class="cat-arrow">Ver más →</span>
+<section class="cat-section" id="mm-producto">
+  <div class="mm-card-wrap">
+    <div class="product-card">
+      <div class="product-img" onclick="openLightbox(document.getElementById('mm-foto').src)">
+        <img id="mm-foto" src="" alt="Cantimplora Momento Mímate">
+        <span class="zoom-icon">🔍</span>
       </div>
-    </a>
-    <a class="cat-card fade-in" onclick="showDetalles(); return false;" href="#">
-      <div class="img-wrap"><img src="images/nacimiento.jpg" alt="Detallitos para bebés"></div>
-      <div class="cat-info">
-        <h3>Detallitos para bebés</h3>
-        <p>Placa de nacimiento · Chupetero · Letra 3D · Banderín · Nombre para puerta · Adorno Mi primera Navidad</p>
-        <span class="cat-arrow">Ver más →</span>
+      <div class="product-body">
+        <p class="product-cat">Momento Mímate</p>
+        <h3>Cantimplora · 500 ml</h3>
+        <p class="mm-desc">Cantimplora de 500 ml de acabado mate con tapa y asa de silicona, en rosa fucsia o azul petróleo. Para llevarla contigo a todas partes.</p>
+        <div class="price-block">
+          <div class="price-display"><span class="label">Precio por unidad</span><span class="amount" id="mm-precio">33 €</span></div>
+          <p class="price-note">✦ IVA incluido · Grabado incluido en el precio · Nombre o dedicatoria: +5 €</p>
+        </div>
+        <div class="product-options">
+      <div class="mm-field">
+        <span class="mm-q" id="mm-color-q">Color</span>
+        <div class="mm-colores" id="mm-colores" role="radiogroup" aria-labelledby="mm-color-q"></div>
       </div>
-    </a>
+
+      <div class="mm-field">
+        <span class="mm-q">Cantidad</span>
+        <div class="mm-stepper">
+          <button type="button" id="mm-menos" aria-label="Quitar una">−</button>
+          <span id="mm-cant" aria-live="polite">1</span>
+          <button type="button" id="mm-mas" aria-label="Añadir una">+</button>
+        </div>
+        <span class="mm-total" id="mm-total"></span>
+      </div>
+
+      <div class="mm-field" id="mm-grabado-wrap">
+        <p class="grabados-titulo">Elige tu grabado</p>
+        <div class="gr-slots" id="gr-slots"></div>
+        <div class="gr-wrap">
+          <button type="button" class="gr-flecha gr-prev" id="gr-prev" aria-label="Diseños anteriores">‹</button>
+          <div class="gr-pista" id="gr-pista" role="listbox" aria-label="Diseños de grabado"></div>
+          <button type="button" class="gr-flecha gr-next" id="gr-next" aria-label="Más diseños">›</button>
+        </div>
+        <p class="gr-elegido" id="gr-resumen"></p>
+        <p class="mm-nota" id="mm-grabado-nota"></p>
+      </div>
+
+      <div class="mm-field" id="mm-pers-wrap">
+        <span class="mm-q" id="mm-pers-q">¿Quieres personalizarla?</span>
+        <p class="mm-nota" style="margin:0 0 0.5rem;">Puedes añadir debajo del dibujo tu nombre o el de a quien se la quieres regalar (máximo 3 palabras). <strong>+5 € por unidad.</strong></p>
+        <select class="opt-input" id="mm-pers" style="margin-top:0;">
+          <option value="no">No, solo el dibujo</option>
+          <option value="si">Sí, añadir nombre o dedicatoria (+5 €)</option>
+        </select>
+        <input type="text" class="opt-input" id="mm-pers-txt" maxlength="40" placeholder="ej. Laura" style="display:none;">
+        <p class="mm-nota" id="mm-pers-nota" style="display:none;">Máximo 3 palabras. <span id="mm-pers-cuenta">0</span>/3</p>
+      </div>
+
+        </div>
+      <div class="mm-custom">
+        <strong>¿Quieres una cantimplora totalmente personalizada?</strong>
+        <p>Puedo grabarla con tu propio diseño, frase o nombre. Cuéntame qué tienes en mente y te preparo una propuesta.</p>
+        <div class="mm-custom-btns">
+          <a id="mm-wa" target="_blank" rel="noopener" href="#">WhatsApp</a>
+          <a id="mm-mail" href="#">Email</a>
+        </div>
+      </div>
+
+        <p class="mm-msg" id="mm-msg" role="alert"></p>
+        <button type="button" class="btn-add-cart" id="mm-add">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20cantimplora%20de%20Momento%20M%C3%ADmate" class="btn-contact" target="_blank" rel="noopener" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- PACK REGALO POR NACIMIENTO sub-grid -->
-<div class="product-page" id="page-nacimiento">
-  <button class="back-btn" onclick="showGrid()">← Volver a Mis Primeros Mimos</button>
-  <p class="section-label" style="text-align:center;margin-bottom:0.5rem;">Pack Nacimiento</p>
-  <h2 class="section-title" style="text-align:center;margin-bottom:0.5rem;">Elige tu pack</h2>
-  <div class="cat-divider" style="margin:0.5rem auto 2rem;"></div>
-  <div class="cat-grid" style="max-width:900px;margin:0 auto;">
-    <a class="cat-card fade-in" onclick="showPackPage('ternura');return false;" href="#">
-      <div class="img-wrap"><img src="images/pack_lucia.jpg" alt="Pack Ternura"></div>
-      <div class="cat-info"><h3>Pack Ternura</h3><p>Cesta de mimbre · 68 €</p><span class="cat-arrow">Ver más →</span></div>
-    </a>
-    <a class="cat-card fade-in" onclick="showPackPage('huella');return false;" href="#">
-      <div class="img-wrap"><img src="images/pack_aroa.jpg" alt="Pack Huella"></div>
-      <div class="cat-info"><h3>Pack Huella</h3><p>Caja de bambú · desde 75 €</p><span class="cat-arrow">Ver más →</span></div>
-    </a>
-    <a class="cat-card fade-in" onclick="showPackPage('tesoro');return false;" href="#">
-      <div class="img-wrap"><img src="images/pack_baul.jpg" alt="Pack Tesoro"></div>
-      <div class="cat-info"><h3>Pack Tesoro</h3><p>Baúl de bambú · desde 105 €</p><span class="cat-arrow">Ver más →</span></div>
-    </a>
-  </div>
-</div>
-
-<!-- ── DETALLITOS PARA BEBÉS ── -->
-<div class="product-page" id="page-detalles">
-  <button class="back-btn" onclick="showGrid()">← Volver a Mis Primeros Mimos</button>
-  <p class="section-label" style="text-align:center;margin-bottom:0.5rem;">Personalizables</p>
-  <h2 class="section-title" style="text-align:center;margin-bottom:0.5rem;">Detallitos para bebés</h2>
-  <div class="cat-divider" style="margin:0.5rem auto 2rem;"></div>
-  <div class="products-grid">
-
-    <!-- Adorno Mi primera Navidad -->
-    <div class="product-card fade-in" id="adorno-navidad">
-      <div class="product-img t-galeria t-gal-cuadrada">
-        <img class="activa" src="images/adorno-primera-navidad.jpg" alt="Adorno navideño Mi primera Navidad con toque de color pintado a mano y cuerda verde y roja">
-        <img src="images/adorno-primera-navidad-natural-cat.jpg" alt="Adorno Mi primera Navidad en versión natural, sin color, en catalán, con cuerda de yute" loading="lazy">
-        <img src="images/adorno-primera-navidad-natural-cast.jpg" alt="Adorno Mi primera Navidad en versión natural, sin color, en castellano, con cuerda de yute" loading="lazy">
-        <span class="personalizable-badge">Edición Navidad</span>
-        <button type="button" class="tg-btn tg-prev" aria-label="Foto anterior">‹</button>
-        <button type="button" class="tg-btn tg-next" aria-label="Foto siguiente">›</button>
-        <div class="tg-dots"><span class="on"></span><span></span><span></span></div>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Detallitos para bebés · 🎄 Navidad</p>
-        <h3>Adorno · Mi primera Navidad</h3>
-        <p class="product-desc">Adorno de madera grabado al láser con una corona de acebo y bayas, el calcetín navideño y la frase «Mi primera Navidad». Con el nombre del bebé y el año, y un lazo de cuerda para colgarlo en el árbol, de yute o de hilo verde y rojo, a tu elección. Puedes pedirlo en tono natural o con un toque de color pintado a mano. Un recuerdo para guardar año tras año.</p>
-        <div class="price-block">
-          <div class="price-row"><span>1–5 unidades</span><span class="amount">12 € / u</span></div>
-          <div class="price-row"><span>6 unidades o más</span><span class="amount">10 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Nombre del bebé sin suplemento · Grabar el otro lado con el nombre de quien lo recibe: +3 € / u · Toque de color pintado a mano: +3 € / u</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de grabarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Cantidad:</label>
-            <input type="number" id="adorno-qty" class="opt-input" min="1" value="1" oninput="updateAdorno()">
-            <p class="price-note" id="adorno-tramo" style="margin-top:0.3rem;">1–5 unidades: 12 €/u</p>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Idioma de la frase</label>
-            <select class="opt-input" id="adorno-idioma">
-              <option value="Castellano · Mi primera Navidad">Castellano · «Mi primera Navidad»</option>
-              <option value="Català · El meu primer Nadal">Català · «El meu primer Nadal»</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">¿Qué estilo de cuerda prefieres?</label>
-            <select class="opt-input" id="adorno-cuerda">
-              <option value="Yute">Yute</option>
-              <option value="Cuerda verde y roja">Cuerda verde y roja</option>
-            </select>
-          </div>
-          <div class="opt-row" id="adorno-mismo-wrap" style="display:none;">
-            <label class="opt-label">¿Todos los adornos son para el mismo bebé?</label>
-            <select class="opt-input" id="adorno-mismo" onchange="updateAdorno()">
-              <option value="si">Sí, el mismo bebé</option>
-              <option value="no">No, cada adorno para un bebé distinto</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Nombre del bebé (sin suplemento)</label>
-            <div id="adorno-nombres"></div>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">¿Grabamos también el otro lado con el nombre de a quién va dirigido el adorno? (+3 € / u)</label>
-            <select class="opt-input" id="adorno-otrolado" onchange="updateAdorno()">
-              <option value="no">No, solo una cara</option>
-              <option value="si">Sí, grabar el otro lado (+3 € por unidad)</option>
-            </select>
-          </div>
-          <div class="opt-row" id="adorno-otrolado-wrap" style="display:none;">
-            <label class="opt-label">Nombre de quien recibe el adorno (por el otro lado)</label>
-            <div id="adorno-otros"></div>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">¿Con toque de color pintado a mano? (+3 € / u)</label>
-            <select class="opt-input" id="adorno-color" onchange="updateAdorno()">
-              <option value="no">No, solo grabado</option>
-              <option value="si">Sí, con toque de color (+3 € por unidad)</option>
-            </select>
-            <p class="price-note" id="adorno-color-nota" style="display:none;">Después del pedido te escribo para que me cuentes qué colores prefieres.</p>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong id="adorno-total">12 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartAdorno()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20adorno%20Mi%20primera%20Navidad" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <!-- Placa de nacimiento -->
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/nacimiento.jpg')">
-        <img src="images/nacimiento.jpg" alt="Placa nacimiento">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Detallitos para bebés</p>
-        <h3>Placa de nacimiento</h3>
-        <p class="product-desc">Disco de madera natural grabado al láser con el nombre del bebé, fecha, hora, peso, talla y frase especial. El nombre en 3D con decoración. Un recuerdo único e irrepetible.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Con nombre en 3D y decoración</span><span class="amount">38 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <p class="opt-label" style="margin-bottom:0.6rem;">Datos para la placa:</p>
-          <div class="opt-row"><label class="opt-label">Nombre del bebé</label><input type="text" class="opt-input" id="pnac-m-nombre" placeholder="Nombre del bebé"></div>
-          <div class="opt-row"><label class="opt-label">Nombre de la madre</label><input type="text" class="opt-input" id="pnac-m-madre" placeholder="Nombre de la madre"></div>
-          <div class="opt-row"><label class="opt-label">Nombre del padre</label><input type="text" class="opt-input" id="pnac-m-padre" placeholder="Nombre del padre"></div>
-          <div class="opt-row"><label class="opt-label">Fecha completa de nacimiento</label><input type="text" class="opt-input" id="pnac-m-fecha" placeholder="ej. 22 de febrero de 2026"></div>
-          <div class="opt-row"><label class="opt-label">Hora del nacimiento</label><input type="text" class="opt-input" id="pnac-m-hora" placeholder="ej. 14:15h"></div>
-          <div class="opt-row"><label class="opt-label">Peso al nacer</label><input type="text" class="opt-input" id="pnac-m-peso" placeholder="ej. 3.200 kg"></div>
-          <div class="opt-row"><label class="opt-label">Longitud al nacer</label><input type="text" class="opt-input" id="pnac-m-longitud" placeholder="ej. 50 cm"></div>
-          <div class="opt-row">
-            <label class="opt-label">Color del nombre y estrellitas en 3D</label>
-            <select class="opt-input" id="pnac-m-color">
-              <option value="">Elige color</option>
-              <option value="Verde menta">Verde menta</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Burdeos">Burdeos</option>
-              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-            </select>
-            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong>38 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartPlacaNac('pnac-m')">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20placa%20de%20nacimiento" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <!-- Chupetero -->
-    <div class="product-card fade-in">
-      <div class="product-img" style="position:relative; height:250px;">
-        <div class="mini-carousel">
-          <div class="mini-track" id="chupeteTrack">
-            <img src="images/chupetero1.jpg" alt="Chupetero personalizado oso" onclick="openLightbox(this.src)" style="object-position:center 20%;">
-            <img src="images/chupetero2.jpg" alt="Chupetero personalizado estrella" onclick="openLightbox(this.src)" style="object-position:center 15%;">
-          </div>
-          <button class="mc-btn mc-prev" onclick="moveChupete(-1)">‹</button>
-          <button class="mc-btn mc-next" onclick="moveChupete(1)">›</button>
-          <div class="mc-dots">
-            <div class="mc-dot active" onclick="goChupete(0)"></div>
-            <div class="mc-dot" onclick="goChupete(1)"></div>
-          </div>
-        </div>
-        <span class="personalizable-badge">Personalizable</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Detallitos para bebés</p>
-        <h3>Chupetero personalizado</h3>
-        <p class="product-desc">Sujeta chupetes con combinación de cuentas de silicona y pinza de madera grabada al láser con el nombre o iniciales. Elige la forma de la pinza y la gama cromática de las cuentas para un diseño único.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Con nombre grabado en la pinza</span><span class="amount">20 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Forma de la pinza de madera</label>
-            <select class="opt-input" id="chupetero-forma">
-              <option value="">Elige una forma</option>
-              <option value="Estrella">Estrella</option>
-              <option value="Oso">Oso</option>
-              <option value="Círculo">Círculo</option>
-              <option value="Corazón">Corazón</option>
-              <option value="Pájaro">Pájaro</option>
-              <option value="Erizo">Erizo</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Nombre o iniciales (máx. 7 caracteres)</label>
-            <input type="text" class="opt-input" id="chupetero-nombre" maxlength="7" placeholder="ej. LUCÍA o M&J">
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Gama cromática de las cuentas</label>
-            <select class="opt-input" id="chupetero-gama">
-              <option value="">Elige una gama</option>
-              <option value="Tierra">Tierra</option>
-              <option value="Verdes">Verdes</option>
-              <option value="Amarillos">Amarillos</option>
-              <option value="Azules">Azules</option>
-              <option value="Rosas">Rosas</option>
-              <option value="Naranjas">Naranjas</option>
-              <option value="Morados">Morados</option>
-              <option value="Grises">Grises</option>
-              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-            </select>
-            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20una%20gama%20crom%C3%A1tica%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras la gama que buscas? Escríbeme por WhatsApp y miro si la tengo disponible.</a></p>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong>20 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartChupetero()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20chupetero%20personalizado" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <!-- Letra 3D -->
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/letra3d.jpg')">
-        <img src="images/letra3d.jpg" alt="Letra 3D">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Detallitos para bebés</p>
-        <h3>Letra 3D autoportante</h3>
-        <p class="product-desc">Letra inicial en 3D impresa y acabada a mano, autoportante para colocar donde quieras. Se personaliza con el nombre del destinatario y una decoración sencilla en un segundo color. Perfecta para habitaciones infantiles o como regalo especial.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Con nombre y decoración en otro color</span><span class="amount">42 €</span></div>
-          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarla, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row"><label class="opt-label">Letra inicial</label><input type="text" class="opt-input" id="letra3d-inicial" placeholder="Escribe la letra inicial" maxlength="1" style="text-transform:uppercase;"></div>
-          <div class="opt-row">
-            <label class="opt-label">Color de la letra inicial</label>
-            <select class="opt-input" id="letra3d-color-inicial">
-              <option value="">Elige un color</option>
-              <option value="Verde menta">Verde menta</option>
-              <option value="Rosa pastel">Rosa pastel</option>
-              <option value="Azul clarito">Azul clarito</option>
-              <option value="Amarillo">Amarillo</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Burdeos">Burdeos</option>
-              <option value="Naranja">Naranja</option>
-            </select>
-          </div>
-          <div class="opt-row"><label class="opt-label">Nombre completo</label><input type="text" class="opt-input" id="letra3d-nombre" placeholder="Escribe el nombre completo"></div>
-          <div class="opt-row">
-            <label class="opt-label">Color del nombre</label>
-            <select class="opt-input" id="letra3d-color-nombre">
-              <option value="">Elige un color</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-            </select>
-            <p style="font-size:0.7rem;margin-top:0.3rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          </div>
-          <div class="opt-price-row"><span>Total:</span><strong>42 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartLetra3d()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20una%20letra%203D%20autoportante" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <!-- Banderín de madera -->
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/banderin.jpg')">
-        <img src="images/banderin.jpg" alt="Banderín personalizado">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Detallitos para bebés</p>
-        <h3>Banderín de madera</h3>
-        <p class="product-desc">Guirnalda de banderines de madera cortados al láser con las letras del nombre en relieve con impresión 3D. Perfecto para decorar la habitación del bebé o celebrar cualquier ocasión especial. Puedes añadir también banderines decorativos sin letra en los extremos o como separadores.</p>
-        <div class="price-block">
-          <div class="price-row"><span>Banderín con letra (impresión 3D)</span><span class="amount">4 € / u</span></div>
-          <div class="price-row"><span>Banderín decorativo sin letra</span><span class="amount">2,50 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Mínimo 15 € por guirnalda</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row"><label class="opt-label">Nombre a formar</label><input type="text" class="opt-input" id="banderin-nombre" placeholder="Escribe el nombre" oninput="updateBanderin()"></div>
-          <div class="opt-row">
-            <label class="opt-label">Color de las letras</label>
-            <select class="opt-input" id="banderin-color">
-              <option value="">Elige un color</option>
-              <option value="Verde menta">Verde menta</option>
-              <option value="Rosa pastel">Rosa pastel</option>
-              <option value="Azul clarito">Azul clarito</option>
-              <option value="Amarillo">Amarillo</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Negro">Negro</option>
-              <option value="Burdeos">Burdeos</option>
-              <option value="Naranja">Naranja</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Banderines decorativos sin letra (extremos, separadores...)</label>
-            <select class="opt-input" id="banderin-decorativos" onchange="updateBanderin()">
-              <option value="0">Ninguno</option>
-              <option value="1">1 banderín</option>
-              <option value="2">2 banderines</option>
-              <option value="3">3 banderines</option>
-              <option value="4">4 banderines</option>
-            </select>
-          </div>
-          <div class="opt-row">
-            <label class="opt-label">Banderines con estrella (impresión 3D)</label>
-            <select class="opt-input" id="banderin-estrellas" onchange="updateBanderin()">
-              <option value="0">Ninguno</option>
-              <option value="1">1 banderín</option>
-              <option value="2">2 banderines</option>
-              <option value="3">3 banderines</option>
-              <option value="4">4 banderines</option>
-            </select>
-          </div>
-          <p class="price-note" id="banderin-desglose" style="margin-top:0.2rem;">Escribe el nombre para ver el desglose del precio</p>
-          <div class="opt-price-row"><span>Total:</span><strong id="opt-banderin-total">15 €</strong></div>
-        </div>
-        <button class="btn-add-cart" onclick="addCartBanderin()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20banderín%20de%20madera" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-    <!-- Nombre para puerta -->
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/puerta.jpg')">
-        <img src="images/puerta.jpg" alt="Nombre puerta">
-        <span class="personalizable-badge">Personalizable</span>
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Detallitos para bebés</p>
-        <h3>Nombre para puerta</h3>
-        <p class="product-desc">Nombre en 3D para colgar en la puerta de la habitación. Impreso y acabado a mano, disponible en distintos colores. Un detalle precioso para personalizar cualquier espacio.</p>
-        <div class="price-block">
-          <div class="price-row"><span>1–2 nombres</span><span class="amount">20 € / u</span></div>
-          <div class="price-row"><span>3 o más nombres</span><span class="amount">18 € / u</span></div>
-          <p class="price-note">✦ IVA incluido · Para más de 10 nombres, escríbeme por WhatsApp — cada nombre es 100% personalizado y prefiero verlo contigo antes de dar precio</p>
-        </div>
-        <button class="btn-personalize" onclick="togglePersonalize(this)">Personalizar <span class="chev">▾</span></button>
-        <div class="product-collapsible"><div>
-        <div class="price-alert">✦ Antes de fabricarlo, te envío una propuesta digital del diseño para que me confirmes que es tal y como lo quieres.</div>
-        <div class="product-options">
-          <div class="opt-row">
-            <label class="opt-label">Cantidad de nombres:</label>
-            <input type="number" id="opt-puerta-qty" class="opt-input" min="1" value="1" oninput="updatePuerta()">
-            <p class="price-note" id="puerta-tramo" style="margin-top:0.3rem;">1–2 nombres: 20 €/u</p>
-          </div>
-          <div id="puerta-consulta-wrap" style="display:none;">
-            <div class="price-alert">✦ Para más de 10 nombres prefiero verlo contigo por WhatsApp, ya que cada nombre es 100% personalizado y el precio se ajusta según el pedido.</div>
-            <a id="puerta-consulta-link" href="#" target="_blank" style="display:inline-block;margin-top:0.5rem;color:var(--mint-dark);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--mint-dark);font-size:0.82rem;">Escríbeme por WhatsApp →</a>
-          </div>
-          <div id="puerta-fields">
-          <p class="opt-label" style="margin:0.6rem 0 0.3rem;">Nombre(s) y color de cada uno:</p>
-          <p style="font-size:0.7rem;margin:0 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          <div id="puerta-nombres-wrap">
-            <div class="puerta-nombre-row" style="display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;">
-              <input type="text" class="opt-input puerta-nombre" placeholder="Nombre 1" style="margin:0;">
-              <select class="opt-input puerta-color" style="margin:0;width:130px;">
-                <option value="">Color</option>
-                <option value="Verde menta">Verde menta</option>
-                <option value="Blanco">Blanco</option>
-                <option value="Negro">Negro</option>
-                <option value="Burdeos">Burdeos</option>
-                <option value="Otro (a confirmar por WhatsApp)">Otro (consultar)</option>
-              </select>
-            </div>
-          </div>
-          <div class="opt-price-row" style="margin-top:0.6rem;"><span>Total:</span><strong id="opt-puerta-total">20 €</strong></div>
-          </div>
-        </div>
-        <button class="btn-add-cart" id="puerta-add-btn" onclick="addCartPuertaV2()">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20un%20nombre%20para%20puerta" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-        </div></div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ── PACK TERNURA ── -->
-<div class="product-page" id="page-ternura">
-  <button class="back-btn" onclick="backToNacimiento()">← Volver a Mis Primeros Mimos</button>
-  <div style="max-width:700px;margin:0 auto;">
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pack_lucia.jpg')">
-        <img src="images/pack_lucia.jpg" alt="Pack Ternura cesta mimbre">
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Pack Nacimiento</p>
-        <h3>Pack Ternura · Cesta de mimbre</h3>
-        <p class="product-desc">Un pack de nacimiento con todo lo esencial, presentado en una preciosa cesta de mimbre natural. Se puede incluir una tarjeta con dedicatoria personalizada para que llegue listo para entregar.</p>
-        <div class="includes-list">
-          <p>Incluye:</p>
-          <ul>
-            <li>Cesta de mimbre natural</li>
-            <li>Placa de nacimiento grabada al láser con todos los datos · nombre y estrellitas de decoración impresos en 3D</li>
-            <li>Sonajero de ganchillo con agarre de madera natural</li>
-            <li>Muselina de 22×22 cm</li>
-            <li>Viruta de madera y papel de seda</li>
-            <li>Presentado en papel celofán · listo para entregar en mano o enviar</li>
-            <li>Tarjeta con dedicatoria personalizada (opcional)</li>
-          </ul>
-        </div>
-        <div class="selector-block">
-          <p class="muselina-label">✦ Elige el estampado de la muselina</p>
-          <div class="muselina-grid" id="muselina-grid-ternura">
-            <div class="muselina-swatch selected" data-name="Verde oscuro liso" onclick="selectMuselina('ternura', this)"><img src="images/muselina_verde_oscuro.jpg" alt="Muselina verde oscuro liso"></div>
-            <div class="muselina-swatch" data-name="Blanca con estrellas grises" onclick="selectMuselina('ternura', this)"><img src="images/muselina_estrellas.jpg" alt="Muselina blanca con estrellas grises"></div>
-            <div class="muselina-swatch" data-name="Verde menta liso" onclick="selectMuselina('ternura', this)"><img src="images/muselina_verde_menta.jpg" alt="Muselina verde menta liso"></div>
-            <div class="muselina-swatch" data-name="Gris liso" onclick="selectMuselina('ternura', this)"><img src="images/muselina_gris.jpg" alt="Muselina gris liso"></div>
-            <div class="muselina-swatch" data-name="Dinosaurios Jungla" onclick="selectMuselina('ternura', this)"><img src="images/muselina_dino_jungla.jpg" alt="Muselina dinosaurios jungla"></div>
-            <div class="muselina-swatch" data-name="Estampado Elefante" onclick="selectMuselina('ternura', this)"><img src="images/muselina_elefante.jpg" alt="Muselina estampado elefante"></div>
-            <div class="muselina-swatch" data-name="Dinosaurios" onclick="selectMuselina('ternura', this)"><img src="images/muselina_dino_lineas.jpg" alt="Muselina dinosaurios línea fina"></div>
-            <div class="muselina-swatch" data-name="Ramitas & Frutos" onclick="selectMuselina('ternura', this)"><img src="images/muselina_ramitas_frutos.jpg" alt="Muselina ramitas y frutos"></div>
-            <div class="muselina-swatch any-option" data-name="Me da igual" onclick="selectMuselina('ternura', this)"><span>🤍 Me da igual</span></div>
-          </div>
-          <p class="muselina-name" id="muselina-name-ternura">Seleccionado: Verde oscuro liso</p>
-        </div>
-        <div class="selector-block">
-          <p class="selector-label">Datos para la placa de nacimiento</p>
-          <p class="req-note">⚠️ Los campos marcados con * son obligatorios para poder procesar tu pedido</p>
-          <input type="text" id="tNombre" class="data-input" placeholder="* Nombre del bebé">
-          <input type="text" id="tMadre" class="data-input" placeholder="* Nombre de la madre">
-          <input type="text" id="tPadre" class="data-input" placeholder="* Nombre del padre">
-          <input type="text" id="tFecha" class="data-input" placeholder="* Fecha de nacimiento (ej. 22 de febrero de 2026)">
-          <input type="text" id="tHora" class="data-input" placeholder="* Hora del nacimiento (ej. 14:15h)">
-          <input type="text" id="tPeso" class="data-input" placeholder="* Peso al nacer (ej. 3.200 kg)">
-          <input type="text" id="tAltura" class="data-input" placeholder="* Altura al nacer (ej. 50 cm)">
-          <select id="ternuraColor" class="data-input" style="margin-bottom:0.4rem;">
-            <option value="">* Color del nombre en 3D (obligatorio)</option>
-            <option value="Verde menta">Verde menta</option>
-            <option value="Blanco">Blanco</option>
-            <option value="Negro">Negro</option>
-            <option value="Burdeos">Burdeos</option>
-            <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-          </select>
-          <p style="font-size:0.7rem;margin:-0.1rem 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          <textarea id="tDedicatoria" class="data-input" placeholder="Dedicatoria para la tarjeta (opcional)" rows="2" style="resize:vertical;"></textarea>
-        </div>
-        <div class="price-block">
-          <div class="price-display"><span class="label">Precio</span><span class="amount">68 €</span></div>
-          <p class="price-note">✦ IVA incluido · Gastos de envío incluidos</p>
-        </div>
-        <button class="btn-add-cart" onclick="addCartPack('ternura','Pack Ternura · Cesta de mimbre',68)">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Pack%20Ternura" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── PACK HUELLA ── -->
-<div class="product-page" id="page-huella">
-  <button class="back-btn" onclick="backToNacimiento()">← Volver a Mis Primeros Mimos</button>
-  <div style="max-width:700px;margin:0 auto;">
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pack_aroa.jpg')">
-        <img src="images/pack_aroa.jpg" alt="Pack Huella caja bambú">
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Pack Nacimiento</p>
-        <h3>Pack Huella · Caja de bambú</h3>
-        <p class="product-desc">Todo lo del Pack Ternura presentado en una caja de bambú abierta. <strong>La caja no es solo un envoltorio</strong> — es un elemento decorativo y de almacenaje que quedará en la habitación del bebé durante años.</p>
-        <div class="includes-list">
-          <p>Incluye:</p>
-          <ul>
-            <li>Caja de bambú abierta</li>
-            <li>Placa de nacimiento grabada al láser con todos los datos · nombre y estrellitas de decoración impresos en 3D</li>
-            <li>Sonajero de ganchillo con agarre de madera natural</li>
-            <li>Muselina de 22×22 cm</li>
-            <li>Viruta de madera y papel de seda</li>
-            <li>Presentado en papel celofán · listo para entregar en mano o enviar</li>
-            <li>Tarjeta con dedicatoria personalizada (opcional)</li>
-          </ul>
-        </div>
-        <div class="selector-block">
-          <p class="muselina-label">✦ Elige el estampado de la muselina</p>
-          <div class="muselina-grid" id="muselina-grid-huella">
-            <div class="muselina-swatch selected" data-name="Verde oscuro liso" onclick="selectMuselina('huella', this)"><img src="images/muselina_verde_oscuro.jpg" alt="Muselina verde oscuro liso"></div>
-            <div class="muselina-swatch" data-name="Blanca con estrellas grises" onclick="selectMuselina('huella', this)"><img src="images/muselina_estrellas.jpg" alt="Muselina blanca con estrellas grises"></div>
-            <div class="muselina-swatch" data-name="Verde menta liso" onclick="selectMuselina('huella', this)"><img src="images/muselina_verde_menta.jpg" alt="Muselina verde menta liso"></div>
-            <div class="muselina-swatch" data-name="Gris liso" onclick="selectMuselina('huella', this)"><img src="images/muselina_gris.jpg" alt="Muselina gris liso"></div>
-            <div class="muselina-swatch" data-name="Dinosaurios Jungla" onclick="selectMuselina('huella', this)"><img src="images/muselina_dino_jungla.jpg" alt="Muselina dinosaurios jungla"></div>
-            <div class="muselina-swatch" data-name="Estampado Elefante" onclick="selectMuselina('huella', this)"><img src="images/muselina_elefante.jpg" alt="Muselina estampado elefante"></div>
-            <div class="muselina-swatch" data-name="Dinosaurios" onclick="selectMuselina('huella', this)"><img src="images/muselina_dino_lineas.jpg" alt="Muselina dinosaurios línea fina"></div>
-            <div class="muselina-swatch" data-name="Ramitas & Frutos" onclick="selectMuselina('huella', this)"><img src="images/muselina_ramitas_frutos.jpg" alt="Muselina ramitas y frutos"></div>
-            <div class="muselina-swatch any-option" data-name="Me da igual" onclick="selectMuselina('huella', this)"><span>🤍 Me da igual</span></div>
-          </div>
-          <p class="muselina-name" id="muselina-name-huella">Seleccionado: Verde oscuro liso</p>
-        </div>
-        <div class="selector-block">
-          <p class="selector-label">Datos para la placa de nacimiento</p>
-          <p class="req-note">⚠️ Los campos marcados con * son obligatorios para poder procesar tu pedido</p>
-          <select id="opt-huella-nombre-caja" onchange="updatePackPrice('huella',75)" style="width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1.5px solid var(--wood-mid);background:#fff;font-family:Nunito,sans-serif;font-size:0.85rem;margin-bottom:0.6rem;">
-            <option value="0">Sin nombre en la caja — 75 €</option>
-            <option value="5">Con nombre en 3D en la caja — +5 €</option>
-          </select>
-          <input type="text" id="hNombre" class="data-input" placeholder="* Nombre del bebé">
-          <input type="text" id="hMadre" class="data-input" placeholder="* Nombre de la madre">
-          <input type="text" id="hPadre" class="data-input" placeholder="* Nombre del padre">
-          <input type="text" id="hFecha" class="data-input" placeholder="* Fecha de nacimiento (ej. 22 de febrero de 2026)">
-          <input type="text" id="hHora" class="data-input" placeholder="* Hora del nacimiento (ej. 14:15h)">
-          <input type="text" id="hPeso" class="data-input" placeholder="* Peso al nacer (ej. 3.200 kg)">
-          <input type="text" id="hAltura" class="data-input" placeholder="* Altura al nacer (ej. 50 cm)">
-          <select id="huellaColor" class="data-input" style="margin-bottom:0.4rem;">
-            <option value="">* Color del nombre en 3D (obligatorio)</option>
-            <option value="Verde menta">Verde menta</option>
-            <option value="Blanco">Blanco</option>
-            <option value="Negro">Negro</option>
-            <option value="Burdeos">Burdeos</option>
-            <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-          </select>
-          <p style="font-size:0.7rem;margin:-0.1rem 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          <textarea id="hDedicatoria" class="data-input" placeholder="Dedicatoria para la tarjeta (opcional)" rows="2" style="resize:vertical;"></textarea>
-        </div>
-        <div class="price-block">
-          <div class="price-display"><span class="label">Precio total</span><span class="amount" id="opt-huella-cart-total">75 €</span></div>
-          <p class="price-note">✦ IVA incluido · Gastos de envío incluidos</p>
-        </div>
-        <button class="btn-add-cart" onclick="addCartPack('huella','Pack Huella · Caja de bambú',75)">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Pack%20Huella" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── PACK TESORO ── -->
-<div class="product-page" id="page-tesoro">
-  <button class="back-btn" onclick="backToNacimiento()">← Volver a Mis Primeros Mimos</button>
-  <div style="max-width:700px;margin:0 auto;">
-    <div class="product-card fade-in">
-      <div class="product-img" onclick="openLightbox('images/pack_baul.jpg')">
-        <img src="images/pack_baul.jpg" alt="Pack Tesoro baúl bambú">
-        <span class="zoom-icon">🔍</span>
-      </div>
-      <div class="product-body">
-        <p class="product-cat">Pack Nacimiento</p>
-        <h3>Pack Tesoro · Baúl de bambú</h3>
-        <p class="product-desc">El pack más completo y especial. Todo lo del Pack Huella más los extras más bonitos, presentado en un baúl de bambú que el bebé guardará toda la vida.</p>
-        <div class="includes-list">
-          <p>Incluye:</p>
-          <ul>
-            <li>Baúl de bambú</li>
-            <li>Placa de nacimiento grabada al láser con todos los datos · nombre y estrellitas de decoración impresos en 3D</li>
-            <li>Sonajero de ganchillo con agarre de madera natural</li>
-            <li>Peluche oso doudou</li>
-            <li>Muselina 80×80cm</li>
-            <li>Chocolate Simón Coll para la mamá</li>
-            <li>Viruta de madera y papel de seda</li>
-            <li>Tarjeta con dedicatoria personalizada (opcional)</li>
-            <li>Presentado en papel celofán · listo para entregar en mano o enviar</li>
-          </ul>
-        </div>
-        <div class="selector-block">
-          <p class="muselina-label">✦ Elige el estampado de la muselina (80×80 cm)</p>
-          <div class="muselina-grid" id="muselina-grid-tesoro" style="grid-template-columns: repeat(4, 1fr);">
-            <div class="muselina-swatch selected" data-name="Gris liso" onclick="selectMuselina('tesoro', this)"><img src="images/muselina80_gris.jpg" alt="Muselina 80x80 gris liso"></div>
-            <div class="muselina-swatch" data-name="Blanca con estrellas grises" onclick="selectMuselina('tesoro', this)"><img src="images/muselina80_estrellas.jpg" alt="Muselina 80x80 blanca con estrellas grises"></div>
-            <div class="muselina-swatch" data-name="Ositos paracaidistas" onclick="selectMuselina('tesoro', this)"><img src="images/muselina80_ositos.jpg" alt="Muselina 80x80 ositos paracaidistas"></div>
-            <div class="muselina-swatch any-option" data-name="Me da igual" onclick="selectMuselina('tesoro', this)"><span>🤍 Me da igual</span></div>
-          </div>
-          <p class="muselina-name" id="muselina-name-tesoro">Seleccionado: Gris liso</p>
-        </div>
-        <div class="selector-block">
-          <p class="selector-label">Datos para la placa de nacimiento</p>
-          <p class="req-note">⚠️ Los campos marcados con * son obligatorios para poder procesar tu pedido</p>
-          <select id="opt-tesoro-nombre-baul" onchange="updatePackPrice('tesoro',105)" style="width:100%;padding:0.5rem 0.75rem;border-radius:8px;border:1.5px solid var(--wood-mid);background:#fff;font-family:Nunito,sans-serif;font-size:0.85rem;margin-bottom:0.6rem;">
-            <option value="0">Sin nombre en el baúl — 105 €</option>
-            <option value="5">Con nombre en 3D en el baúl — +5 €</option>
-          </select>
-          <input type="text" id="dNombre" class="data-input" placeholder="* Nombre del bebé">
-          <input type="text" id="dMadre" class="data-input" placeholder="* Nombre de la madre">
-          <input type="text" id="dPadre" class="data-input" placeholder="* Nombre del padre">
-          <input type="text" id="dFecha" class="data-input" placeholder="* Fecha de nacimiento (ej. 22 de febrero de 2026)">
-          <input type="text" id="dHora" class="data-input" placeholder="* Hora del nacimiento (ej. 14:15h)">
-          <input type="text" id="dPeso" class="data-input" placeholder="* Peso al nacer (ej. 3.200 kg)">
-          <input type="text" id="dAltura" class="data-input" placeholder="* Altura al nacer (ej. 50 cm)">
-          <select id="tesoroColor" class="data-input" style="margin-bottom:0.4rem;">
-            <option value="">* Color del nombre en 3D (obligatorio)</option>
-            <option value="Verde menta">Verde menta</option>
-            <option value="Blanco">Blanco</option>
-            <option value="Negro">Negro</option>
-            <option value="Burdeos">Burdeos</option>
-            <option value="Otro color (a confirmar por WhatsApp)">Otro color (te confirmo por WhatsApp)</option>
-          </select>
-          <p style="font-size:0.7rem;margin:-0.1rem 0 0.4rem;"><a href="https://wa.me/34622562499?text=Hola!%20Quiero%20preguntar%20por%20un%20color%20que%20no%20veo%20en%20las%20opciones%20de%20la%20web%2C%20%C2%BFest%C3%A1%20disponible%3F" target="_blank" style="color:var(--mint-dark);font-style:italic;">¿No encuentras el color que buscas? Escríbeme por WhatsApp y miro si lo tengo disponible.</a></p>
-          <textarea id="dDedicatoria" class="data-input" placeholder="Dedicatoria para la tarjeta (opcional)" rows="2" style="resize:vertical;"></textarea>
-        </div>
-        <div class="price-block">
-          <div class="price-display"><span class="label">Precio total</span><span class="amount" id="opt-tesoro-cart-total">105 €</span></div>
-          <p class="price-note">✦ IVA incluido · Gastos de envío incluidos · Listo para entregar</p>
-        </div>
-        <button class="btn-add-cart" onclick="addCartPack('tesoro','Pack Tesoro · Baúl de bambú',105)">Añadir al carrito</button>
-        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20el%20Pack%20Tesoro" class="btn-contact" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="info-banner">
-  <p>✦ Todos los precios incluyen IVA · Realizo envíos a toda España ✦<br>
-  ¿Tienes dudas? Escríbeme a <strong>hola@mamemimadera.es</strong> o por <a href="https://wa.me/34622562499" target="_blank" style="color:var(--wood-mid);font-weight:700;">WhatsApp</a></p>
-  <p style="font-size:0.74rem;font-weight:300;font-style:italic;opacity:0.75;margin-top:0.6rem;">✦ Cada pieza es única, al trabajar con madera natural, los tonos y vetas pueden variar ligeramente respecto a las fotos ✦</p>
-</div>
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
@@ -848,437 +309,194 @@
   <span><a href="aviso-legal.html">Aviso legal</a> · <a href="politica-privacidad.html">Privacidad</a> · <a href="politica-cookies.html">Cookies</a> · <a href="condiciones-contratacion.html">Condiciones</a> · <a href="condiciones-contratacion.html#devoluciones">Devoluciones</a> · <a href="#" id="open-cookie-config">Configurar cookies</a></span>
 </footer>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
-  <img id="lightbox-img" src="" alt="">
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <span class="lightbox-close" onclick="closeLightbox(event)">✕</span>
+  <button class="lightbox-nav prev" id="lightbox-prev" onclick="lightboxMove(event, -1)" style="display:none;">‹</button>
+  <button class="lightbox-nav next" id="lightbox-next" onclick="lightboxMove(event, 1)" style="display:none;">›</button>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
+<script src="momento-mimate-config.js?v=20261025f"></script>
 <script>
-  function showPage(id) {
-    document.getElementById('catGrid').style.display = 'none';
-    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + id).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Mis Primeros Mimos</a> · Pack Nacimiento';
+(function () {
+  var cfg = window.MOMENTO_MIMATE, $ = function (id) { return document.getElementById(id); };
+  var MAX = 20, qty = 1, activo = 0;
+  var asign = [cfg.disenos[0].id];      // asign[i] = diseño de la cantimplora i+1 ('' = sin grabado); si no se elige, lleva el de la 1
+  var elegida = [];      // elegida[i] = true cuando el cliente ha escogido el diseño de esa cantimplora
+  var modos = [], textos = [];   // personalización por unidad: 'no' | 'si' + texto (máx. 3 palabras)
+  var colores = [];      // colores[i]; si no se elige, lleva el de la 1
+  var pista = $('gr-pista');
+  var DIS = cfg.disenos;
+  function col(id) { return cfg.colores.filter(function (c) { return c.id === id; })[0]; }
+  function buscar(id) { return DIS.filter(function (d) { return d.id === id; })[0] || DIS[0]; }
+  function efectivo(i) { return (i > 0 && !elegida[i]) ? asign[0] : asign[i]; }
+  function color(i) { return colores[i] || colores[0] || cfg.colores[0].id; }
+  function primeraSinElegir() { for (var i = 0; i < qty; i++) if (!elegida[i]) return i; return -1; }
+  function usados() { var u = []; for (var i = 0; i < qty; i++) { var id = efectivo(i); if (u.indexOf(id) < 0) u.push(id); } return u; }
+  function pers(i) { return modos[i] === 'si' ? (textos[i] || '').trim().replace(/\s+/g, ' ') : ''; }
+  function unit(i) { return cfg.precio + (cfg.recargoGrabado || 0) + (modos[i] === 'si' ? (cfg.recargoNombre || 0) : 0); }
+  function palabras(t) { t = t.trim(); return t ? t.split(/\s+/).length : 0; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  if (cfg.disenos.length) document.querySelector('.mm-desc').textContent += ' Puedes elegir un grabado entre los diseños de Momento Mímate.';
+
+  // colores + miniaturas
+  cfg.colores.forEach(function (c) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'mm-color'; b.dataset.c = c.id; b.setAttribute('role', 'radio');
+    b.innerHTML = '<i style="background:' + c.hex + '"></i>'; b.title = c.nombre; b.setAttribute('aria-label', c.nombre);
+    b.onclick = function () { colores[activo] = c.id; $('mm-msg').textContent = ''; pintar(); };
+    $('mm-colores').appendChild(b);
+  });
+
+  var txt = 'Hola, estaba viendo Momento Mímate en tu web y me gustaría una cantimplora totalmente personalizada. Mi idea es: ';
+  var wa = 'https://wa.me/34622562499?text=' + encodeURIComponent(txt);
+  $('mm-wa').href = wa;
+  $('mm-mail').href = 'mailto:hola@mamemimadera.es?subject=' + encodeURIComponent('Cantimplora personalizada · Momento Mímate') + '&body=' + encodeURIComponent(txt);
+  $('mm-grabado-nota').innerHTML = (cfg.recargoGrabado ? 'Grabado: +' + cfg.recargoGrabado + ' € por unidad. ' : 'Grabado incluido en el precio. ') + 'Te confirmaré el diseño antes de grabarlo.';
+
+  function pintarSlots() {
+    var cont = $('gr-slots'); cont.innerHTML = '';
+    cont.style.display = qty > 1 ? 'flex' : 'none';
+    for (var i = 0; i < qty; i++) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'gr-slot' + (i === activo ? ' act' : ''); b.dataset.i = i;
+      b.appendChild(document.createTextNode('Cantimplora ' + (i + 1) + ': '));
+      var s = document.createElement('small');
+      s.textContent = buscar(efectivo(i)).nombre + ((i > 0 && !elegida[i]) ? ' (como la 1)' : '') + ' · ' + col(color(i)).nombre + (modos[i] === 'si' ? (pers(i) ? ' · con nombre' : ' · falta el texto') : '');
+      b.appendChild(s); cont.appendChild(b);
+    }
   }
-  function showPackPage(id) {
-    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + id).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    const names = {ternura:'Pack Ternura', huella:'Pack Huella', tesoro:'Pack Tesoro'};
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Mis Primeros Mimos</a> · <a href="#" onclick="backToNacimiento();return false;">Pack Nacimiento</a> · ' + names[id];
+  function pintarTira(enfocar) {
+    var u = usados();
+    var orden = u.map(buscar).concat(DIS.filter(function (d) { return u.indexOf(d.id) < 0; }));
+    var idAct = efectivo(activo);
+    pista.innerHTML = '';
+    orden.forEach(function (d) {
+      var usado = u.indexOf(d.id) >= 0;
+      var b = document.createElement('button'); b.type = 'button';
+      b.className = 'gr-item' + (usado ? ' sel' : '') + (d.id === idAct ? ' act' : '') + (d.imagen ? '' : ' sin-foto');
+      b.setAttribute('role', 'option'); b.setAttribute('aria-selected', usado ? 'true' : 'false'); b.dataset.id = d.id;
+      if (qty > 1 && usado) {
+        var nums = []; for (var i = 0; i < qty; i++) if (efectivo(i) === d.id) nums.push(i + 1);
+        var bd = document.createElement('span'); bd.className = 'gr-badge'; bd.textContent = nums.join('·'); b.appendChild(bd);
+      }
+      if (d.imagen) { var img = document.createElement('img'); img.src = d.imagen; img.alt = 'Diseño ' + d.nombre; b.appendChild(img); }
+      var t = document.createElement('span'); t.textContent = d.nombre; b.appendChild(t);
+      pista.appendChild(b);
+      if (enfocar && d.id === idAct) b.focus({ preventScroll: true });
+    });
+    if (pista.scrollTo) pista.scrollTo({ left: 0 }); else pista.scrollLeft = 0;
   }
-  function backToNacimiento() {
-    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-nacimiento').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Mis Primeros Mimos</a> · Pack Nacimiento';
+  function pintarResumen() {
+    var d = buscar(efectivo(activo));
+    var ver = d.imagen ? ' · <button type="button" class="gr-ver">Ver grande</button>' : '';
+    $('gr-resumen').innerHTML = qty === 1
+      ? 'Grabado elegido: <strong>' + esc(d.nombre) + '</strong>' + ver
+      : 'Toca un diseño para la <strong>Cantimplora ' + (activo + 1) + '</strong>. Las que no elijas llevarán el mismo que la 1.' + ver;
   }
-  function showGrid() {
-    document.getElementById('catGrid').style.display = 'block';
-    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · Mis Primeros Mimos';
+  function pintar(enfocar) {
+    var c = col(color(activo));
+    $('mm-foto').src = c.foto; $('mm-foto').alt = 'Cantimplora Momento Mímate en ' + c.nombre.toLowerCase();
+    $('mm-color-q').textContent = (qty === 1 ? '' : 'Cantimplora ' + (activo + 1) + ' · ') + 'Color: ' + c.nombre;
+    Array.prototype.forEach.call($('mm-colores').children, function (b) { var s = b.dataset.c === color(activo); b.classList.toggle('sel', s); b.setAttribute('aria-checked', s); });
+    $('mm-cant').textContent = qty;
+    $('mm-menos').disabled = qty <= 1; $('mm-mas').disabled = qty >= MAX;
+    var suma = 0; for (var i = 0; i < qty; i++) suma += unit(i);
+    $('mm-precio').textContent = (qty === 1 ? suma : cfg.precio) + ' €';
+    $('mm-total').textContent = qty > 1 ? 'Total: ' + suma + ' €' : '';
+    var pq = (qty === 1 ? '' : 'Cantimplora ' + (activo + 1) + ' · ') + '¿Quieres personalizarla?';
+    $('mm-pers-q').textContent = pq;
+    $('mm-pers').value = modos[activo] || 'no';
+    $('mm-pers-txt').style.display = $('mm-pers-nota').style.display = modos[activo] === 'si' ? '' : 'none';
+    $('mm-pers-txt').value = textos[activo] || '';
+    $('mm-pers-cuenta').textContent = palabras($('mm-pers-txt').value);
+    pintarSlots(); pintarTira(enfocar); pintarResumen();
   }
 
-  function updatePackPrice(prefix, base) {
-    const sel = document.getElementById('opt-' + prefix + '-nombre-baul') || document.getElementById('opt-' + prefix + '-nombre-caja');
-    const extra = sel ? parseFloat(sel.value) || 0 : 0;
-    const el = document.getElementById('opt-' + prefix + '-cart-total');
-    if (el) el.textContent = (base + extra).toFixed(0) + ' €';
-  }
+  pista.addEventListener('click', function (e) {
+    var b = e.target.closest('.gr-item'); if (!b) return;
+    asign[activo] = b.dataset.id; elegida[activo] = true;
+    if (qty > 1) { var sig = primeraSinElegir(); if (sig >= 0) activo = sig; }
+    pintar(true);
+  });
+  $('gr-slots').addEventListener('click', function (e) {
+    var b = e.target.closest('.gr-slot'); if (!b) return;
+    activo = parseInt(b.dataset.i, 10); pintar();
+  });
+  $('mm-pers').addEventListener('change', function () {
+    modos[activo] = this.value; $('mm-msg').textContent = '';
+    if (this.value === 'si') $('mm-pers-txt').focus();
+    pintar();
+  });
+  $('mm-pers-txt').addEventListener('input', function () {
+    var w = this.value.replace(/^\s+/, '').split(/\s+/);
+    if (w.length > 3) this.value = w.slice(0, 3).join(' ');
+    textos[activo] = this.value; $('mm-msg').textContent = '';
+    $('mm-pers-cuenta').textContent = palabras(this.value);
+    pintarSlots();
+  });
+  $('mm-menos').onclick = function () { if (qty > 1) { qty--; if (activo >= qty) activo = qty - 1; pintar(); } };
+  $('mm-mas').onclick = function () { if (qty < MAX) { qty++; var sig = primeraSinElegir(); activo = sig >= 0 ? sig : qty - 1; pintar(); } };
+  $('gr-prev').onclick = function () { pista.scrollBy({ left: -200 }); };
+  $('gr-next').onclick = function () { pista.scrollBy({ left: 200 }); };
+  $('gr-resumen').addEventListener('click', function (e) {
+    if (!e.target.closest('.gr-ver')) return;
+    var d = buscar(efectivo(activo)); if (d.imagen) window.openLightbox(d.imagen);
+  });
 
-  // ── VALIDACIÓN Y AÑADIR AL CARRITO ──
-  const packFields = {
-    ternura: { nombre:'tNombre', madre:'tMadre', padre:'tPadre', fecha:'tFecha', hora:'tHora', peso:'tPeso', altura:'tAltura', color:'ternuraColor' },
-    huella:  { nombre:'hNombre', madre:'hMadre', padre:'hPadre', fecha:'hFecha', hora:'hHora', peso:'hPeso', altura:'hAltura', color:'huellaColor' },
-    tesoro:  { nombre:'dNombre', madre:'dMadre', padre:'dPadre', fecha:'dFecha', hora:'dHora', peso:'dPeso', altura:'dAltura', color:'tesoroColor' }
+  $('mm-add').onclick = function () {
+    if (typeof window.addToCart !== 'function') { $('mm-msg').textContent = 'No se ha podido añadir al carrito. Recarga la página e inténtalo de nuevo.'; return; }
+    for (var j = 0; j < qty; j++) {
+      if (modos[j] === 'si' && !pers(j)) {
+        activo = j; pintar(); $('mm-pers-txt').focus();
+        $('mm-msg').textContent = (qty > 1 ? 'Cantimplora ' + (j + 1) + ': escribe' : 'Escribe') + ' el nombre o la dedicatoria que quieres grabar, o elige «No».';
+        return;
+      }
+    }
+    $('mm-msg').textContent = '';
+    var g = {}, orden = [];
+    for (var i = 0; i < qty; i++) {
+      var d = buscar(efectivo(i)), c = col(color(i)), t = pers(i), k = d.id + '|' + c.id + '|' + t;
+      if (!g[k]) { g[k] = { grabado: d.nombre, color: c.nombre, texto: t, price: unit(i), qty: 0 }; orden.push(k); }
+      g[k].qty++;
+    }
+    orden.forEach(function (k) {
+      var l = g[k];
+      var op = { 'Color': l.color, 'Grabado': l.grabado }; if (l.texto) op['Nombre o dedicatoria'] = l.texto;
+      window.addToCart({ id: 'momento-mimate-cantimplora', name: 'Momento Mímate · Cantimplora 500 ml', price: l.price, qty: l.qty, options: op });
+    });
   };
 
-  const muselinaSelection = { ternura: 'Verde oscuro liso', huella: 'Verde oscuro liso', tesoro: 'Gris liso' };
-  function selectMuselina(prefix, el) {
-    const grid = document.getElementById('muselina-grid-' + prefix);
-    if (grid) grid.querySelectorAll('.muselina-swatch').forEach(s => s.classList.remove('selected'));
-    el.classList.add('selected');
-    const name = el.dataset.name;
-    muselinaSelection[prefix] = name;
-    const label = document.getElementById('muselina-name-' + prefix);
-    if (label) label.textContent = 'Seleccionado: ' + name;
-  }
-
-  function addCartPack(prefix, baseName, basePrice) {
-    const fields = packFields[prefix];
-    const vals = {};
-    let errors = [];
-
-    // Clear previous errors
-    Object.values(fields).forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.classList.remove('error');
-    });
-
-    // Validate required fields
-    const labels = { nombre:'Nombre del bebé', madre:'Nombre de la madre', padre:'Nombre del padre', fecha:'Fecha de nacimiento', hora:'Hora de nacimiento', peso:'Peso al nacer', altura:'Altura al nacer', color:'Color del nombre en 3D' };
-    Object.entries(fields).forEach(([key, id]) => {
-      const el = document.getElementById(id);
-      const val = el ? el.value.trim() : '';
-      if (!val) {
-        errors.push(labels[key]);
-        if (el) el.classList.add('error');
-      } else {
-        vals[labels[key]] = val;
-      }
-    });
-
-    if (errors.length > 0) {
-      alert('Por favor rellena los siguientes campos obligatorios:\n\n• ' + errors.join('\n• '));
-      return;
-    }
-
-    // Get optional dedicatoria
-    const dedicatoriaId = prefix === 'ternura' ? 'tDedicatoria' : prefix === 'huella' ? 'hDedicatoria' : 'dDedicatoria';
-    const dedicatoria = document.getElementById(dedicatoriaId)?.value.trim();
-    if (dedicatoria) vals['Dedicatoria'] = dedicatoria;
-
-    // Muselina estampado seleccionado
-    if (muselinaSelection[prefix]) vals['Muselina'] = muselinaSelection[prefix];
-
-    // Extra price for nombre en caja/baúl
-    const selExtra = document.getElementById('opt-' + prefix + '-nombre-baul') || document.getElementById('opt-' + prefix + '-nombre-caja');
-    const extra = selExtra ? parseFloat(selExtra.value) || 0 : 0;
-    const price = basePrice + extra;
-    if (extra > 0) vals['Nombre en ' + (prefix === 'tesoro' ? 'baúl' : 'caja')] = 'Sí (+5 €)';
-
-    addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: vals });
-  }
-
-  document.addEventListener('click', function (e) {
-    var g = e.target.closest && e.target.closest('.t-galeria'); if (!g) return;
-    var imgs = g.querySelectorAll('img'), dots = g.querySelectorAll('.tg-dots span'), i = 0;
-    imgs.forEach(function (im, k) { if (im.classList.contains('activa')) i = k; });
-    var btn = e.target.closest('.tg-btn');
-    if (!btn) { openLightbox(imgs[i].getAttribute('src')); return; }
-    var n = (i + (btn.classList.contains('tg-next') ? 1 : -1) + imgs.length) % imgs.length;
-    imgs.forEach(function (im, k) { im.classList.toggle('activa', k === n); });
-    dots.forEach(function (d, k) { d.classList.toggle('on', k === n); });
-  });
-  function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
-  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  // ampliar foto
+  window.openLightbox = function (src) { $('lightbox-img').src = src; $('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; };
+  window.closeLightbox = function (e) { if (e) e.stopPropagation(); $('lightbox').classList.remove('active'); document.body.style.overflow = ''; };
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') window.closeLightbox(); });
+  pintar();
+})();
 </script>
 <script src="cookies-banner.js"></script>
-<script>
-  // ── BOTÓN FLOTANTE VOLVER (solo móvil) ──
-  const floatBtn = document.createElement('button');
-  floatBtn.id = 'float-back-btn';
-  floatBtn.innerHTML = '← Volver';
-  floatBtn.style.cssText = `
-    display:none;position:fixed;bottom:1.2rem;left:1rem;z-index:300;
-    background:#fff;border:1.5px solid #d4a96a;color:#8b5e3c;
-    border-radius:30px;padding:0.5rem 1.1rem;font-family:'Nunito',sans-serif;
-    font-size:0.78rem;font-weight:700;cursor:pointer;
-    box-shadow:0 4px 16px rgba(90,58,26,0.18);letter-spacing:0.06em;
-  `;
-  document.body.appendChild(floatBtn);
-
-  // Cada nivel tiene su propia acción de volver
-  const floatConfig = {
-    'page-nacimiento': () => showGrid(),
-    'page-ternura':    () => backToNacimiento(),
-    'page-huella':     () => backToNacimiento(),
-    'page-tesoro':     () => backToNacimiento(),
-    'page-detalles':   () => showGrid(),
-  };
-
-  function updateFloatBtn() {
-    const isMobile = window.innerWidth <= 640;
-    let activeAction = null;
-    if (isMobile) {
-      for (const [id, fn] of Object.entries(floatConfig)) {
-        const el = document.getElementById(id);
-        if (el && el.classList.contains('active')) { activeAction = fn; break; }
-      }
-    }
-    floatBtn.style.display = activeAction ? 'block' : 'none';
-    floatBtn.onclick = activeAction || null;
-  }
-
-  const observer = new MutationObserver(updateFloatBtn);
-  Object.keys(floatConfig).forEach(id => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el, { attributes: true, attributeFilter: ['class'] });
-  });
-  window.addEventListener('resize', updateFloatBtn);
-  updateFloatBtn();
-</script>
-<script>
-  // ── DETALLITOS PARA BEBÉS ──
-  function showDetalles() {
-    document.getElementById('catGrid').style.display = 'none';
-    document.querySelectorAll('.product-page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-detalles').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('breadcrumb').innerHTML = '<a href="index.html">Inicio</a> · <a href="#" onclick="showGrid();return false;">Mis Primeros Mimos</a> · Detallitos para bebés';
-  }
-
-  function togglePersonalize(btn) {
-    const card = btn.closest('.product-card');
-    card.classList.toggle('expanded');
-    if (card.classList.contains('expanded')) {
-      btn.childNodes[0].textContent = 'Ocultar personalización ';
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    } else {
-      btn.childNodes[0].textContent = 'Personalizar ';
-    }
-  }
-
-  // Carrusel del chupetero
-  let chupeteIdx = 0;
-  function moveChupete(dir) { chupeteIdx = (chupeteIdx + dir + 2) % 2; goChupete(chupeteIdx); }
-  function goChupete(i) {
-    chupeteIdx = i;
-    const track = document.getElementById('chupeteTrack');
-    track.style.transform = `translateX(-${i * 100}%)`;
-    track.closest('.mini-carousel').querySelectorAll('.mc-dot').forEach((d, j) => d.classList.toggle('active', j === i));
-  }
-  setInterval(() => moveChupete(1), 3500);
-
-  // Placa de nacimiento
-  function addCartPlacaNac(prefix) {
-    const nombre = document.getElementById(prefix + '-nombre')?.value.trim();
-    if (!nombre) { alert('Por favor escribe el nombre del bebé.'); return; }
-    const opts = {};
-    ['nombre','madre','padre','fecha','hora','peso','longitud'].forEach(f => {
-      const v = document.getElementById(prefix + '-' + f)?.value.trim();
-      if (v) opts[f.charAt(0).toUpperCase() + f.slice(1)] = v;
-    });
-    const color = document.getElementById(prefix + '-color')?.value;
-    if (color) opts['Color 3D'] = color;
-    addToCart({ id: 'placa-nac-' + Date.now(), name: 'Placa de nacimiento', price: 38, peso: 160, options: opts });
-  }
-
-  // Chupetero
-  function addCartChupetero() {
-    const forma = document.getElementById('chupetero-forma')?.value;
-    const nombre = document.getElementById('chupetero-nombre')?.value.trim();
-    const gama = document.getElementById('chupetero-gama')?.value;
-    if (!forma) { alert('Por favor elige la forma de la pinza de madera.'); return; }
-    if (!nombre) { alert('Por favor escribe el nombre o iniciales (máx. 7 caracteres).'); return; }
-    if (!gama) { alert('Por favor elige la gama cromática de las cuentas.'); return; }
-    const opts = { 'Forma de la pinza': forma, 'Nombre / iniciales': nombre, 'Gama cromática': gama };
-    addToCart({ id: 'chupetero-' + Date.now(), name: 'Chupetero personalizado', price: 20, peso: 25, options: opts });
-  }
-
-  // Letra 3D
-  function addCartLetra3d() {
-    const inicial = document.getElementById('letra3d-inicial')?.value.trim().toUpperCase();
-    const colorInicial = document.getElementById('letra3d-color-inicial')?.value;
-    const nombre = document.getElementById('letra3d-nombre')?.value.trim();
-    const colorNombre = document.getElementById('letra3d-color-nombre')?.value;
-    if (!inicial) { alert('Por favor escribe la letra inicial.'); return; }
-    if (!colorInicial) { alert('Por favor elige el color de la letra inicial.'); return; }
-    if (!nombre) { alert('Por favor escribe el nombre completo.'); return; }
-    if (!colorNombre) { alert('Por favor elige el color del nombre.'); return; }
-    addToCart({ id: 'letra3d-' + Date.now(), name: 'Letra 3D autoportante', price: 42, peso: 40, options: { 'Letra inicial': inicial + ' (' + colorInicial + ')', 'Nombre': nombre + ' (' + colorNombre + ')' } });
-  }
-
-  // Banderín de madera
-  function calcBanderin() {
-    const nombre = document.getElementById('banderin-nombre')?.value.trim() || '';
-    const numLetras = nombre.replace(/\s+/g, '').length;
-    const decorativos = parseInt(document.getElementById('banderin-decorativos')?.value) || 0;
-    const estrellas = parseInt(document.getElementById('banderin-estrellas')?.value) || 0;
-    const subtotal = numLetras * 4 + decorativos * 2.5 + estrellas * 4;
-    const total = Math.max(subtotal, 15);
-    return { nombre, numLetras, decorativos, estrellas, subtotal, total };
-  }
-  function formatEuros(n) {
-    return (Math.round(n * 100) / 100).toString().replace('.', ',') + ' €';
-  }
-  function updateBanderin() {
-    const { numLetras, decorativos, estrellas, subtotal, total } = calcBanderin();
-    const totalEl = document.getElementById('opt-banderin-total');
-    if (totalEl) totalEl.textContent = formatEuros(total);
-    const desgloseEl = document.getElementById('banderin-desglose');
-    if (!desgloseEl) return;
-    if (numLetras === 0 && decorativos === 0 && estrellas === 0) {
-      desgloseEl.textContent = 'Escribe el nombre para ver el desglose del precio';
-      return;
-    }
-    let partes = [numLetras + ' letra' + (numLetras === 1 ? '' : 's') + ' × 4 € = ' + formatEuros(numLetras * 4)];
-    if (estrellas > 0) partes.push(estrellas + ' estrella' + (estrellas === 1 ? '' : 's') + ' × 4 € = ' + formatEuros(estrellas * 4));
-    if (decorativos > 0) partes.push(decorativos + ' decorativo' + (decorativos === 1 ? '' : 's') + ' × 2,50 € = ' + formatEuros(decorativos * 2.5));
-    let txt = partes.join(' + ');
-    if (subtotal < 15) txt += ' · se aplica el mínimo de 15 € por guirnalda';
-    desgloseEl.textContent = txt;
-  }
-  function addCartBanderin() {
-    const { nombre, numLetras, decorativos, estrellas, total } = calcBanderin();
-    const color = document.getElementById('banderin-color')?.value;
-    if (!nombre) { alert('Por favor escribe el nombre que quieres formar.'); return; }
-    if (!color) { alert('Por favor elige el color de las letras.'); return; }
-    const opts = { 'Nombre': nombre, 'Color': color, 'Letras': String(numLetras) };
-    if (estrellas > 0) opts['Banderines con estrella'] = String(estrellas);
-    if (decorativos > 0) opts['Banderines decorativos'] = String(decorativos);
-    const pesoTotal = (numLetras + decorativos + estrellas) * 5;
-    addToCart({ id: 'banderin-' + Date.now(), name: 'Banderín de madera', price: total, peso: pesoTotal, options: opts });
-  }
-
-  // Nombre para puerta
-  function puertaQtyTier(qty) {
-    if (qty > 10) return 'consulta';
-    if (qty >= 3) return 18;
-    return 20;
-  }
-  function renderPuertaRows(qty) {
-    const wrap = document.getElementById('puerta-nombres-wrap');
-    if (!wrap) return;
-    const valoresActuales = Array.from(wrap.querySelectorAll('.puerta-nombre')).map(i => i.value);
-    const coloresActuales = Array.from(wrap.querySelectorAll('.puerta-color')).map(s => s.value);
-    wrap.innerHTML = '';
-    for (let i = 1; i <= qty; i++) {
-      const row = document.createElement('div');
-      row.className = 'puerta-nombre-row';
-      row.style.cssText = 'display:grid;grid-template-columns:1fr auto;gap:0.4rem;margin-bottom:0.4rem;';
-      const inp = document.createElement('input');
-      inp.type = 'text'; inp.className = 'opt-input puerta-nombre'; inp.placeholder = 'Nombre ' + i; inp.style.margin = '0';
-      if (valoresActuales[i - 1]) inp.value = valoresActuales[i - 1];
-      const sel = document.createElement('select');
-      sel.className = 'opt-input puerta-color'; sel.style.cssText = 'margin:0;width:130px;';
-      ['', 'Verde menta', 'Blanco', 'Negro', 'Burdeos', 'Otro (a confirmar por WhatsApp)'].forEach(v => {
-        const o = document.createElement('option');
-        o.value = v;
-        o.textContent = v === 'Otro (a confirmar por WhatsApp)' ? 'Otro (consultar)' : (v || 'Color');
-        sel.appendChild(o);
-      });
-      if (coloresActuales[i - 1]) sel.value = coloresActuales[i - 1];
-      row.appendChild(inp); row.appendChild(sel);
-      wrap.appendChild(row);
-    }
-  }
-  function updatePuerta() {
-    const qtyInput = document.getElementById('opt-puerta-qty');
-    let qty = parseInt(qtyInput.value) || 1;
-    if (qty < 1) { qty = 1; qtyInput.value = 1; }
-    const tier = puertaQtyTier(qty);
-    const consulta = tier === 'consulta';
-    document.getElementById('puerta-consulta-wrap').style.display = consulta ? 'block' : 'none';
-    document.getElementById('puerta-fields').style.display = consulta ? 'none' : 'block';
-    document.getElementById('puerta-add-btn').style.display = consulta ? 'none' : 'block';
-    const tramoEl = document.getElementById('puerta-tramo');
-    if (tramoEl) {
-      if (consulta) tramoEl.textContent = '';
-      else if (qty <= 2) tramoEl.textContent = '1–2 nombres: 20 €/u';
-      else tramoEl.textContent = '3 o más nombres: 18 €/u (descuento aplicado)';
-    }
-    if (consulta) {
-      const link = document.getElementById('puerta-consulta-link');
-      if (link) link.href = 'https://wa.me/34622562499?text=' + encodeURIComponent('Hola! Me interesan ' + qty + ' nombres para puerta, ¿cómo lo gestionamos al ser más de 10?');
-      return;
-    }
-    renderPuertaRows(qty);
-    document.getElementById('opt-puerta-total').textContent = (tier * qty).toFixed(0) + ' €';
-  }
-  function addCartPuertaV2() {
-    const qty = parseInt(document.getElementById('opt-puerta-qty').value) || 1;
-    const tier = puertaQtyTier(qty);
-    if (tier === 'consulta') { alert('Para más de 10 nombres, escríbeme por WhatsApp y lo vemos juntas.'); return; }
-    const nombres = Array.from(document.querySelectorAll('.puerta-nombre')).map(i => i.value.trim()).filter(Boolean);
-    const colores = Array.from(document.querySelectorAll('.puerta-color')).map(s => s.value);
-    if (nombres.length === 0) { alert('Por favor escribe al menos un nombre.'); return; }
-    const opts = {};
-    nombres.forEach((n, i) => { opts['Nombre ' + (i + 1)] = n + (colores[i] ? ' (' + colores[i] + ')' : ''); });
-    addToCart({ id: 'puerta-' + Date.now(), name: 'Nombre para puerta', price: tier, qty, peso: 55, options: opts });
-  }
-
-  // ── ADORNO MI PRIMERA NAVIDAD ──
-  function adornoPrecio(qty) { return qty >= 6 ? 10 : 12; }
-  // Un campo por adorno: así no se olvida ningún nombre. Se conserva lo ya escrito al cambiar la cantidad.
-  function adornoCampos(idCont, qty, etiqueta, ejemplo) {
-    const cont = document.getElementById(idCont);
-    const previos = Array.from(cont.querySelectorAll('input')).map(i => i.value);
-    cont.innerHTML = '';
-    for (let i = 0; i < qty; i++) {
-      const inp = document.createElement('input');
-      inp.type = 'text'; inp.className = 'opt-input'; inp.maxLength = 40;
-      inp.placeholder = (qty > 1 ? etiqueta + ' ' + (i + 1) + ' · ' : '') + ejemplo;
-      inp.setAttribute('aria-label', etiqueta + (qty > 1 ? ' ' + (i + 1) : ''));
-      inp.value = previos[i] || '';
-      inp.addEventListener('input', function () { this.classList.remove('field-required'); });
-      cont.appendChild(inp);
-    }
-  }
-  function updateAdorno() {
-    const qi = document.getElementById('adorno-qty');
-    let qty = parseInt(qi.value) || 1;
-    if (qty < 1) { qty = 1; qi.value = 1; }
-    if (qty > 50) { qty = 50; qi.value = 50; }
-    const unit = adornoPrecio(qty);
-    document.getElementById('adorno-tramo').textContent =
-      qty >= 6 ? '6 unidades o más: 10 €/u (descuento aplicado)' : '1–5 unidades: 12 €/u';
-    document.getElementById('adorno-mismo-wrap').style.display = qty > 1 ? 'block' : 'none';
-    const mismo = qty > 1 && document.getElementById('adorno-mismo').value === 'si';
-    adornoCampos('adorno-nombres', mismo ? 1 : qty, 'Nombre del bebé', 'ej. Carla');
-    const otro = document.getElementById('adorno-otrolado').value === 'si';
-    document.getElementById('adorno-otrolado-wrap').style.display = otro ? 'block' : 'none';
-    if (otro) adornoCampos('adorno-otros', qty, 'Para', 'ej. Para la abuela María');
-    const color = document.getElementById('adorno-color').value === 'si';
-    document.getElementById('adorno-color-nota').style.display = color ? 'block' : 'none';
-    document.getElementById('adorno-total').textContent = ((unit + (otro ? 3 : 0) + (color ? 3 : 0)) * qty) + ' €';
-  }
-  function addCartAdorno() {
-    const qty = Math.max(1, Math.min(50, parseInt(document.getElementById('adorno-qty').value) || 1));
-    const otro = document.getElementById('adorno-otrolado').value === 'si';
-    const mismo = qty > 1 && document.getElementById('adorno-mismo').value === 'si';
-    const nombres = Array.from(document.querySelectorAll('#adorno-nombres input'));
-    const otros = otro ? Array.from(document.querySelectorAll('#adorno-otros input')) : [];
-    let falta = null;
-    nombres.concat(otros).forEach(function (inp) { if (!inp.value.trim()) { inp.classList.add('field-required'); if (!falta) falta = inp; } });
-    if (falta) {
-      falta.focus();
-      alert(qty > 1 ? 'Por favor rellena todos los nombres (faltan algunos).' : 'Por favor escribe el nombre que quieres grabar.');
-      return;
-    }
-    const idioma = document.getElementById('adorno-idioma').value;
-    const cuerda = document.getElementById('adorno-cuerda').value;
-    const color = document.getElementById('adorno-color').value === 'si';
-    const precio = adornoPrecio(qty) + (otro ? 3 : 0) + (color ? 3 : 0);   // el tramo de precio lo marca el total de adornos del pedido
-    const grupos = {}, orden = [];
-    for (let i = 0; i < qty; i++) {
-      const n = nombres[mismo ? 0 : i].value.trim().replace(/\s+/g, ' ');
-      const d = otro ? otros[i].value.trim().replace(/\s+/g, ' ') : '';
-      const k = n + '|' + d;
-      if (!grupos[k]) { grupos[k] = { n: n, d: d, qty: 0 }; orden.push(k); }
-      grupos[k].qty++;
-    }
-    orden.forEach(function (k, idx) {
-      const g = grupos[k];
-      const opts = { 'Frase': idioma, 'Estilo de cuerda': cuerda, 'Año grabado': '2026', 'Nombre del bebé': g.n };
-      if (otro) opts['Otro lado (a quién va dirigido) · +3 €/u'] = g.d;
-      if (color) opts['Toque de color pintado a mano · +3 €/u'] = 'Sí (te escribiré para acordar los colores)';
-      addToCart({ id: 'adorno-navidad-' + Date.now() + '-' + idx, name: 'Adorno · Mi primera Navidad', price: precio, qty: g.qty, peso: 20, options: opts });
-    });
-  }
-
-  updateAdorno();
-
-  // Apertura directa desde el menú de la portada (#nacimiento, #detalles) y desde Cositas de Temporada (#adorno-navidad)
-  if (location.hash === '#nacimiento') showPage('nacimiento');
-  if (location.hash === '#detalles') showDetalles();
-  if (location.hash === '#adorno-navidad') {
-    showDetalles();
-    setTimeout(() => {
-      const el = document.getElementById('adorno-navidad');
-      if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); el.style.transition = 'box-shadow 0.4s ease'; el.style.boxShadow = '0 0 0 3px var(--mint-dark)'; setTimeout(() => { el.style.boxShadow = ''; }, 2000); }
-    }, 350);
-  }
-</script>
 <script src="carrito.js"></script>
 <script src="compartir-producto.js?v=20261112a"></script>
+<script>
+// Si llegas desde "También te puede gustar" de Regalos Únicos, aparece un botón para volver allí.
+(function () {
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('desde') !== 'regalos') return;
+    var a = (q.get('a') || 'todo').replace(/[^a-z0-9-]/gi, '');
+    var hero = document.querySelector('.page-hero');
+    if (!hero) return;
+    var wrap = document.createElement('div');
+    wrap.style.cssText = 'max-width:1100px;margin:1.4rem auto 0;padding:0 1.5rem;';
+    var l = document.createElement('a');
+    l.href = 'regalos-unicos.html#' + a;
+    l.textContent = '← Volver a Regalos Únicos';
+    l.style.cssText = "display:inline-flex;align-items:center;gap:0.5rem;background:#fff;border:1.5px solid var(--wood-mid);color:var(--wood-dark);border-radius:30px;padding:0.5rem 1.2rem;font-size:0.8rem;font-weight:700;text-decoration:none;font-family:'Nunito',sans-serif;";
+    wrap.appendChild(l);
+    hero.insertAdjacentElement('afterend', wrap);
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
