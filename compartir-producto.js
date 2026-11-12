@@ -38,8 +38,9 @@
   }
   function reservado(s) {   // ids que la página usa para sus filtros (regalos-unicos)
     try {
-      if (typeof RB === 'undefined') return s === 'todo';
-      return s === 'todo' || RB.categorias.some(function (c) { return c.id === s; }) || !!RB.tecnicas[s] || !!RB.tipos[s];
+      var R = window.REGALOS;
+      if (!R) return s === 'todo';
+      return s === 'todo' || R.categorias.some(function (c) { return c.id === s; }) || !!R.tecnicas[s] || !!R.tipos[s];
     } catch (e) { return false; }
   }
   function tarjetas() { return Array.prototype.slice.call(document.querySelectorAll('.product-card')); }
