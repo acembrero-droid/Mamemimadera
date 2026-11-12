@@ -115,31 +115,35 @@
 <nav>
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="MAMEMI Madera"></a>
   <ul class="nav-links" id="navLinks">
+    <li class="has-dropdown" id="navTemporadaLi">
+      <div class="nav-item-row">
+        <a href="temporada.html">Cositas de Temporada</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar productos de temporada"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown" id="navTemporada"></div>
+    </li>
     <li class="has-dropdown">
       <div class="nav-item-row">
         <a href="regalos-unicos.html">Regalos Únicos</a>
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Regalos Únicos"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="regalos-unicos.html#3d">Con impresión 3D</a>
-        <a href="regalos-unicos.html#madera">En madera</a>
-        <a href="regalos-unicos.html#cuero">De cuero</a>
-        <a href="regalos-unicos.html#llaveros">Llaveros</a>
-        <a href="regalos-unicos.html#imanes">Imanes</a>
-        <a href="regalos-unicos.html#discos">Discos de madera</a>
-        <a href="regalos-unicos.html#marcapaginas">Marcapáginas</a>
+        <a href="regalos-unicos.html#peques">Para peques</a>
+        <a href="regalos-unicos.html#mama">Para mamá y abuela</a>
+        <a href="regalos-unicos.html#profes">Para profes</a>
+        <a href="regalos-unicos.html#cumple">Cumpleaños y felicitaciones</a>
+        <a href="regalos-unicos.html#casa">Para casa y recuerdos</a>
+        <a href="regalos-unicos.html#lectores">Para lectores</a>
+        <a href="regalos-unicos.html#todo">Ver todos los regalos</a>
       </div>
     </li>
-    <li><a href="temporada.html">Cositas de Temporada</a></li>
     <li class="has-dropdown">
       <div class="nav-item-row">
         <a href="joyitas-mamemi.html">Joyitas Mamemi</a>
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Joyitas Mamemi"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="joyitas-mamemi.html">Brazaletes</a>
         <a href="joyitas-mamemi.html">Collares</a>
-        <a href="joyitas-mamemi.html">Pulseras</a>
       </div>
     </li>
     <li class="has-dropdown">
@@ -148,8 +152,8 @@
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Mis Primeros Mimos"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="mis-primeros-mimos.html">Packs de nacimiento</a>
-        <a href="mis-primeros-mimos.html">Detallitos para bebés</a>
+        <a href="mis-primeros-mimos.html#nacimiento">Packs de nacimiento</a>
+        <a href="mis-primeros-mimos.html#detalles">Detallitos para bebés</a>
       </div>
     </li>
     <li class="has-dropdown">
@@ -158,8 +162,28 @@
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Colección Cocina"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="coleccion-cocina.html">Tablas de cocina</a>
-        <a href="coleccion-cocina.html">Servilleteros</a>
+        <a href="coleccion-cocina.html#tablas">Tablas de cocina</a>
+        <a href="coleccion-cocina.html#mesa">Mamemi en la mesa</a>
+        <a href="coleccion-cocina.html#abrepared">Abrebotellas de pared</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="huellitas-mamemi.html">Huellitas Mamemi</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Huellitas Mamemi"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="huellitas-mamemi.html#chapas">Chapas con nombre</a>
+        <a href="huellitas-mamemi.html#navidad-peluda">Navidad Peluda</a>
+      </div>
+    </li>
+    <li class="has-dropdown">
+      <div class="nav-item-row">
+        <a href="momento-mimate.html">Momento Mímate</a>
+        <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Momento Mímate"><span class="arrow">▾</span></button>
+      </div>
+      <div class="dropdown">
+        <a href="momento-mimate.html">Cantimplora motivacional</a>
       </div>
     </li>
     <li class="has-dropdown">
@@ -168,10 +192,12 @@
         <button class="dropdown-toggle" onclick="toggleSubmenu(event, this)" aria-expanded="false" aria-label="Mostrar subcategorías de Detallitos para Eventos"><span class="arrow">▾</span></button>
       </div>
       <div class="dropdown">
-        <a href="detallitos-eventos.html">Bodas · Marcasitios</a>
-        <a href="detallitos-eventos.html">Imanes abrebotellas</a>
-        <a href="detallitos-eventos.html">Libretas personalizadas</a>
-        <a href="detallitos-eventos.html">Posavasos</a>
+        <a href="detallitos-eventos.html#marcasitios">Marcasitios para boda</a>
+        <a href="detallitos-eventos.html#imanes">Imanes abrebotellas</a>
+        <a href="detallitos-eventos.html#llaveros">Llaveros para eventos</a>
+        <a href="detallitos-eventos.html#posavasos">Posavasos para eventos</a>
+        <a href="detallitos-eventos.html#libretas">Libretas personalizadas</a>
+        <a href="detallitos-eventos.html#cajavino">Cajas de vino personalizadas</a>
       </div>
     </li>
     <li class="has-dropdown">
@@ -586,6 +612,19 @@
     document.body.appendChild(a);
   } catch (e) {}
 })();
+</script>
+<script src="temporada-config.js?v=20261105a"></script>
+<script>
+  // desplegable de «Cositas de Temporada»: los productos de la temporada activa (como en la portada)
+  (function () {
+    var c = window.TEMPORADA_CONFIG, dd = document.getElementById('navTemporada'), li = document.getElementById('navTemporadaLi');
+    var t = c && c.temporadas && c.temporadas[c.activa], n = 0;
+    if (dd && t) (t.productos || []).forEach(function (p) {
+      var ancla = p.ficha || (p.carrito && p.id); if (p.proximamente || !ancla || !p.nombre) return;
+      var a = document.createElement('a'); a.href = 'temporada.html#' + ancla; a.textContent = p.nombre; dd.appendChild(a); n++;
+    });
+    if (!n && li) { var tg = li.querySelector('.dropdown-toggle'); if (tg) tg.style.display = 'none'; if (dd) dd.style.display = 'none'; li.classList.remove('has-dropdown'); }
+  })();
 </script>
 </body>
 </html>
