@@ -57,6 +57,15 @@
     .product-img { position: relative; height: 250px; overflow: hidden; cursor: zoom-in; }
     .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
     .product-card:hover .product-img img { transform: scale(1.06); }
+    .t-galeria { position: relative; }
+    .t-galeria.t-gal-cuadrada { height: auto !important; aspect-ratio: 4 / 5; }
+    .t-galeria img { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: cover; opacity: 0; transition: opacity 0.4s; }
+    .t-galeria img.activa { opacity: 1; }
+    .tg-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: rgba(253,248,240,0.9); color: #5a3e2b; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+    .tg-prev { left: 0.6rem; } .tg-next { right: 0.6rem; }
+    .tg-dots { position: absolute; bottom: 0.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 3; }
+    .tg-dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); }
+    .tg-dots span.on { background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.25); }
     .zoom-icon { position: absolute; bottom: 0.8rem; right: 0.8rem; background: rgba(253,248,240,0.9); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; opacity: 0; transition: opacity 0.25s; }
     .product-card:hover .zoom-icon { opacity: 1; }
     .personalizable-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--mint-dark); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
@@ -152,11 +161,12 @@
     .t-card.prox { opacity: 0.8; border-top-style: dashed; }
     .t-card.prox .t-img { font-size: 3.2rem; }
     .t-otras { text-align: center; max-width: 760px; margin: 0 auto 4rem; padding: 0 1.5rem; font-size: 0.88rem; color: var(--text-mid); }
+    .t-aviso-madera { background: var(--wood-deep); color: var(--cream); padding: 1.4rem 1.5rem 0.4rem; text-align: center; }
+    .t-aviso-madera p { font-size: 0.74rem; font-weight: 300; font-style: italic; opacity: 0.75; }
     .t-otras a { color: var(--t-acento); font-weight: 700; }
     /* ---------- Fichas completas de producto dentro de la temporada ---------- */
     :root { --invierno: #9e2a2f; --autumn: #b5651d; }
     .t-ficha { align-self: start; }
-    .t-ficha .btn-personalize { display: none; }
     .product-card.invierno { border-top: 3px solid var(--invierno); }
     .invierno-badge { position: absolute; top: 0.8rem; left: 0.8rem; background: var(--invierno); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 20px; }
     .btn-invierno:hover { background: var(--invierno) !important; }
@@ -197,6 +207,8 @@
   <p class="t-otras">¿Buscas algo que no ves aquí? Mira <a href="regalos-unicos.html">Regalos Únicos</a> o <a href="detallitos-eventos.html">Detallitos para Eventos</a>, o <a href="https://wa.me/34622562499" target="_blank">escríbeme</a>.</p>
 </section>
 
+<div class="t-aviso-madera"><p>✦ Cada pieza es única, al trabajar con madera natural, los tonos y vetas pueden variar ligeramente respecto a las fotos ✦</p></div>
+
 <footer>
   <img src="images/logo.png" alt="MAMEMI Madera">
   <span>© 2026 MAMEMI Madera · www.mamemimadera.es</span>
@@ -223,12 +235,14 @@
           <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
           <p class="price-note">✦ IVA incluido · Precio por unidad</p>
         </div>
+        <button class="btn-personalize" data-abrir="Añadir dedicatoria " data-cerrar="Ocultar dedicatoria " onclick="togglePersonalize(this)">Añadir dedicatoria <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
         <div class="product-options">
           <div class="opt-row">
-            <label class="opt-label">¿Quieres añadir una dedicatoria grabada?</label>
+            <label class="opt-label">¿Quieres añadir una dedicatoria en la tabla?</label>
             <select id="opt-tabla-invierno-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('invierno')">
-              <option value="no">No, la quiero tal cual</option>
-              <option value="si">Sí, quiero una dedicatoria (+5 €)</option>
+              <option value="no">No</option>
+              <option value="si">Sí (+5 €)</option>
             </select>
           </div>
           <div id="tabla-invierno-dedicatoria-wrap" class="opt-row" style="display:none;">
@@ -238,22 +252,69 @@
           </div>
           <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-invierno-total">32 €</strong></div>
         </div>
+        </div></div>
         <button class="btn-add-cart" onclick="addCartTabla('invierno')">Añadir al carrito</button>
         <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20de%20cocina%20Navidad" class="btn-contact btn-invierno" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+
+      </div>
+    </div>
+</template>
+<template id="ficha-tabla-ciervo">
+<div class="product-card t-ficha invierno fade-in visible" id="tabla-ciervo">
+      <div class="product-img" onclick="openLightbox('images/tabla-ciervo-navidad.jpg')">
+        <img src="images/tabla-ciervo-navidad.jpg" alt="Tabla de cocina con un ciervo grabado al láser, cuerda de yute con abalorios de madera y decoración navideña" style="object-position:center 62%;">
+        <span class="invierno-badge">🦌 Navidad</span>
+        <span class="zoom-icon">🔍</span>
+      </div>
+      <div class="product-body">
+        <p class="product-cat">Colección Cocina · Tablas de cocina</p>
+        <span class="edicion-tag">🎄 Edición Especial Navidad</span>
+        <h3>Tabla de cocina · Ciervo</h3>
+        <p class="product-desc">Tabla de presentación en madera de alta calidad con un ciervo grabado al láser, un guiño a los renos de Navidad en su versión ibérica. La madera está hidratada por ambas caras con aceite de calidad mineral. Lleva una decoración de cuerda de yute con abalorios de madera, para colgarla o para regalarla tal cual.</p>
+        <div class="price-block">
+          <div class="price-row"><span>Precio por unidad</span><span class="amount">29 € / u</span></div>
+          <div class="price-row"><span>Dedicatoria grabada</span><span class="amount">+ 5 €</span></div>
+          <p class="price-note">✦ IVA incluido · Precio por unidad</p>
+        </div>
+        <button class="btn-personalize" data-abrir="Añadir dedicatoria " data-cerrar="Ocultar dedicatoria " onclick="togglePersonalize(this)">Añadir dedicatoria <span class="chev">▾</span></button>
+        <div class="product-collapsible"><div>
+        <div class="product-options">
+          <div class="opt-row">
+            <label class="opt-label">¿Quieres añadir una dedicatoria en la tabla?</label>
+            <select id="opt-tabla-ciervo-dedicatoria" class="opt-input" onchange="updateTablaDedicatoria('ciervo')">
+              <option value="no">No</option>
+              <option value="si">Sí (+5 €)</option>
+            </select>
+          </div>
+          <div id="tabla-ciervo-dedicatoria-wrap" class="opt-row" style="display:none;">
+            <label class="opt-label">Texto de la dedicatoria (máx. 20 palabras)</label>
+            <textarea id="opt-tabla-ciervo-texto" class="opt-input" rows="2" placeholder="ej. Para los mejores anfitriones, con todo nuestro cariño..." oninput="tablaWordCount('ciervo')"></textarea>
+            <p class="opt-counter" id="tabla-ciervo-counter">0 / 20 palabras</p>
+          </div>
+          <div class="opt-price-row"><span>Total:</span><strong id="opt-tabla-ciervo-total">29 €</strong></div>
+        </div>
+        </div></div>
+        <button class="btn-add-cart" onclick="addCartTabla('ciervo')">Añadir al carrito</button>
+        <a href="https://wa.me/34622562499?text=Hola!%20Me%20interesa%20la%20tabla%20de%20cocina%20Ciervo" class="btn-contact btn-invierno" target="_blank" style="margin-top:0.4rem;">¿Dudas? Escríbeme</a>
+
       </div>
     </div>
 </template>
 <template id="ficha-adorno-navidad">
-<div class="product-card t-ficha expanded fade-in visible" id="adorno-navidad">
-      <div class="product-img" onclick="openLightbox('images/adorno-primera-navidad.jpg')">
-        <img src="images/adorno-primera-navidad.jpg" alt="Adorno navideño Mi primera Navidad">
+<div class="product-card t-ficha fade-in visible" id="adorno-navidad">
+      <div class="product-img t-galeria t-gal-cuadrada">
+        <img class="activa" src="images/adorno-primera-navidad.jpg" alt="Adorno navideño Mi primera Navidad con toque de color pintado a mano y cuerda verde y roja">
+        <img src="images/adorno-primera-navidad-natural-cat.jpg" alt="Adorno Mi primera Navidad en versión natural, sin color, en catalán, con cuerda de yute" loading="lazy">
+        <img src="images/adorno-primera-navidad-natural-cast.jpg" alt="Adorno Mi primera Navidad en versión natural, sin color, en castellano, con cuerda de yute" loading="lazy">
         <span class="personalizable-badge">Edición Navidad</span>
-        <span class="zoom-icon">🔍</span>
+        <button type="button" class="tg-btn tg-prev" aria-label="Foto anterior">‹</button>
+        <button type="button" class="tg-btn tg-next" aria-label="Foto siguiente">›</button>
+        <div class="tg-dots"><span class="on"></span><span></span><span></span></div>
       </div>
       <div class="product-body">
         <p class="product-cat">Detallitos para bebés · 🎄 Navidad</p>
         <h3>Adorno · Mi primera Navidad</h3>
-        <p class="product-desc">Adorno de madera grabado al láser con una corona de acebo y bayas, el calcetín navideño y la frase «Mi primera Navidad». Con el nombre del bebé y el año, y un lazo de hilo rojo y verde para colgarlo en el árbol. Un recuerdo para guardar año tras año.</p>
+        <p class="product-desc">Adorno de madera grabado al láser con una corona de acebo y bayas, el calcetín navideño y la frase «Mi primera Navidad». Con el nombre del bebé y el año, y un lazo de cuerda para colgarlo en el árbol, de yute o de hilo verde y rojo, a tu elección. Puedes pedirlo en tono natural o con un toque de color pintado a mano. Un recuerdo para guardar año tras año.</p>
         <div class="price-block">
           <div class="price-row"><span>1–5 unidades</span><span class="amount">12 € / u</span></div>
           <div class="price-row"><span>6 unidades o más</span><span class="amount">10 € / u</span></div>
@@ -273,6 +334,13 @@
             <select class="opt-input" id="adorno-idioma">
               <option value="Castellano · Mi primera Navidad">Castellano · «Mi primera Navidad»</option>
               <option value="Català · El meu primer Nadal">Català · «El meu primer Nadal»</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Qué estilo de cuerda prefieres?</label>
+            <select class="opt-input" id="adorno-cuerda">
+              <option value="Yute">Yute</option>
+              <option value="Cuerda verde y roja">Cuerda verde y roja</option>
             </select>
           </div>
           <div class="opt-row" id="adorno-mismo-wrap" style="display:none;">
@@ -314,9 +382,9 @@
     </div>
 </template>
 
-<template id="ficha-adorno-perro"><div data-adorno-mascotas="perro"></div></template>
-<template id="ficha-adorno-gato"><div data-adorno-mascotas="gato"></div></template>
-<template id="ficha-adorno-otro-peludo"><div data-adorno-mascotas="otro"></div></template>
+<template id="ficha-adorno-perro"><div data-adorno-mascotas="perro" data-plegable="1"></div></template>
+<template id="ficha-adorno-gato"><div data-adorno-mascotas="gato" data-plegable="1"></div></template>
+<template id="ficha-adorno-otro-peludo"><div data-adorno-mascotas="otro" data-plegable="1"></div></template>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <span class="lightbox-close" onclick="closeLightbox(event)">✕</span>
@@ -325,7 +393,7 @@
   <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
-<script src="temporada-config.js?v=20261102b"></script>
+<script src="temporada-config.js?v=20261105a"></script>
 <script>
   (function () {
     var cfg = window.TEMPORADA_CONFIG || {};
@@ -488,6 +556,7 @@
       return;
     }
     const idioma = document.getElementById('adorno-idioma').value;
+    const cuerda = document.getElementById('adorno-cuerda').value;
     const color = document.getElementById('adorno-color').value === 'si';
     const precio = adornoPrecio(qty) + (otro ? 3 : 0) + (color ? 3 : 0);   // el tramo de precio lo marca el total de adornos del pedido
     const grupos = {}, orden = [];
@@ -500,13 +569,16 @@
     }
     orden.forEach(function (k, idx) {
       const g = grupos[k];
-      const opts = { 'Frase': idioma, 'Año grabado': '2026', 'Nombre del bebé': g.n };
+      const opts = { 'Frase': idioma, 'Estilo de cuerda': cuerda, 'Año grabado': '2026', 'Nombre del bebé': g.n };
       if (otro) opts['Otro lado (a quién va dirigido) · +3 €/u'] = g.d;
       if (color) opts['Toque de color pintado a mano · +3 €/u'] = 'Sí (te escribiré para acordar los colores)';
       addToCart({ id: 'adorno-navidad-' + Date.now() + '-' + idx, name: 'Adorno · Mi primera Navidad', price: precio, qty: g.qty, peso: 20, options: opts });
     });
   }
-  const tablaData = { invierno: { id: 'tabla-invierno', name: 'Tabla de cocina · Navidad', price: 32, peso: 680 } };
+  const tablaData = {
+    invierno: { id: 'tabla-invierno', name: 'Tabla de cocina · Navidad', price: 32, peso: 680 },
+    ciervo: { id: 'tabla-ciervo', name: 'Tabla de cocina · Ciervo', price: 29, peso: 500 }
+  };
   function tablaWordCount(tipo) {
     const ta = document.getElementById('opt-tabla-' + tipo + '-texto');
     const counter = document.getElementById('tabla-' + tipo + '-counter');
@@ -541,6 +613,23 @@
     }
     addToCart({ id: data.id, name: data.name, price, peso: data.peso, options: opts });
   }
+  function togglePersonalize(btn) {
+    var card = btn.closest('.product-card');
+    card.classList.toggle('expanded');
+    var abierto = card.classList.contains('expanded');
+    btn.childNodes[0].textContent = abierto ? (btn.getAttribute('data-cerrar') || 'Ocultar personalización ') : (btn.getAttribute('data-abrir') || 'Personalizar ');
+    if (abierto) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest && e.target.closest('.t-galeria'); if (!g) return;
+    var imgs = g.querySelectorAll('img'), dots = g.querySelectorAll('.tg-dots span'), i = 0;
+    imgs.forEach(function (im, k) { if (im.classList.contains('activa')) i = k; });
+    var btn = e.target.closest('.tg-btn');
+    if (!btn) { openLightbox(imgs[i].getAttribute('src')); return; }
+    var n = (i + (btn.classList.contains('tg-next') ? 1 : -1) + imgs.length) % imgs.length;
+    imgs.forEach(function (im, k) { im.classList.toggle('activa', k === n); });
+    dots.forEach(function (d, k) { d.classList.toggle('on', k === n); });
+  });
   function openLightbox(src) {
     document.getElementById('lightbox-img').src = src;
     document.getElementById('lightbox').classList.add('active');
@@ -556,8 +645,9 @@
   if (document.getElementById('adorno-qty')) updateAdorno();
   if (location.hash) setTimeout(function () { var el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
 </script>
-<script src="adorno-mascotas.js?v=20261102h"></script>
+<script src="adorno-mascotas.js?v=20261105b"></script>
 <script src="cookies-banner.js"></script>
 <script src="carrito.js"></script>
+<script src="compartir-producto.js?v=20261112a"></script>
 </body>
 </html>
