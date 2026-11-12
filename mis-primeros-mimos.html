@@ -137,6 +137,15 @@
     /* ── Productos personalizables (Detallitos para bebés) ── */
     .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.8rem; align-items:start; max-width:1100px; margin:0 auto; }
     .products-grid .product-img { height:250px; }
+    .t-galeria { position: relative; }
+    .t-galeria.t-gal-cuadrada { height: auto !important; aspect-ratio: 4 / 5; }
+    .t-galeria img { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: cover; opacity: 0; transition: opacity 0.4s; }
+    .t-galeria img.activa { opacity: 1; }
+    .tg-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 34px; height: 34px; border: 0; border-radius: 50%; background: rgba(253,248,240,0.9); color: #5a3e2b; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+    .tg-prev { left: 0.6rem; } .tg-next { right: 0.6rem; }
+    .tg-dots { position: absolute; bottom: 0.6rem; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 3; }
+    .tg-dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); }
+    .tg-dots span.on { background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.25); }
     .products-grid .product-img > img { height:100%; object-fit:cover; max-height:none; }
     .personalizable-badge { position:absolute; top:0.8rem; left:0.8rem; background:var(--mint-dark); color:#fff; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:0.3rem 0.75rem; border-radius:20px; }
     .price-row { display:flex; justify-content:space-between; align-items:baseline; font-size:0.82rem; color:var(--text-mid); padding:0.25rem 0; border-bottom:1px dashed var(--wood-light); }
@@ -237,15 +246,19 @@
 
     <!-- Adorno Mi primera Navidad -->
     <div class="product-card fade-in" id="adorno-navidad">
-      <div class="product-img" onclick="openLightbox('images/adorno-primera-navidad.jpg')">
-        <img src="images/adorno-primera-navidad.jpg" alt="Adorno navideño Mi primera Navidad">
+      <div class="product-img t-galeria t-gal-cuadrada">
+        <img class="activa" src="images/adorno-primera-navidad.jpg" alt="Adorno navideño Mi primera Navidad con toque de color pintado a mano y cuerda verde y roja">
+        <img src="images/adorno-primera-navidad-natural-cat.jpg" alt="Adorno Mi primera Navidad en versión natural, sin color, en catalán, con cuerda de yute" loading="lazy">
+        <img src="images/adorno-primera-navidad-natural-cast.jpg" alt="Adorno Mi primera Navidad en versión natural, sin color, en castellano, con cuerda de yute" loading="lazy">
         <span class="personalizable-badge">Edición Navidad</span>
-        <span class="zoom-icon">🔍</span>
+        <button type="button" class="tg-btn tg-prev" aria-label="Foto anterior">‹</button>
+        <button type="button" class="tg-btn tg-next" aria-label="Foto siguiente">›</button>
+        <div class="tg-dots"><span class="on"></span><span></span><span></span></div>
       </div>
       <div class="product-body">
         <p class="product-cat">Detallitos para bebés · 🎄 Navidad</p>
         <h3>Adorno · Mi primera Navidad</h3>
-        <p class="product-desc">Adorno de madera grabado al láser con una corona de acebo y bayas, el calcetín navideño y la frase «Mi primera Navidad». Con el nombre del bebé y el año, y un lazo de hilo rojo y verde para colgarlo en el árbol. Un recuerdo para guardar año tras año.</p>
+        <p class="product-desc">Adorno de madera grabado al láser con una corona de acebo y bayas, el calcetín navideño y la frase «Mi primera Navidad». Con el nombre del bebé y el año, y un lazo de cuerda para colgarlo en el árbol, de yute o de hilo verde y rojo, a tu elección. Puedes pedirlo en tono natural o con un toque de color pintado a mano. Un recuerdo para guardar año tras año.</p>
         <div class="price-block">
           <div class="price-row"><span>1–5 unidades</span><span class="amount">12 € / u</span></div>
           <div class="price-row"><span>6 unidades o más</span><span class="amount">10 € / u</span></div>
@@ -265,6 +278,13 @@
             <select class="opt-input" id="adorno-idioma">
               <option value="Castellano · Mi primera Navidad">Castellano · «Mi primera Navidad»</option>
               <option value="Català · El meu primer Nadal">Català · «El meu primer Nadal»</option>
+            </select>
+          </div>
+          <div class="opt-row">
+            <label class="opt-label">¿Qué estilo de cuerda prefieres?</label>
+            <select class="opt-input" id="adorno-cuerda">
+              <option value="Yute">Yute</option>
+              <option value="Cuerda verde y roja">Cuerda verde y roja</option>
             </select>
           </div>
           <div class="opt-row" id="adorno-mismo-wrap" style="display:none;">
@@ -932,6 +952,16 @@
     addToCart({ id: prefix + '-' + Date.now(), name: baseName, price, options: vals });
   }
 
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest && e.target.closest('.t-galeria'); if (!g) return;
+    var imgs = g.querySelectorAll('img'), dots = g.querySelectorAll('.tg-dots span'), i = 0;
+    imgs.forEach(function (im, k) { if (im.classList.contains('activa')) i = k; });
+    var btn = e.target.closest('.tg-btn');
+    if (!btn) { openLightbox(imgs[i].getAttribute('src')); return; }
+    var n = (i + (btn.classList.contains('tg-next') ? 1 : -1) + imgs.length) % imgs.length;
+    imgs.forEach(function (im, k) { im.classList.toggle('activa', k === n); });
+    dots.forEach(function (d, k) { d.classList.toggle('on', k === n); });
+  });
   function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
   function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
@@ -1215,6 +1245,7 @@
       return;
     }
     const idioma = document.getElementById('adorno-idioma').value;
+    const cuerda = document.getElementById('adorno-cuerda').value;
     const color = document.getElementById('adorno-color').value === 'si';
     const precio = adornoPrecio(qty) + (otro ? 3 : 0) + (color ? 3 : 0);   // el tramo de precio lo marca el total de adornos del pedido
     const grupos = {}, orden = [];
@@ -1227,7 +1258,7 @@
     }
     orden.forEach(function (k, idx) {
       const g = grupos[k];
-      const opts = { 'Frase': idioma, 'Año grabado': '2026', 'Nombre del bebé': g.n };
+      const opts = { 'Frase': idioma, 'Estilo de cuerda': cuerda, 'Año grabado': '2026', 'Nombre del bebé': g.n };
       if (otro) opts['Otro lado (a quién va dirigido) · +3 €/u'] = g.d;
       if (color) opts['Toque de color pintado a mano · +3 €/u'] = 'Sí (te escribiré para acordar los colores)';
       addToCart({ id: 'adorno-navidad-' + Date.now() + '-' + idx, name: 'Adorno · Mi primera Navidad', price: precio, qty: g.qty, peso: 20, options: opts });
@@ -1248,5 +1279,6 @@
   }
 </script>
 <script src="carrito.js"></script>
+<script src="compartir-producto.js?v=20261112a"></script>
 </body>
 </html>
