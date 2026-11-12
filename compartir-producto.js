@@ -80,8 +80,11 @@
   function ponerBoton(card) {
     if (card.__mmShare || card.classList.contains('agotado')) return;
     var id = asignarId(card); if (!id) return;
-    var cont = card.querySelector('.product-img') || card;
-    if (cont === card && getComputedStyle(card).position === 'static') card.style.position = 'relative';
+    // siempre sobre la foto: .product-img, o el contenedor de un carrusel, o el de la primera imagen
+    var cont = card.querySelector('.product-img');
+    if (!cont) { var car = card.querySelector('.carousel, .mini-carousel'); cont = car ? (car.classList.contains('mini-carousel') ? car : car.parentElement) : null; }
+    if (!cont) { var im = card.querySelector('img'); cont = im ? im.parentElement : card; }
+    if (getComputedStyle(cont).position === 'static') cont.style.position = 'relative';
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'mm-share'; b.innerHTML = ICONO;
     b.setAttribute('aria-label', 'Compartir este producto'); b.title = 'Copiar enlace de este producto';
