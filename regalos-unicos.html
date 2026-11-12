@@ -2662,7 +2662,8 @@
 </script>
 <script>
 (function () {
-  var cfg = window.REGALOS.marcapaginas, $ = function (id) { return document.getElementById(id); };
+  var cfg = (window.REGALOS || {}).marcapaginas, $ = function (id) { return document.getElementById(id); };
+  if (!cfg) { console.warn('regalos-config.js no se ha cargado: el configurador de marcapáginas no está disponible'); return; }
   var MAX = 30, qty = 1, activo = 0;
   var asign = [cfg.disenos[0].id];      // asign[i] = diseño de la marcapáginas i+1 ('' = sin grabado); si no se elige, lleva el de la 1
   var elegida = [];      // elegida[i] = true cuando el cliente ha escogido el diseño de esa marcapáginas
