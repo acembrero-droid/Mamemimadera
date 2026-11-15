@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Texto → DXF / SVG / STL · Send Flowers</title>
+<style>
+  :root{--bg:#0e1116;--panel:#161b22;--panel2:#1c232c;--line:#28313c;--txt:#e6edf3;--muted:#8b98a5;
+        --accent:#4ea1ff;--ok:#38d39f;--err:#ff6b6b;--warn:#f5b84b;--bridge:#ff7a59}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--txt);overflow:hidden}
+  #app{display:flex;height:100vh}
+  aside{width:360px;flex:0 0 360px;background:var(--panel);border-right:1px solid var(--line);padding:18px;overflow-y:auto}
+  aside h1{font-size:16px;margin:0 0 4px;letter-spacing:.3px}
+  aside .sub{font-size:12px;color:var(--muted);margin-bottom:18px}
+  .field{margin-bottom:14px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+  input[type=text],input[type=number],textarea,select{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+    border-radius:8px;padding:9px 11px;font-size:14px;font-family:inherit;outline:none}
+  input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+  textarea{resize:vertical;min-height:70px}
+  .row{display:flex;gap:10px}.row>*{flex:1;min-width:0}
+  button{width:100%;padding:11px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--txt);
+    font-size:14px;font-weight:600;cursor:pointer;transition:.15s;font-family:inherit}
+  button:hover{background:#242d38;border-color:#3a4654}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#06121f}
+  button.primary:hover{background:#66b0ff}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  .filebox{display:block;border:1px dashed var(--line);border-radius:8px;padding:10px;text-align:center;font-size:12px;color:var(--muted);
+    cursor:pointer;transition:.15s;text-transform:none;letter-spacing:0;font-weight:500;margin:0}
+  .filebox:hover{border-color:var(--accent);color:var(--txt)}
+  .filebox input{display:none}
+  #status{font-size:12px;padding:9px 11px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);color:var(--muted);
+    min-height:36px;display:flex;align-items:center;gap:8px;line-height:1.35}
+  #status .dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex:0 0 8px}
+  #status.ok .dot{background:var(--ok)} #status.ok{color:#bfe9d8}
+  #status.warn .dot{background:var(--warn)} #status.warn{color:#f7deb0}
+  #status.err .dot{background:var(--err)} #status.err{color:#ffc2c2}
+  #status.busy .dot{background:var(--accent);animation:p 1s infinite}
+  @keyframes p{50%{opacity:.25}}
+  hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+  .checkrow{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .checkrow input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex:0 0 18px}
+  .checkrow label{margin:0;text-transform:none;letter-spacing:0;font-weight:500;color:var(--txt);font-size:13px;cursor:pointer}
+  .sect{font-size:11px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin:16px 0 10px}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  label output{color:var(--txt);text-transform:none;font-weight:600;margin-left:4px}
+  canvas.hover{cursor:pointer}
+  .hint{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+  main{flex:1;position:relative;display:flex;flex-direction:column}
+  #stage{flex:1;position:relative;overflow:hidden}
+  canvas{display:block;position:absolute;inset:0}
+  .badge{position:absolute;font-size:12px;color:var(--muted);background:rgba(22,27,34,.88);border:1px solid var(--line);
+    padding:6px 11px;border-radius:8px;font-variant-numeric:tabular-nums}
+  #dims{left:16px;bottom:14px}
+  #legend{right:16px;top:14px;display:flex;gap:14px;align-items:center}
+  #legend span{display:inline-flex;align-items:center;gap:6px}
+  #legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+  #empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#3a4654;font-size:14px;pointer-events:none}
+  @media (max-width:760px){#app{flex-direction:column}aside{width:auto;flex:0 0 auto;max-height:55vh}body{overflow:auto}}
+</style>
+</head>
+<body>
+<div id="app">
+  <aside>
+    <h1>Texto → DXF / SVG / STL</h1>
+    <div class="sub">Letras unidas en una sola pieza por palabra · listo para láser o impresión 3D</div>
+
+    <div class="field">
+      <label for="text">Texto</label>
+      <textarea id="text">Leticia</textarea>
+      <div class="hint">Cada palabra sale en una pieza. Usa salto de línea para varias líneas.</div>
+    </div>
+
+    <div class="field">
+      <label>Fuente: <span id="fontName" style="text-transform:none;color:var(--txt)">—</span></label>
+      <div class="row">
+        <button id="loadFont">Send Flowers</button>
+        <label class="filebox" for="file">Subir .ttf / .otf / .woff
+          <input type="file" id="file" accept=".ttf,.otf,.woff">
+        </label>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="field">
+      <label for="size">Tamaño (mm)</label>
+      <div class="row">
+        <select id="sizeMode">
+          <option value="cap" selected>Altura mayúsculas</option>
+          <option value="total">Altura total del diseño</option>
+          <option value="em">Cuerpo de fuente (em)</option>
+        </select>
+        <input type="number" id="size" value="30" min="1" step="1">
+      </div>
+    </div>
+
+    <div class="row field">
+      <div><label for="tracking">Interletraje (mm)</label><input type="number" id="tracking" value="0" step="0.1"></div>
+      <div><label for="lh">Interlineado (×)</label><input type="number" id="lh" value="1.3" min="0.5" step="0.1"></div>
+    </div>
+
+    <div class="field">
+      <label for="thickness">Engrosar letra (mm)</label>
+      <input type="number" id="thickness" value="0" step="0.1" min="-2" max="3">
+      <div class="hint">Se aplica a cada lado del trazo: +0,3 mm ensancha el trazo 0,6 mm. Útil para que la pieza no sea frágil.</div>
+    </div>
+
+    <hr>
+
+    <div class="checkrow"><input type="checkbox" id="connect" checked><label for="connect">Unir letras entre sí</label></div>
+    <div class="checkrow"><input type="checkbox" id="islands" checked><label for="islands">Unir puntos, tildes y piezas sueltas</label></div>
+
+    <div class="sect">Forma de la unión</div>
+
+    <div class="field">
+      <label for="curvature">Curvatura <output id="curvatureOut"></output></label>
+      <input type="range" id="curvature" min="0" max="100" value="70" step="5">
+      <div class="hint">0 = puente recto · 100 = sale y entra siguiendo la dirección del trazo de cada letra.</div>
+    </div>
+
+    <div class="field">
+      <label for="taper">Estrechamiento central <output id="taperOut"></output></label>
+      <input type="range" id="taper" min="0" max="60" value="0" step="5">
+      <div class="hint">Afina el centro del puente para un efecto caligráfico. Con más del 40 % puede quedar frágil en madera fina.</div>
+    </div>
+
+    <div class="field">
+      <label for="connectorW">Grosor unión (mm) · 0 = auto</label>
+      <input type="number" id="connectorW" value="0" step="0.1" min="0" max="10">
+    </div>
+
+    <div class="sect">Suavizado</div>
+
+    <div class="checkrow"><input type="checkbox" id="smooth" checked><label for="smooth">Redondear el encuentro puente–letra</label></div>
+    <div class="row field">
+      <div><label for="fillet">Radio (mm) · 0 = auto</label><input type="number" id="fillet" value="0" step="0.1" min="0" max="5"></div>
+      <div><label for="filletScope">Alcance</label>
+        <select id="filletScope">
+          <option value="bridges" selected>Solo uniones</option>
+          <option value="all">Todo el diseño</option>
+        </select></div>
+    </div>
+    <div class="hint" id="scopeHint" style="margin-top:-8px;margin-bottom:12px;display:none;color:var(--warn)">
+      «Todo el diseño» también rellena huecos de la letra más estrechos que 2 × radio (p. ej. el bucle de la t).
+    </div>
+    <div class="hint" id="autoHint" style="margin-bottom:12px">—</div>
+
+    <div class="sect">Ajuste manual</div>
+    <div class="checkrow"><input type="checkbox" id="showBridges" checked><label for="showBridges">Resaltar uniones en la vista previa</label></div>
+    <div class="hint" style="margin-top:-4px;margin-bottom:10px">Haz clic sobre una unión en la vista previa para quitarla o recuperarla.</div>
+    <div class="field"><button id="resetBridges" disabled>Restaurar uniones quitadas</button></div>
+
+    <hr>
+
+    <div class="field">
+      <label for="anchor">Origen</label>
+      <select id="anchor">
+        <option value="origin" selected>Esquina inferior izquierda en (0,0)</option>
+        <option value="center">Centrado en (0,0)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="extrudeH">Altura extrusión STL (mm)</label>
+      <input type="number" id="extrudeH" value="3" min="0.2" step="0.5">
+    </div>
+
+    <div class="row field">
+      <div><button id="dlDXF" class="primary" disabled>DXF</button></div>
+      <div><button id="dlSVG" disabled>SVG</button></div>
+      <div><button id="dlSTL" disabled>STL</button></div>
+    </div>
+
+    <div id="status"><span class="dot"></span><span id="statusText">Cargando…</span></div>
+  </aside>
+
+  <main>
+    <div id="stage">
+      <canvas id="preview"></canvas>
+      <div id="empty">Sin geometría todavía</div>
+      <div id="dims" class="badge">—</div>
+      <div id="legend" class="badge">
+        <span><i style="background:rgba(78,161,255,.35);border:1px solid #4ea1ff"></i>Letras</span>
+        <span><i style="background:rgba(255,122,89,.45);border:1px solid #ff7a59"></i>Uniones añadidas</span>
+        <span><i style="border:1px dashed #8b98a5"></i>Quitadas</span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/dist/opentype.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipper-lib@6.4.2/clipper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/earcut@2.2.4/dist/earcut.min.js"></script>
+<script>
+/* =========================================================
+   MOTOR GEOMÉTRICO  (sin DOM)
+   Requiere globales: ClipperLib, earcut
+   Unidades de salida: mm, eje Y hacia arriba.
+   ========================================================= */
+(function (root) {
+  const S = 1000;                       // escala Clipper: 1 unidad = 1 µm
+  const CL = () => root.ClipperLib;
+
+  /* ---------- conversiones ---------- */
+  const toC   = pts  => pts.map(([x, y]) => ({ X: Math.round(x * S), Y: Math.round(y * S) }));
+  const fromC = path => path.map(p => [p.X / S, p.Y / S]);
+
+  /* ---------- aplanado de curvas ---------- */
+  function flattenCommands(cmds, segLen) {
+    const out = [];
+    let cur = null, cx = 0, cy = 0, sx = 0, sy = 0;
+    const steps = len => Math.max(2, Math.min(96, Math.ceil(len / segLen)));
+    const d = (a, b, c, e) => Math.hypot(c - a, e - b);
+    const close = () => { if (cur && cur.length >= 3) out.push(cur); cur = null; };
+    for (const c of cmds) {
+      switch (c.type) {
+        case 'M': close(); cur = [[c.x, c.y]]; cx = sx = c.x; cy = sy = c.y; break;
+        case 'L': if (!cur) cur = [[cx, cy]]; cur.push([c.x, c.y]); cx = c.x; cy = c.y; break;
+        case 'Q': {
+          if (!cur) cur = [[cx, cy]];
+          const n = steps(d(cx, cy, c.x1, c.y1) + d(c.x1, c.y1, c.x, c.y));
+          for (let i = 1; i <= n; i++) {
+            const t = i / n, m = 1 - t;
+            cur.push([m * m * cx + 2 * m * t * c.x1 + t * t * c.x,
+                      m * m * cy + 2 * m * t * c.y1 + t * t * c.y]);
+          }
+          cx = c.x; cy = c.y; break;
+        }
+        case 'C': {
+          if (!cur) cur = [[cx, cy]];
+          const n = steps(d(cx, cy, c.x1, c.y1) + d(c.x1, c.y1, c.x2, c.y2) + d(c.x2, c.y2, c.x, c.y));
+          for (let i = 1; i <= n; i++) {
+            const t = i / n, m = 1 - t;
+            cur.push([m * m * m * cx + 3 * m * m * t * c.x1 + 3 * m * t * t * c.x2 + t * t * t * c.x,
+                      m * m * m * cy + 3 * m * m * t * c.y1 + 3 * m * t * t * c.y2 + t * t * t * c.y]);
+          }
+          cx = c.x; cy = c.y; break;
+        }
+        case 'Z': cx = sx; cy = sy; close(); break;
+      }
+    }
+    close();
+    return out;
+  }
+
+  /* ---------- operaciones Clipper ---------- */
+  function boolOp(type, subj, clip, fill) {
+    const C = CL();
+    const c = new C.Clipper();
+    if (subj.length) c.AddPaths(subj, C.PolyType.ptSubject, true);
+    if (clip && clip.length) c.AddPaths(clip, C.PolyType.ptClip, true);
+    const sol = new C.Paths();
+    const ft = fill === 'evenodd' ? C.PolyFillType.pftEvenOdd : C.PolyFillType.pftNonZero;
+    c.Execute(type, sol, ft, ft);
+    return sol;
+  }
+  const union     = (p, fill) => boolOp(CL().ClipType.ctUnion, p, null, fill);
+  const diff      = (a, b)    => boolOp(CL().ClipType.ctDifference, a, b);
+  const intersect = (a, b)    => boolOp(CL().ClipType.ctIntersection, a, b);
+
+  function offset(paths, deltaMm) {
+    if (!deltaMm || !paths.length) return paths;
+    const C = CL();
+    const co = new C.ClipperOffset(2, 0.02 * S);
+    co.AddPaths(paths, C.JoinType.jtRound, C.EndType.etClosedPolygon);
+    const sol = new C.Paths();
+    co.Execute(sol, deltaMm * S);
+    return sol;
+  }
+
+  /** Trazos abiertos con extremos redondos (cápsulas) */
+  function strokeLines(lines, radiusMm) {
+    if (!lines.length || radiusMm <= 0) return [];
+    const C = CL();
+    const co = new C.ClipperOffset(2, 0.02 * S);
+    for (const l of lines) co.AddPath(toC(l), C.JoinType.jtRound, C.EndType.etOpenRound);
+    const sol = new C.Paths();
+    co.Execute(sol, radiusMm * S);
+    return sol;
+  }
+
+  /** Elimina astillas (área en mm²) y vértices redundantes */
+  function clean(paths, minArea) {
+    const C = CL();
+    return C.Clipper.CleanPolygons(paths, 0.5)
+      .filter(p => p.length >= 3 && Math.abs(C.Clipper.Area(p)) / (S * S) >= minArea);
+  }
+
+  const areaMm2 = paths => paths.reduce((a, p) => a + CL().Clipper.Area(p), 0) / (S * S);
+  const perimMm = paths => paths.reduce((a, p) => {
+    let s = 0;
+    for (let i = 0; i < p.length; i++) {
+      const q = p[(i + 1) % p.length];
+      s += Math.hypot(q.X - p[i].X, q.Y - p[i].Y);
+    }
+    return a + s;
+  }, 0) / S;
+
+  /** Piezas físicas: cada contorno exterior con sus agujeros */
+  function pieces(paths) {
+    const C = CL();
+    const c = new C.Clipper();
+    c.StrictlySimple = true;
+    c.AddPaths(paths, C.PolyType.ptSubject, true);
+    const tree = new C.PolyTree();
+    c.Execute(C.ClipType.ctUnion, tree, C.PolyFillType.pftNonZero, C.PolyFillType.pftNonZero);
+    const out = [];
+    const walk = node => {
+      for (const ch of node.Childs()) {
+        if (!ch.IsHole()) {
+          const piece = { outer: ch.Contour(), holes: [] };
+          for (const h of ch.Childs()) { piece.holes.push(h.Contour()); walk(h); }
+          out.push(piece);
+        }
+      }
+    };
+    walk(tree);
+    return out;
+  }
+
+  /* ---------- puntos más cercanos entre dos formas ---------- */
+  function segPoint(px, py, ax, ay, bx, by) {
+    const dx = bx - ax, dy = by - ay;
+    const L = dx * dx + dy * dy;
+    let t = L ? ((px - ax) * dx + (py - ay) * dy) / L : 0;
+    t = t < 0 ? 0 : t > 1 ? 1 : t;
+    return [ax + t * dx, ay + t * dy];
+  }
+
+  /**
+   * a, b: listas de contornos en mm. band: {min,max} en Y o null.
+   * Devuelve {pa, pb, d} o null.
+   */
+  function nearest(a, b, band) {
+    let best = null;
+    const inBand = y => !band || (y >= band.min && y <= band.max);
+    const scan = (src, dst, swap) => {
+      for (const poly of src) for (const [px, py] of poly) {
+        if (!inBand(py)) continue;
+        for (const q of dst) {
+          for (let i = 0; i < q.length; i++) {
+            const A = q[i], B = q[(i + 1) % q.length];
+            if (!inBand(A[1]) && !inBand(B[1])) continue;
+            const [sx, sy] = segPoint(px, py, A[0], A[1], B[0], B[1]);
+            const dd = (sx - px) ** 2 + (sy - py) ** 2;
+            if (!best || dd < best.d) best = swap ? { pa: [sx, sy], pb: [px, py], d: dd } : { pa: [px, py], pb: [sx, sy], d: dd };
+          }
+        }
+      }
+    };
+    scan(a, b, false);
+    scan(b, a, true);
+    if (best) best.d = Math.sqrt(best.d);
+    return best;
+  }
+
+  /* ---------- métricas de la fuente ---------- */
+  function capHeight(font) {
+    const os2 = font.tables && font.tables.os2;
+    let v = os2 && os2.sCapHeight;
+    if (!v) { const g = font.charToGlyph('H'); if (g && g.index) v = g.getBoundingBox().y2; }
+    return v > 0 ? v : font.unitsPerEm * 0.7;
+  }
+  function xHeight(font) {
+    const os2 = font.tables && font.tables.os2;
+    let v = os2 && os2.sxHeight;
+    if (!v) { const g = font.charToGlyph('x'); if (g && g.index) v = g.getBoundingBox().y2; }
+    return v > 0 ? v : font.unitsPerEm * 0.5;
+  }
+
+  /* ---------- maquetación: texto → glifos agrupados por palabra ---------- */
+  function layout(font, text, size, trackingMm, lineHeightMul, thicknessMm, segLen) {
+    const k = size / font.unitsPerEm;
+    const lh = size * lineHeightMul;
+    const words = [];                       // [{line, glyphs:[{paths(Clipper)}]}]
+    const lines = text.replace(/\r/g, '').split('\n');
+
+    lines.forEach((line, li) => {
+      const baseY = li * lh;                // en coords de opentype (Y hacia abajo)
+      const glyphs = font.stringToGlyphs(line);   // aplica ligaduras
+      let x = 0, prev = null, word = null;
+      for (const g of glyphs) {
+        const isSpace = !g.path || !g.path.commands || g.path.commands.length === 0;
+        if (prev) {
+          try { const kv = font.getKerningValue(prev, g); if (isFinite(kv)) x += kv * k; } catch (_) {}
+        }
+        if (isSpace) {
+          word = null;
+        } else if (g.index !== 0) {
+          const cmds = g.getPath(x, baseY, size).commands;
+          let contours = flattenCommands(cmds, segLen).map(c => c.map(([px, py]) => [px, -py]));
+          let paths = union(contours.map(toC));          // normaliza solapes internos del glifo
+          if (thicknessMm) paths = offset(paths, thicknessMm);
+          if (paths.length) {
+            if (!word) { word = { line: li, baseline: -baseY, glyphs: [] }; words.push(word); }
+            word.glyphs.push({ paths });
+          }
+        }
+        x += (g.advanceWidth || 0) * k + trackingMm;
+        prev = g;
+      }
+    });
+    return words;
+  }
+
+  /** Grosor medio del trazo: 2·Área / Perímetro (mediana por glifo) */
+  function estimateStroke(words) {
+    const vals = [];
+    for (const w of words) for (const g of w.glyphs) {
+      const A = Math.abs(areaMm2(g.paths)), P = perimMm(g.paths);
+      if (A > 0 && P > 0) vals.push(2 * A / P);
+    }
+    if (!vals.length) return 0;
+    vals.sort((a, b) => a - b);
+    return vals[Math.floor(vals.length / 2)];
+  }
+
+  /* ---------- forma de los puentes ---------- */
+
+  /** Dirección del trazo cerca de p: eje principal (PCA) de los puntos del contorno en un radio R */
+  function strokeDir(p, contours, R) {
+    let n = 0, mx = 0, my = 0;
+    const pts = [];
+    for (const c of contours) for (const q of c) {
+      if ((q[0] - p[0]) ** 2 + (q[1] - p[1]) ** 2 <= R * R) { pts.push(q); mx += q[0]; my += q[1]; n++; }
+    }
+    if (n < 3) return null;
+    mx /= n; my /= n;
+    let sxx = 0, syy = 0, sxy = 0;
+    for (const [x, y] of pts) { sxx += (x - mx) ** 2; syy += (y - my) ** 2; sxy += (x - mx) * (y - my); }
+    const ang = 0.5 * Math.atan2(2 * sxy, sxx - syy);
+    return [Math.cos(ang), Math.sin(ang)];
+  }
+
+  /** Línea central del puente: recta o curva de Bézier que sale en la dirección del trazo */
+  function bridgePath(pa, pb, ctxA, ctxB, curv, strokeW) {
+    const dx = pb[0] - pa[0], dy = pb[1] - pa[1], L = Math.hypot(dx, dy);
+    if (L < 1e-6) return [pa, pb];
+    const d = [dx / L, dy / L];
+    const ext = strokeW * 0.55;            // cuánto se mete el puente dentro de cada letra
+    const embed = (path, ta, tb) => [[pa[0] - ta[0] * ext, pa[1] - ta[1] * ext], ...path, [pb[0] + tb[0] * ext, pb[1] + tb[1] * ext]];
+    if (!curv || L < strokeW * 0.4) return embed([pa, pb], d, d);
+    const R = Math.max(strokeW * 2.5, 1);
+    const orient = (t) => {
+      if (!t) return d;
+      if (t[0] * d[0] + t[1] * d[1] < 0) t = [-t[0], -t[1]];
+      const m = [curv * t[0] + (1 - curv) * d[0], curv * t[1] + (1 - curv) * d[1]];
+      const l = Math.hypot(m[0], m[1]) || 1;
+      return [m[0] / l, m[1] / l];
+    };
+    const ta = orient(strokeDir(pa, ctxA, R)), tb = orient(strokeDir(pb, ctxB, R));
+    const h = L * 0.42;
+    const p1 = [pa[0] + ta[0] * h, pa[1] + ta[1] * h];
+    const p2 = [pb[0] - tb[0] * h, pb[1] - tb[1] * h];
+    const n = Math.max(6, Math.min(40, Math.ceil(L / 0.2)));
+    const out = [];
+    for (let i = 0; i <= n; i++) {
+      const t = i / n, m = 1 - t;
+      out.push([m * m * m * pa[0] + 3 * m * m * t * p1[0] + 3 * m * t * t * p2[0] + t * t * t * pb[0],
+                m * m * m * pa[1] + 3 * m * m * t * p1[1] + 3 * m * t * t * p2[1] + t * t * t * pb[1]]);
+    }
+    return embed(out, ta, tb);
+  }
+
+  /** Puente sólido con grosor variable: r(t) = r0·(1 − taper·sin(πt)) y extremos redondos */
+  function bridgeSolid(path, r0, taper) {
+    if (!taper || path.length < 2) return strokeLines([path], r0);
+    // remuestreo uniforme para que el perfil sea suave también en puentes rectos
+    let pts = path;
+    if (path.length < 12) {
+      const a = path[0], b = path[path.length - 1];
+      pts = []; for (let i = 0; i <= 16; i++) { const t = i / 16; pts.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]); }
+    }
+    const N = pts.length, left = [], right = [];
+    for (let i = 0; i < N; i++) {
+      const p = pts[Math.max(0, i - 1)], q = pts[Math.min(N - 1, i + 1)];
+      let tx = q[0] - p[0], ty = q[1] - p[1]; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l;
+      const r = r0 * (1 - taper * Math.sin(Math.PI * i / (N - 1)));
+      left.push([pts[i][0] - ty * r, pts[i][1] + tx * r]);
+      right.push([pts[i][0] + ty * r, pts[i][1] - tx * r]);
+    }
+    const body = toC(left.concat(right.reverse()));
+    if (CL().Clipper.Area(body) < 0) body.reverse();          // misma orientación que las tapas
+    const caps = strokeLines([[pts[0], pts[0]], [pts[N - 1], pts[N - 1]]], r0);
+    return union([body].concat(caps));
+  }
+
+  /* ---------- unión de una palabra ---------- */
+  function joinWord(word, wi, opt) {
+    const { strokeW, connect, islands, filletR, filletScope, curv, taper, disabled, xh } = opt;
+    const cands = [];   // {id, pa, pb, ctxA, ctxB}
+
+    const parts = word.glyphs.map(g => {
+      const ps = pieces(g.paths)
+        .map(p => ({ mm: [p.outer, ...p.holes].map(fromC), a: Math.abs(CL().Clipper.Area(p.outer)) }))
+        .sort((x, y) => y.a - x.a);
+      return { main: ps.length ? ps[0].mm : g.paths.map(fromC), minor: ps.slice(1).map(p => p.mm) };
+    });
+
+    // 0) puntos y tildes → a su propia letra
+    if (islands) parts.forEach((pt, gi) => pt.minor.forEach((m, k) => {
+      const n = nearest(m, pt.main, null);
+      if (n) cands.push({ id: `${wi}:d:${gi}:${k}`, pa: n.pa, pb: n.pb, ctxA: m, ctxB: pt.main });
+    }));
+
+    // 1) letra con letra
+    if (connect) {
+      const band = { min: word.baseline - 0.15 * xh, max: word.baseline + 0.95 * xh };
+      for (let i = 0; i < word.glyphs.length - 1; i++) {
+        if (Math.abs(areaMm2(intersect(word.glyphs[i].paths, word.glyphs[i + 1].paths))) > 1e-4) continue;
+        const a = parts[i].main, b = parts[i + 1].main;
+        const n = nearest(a, b, band) || nearest(a, b, null);
+        if (n) cands.push({ id: `${wi}:c:${i}`, pa: n.pa, pb: n.pb, ctxA: a, ctxB: b });
+      }
+    }
+
+    const bridges = [];   // {id, path, enabled}
+    const solids = [];
+    const addBridges = list => {
+      for (const c of list) {
+        const path = bridgePath(c.pa, c.pb, c.ctxA, c.ctxB, curv, strokeW);
+        const enabled = !disabled.has(c.id);
+        bridges.push({ id: c.id, path, enabled });
+        if (enabled) solids.push(...bridgeSolid(path, strokeW / 2, taper));
+      }
+    };
+    addBridges(cands);
+    // extremos de las uniones que el usuario ha quitado: no se vuelven a crear en el mismo sitio
+    const blocked = cands.filter(c => disabled.has(c.id));
+    const near = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1]) < strokeW * 1.5;
+    const isBlocked = (pa, pb) => blocked.some(c => (near(pa, c.pa) && near(pb, c.pb)) || (near(pa, c.pb) && near(pb, c.pa)));
+
+    let shape = union([].concat(...word.glyphs.map(g => g.paths), solids));
+
+    // 2) piezas que siguen sueltas → árbol de expansión mínima
+    if (islands) {
+      const ps = pieces(shape);
+      if (ps.length > 1) {
+        const mm = ps.map(p => [p.outer, ...p.holes].map(fromC));
+        const edges = [];
+        for (let i = 0; i < ps.length; i++)
+          for (let j = i + 1; j < ps.length; j++) {
+            const n = nearest(mm[i], mm[j], null);
+            if (n) edges.push({ i, j, n });
+          }
+        edges.sort((a, b) => a.n.d - b.n.d);
+        const parent = ps.map((_, i) => i);
+        const find = i => (parent[i] === i ? i : (parent[i] = find(parent[i])));
+        const extra = [];
+        for (const e of edges) {
+          if (isBlocked(e.n.pa, e.n.pb)) continue;
+          const a = find(e.i), b = find(e.j);
+          if (a !== b) {
+            parent[a] = b;
+            const pa = e.n.pa, pb = e.n.pb;
+            extra.push({ id: `${wi}:m:${pa[0].toFixed(1)},${pa[1].toFixed(1)}`, pa, pb, ctxA: mm[e.i], ctxB: mm[e.j] });
+          }
+        }
+        const before = solids.length;
+        addBridges(extra);
+        if (solids.length > before) shape = union(shape.concat(solids.slice(before)));
+      }
+    }
+
+    // 3) suavizado
+    const active = bridges.filter(b => b.enabled).map(b => b.path);
+    if (filletR > 0) {
+      if (filletScope === 'all') {
+        shape = clean(offset(offset(shape, filletR), -filletR), 0.001);
+      } else if (active.length) {
+        const closed = offset(offset(shape, filletR), -filletR);
+        const added  = diff(closed, shape);
+        const mask   = strokeLines(active, strokeW / 2 + 2 * filletR);
+        const fill   = clean(intersect(added, mask), Math.max(0.01, 0.1 * strokeW * strokeW))
+          .filter(f => intersect(offset([f], 0.005), shape).length > 0);
+        if (fill.length) shape = clean(union(shape.concat(fill)), 0.001);
+      }
+    }
+
+    return { shape, bridges };
+  }
+
+  /* ---------- pipeline completo ---------- */
+  function build(font, text, o) {
+    const segLen = o.segLen || 0.25;
+    let size = o.size;
+    if (o.sizeMode === 'cap') size = o.size * font.unitsPerEm / capHeight(font);
+    else if (o.sizeMode === 'total') {
+      const probe = layout(font, text, 100, 0, o.lineHeight, 0, 1);
+      const all = [].concat(...probe.map(w => [].concat(...w.glyphs.map(g => g.paths))));
+      if (all.length) {
+        const b = bounds(all.map(fromC));
+        if (b.maxY > b.minY) size = 100 * o.size / (b.maxY - b.minY);
+      }
+    }
+
+    const words = layout(font, text, size, o.tracking || 0, o.lineHeight || 1.2, o.thickness || 0, segLen);
+    const estStroke = estimateStroke(words);
+    const strokeW = o.connectorW > 0 ? o.connectorW : estStroke;
+    const filletR = o.fillet < 0 ? 0 : (o.fillet > 0 ? o.fillet : strokeW * 0.5);
+    const xh = xHeight(font) * size / font.unitsPerEm;
+    const opt = {
+      strokeW, filletR, xh,
+      connect: o.connect, islands: o.islands,
+      filletScope: o.filletScope || 'bridges',
+      curv: Math.max(0, Math.min(1, o.curvature || 0)),
+      taper: Math.max(0, Math.min(0.7, o.taper || 0)),
+      disabled: o.disabled || new Set()
+    };
+
+    let all = [];
+    let bridges = [];
+    words.forEach((w, wi) => {
+      const r = joinWord(w, wi, opt);
+      all = all.concat(r.shape);
+      bridges = bridges.concat(r.bridges);
+    });
+    all = clean(union(all), 0.001);
+
+    let contours = all.map(fromC).filter(c => c.length >= 3);
+
+    // origen
+    const b = bounds(contours);
+    let dx = 0, dy = 0;
+    if (o.anchor === 'origin') { dx = -b.minX; dy = -b.minY; }
+    else if (o.anchor === 'center') { dx = -(b.minX + b.maxX) / 2; dy = -(b.minY + b.maxY) / 2; }
+    const mv = c => c.map(([x, y]) => [x + dx, y + dy]);
+    contours = contours.map(mv);
+    bridges = bridges.map(br => ({
+      id: br.id, enabled: br.enabled, path: mv(br.path),
+      outline: (br.enabled ? bridgeSolid(br.path, strokeW / 2, opt.taper) : strokeLines([br.path], strokeW / 2)).map(fromC).map(mv)
+    }));
+
+    return {
+      contours, bridges,
+      bbox: bounds(contours),
+      pieces: contours.length ? pieces(contours.map(toC)).length : 0,
+      strokeW, estStroke, filletR, size
+    };
+  }
+
+  function bounds(contours) {
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const c of contours) for (const [x, y] of c) {
+      if (x < minX) minX = x; if (x > maxX) maxX = x;
+      if (y < minY) minY = y; if (y > maxY) maxY = y;
+    }
+    return isFinite(minX) ? { minX, minY, maxX, maxY } : { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+  }
+
+  /* ---------- DXF R12 (máxima compatibilidad: LightBurn, RDWorks, LaserGRBL, Inkscape) ---------- */
+  function toDXF(contours, layer = 'CORTE') {
+    const n = v => (Math.abs(v) < 1e-9 ? 0 : v).toFixed(4);
+    const o = [];
+    const p = (c, v) => o.push(String(c), String(v));
+    p(0, 'SECTION'); p(2, 'ENTITIES');
+    for (const c of contours) {
+      p(0, 'POLYLINE'); p(8, layer); p(66, 1); p(10, '0.0'); p(20, '0.0'); p(30, '0.0'); p(70, 1);
+      for (const [x, y] of c) { p(0, 'VERTEX'); p(8, layer); p(10, n(x)); p(20, n(y)); p(30, '0.0'); }
+      p(0, 'SEQEND'); p(8, layer);
+    }
+    p(0, 'ENDSEC'); p(0, 'EOF');
+    return o.join('\r\n') + '\r\n';
+  }
+
+  /* ---------- SVG (vector, mm) ---------- */
+  function toSVG(contours, bbox) {
+    const w = bbox.maxX - bbox.minX, h = bbox.maxY - bbox.minY;
+    const d = contours.map(c => 'M' + c.map(([x, y]) =>
+      `${(x - bbox.minX).toFixed(3)} ${(bbox.maxY - y).toFixed(3)}`).join('L') + 'Z').join('');
+    return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" ` +
+      `width="${w.toFixed(3)}mm" height="${h.toFixed(3)}mm" viewBox="0 0 ${w.toFixed(3)} ${h.toFixed(3)}">` +
+      `<path d="${d}" fill="none" stroke="#ff0000" stroke-width="0.1" fill-rule="nonzero"/></svg>\n`;
+  }
+
+  /* ---------- STL binario ---------- */
+  function toSTL(contours, height) {
+    const tris = [];
+    const signed = pts => { let s = 0; for (let i = 0; i < pts.length; i++) { const j = (i + 1) % pts.length; s += pts[i][0] * pts[j][1] - pts[j][0] * pts[i][1]; } return s / 2; };
+    for (const pc of pieces(contours.map(toC))) {
+      const cp = q => CL().Clipper.CleanPolygon(q, 2);   // quita colineales (evita uniones en T)
+      const outer = fromC(cp(pc.outer)); if (signed(outer) < 0) outer.reverse();          // CCW
+      const holes = pc.holes.map(h => { const q = fromC(cp(h)); if (signed(q) > 0) q.reverse(); return q; }); // CW
+      const verts = [], holeIdx = [];
+      outer.forEach(p => verts.push(p[0], p[1]));
+      for (const h of holes) { holeIdx.push(verts.length / 2); h.forEach(p => verts.push(p[0], p[1])); }
+      const idx = root.earcut(verts, holeIdx, 2);
+      const V = i => [verts[2 * i], verts[2 * i + 1]];
+      for (let i = 0; i < idx.length; i += 3) {
+        let a = V(idx[i]), b = V(idx[i + 1]), c = V(idx[i + 2]);
+        if ((b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]) < 0) [b, c] = [c, b];   // CCW
+        tris.push([[a[0], a[1], height], [b[0], b[1], height], [c[0], c[1], height]]);          // tapa
+        tris.push([[a[0], a[1], 0], [c[0], c[1], 0], [b[0], b[1], 0]]);                         // base
+      }
+      // paredes: con exterior CCW y agujeros CW, la normal hacia fuera queda a la derecha del avance
+      for (const ring of [outer, ...holes]) {
+        for (let i = 0; i < ring.length; i++) {
+          const p1 = ring[i], p2 = ring[(i + 1) % ring.length];
+          const a0 = [p1[0], p1[1], 0], b0 = [p2[0], p2[1], 0], a1 = [p1[0], p1[1], height], b1 = [p2[0], p2[1], height];
+          tris.push([a0, b0, b1]); tris.push([a0, b1, a1]);
+        }
+      }
+    }
+    const buf = new ArrayBuffer(84 + tris.length * 50);
+    const dv = new DataView(buf);
+    dv.setUint32(80, tris.length, true);
+    let off = 84;
+    for (const [a, b, c] of tris) {
+      const ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2];
+      const vx = c[0] - a[0], vy = c[1] - a[1], vz = c[2] - a[2];
+      let nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx;
+      const L = Math.hypot(nx, ny, nz) || 1;
+      for (const v of [nx / L, ny / L, nz / L, ...a, ...b, ...c]) { dv.setFloat32(off, v, true); off += 4; }
+      off += 2;
+    }
+    return { buffer: buf, count: tris.length };
+  }
+
+  root.TextGeom = { build, toDXF, toSVG, toSTL };
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>
+/* =========================================================
+   INTERFAZ
+   ========================================================= */
+const $ = s => document.querySelector(s);
+let font = null, result = null, busy = false, pending = false, timer = null;
+const disabled = new Set();
+let view = null;   // transformación de la vista previa (para clic)
+
+const FONT_URLS = [
+  'https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/sendflowers/SendFlowers-Regular.ttf',
+  'https://raw.githubusercontent.com/google/fonts/main/ofl/sendflowers/SendFlowers-Regular.ttf'
+];
+
+function setStatus(msg, kind = '') { $('#status').className = kind; $('#statusText').textContent = msg; }
+
+function libsOK() {
+  const miss = [];
+  if (!window.opentype) miss.push('opentype.js');
+  if (!window.ClipperLib) miss.push('Clipper');
+  if (!window.earcut) miss.push('earcut');
+  if (miss.length) { setStatus('No se cargaron: ' + miss.join(', ') + '. Revisa la conexión y recarga.', 'err'); return false; }
+  return true;
+}
+
+async function loadDefaultFont() {
+  if (!libsOK()) return;
+  setStatus('Descargando Send Flowers…', 'busy');
+  for (const url of FONT_URLS) {
+    try {
+      const r = await fetch(url);
+      if (!r.ok) continue;
+      setFont(opentype.parse(await r.arrayBuffer()), 'Send Flowers');
+      return;
+    } catch (_) {}
+  }
+  setStatus('No se pudo descargar Send Flowers. Sube el .ttf manualmente.', 'err');
+}
+
+function setFont(f, label) {
+  if (!f || !f.unitsPerEm) throw new Error('Fuente inválida');
+  font = f;
+  disabled.clear();
+  const n = (f.names && f.names.fullName && (f.names.fullName.en || Object.values(f.names.fullName)[0])) || label;
+  $('#fontName').textContent = n;
+  update();
+}
+
+const num = (id, def) => { const v = parseFloat($(id).value); return isFinite(v) ? v : def; };
+
+function readOptions() {
+  return {
+    size: Math.max(1, num('#size', 30)),
+    sizeMode: $('#sizeMode').value,
+    tracking: num('#tracking', 0),
+    lineHeight: Math.max(0.5, num('#lh', 1.3)),
+    thickness: num('#thickness', 0),
+    connect: $('#connect').checked,
+    islands: $('#islands').checked,
+    connectorW: Math.max(0, num('#connectorW', 0)),
+    fillet: $('#smooth').checked ? Math.max(0, num('#fillet', 0)) : -1,
+    filletScope: $('#filletScope').value,
+    curvature: num('#curvature', 70) / 100,
+    taper: num('#taper', 0) / 100,
+    disabled,
+    anchor: $('#anchor').value,
+    segLen: 0.25
+  };
+}
+
+function scheduleUpdate() { clearTimeout(timer); timer = setTimeout(update, 250); }
+
+async function update() {
+  if (!font) return;
+  if (busy) { pending = true; return; }
+  busy = true;
+  setStatus('Calculando…', 'busy');
+  await new Promise(r => setTimeout(r, 20));
+  try {
+    const text = $('#text').value.trim() ? $('#text').value : ' ';
+    const o = readOptions();
+    const t0 = performance.now();
+    result = TextGeom.build(font, text, o);
+    const ms = Math.round(performance.now() - t0);
+    const ok = result.contours.length > 0;
+    ['#dlDXF', '#dlSVG', '#dlSTL'].forEach(s => $(s).disabled = !ok);
+
+    $('#autoHint').textContent =
+      `0 = automático. Trazo medido: ${result.estStroke.toFixed(2)} mm · unión: ${result.strokeW.toFixed(2)} mm` +
+      (result.filletR > 0 ? ` · radio suavizado: ${result.filletR.toFixed(2)} mm` : '');
+    const off = result.bridges.filter(b => !b.enabled).length;
+    $('#resetBridges').disabled = !disabled.size;
+    $('#resetBridges').textContent = off ? `Restaurar ${off} unión${off === 1 ? '' : 'es'} quitada${off === 1 ? '' : 's'}` : 'Restaurar uniones quitadas';
+
+    if (!ok) setStatus('Sin geometría (¿engrosado negativo excesivo?)', 'err');
+    else {
+      const words = text.trim().split(/\s+/).filter(Boolean).length;
+      const w = result.bbox.maxX - result.bbox.minX, h = result.bbox.maxY - result.bbox.minY;
+      const msg = `${w.toFixed(1)} × ${h.toFixed(1)} mm · ${result.pieces} pieza${result.pieces === 1 ? '' : 's'} · ${ms} ms`;
+      if (o.connect && o.islands && result.pieces > words)
+        setStatus(msg + ' · ojo: hay piezas que no están unidas', 'warn');
+      else setStatus(msg, 'ok');
+    }
+    draw();
+  } catch (e) {
+    console.error(e);
+    setStatus('Error: ' + e.message, 'err');
+  } finally {
+    busy = false;
+    if (pending) { pending = false; update(); }
+  }
+}
+
+/* ---------- vista previa ---------- */
+function draw() {
+  const cv = $('#preview'), st = $('#stage');
+  const dpr = window.devicePixelRatio || 1, W = st.clientWidth, H = st.clientHeight;
+  cv.width = Math.max(1, W * dpr); cv.height = Math.max(1, H * dpr);
+  cv.style.width = W + 'px'; cv.style.height = H + 'px';
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  if (!result || !result.contours.length) { $('#empty').style.display = 'flex'; $('#dims').textContent = '—'; return; }
+  $('#empty').style.display = 'none';
+
+  const b = result.bbox, w = Math.max(b.maxX - b.minX, 1e-6), h = Math.max(b.maxY - b.minY, 1e-6);
+  const pad = 60, s = Math.min((W - 2 * pad) / w, (H - 2 * pad) / h);
+  const ox = W / 2 - ((b.minX + b.maxX) / 2) * s, oy = H / 2 + ((b.minY + b.maxY) / 2) * s;
+  view = { ox, oy, s };
+
+  // cuadrícula de 10 mm
+  const g = 10 * s;
+  if (g > 6) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 1; ctx.beginPath();
+    for (let x = ((ox % g) + g) % g; x < W; x += g) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+    for (let y = ((oy % g) + g) % g; y < H; y += g) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+    ctx.stroke();
+  }
+
+  const trace = list => {
+    ctx.beginPath();
+    for (const c of list) {
+      ctx.moveTo(ox + c[0][0] * s, oy - c[0][1] * s);
+      for (let i = 1; i < c.length; i++) ctx.lineTo(ox + c[i][0] * s, oy - c[i][1] * s);
+      ctx.closePath();
+    }
+  };
+
+  trace(result.contours);
+  ctx.fillStyle = 'rgba(78,161,255,0.16)'; ctx.fill('nonzero');
+  ctx.strokeStyle = '#4ea1ff'; ctx.lineWidth = 1.2; ctx.lineJoin = 'round'; ctx.stroke();
+
+  const showB = $('#showBridges').checked && result.bridges.length;
+  $('#legend').style.display = showB ? 'flex' : 'none';
+  if (showB) {
+    const on = result.bridges.filter(b => b.enabled), offB = result.bridges.filter(b => !b.enabled);
+    trace([].concat(...on.map(b => b.outline)));
+    ctx.fillStyle = 'rgba(255,122,89,0.45)'; ctx.fill('nonzero');
+    ctx.strokeStyle = '#ff7a59'; ctx.lineWidth = 1; ctx.stroke();
+    if (offB.length) {
+      trace([].concat(...offB.map(b => b.outline)));
+      ctx.setLineDash([4, 3]); ctx.strokeStyle = '#8b98a5'; ctx.stroke(); ctx.setLineDash([]);
+    }
+    if (hoverId) {
+      const hb = result.bridges.find(b => b.id === hoverId);
+      if (hb) { trace(hb.outline); ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke(); }
+    }
+  }
+
+  const pts = result.contours.reduce((a, c) => a + c.length, 0);
+  $('#dims').textContent = `${w.toFixed(1)} × ${h.toFixed(1)} mm · ${result.contours.length} contornos · ${pts} puntos`;
+}
+
+/* ---------- clic sobre uniones ---------- */
+let hoverId = null;
+function bridgeAt(ev) {
+  if (!result || !view || !$('#showBridges').checked) return null;
+  const r = $('#preview').getBoundingClientRect();
+  const x = (ev.clientX - r.left - view.ox) / view.s, y = (view.oy - (ev.clientY - r.top)) / view.s;
+  const tol = Math.max(result.strokeW * 0.8, 8 / view.s);
+  let best = null, bd = Infinity;
+  for (const b of result.bridges) {
+    const p = b.path;
+    for (let i = 0; i < p.length - 1; i++) {
+      const [ax, ay] = p[i], [bx, by] = p[i + 1];
+      const dx = bx - ax, dy = by - ay, L = dx * dx + dy * dy;
+      let t = L ? ((x - ax) * dx + (y - ay) * dy) / L : 0; t = Math.max(0, Math.min(1, t));
+      const d = Math.hypot(ax + t * dx - x, ay + t * dy - y);
+      if (d < bd) { bd = d; best = b; }
+    }
+  }
+  return bd <= tol ? best : null;
+}
+$('#preview').addEventListener('mousemove', ev => {
+  const b = bridgeAt(ev), id = b ? b.id : null;
+  $('#preview').classList.toggle('hover', !!b);
+  if (id !== hoverId) { hoverId = id; draw(); }
+});
+$('#preview').addEventListener('mouseleave', () => { if (hoverId) { hoverId = null; draw(); } });
+$('#preview').addEventListener('click', ev => {
+  const b = bridgeAt(ev);
+  if (!b) return;
+  disabled.has(b.id) ? disabled.delete(b.id) : disabled.add(b.id);
+  update();
+});
+$('#resetBridges').addEventListener('click', () => { disabled.clear(); update(); });
+
+/* ---------- descargas ---------- */
+function baseName() {
+  return ($('#text').value.trim().split('\n')[0] || 'texto').replace(/[^\p{L}\p{N}_-]+/gu, '_').slice(0, 30) || 'texto';
+}
+function save(data, type, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([data], { type }));
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+}
+
+$('#dlDXF').addEventListener('click', () => {
+  if (!result) return;
+  save(TextGeom.toDXF(result.contours), 'application/dxf', baseName() + '.dxf');
+  setStatus(`DXF descargado · ${result.contours.length} contornos cerrados`, 'ok');
+});
+$('#dlSVG').addEventListener('click', () => {
+  if (!result) return;
+  save(TextGeom.toSVG(result.contours, result.bbox), 'image/svg+xml', baseName() + '.svg');
+  setStatus('SVG descargado (unidades en mm)', 'ok');
+});
+$('#dlSTL').addEventListener('click', () => {
+  if (!result) return;
+  const hgt = Math.max(0.2, num('#extrudeH', 3));
+  try {
+    const stl = TextGeom.toSTL(result.contours, hgt);
+    save(stl.buffer, 'model/stl', `${baseName()}_${hgt}mm.stl`);
+    setStatus(`STL descargado · ${stl.count} triángulos · ${hgt} mm`, 'ok');
+  } catch (e) { setStatus('Error STL: ' + e.message, 'err'); }
+});
+
+/* ---------- eventos ---------- */
+$('#loadFont').addEventListener('click', loadDefaultFont);
+$('#file').addEventListener('change', async e => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  try { setFont(opentype.parse(await f.arrayBuffer()), f.name); }
+  catch (err) { setStatus('No se pudo leer la fuente: ' + err.message + ' (usa .ttf, .otf o .woff; .woff2 no es compatible)', 'err'); }
+  finally { e.target.value = ''; }
+});
+['#text', '#size', '#sizeMode', '#tracking', '#lh', '#thickness', '#connect', '#islands', '#smooth',
+ '#connectorW', '#fillet', '#filletScope', '#anchor', '#curvature', '#taper'].forEach(sel => $(sel).addEventListener('input', scheduleUpdate));
+// al cambiar el texto o la fuente, las uniones quitadas ya no corresponden
+$('#text').addEventListener('input', () => disabled.clear());
+const showRange = () => { $('#curvatureOut').textContent = $('#curvature').value + ' %'; $('#taperOut').textContent = $('#taper').value + ' %'; };
+['#curvature', '#taper'].forEach(s => $(s).addEventListener('input', showRange));
+showRange();
+$('#filletScope').addEventListener('change', () => $('#scopeHint').style.display = $('#filletScope').value === 'all' ? 'block' : 'none');
+$('#showBridges').addEventListener('change', draw);
+$('#smooth').addEventListener('change', () => { $('#fillet').disabled = $('#filletScope').disabled = !$('#smooth').checked; });
+window.addEventListener('resize', draw);
+
+draw();
+loadDefaultFont();
+</script>
+</body>
+</html>
