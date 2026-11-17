@@ -99,7 +99,7 @@
 <div class="app">
 <aside>
   <h1>Caja postal</h1>
-  <p class="sub">Caja tipo FEFCO 0427 para impresión 3D. Caja y tapa se imprimen en plano y se pliegan (bisagras vivas); la tapa se clipa en un pasador trasero y, al cerrarla, sus orejetas ya dobladas entran de frente en la pared lateral doble. Medidas en mm.</p>
+  <p class="sub">Caja tipo FEFCO 0427 para impresión 3D. Caja y tapa se imprimen en plano y se pliegan (bisagras vivas); la tapa se clipa en un pasador trasero. El frontal de la tapa es el último pliegue: al bajarlo, sus orejetas entran bajo la tira superior de los laterales, que va entera y bloquea la apertura. Medidas en mm.</p>
 
   <details open>
     <summary>Medidas interiores</summary>
@@ -126,7 +126,7 @@
 
   <details open>
     <summary>Tapa y cierre</summary>
-    <div class="row"><label>Fondo de orejetas de la tapa<small>entran de frente en la pared doble al cerrar; la tira se acorta lo mismo</small></label><input type="number" id="lidEarL" min="4" max="60" step="1"></div>
+    <div class="row"><label>Fondo de orejetas de la tapa<small>entran girando bajo la tira al bajar el frontal · <span id="earLInfo"></span></small></label><input type="number" id="lidEarL" min="4" max="60" step="1"></div>
     <div class="row"><label>Alto de orejetas de la tapa<small>por defecto toda la altura de la caja · <span id="earInfo"></span></small></label><input type="number" id="lidEarH" min="3" max="200" step="1"></div>
     <div class="row"><label>Ø del pasador<small>bisagra de clip en la arista trasera</small></label><input type="number" id="pinD" min="2" max="6" step="0.5"></div>
     <div class="row"><label>Nº de pinzas</label><input type="number" id="clips" min="1" max="8" step="1"></div>
@@ -168,8 +168,9 @@
       <li>Imprime <b>caja y tapa por separado, tal cual salen</b> (cara exterior sobre la cama). La primera capa hace de bisagra: tiene que salir perfecta.</li>
       <li>Relleno de las capas inferiores <b>perpendicular a las bisagras</b> para que las fibras crucen el pliegue.</li>
       <li>Montaje: pliega orejetas → frontal y trasera → laterales → tira superior → pared interior con sus lengüetas en las ranuras.</li>
-      <li>Tapa: dobla su frontal 90° y clípala en el pasador empujando hacia atrás.</li>
-      <li>Cierre: dobla las dos orejetas de la tapa a 90° y cierra: entran de frente, a toda la altura, en la capa exterior de la pared doble (la interior la ocupan las orejetas del frontal de la caja). La tapa se sujeta por ajuste: si queda floja, baja la holgura.</li>
+      <li>Tapa: dobla solo las dos orejetas 90° hacia dentro; deja el frontal plano y clípala en el pasador empujando hacia atrás.</li>
+      <li>Cierre: baja la tapa con el frontal aún plano y, <b>lo último</b>, baja el frontal: las orejetas entran girando en la capa exterior de la pared doble, bajo la tira. Para abrir, primero levanta el frontal.</li>
+      <li>Los laterales no llevan recortes: la tira entera es la que impide que la tapa se levante. El frontal en sí solo se sujeta por el roce de las orejetas; si se queda entreabierto, baja la holgura.</li>
       <li>Si caja y tapa no caben juntas, salen dos STL (cama 1 y cama 2); si caben, uno solo con ambas piezas colocadas.</li>
       <li>Bicolor: carga el STL de la incrustación como <b>parte del mismo objeto</b> que la pieza con el logo (comparten coordenadas).</li>
     </ul>
@@ -218,9 +219,10 @@ const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 /* Esquema (y hacia delante, z arriba, cotas en mm):
    base Lb×Wb · laterales dobles: exterior ─ tira superior ─ interior con lengüetas a la base ·
    frontal y trasera simples con orejetas dentro del hueco de la pared doble (abajo).
-   Tapa aparte: panel superior + frontal a toda altura (bisagra viva) con dos orejetas rectangulares ya dobladas
-   a 90°. Al cerrar, las orejetas entran DE FRENTE en el hueco de la pared doble; para que pasen, la tira superior
-   se acorta por delante lo justo (calculado simulando el cierre). La tapa se sujeta por ajuste.
+   Tapa aparte: panel superior + frontal a toda altura (bisagra viva) con dos orejetas dobladas a 90°.
+   El frontal es el ÚLTIMO pliegue: se cierra la tapa con el frontal aún plano y después se baja; las orejetas
+   entran girando en el hueco de la pared doble, bajo la tira superior, que va ENTERA (sin recortes) y es la que
+   impide que la tapa se levante mientras el frontal esté bajado.
    Trasera más baja: en su canto superior lleva un pasador (sujeto por nudillos) donde se clipa la tapa. */
 const OPEN_DEG = 100;
 function derived(p) {
@@ -269,26 +271,47 @@ function derived(p) {
   // --- frontal de la tapa (bisagra viva, altura completa) y orejetas ya dobladas que entran de frente
   const d1 = T + 0.3;                                 // orejeta justo por debajo del nivel de la tira
   const earHmax = (T + Ho - 0.3) - (T + 0.6);        // de justo bajo la tira hasta 0,6 mm sobre la base
-  const earH = clamp(p.lidEarH, 3, earHmax), earL = clamp(p.lidEarL, 4, p.W / 2);
-  const earCh = Math.min(2, earH / 4);                // chaflán de las esquinas traseras de la orejeta
+  const earH = clamp(p.lidEarH, 3, earHmax);
+  let earL = clamp(p.lidEarL, 4, p.W / 2);
+  const earCh = Math.min(2, earH / 4);                // chaflán de la esquina superior-trasera de la orejeta
   const yLf = e0y + T + c;                            // borde delantero de la tapa → frontal a una holgura del frente
   const Wf = 2 * (e0x + T), Hf = zU - 0.3;            // frontal de la tapa: ancho y alto (hasta 0,3 mm del suelo)
   const xh = e0x - T - c / 2;                         // canto de la orejeta de la tapa: doblada queda en la capa exterior del hueco
   const yH = yLf;                                     // plano interior del frontal de la tapa
   const zEarTop = zU - d1, zEarBot = zEarTop - earH;
-  // recorte de la tira: envolvente de la orejeta mientras está a la altura de la tira durante el cierre
+  /* El frontal de la tapa es el ÚLTIMO pliegue: con la tapa ya cerrada baja girando sobre su bisagra viva y las
+     orejetas (dobladas antes) barren un arco hacia dentro del hueco de la pared doble, por DEBAJO de la tira.
+     Se simula ese giro con la cinemática real de la bisagra: la tira queda entera (solo se recortaría si la
+     orejeta llegara a tocarla) y el canto inferior de la orejeta se perfila para que no roce la base al entrar. */
+  const r90 = g / (Math.PI / 2);
+  const TH = []; for (let k = 0; k <= 180; k++) TH.push(k * Math.PI / 360);
+  const earAt = (a, h, th) => {                       // a = hacia atrás desde el frontal, h = bajo el canto superior
+    const [ex, ez] = hingeEnd(g, th), u = d1 + h, w = r90 + a, cs = Math.cos(th), sn = Math.sin(th);
+    return [yLf + ex + u * cs - w * sn, zL - (ez + u * sn + w * cs)];
+  };
+  const hitsBase = (a, h) => TH.some(th => { const [y, z] = earAt(a, h, th); return y < e0y + 0.3 && z < T + 0.3; });
+  const maxH = a => {
+    if (!hitsBase(a, earH)) return earH;
+    let lo = 0, hi = earH;
+    for (let i = 0; i < 12; i++) { const mid = (lo + hi) / 2; if (hitsBase(a, mid)) hi = mid; else lo = mid; }
+    return lo;
+  };
+  const nS = Math.max(2, Math.ceil(earL / 1.5));
+  const earProf = [];                                 // canto inferior: [fondo, alto útil] de delante hacia atrás
+  for (let i = 0; i <= nS; i++) { const a = earL * i / nS; earProf.push([a, maxH(a)]); }
+  for (let i = 1; i < earProf.length; i++) earProf[i][1] = Math.min(earProf[i][1], earProf[i - 1][1]);
+  const hMin = Math.min(earH, earCh + 2);             // si a ese fondo no queda altura útil, la orejeta se acorta
+  while (earProf.length > 2 && earProf[earProf.length - 1][1] < hMin) earProf.pop();
+  earL = earProf[earProf.length - 1][0];
+  const earHback = earProf[earProf.length - 1][1];
   const tiraBot = T + Ho;
-  let yCut = e0y + T;
-  for (let a = 0; a <= 60; a += 0.1) {
-    const ph = a * Math.PI / 180, cs = Math.cos(ph), sn = Math.sin(ph);
-    for (let s = 0; s <= earL + 1e-6; s += 0.25) for (let h = 0; h <= earH + 1e-6; h += 0.25) {
-      if (s > earL - earCh && h < earCh - (earL - s)) continue;              // chaflán superior-trasero
-      const Y = (yH - s) - yR, Z = (zEarTop - h) - zR;
-      const y = yR + Y * cs - Z * sn, z = zR + Y * sn + Z * cs;
-      if (z > tiraBot - 0.05 && z < tiraBot + T + 0.05) yCut = Math.min(yCut, y);
-    }
+  let yHit = Infinity;
+  for (const th of TH) for (let a = 0; a <= earL + 1e-6; a += 0.5) for (let h = 0; h <= Math.min(earH, 6) + 1e-6; h += 0.5) {
+    if (a > earL - earCh && h < earCh - (earL - a)) continue;                // chaflán superior-trasero
+    const [y, z] = earAt(a, h, th);
+    if (z > tiraBot - 0.05 && z < zU + 0.05 && y < e0y + T) yHit = Math.min(yHit, y);
   }
-  yCut -= c;                                          // holgura
+  const yCut = isFinite(yHit) ? yHit - c : e0y + T;   // normalmente la tira llega hasta delante: retiene las orejetas
   const inA = -(Wb / 2 - c), inB = Wb / 2 - c;
   const tabs = clamp(Math.round(p.tabs), 0, 4);
   const sideTabs = [];
@@ -312,7 +335,7 @@ function derived(p) {
   const Dl = yLf - yLb;
   const xc = yR - yLb;                                // centro de la pinza en coords. de la tapa
   return { T, c, g, wt, Ho, Lb, Wb, e0x, e0y, eB, fbSpan, tabD, sc, earD, m, bev, R, Ri, Ro, cr, tw, zU, zL, xRod, Hb, yR, zR,
-    yLb, yLf, Wl, Dl, xc, Li, Lh, d1, earH, earHmax, earL, earCh, Wf, Hf, xh, yH, zEarTop, zEarBot, yCut, inA, inB, sideTabs, frontEarTop,
+    yLb, yLf, Wl, Dl, xc, Li, Lh, d1, earH, earHmax, earL, earCh, earProf, earHback, lidEarLreq: p.lidEarL, Wf, Hf, xh, yH, zEarTop, zEarBot, yCut, inA, inB, sideTabs, frontEarTop,
     hingeStrip: (yLb - (-e0y - T)), tiraOpen: (e0y + T) - yCut,
     nClips: n, segs, netX, netY, outer: [Lb + 2 * T, Wb + 2 * T, p.H + 2 * T], openDeg: OPEN_DEG };
 }
@@ -336,8 +359,10 @@ function extrudeYZ(pts, x0, x1) {        // perfil en (y,z), extruido en x ∈ [
   g.translate(x0, 0, 0);
   return g;
 }
-function earPts(L, H, ch) {
-  return [[0, -H / 2], [L - ch, -H / 2], [L, -H / 2 + ch], [L, H / 2 - ch], [L - ch, H / 2], [0, H / 2]];
+// orejeta de la tapa: chaflán arriba-detrás y canto inferior perfilado (prof) para librar la base al entrar girando
+function earPts(L, H, ch, prof, sgn) {
+  const q = [[0, 0], [L - ch, 0], [L, ch], ...[...prof].reverse()];
+  return q.map(([a, h]) => [a, sgn * (H / 2 - h)]);
 }
 /* Panel con un canto biselado: cara inferior (z=0) y superior (z=T) con el mismo nº de vértices; los vértices del
    canto elegido se retranquean 'd' hacia dentro en las caras indicadas. Malla cerrada (tapas + caras laterales). */
@@ -398,7 +423,7 @@ function buildBox(p, deco, mats) {
 
   // ---------- CUERPO ----------
   const S = { ears: [0, 0.1], fb: [0.1, 0.26], side: [0.26, 0.42], sTop: [0.42, 0.54], sIn: [0.54, 0.7],
-              lFront: [0.72, 0.78], lEars: [0.78, 0.84] };
+              lEars: [0.71, 0.77], lFront: [0.93, 1] };   // el frontal de la tapa, lo último
   // ranuras de la base para las lengüetas de la pared interior
   const holes = [];
   const slot = (x0, x1, y0, y1) => { const j = holes.length * 0.013; holes.push([[x0 + j, y0 + j], [x1 + j, y0 + j], [x1 + j, y1 + j], [x0 + j, y1 + j]]); };
@@ -416,7 +441,7 @@ function buildBox(p, deco, mats) {
     // lateral exterior entero; bisel en su canto delantero, cara interior (la que mira al hueco)
     const out = attach(null, sgn * d.e0x, 0, ang, d.Wb, S.side, nm, rectPts(d.Ho, yB - yA),
       { bevelEdge: { axis: 'y', at: fy(yB), faces: ['top'], d: d.bev } });
-    // tira superior: acortada por delante lo justo para que entren las orejetas de la tapa; bisel abajo-delante
+    // tira superior entera (d.yCut solo la acorta si la orejeta la tocara al girar); bisel abajo-delante
     const [ta, tb] = loc([yA, d.yCut]), tc = (ta + tb) / 2;
     const top = attach(out, d.Ho, tc, 0, tb - ta, S.sTop, nm + '_tira', tabbedRangePts(d.wt, ta - tc, tb - tc, [], 0),
       { bevelEdge: { axis: 'y', at: (sgn > 0 ? tb : ta) - tc, faces: ['top'], d: d.bev } });
@@ -462,13 +487,13 @@ function buildBox(p, deco, mats) {
     for (const s of d.segs.filter(q => q.k === 'c')) extra(lidGrp, extrudeMPXZ(mp, s.a, s.b), 'lid');
   }
   // frontal de la tapa (bisagra viva): altura completa, más estrecho solo donde nacen las orejetas (la "proyección"
-  // por encima y por debajo cubre la esquina); orejetas rectangulares dobladas a 90° que entran de frente en el hueco
+  // por encima y por debajo cubre la esquina); orejetas dobladas a 90° que entran girando al bajar el frontal
   {
     const W = d.Wf / 2, x0 = d.d1 - 0.4, x1 = d.d1 + d.earH + 0.4, H = d.Hf, xh = d.xh;
     const fpts = [[0, -W], [x0, -W], [x0, -xh], [x1, -xh], [x1, -W], [H, -W], [H, W], [x1, W], [x1, xh], [x0, xh], [x0, W], [0, W]];
     const fr = attach(lidTop, d.Dl, 0, 0, d.Wl - 0.4, S.lFront, 'tapa_frontal', fpts, { part: 'lid' });
     for (const sgn of [1, -1])
-      attach(fr, d.d1 + d.earH / 2, sgn * xh, sgn * Math.PI / 2, d.earH, S.lEars, 'orejeta_tapa', earPts(d.earL, d.earH, d.earCh),
+      attach(fr, d.d1 + d.earH / 2, sgn * xh, sgn * Math.PI / 2, d.earH, S.lEars, 'orejeta_tapa', earPts(d.earL, d.earH, d.earCh, d.earProf, sgn),
         { part: 'lid', bevelEdge: { axis: 'x', at: d.earL, faces: ['top', 'bottom'], d: Math.min(0.35, T * 0.35) } });
   }
 
@@ -578,7 +603,7 @@ function layoutPlates(box, bedSize, gap = 8, margin = 4) {
   return plates;
 }
 
-const LID_MOUNT = 0.72, LID_CLOSE = [0.86, 1];
+const LID_MOUNT = 0.78, LID_CLOSE = [0.8, 0.92];   // después baja el frontal (S.lFront)
 function setFold(box, f, p) {
   box.fold = f;
   for (const jr of box.joints) {
@@ -944,6 +969,7 @@ function rebuild() {
   if (st.face !== 'none' && (deco.outlines.length || notes.length)) showMsg('decoMsg', notes.length ? 'warn' : 'info',
     notes.length ? notes.join(' · ') : 'El grabado va en la cara que toca la cama (cara exterior): pliega la caja o gira la vista para verlo. Las formas solapadas se fusionan; las formas blancas del SVG no restan, se rellenan.');
   else showMsg('decoMsg', '', '');
+  $('earLInfo').textContent = box.d.earL < Math.min(box.d.lidEarLreq, st.W / 2) - 0.01 ? `acortado a ${box.d.earL.toFixed(1)} mm` : `canto trasero ${box.d.earHback.toFixed(1)} mm de alto`;
   $('earInfo').textContent = `aplicado ${box.d.earH.toFixed(1)} mm (máx. ${box.d.earHmax.toFixed(1)})`;
   const ddU = box.decoDepthUsed;
   $('ddInfo').textContent = `aplicado ${ddU.toFixed(2)} mm` + (Math.abs(ddU / 0.2 - Math.round(ddU / 0.2)) > 0.01 ? ' (no es múltiplo de capa 0,2)' : '');
@@ -966,7 +992,7 @@ function updateStats(p) {
   $('stats').innerHTML = `
     <div><span>Exterior montada</span><b>${d.outer.map(v => v.toFixed(1)).join(' × ')}</b></div>
     ${plateRows}
-    <div><span>Tira abierta delante</span><b>${d.tiraOpen.toFixed(1)} mm</b></div>
+    <div><span>Tira lateral</span><b${d.tiraOpen > 0.01 ? ' style="color:var(--warn)"' : ''}>${d.tiraOpen > 0.01 ? 'recortada ' + d.tiraOpen.toFixed(1) + ' mm' : 'entera'}</b></div>
     <div><span>Holgura tapa–trasera</span><b>${d.hingeStrip > 0 ? d.hingeStrip.toFixed(2) + ' mm' : 'cubre todo'}</b></div>
     <div><span>Bisagra de clip</span><b>${d.nClips} pinzas · Ø ${(2 * d.R).toFixed(1)} · abre ${d.openDeg}°</b></div>
     ${d.tabD > p.T + 0.01 ? `<div style="color:var(--warn)"><span>Lengüetas asoman bajo la base</span><b>${(d.tabD - p.T).toFixed(1)} mm</b></div>` : ''}
