@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caja plegable 3D — generador STL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4efe7; --card:#fffdf9; --ink:#2b221b; --muted:#7a6a5c; --line:#e6dccf;
+    --acc:#9a5b2e; --acc2:#c98a55; --warn:#b4432c; --ok:#4f7a3a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,sans-serif}
+  .app{display:grid;grid-template-columns:340px 1fr;height:100vh}
+  aside{overflow-y:auto;border-right:1px solid var(--line);background:var(--card);padding:18px 18px 40px}
+  h1{font:600 22px/1.15 Fraunces,Georgia,serif;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:12.5px;margin:0 0 14px}
+  details{border-top:1px solid var(--line);padding:10px 0}
+  details[open]{padding-bottom:14px}
+  summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  summary::after{content:"+";color:var(--muted);font-weight:400}
+  details[open] summary::after{content:"–"}
+  .row{display:grid;grid-template-columns:1fr 92px;gap:8px;align-items:center;margin-top:9px}
+  .row label{font-size:13px}
+  .row small{display:block;color:var(--muted);font-size:11.5px;line-height:1.3}
+  input[type=number],select,textarea,input[type=text]{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:#fff;font:inherit;color:inherit}
+  textarea{resize:vertical;min-height:44px}
+  .full{grid-template-columns:1fr}
+  input[type=checkbox]{accent-color:var(--acc);transform:scale(1.15)}
+  input[type=range]{accent-color:var(--acc);width:100%}
+  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:9px}
+  .seg button{flex:1;border:0;background:#fff;padding:7px 4px;font:inherit;font-size:12.5px;cursor:pointer;color:var(--muted)}
+  .seg button.on{background:var(--acc);color:#fff}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:9px 12px;font:600 13.5px Inter,sans-serif;cursor:pointer;width:100%}
+  .btn.ghost{background:#fff;color:var(--acc)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .file{display:flex;gap:6px;align-items:center;margin-top:9px}
+  .file label{flex:1}
+  .file input{display:none}
+  .pill{font-size:12px;color:var(--muted)}
+  main{position:relative;overflow:hidden}
+  #view{position:absolute;inset:0}
+  .hud{position:absolute;left:16px;right:16px;bottom:14px;display:flex;gap:12px;align-items:center;background:rgba(255,253,249,.92);border:1px solid var(--line);border-radius:12px;padding:10px 14px;backdrop-filter:blur(6px)}
+  .hud .btn{width:auto;min-width:118px}
+  .stats{position:absolute;top:14px;right:16px;background:rgba(255,253,249,.92);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:12.5px;min-width:230px}
+  .stats b{font-weight:600}
+  .stats div{display:flex;justify-content:space-between;gap:14px}
+  .msg{margin-top:8px;font-size:12.5px;padding:8px 10px;border-radius:8px;display:none}
+  .msg.warn{display:block;background:#fbe9e4;color:var(--warn)}
+  .msg.info{display:block;background:#eef3e8;color:var(--ok)}
+  .tips{font-size:12.5px;color:var(--ink)}
+  .tips li{margin:4px 0}
+  .export{margin-top:14px;display:grid;gap:8px}
+  body.no-front .frontOnly, body.no-clips .clipsOnly{display:none}
+  body.mailer .tuckOnly{display:none} body:not(.mailer) .mailerOnly{display:none}
+  @media (max-width:820px){
+    .app{grid-template-columns:1fr;grid-template-rows:55vh auto;height:auto}
+    main{height:55vh;order:-1}
+    aside{border-right:0}
+    .stats{display:none}
+  }
+</style>
+<script>/* polygon-clipping v0.15.7 · MIT · github.com/mfogel/polygon-clipping */
+!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):(t="undefined"!=typeof globalThis?globalThis:t||self).polygonClipping=e()}(this,(function(){"use strict";
+/**
+     * splaytree v3.1.2
+     * Fast Splay tree for Node and browser
+     *
+     * @author Alexander Milevski <info@w8r.name>
+     * @license MIT
+     * @preserve
+     */
+/*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */function t(t,e){var n,r,i,o,s={label:0,sent:function(){if(1&i[0])throw i[1];return i[1]},trys:[],ops:[]};return o={next:l(0),throw:l(1),return:l(2)},"function"==typeof Symbol&&(o[Symbol.iterator]=function(){return this}),o;function l(o){return function(l){return function(o){if(n)throw new TypeError("Generator is already executing.");for(;s;)try{if(n=1,r&&(i=2&o[0]?r.return:o[0]?r.throw||((i=r.return)&&i.call(r),0):r.next)&&!(i=i.call(r,o[1])).done)return i;switch(r=0,i&&(o=[2&o[0],i.value]),o[0]){case 0:case 1:i=o;break;case 4:return s.label++,{value:o[1],done:!1};case 5:s.label++,r=o[1],o=[0];continue;case 7:o=s.ops.pop(),s.trys.pop();continue;default:if(!(i=s.trys,(i=i.length>0&&i[i.length-1])||6!==o[0]&&2!==o[0])){s=0;continue}if(3===o[0]&&(!i||o[1]>i[0]&&o[1]<i[3])){s.label=o[1];break}if(6===o[0]&&s.label<i[1]){s.label=i[1],i=o;break}if(i&&s.label<i[2]){s.label=i[2],s.ops.push(o);break}i[2]&&s.ops.pop(),s.trys.pop();continue}o=e.call(t,s)}catch(t){o=[6,t],r=0}finally{n=i=0}if(5&o[0])throw o[1];return{value:o[0]?o[1]:void 0,done:!0}}([o,l])}}}var e=function(t,e){this.next=null,this.key=t,this.data=e,this.left=null,this.right=null};function n(t,e){return t>e?1:t<e?-1:0}function r(t,n,r){for(var i=new e(null,null),o=i,s=i;;){var l=r(t,n.key);if(l<0){if(null===n.left)break;if(r(t,n.left.key)<0){var h=n.left;if(n.left=h.right,h.right=n,null===(n=h).left)break}s.left=n,s=n,n=n.left}else{if(!(l>0))break;if(null===n.right)break;if(r(t,n.right.key)>0){h=n.right;if(n.right=h.left,h.left=n,null===(n=h).right)break}o.right=n,o=n,n=n.right}}return o.right=n.left,s.left=n.right,n.left=i.right,n.right=i.left,n}function i(t,n,i,o){var s=new e(t,n);if(null===i)return s.left=s.right=null,s;var l=o(t,(i=r(t,i,o)).key);return l<0?(s.left=i.left,s.right=i,i.left=null):l>=0&&(s.right=i.right,s.left=i,i.right=null),s}function o(t,e,n){var i=null,o=null;if(e){var s=n((e=r(t,e,n)).key,t);0===s?(i=e.left,o=e.right):s<0?(o=e.right,e.right=null,i=e):(i=e.left,e.left=null,o=e)}return{left:i,right:o}}function s(t,e,n,r,i){if(t){r(e+(n?"└── ":"├── ")+i(t)+"\n");var o=e+(n?"    ":"│   ");t.left&&s(t.left,o,!1,r,i),t.right&&s(t.right,o,!0,r,i)}}var l=function(){function l(t){void 0===t&&(t=n),this._root=null,this._size=0,this._comparator=t}return l.prototype.insert=function(t,e){return this._size++,this._root=i(t,e,this._root,this._comparator)},l.prototype.add=function(t,n){var i=new e(t,n);null===this._root&&(i.left=i.right=null,this._size++,this._root=i);var o=this._comparator,s=r(t,this._root,o),l=o(t,s.key);return 0===l?this._root=s:(l<0?(i.left=s.left,i.right=s,s.left=null):l>0&&(i.right=s.right,i.left=s,s.right=null),this._size++,this._root=i),this._root},l.prototype.remove=function(t){this._root=this._remove(t,this._root,this._comparator)},l.prototype._remove=function(t,e,n){var i;return null===e?null:0===n(t,(e=r(t,e,n)).key)?(null===e.left?i=e.right:(i=r(t,e.left,n)).right=e.right,this._size--,i):e},l.prototype.pop=function(){var t=this._root;if(t){for(;t.left;)t=t.left;return this._root=r(t.key,this._root,this._comparator),this._root=this._remove(t.key,this._root,this._comparator),{key:t.key,data:t.data}}return null},l.prototype.findStatic=function(t){for(var e=this._root,n=this._comparator;e;){var r=n(t,e.key);if(0===r)return e;e=r<0?e.left:e.right}return null},l.prototype.find=function(t){return this._root&&(this._root=r(t,this._root,this._comparator),0!==this._comparator(t,this._root.key))?null:this._root},l.prototype.contains=function(t){for(var e=this._root,n=this._comparator;e;){var r=n(t,e.key);if(0===r)return!0;e=r<0?e.left:e.right}return!1},l.prototype.forEach=function(t,e){for(var n=this._root,r=[],i=!1;!i;)null!==n?(r.push(n),n=n.left):0!==r.length?(n=r.pop(),t.call(e,n),n=n.right):i=!0;return this},l.prototype.range=function(t,e,n,r){for(var i=[],o=this._comparator,s=this._root;0!==i.length||s;)if(s)i.push(s),s=s.left;else{if(o((s=i.pop()).key,e)>0)break;if(o(s.key,t)>=0&&n.call(r,s))return this;s=s.right}return this},l.prototype.keys=function(){var t=[];return this.forEach((function(e){var n=e.key;return t.push(n)})),t},l.prototype.values=function(){var t=[];return this.forEach((function(e){var n=e.data;return t.push(n)})),t},l.prototype.min=function(){return this._root?this.minNode(this._root).key:null},l.prototype.max=function(){return this._root?this.maxNode(this._root).key:null},l.prototype.minNode=function(t){if(void 0===t&&(t=this._root),t)for(;t.left;)t=t.left;return t},l.prototype.maxNode=function(t){if(void 0===t&&(t=this._root),t)for(;t.right;)t=t.right;return t},l.prototype.at=function(t){for(var e=this._root,n=!1,r=0,i=[];!n;)if(e)i.push(e),e=e.left;else if(i.length>0){if(e=i.pop(),r===t)return e;r++,e=e.right}else n=!0;return null},l.prototype.next=function(t){var e=this._root,n=null;if(t.right){for(n=t.right;n.left;)n=n.left;return n}for(var r=this._comparator;e;){var i=r(t.key,e.key);if(0===i)break;i<0?(n=e,e=e.left):e=e.right}return n},l.prototype.prev=function(t){var e=this._root,n=null;if(null!==t.left){for(n=t.left;n.right;)n=n.right;return n}for(var r=this._comparator;e;){var i=r(t.key,e.key);if(0===i)break;i<0?e=e.left:(n=e,e=e.right)}return n},l.prototype.clear=function(){return this._root=null,this._size=0,this},l.prototype.toList=function(){return function(t){var n=t,r=[],i=!1,o=new e(null,null),s=o;for(;!i;)n?(r.push(n),n=n.left):r.length>0?n=(n=s=s.next=r.pop()).right:i=!0;return s.next=null,o.next}(this._root)},l.prototype.load=function(t,n,r){void 0===n&&(n=[]),void 0===r&&(r=!1);var i=t.length,o=this._comparator;if(r&&f(t,n,0,i-1,o),null===this._root)this._root=h(t,n,0,i),this._size=i;else{var s=function(t,n,r){var i=new e(null,null),o=i,s=t,l=n;for(;null!==s&&null!==l;)r(s.key,l.key)<0?(o.next=s,s=s.next):(o.next=l,l=l.next),o=o.next;null!==s?o.next=s:null!==l&&(o.next=l);return i.next}(this.toList(),function(t,n){for(var r=new e(null,null),i=r,o=0;o<t.length;o++)i=i.next=new e(t[o],n[o]);return i.next=null,r.next}(t,n),o);i=this._size+i,this._root=u({head:s},0,i)}return this},l.prototype.isEmpty=function(){return null===this._root},Object.defineProperty(l.prototype,"size",{get:function(){return this._size},enumerable:!0,configurable:!0}),Object.defineProperty(l.prototype,"root",{get:function(){return this._root},enumerable:!0,configurable:!0}),l.prototype.toString=function(t){void 0===t&&(t=function(t){return String(t.key)});var e=[];return s(this._root,"",!0,(function(t){return e.push(t)}),t),e.join("")},l.prototype.update=function(t,e,n){var s=this._comparator,l=o(t,this._root,s),h=l.left,u=l.right;s(t,e)<0?u=i(e,n,u,s):h=i(e,n,h,s),this._root=function(t,e,n){return null===e?t:(null===t||((e=r(t.key,e,n)).left=t),e)}(h,u,s)},l.prototype.split=function(t){return o(t,this._root,this._comparator)},l.prototype[Symbol.iterator]=function(){var e,n,r;return t(this,(function(t){switch(t.label){case 0:e=this._root,n=[],r=!1,t.label=1;case 1:return r?[3,6]:null===e?[3,2]:(n.push(e),e=e.left,[3,5]);case 2:return 0===n.length?[3,4]:[4,e=n.pop()];case 3:return t.sent(),e=e.right,[3,5];case 4:r=!0,t.label=5;case 5:return[3,1];case 6:return[2]}}))},l}();function h(t,n,r,i){var o=i-r;if(o>0){var s=r+Math.floor(o/2),l=t[s],u=n[s],f=new e(l,u);return f.left=h(t,n,r,s),f.right=h(t,n,s+1,i),f}return null}function u(t,e,n){var r=n-e;if(r>0){var i=e+Math.floor(r/2),o=u(t,e,i),s=t.head;return s.left=o,t.head=t.head.next,s.right=u(t,i+1,n),s}return null}function f(t,e,n,r,i){if(!(n>=r)){for(var o=t[n+r>>1],s=n-1,l=r+1;;){do{s++}while(i(t[s],o)<0);do{l--}while(i(t[l],o)>0);if(s>=l)break;var h=t[s];t[s]=t[l],t[l]=h,h=e[s],e[s]=e[l],e[l]=h}f(t,e,n,l,i),f(t,e,l+1,r,i)}}const c=(t,e)=>t.ll.x<=e.x&&e.x<=t.ur.x&&t.ll.y<=e.y&&e.y<=t.ur.y,p=(t,e)=>{if(e.ur.x<t.ll.x||t.ur.x<e.ll.x||e.ur.y<t.ll.y||t.ur.y<e.ll.y)return null;const n=t.ll.x<e.ll.x?e.ll.x:t.ll.x,r=t.ur.x<e.ur.x?t.ur.x:e.ur.x;return{ll:{x:n,y:t.ll.y<e.ll.y?e.ll.y:t.ll.y},ur:{x:r,y:t.ur.y<e.ur.y?t.ur.y:e.ur.y}}};let g=Number.EPSILON;void 0===g&&(g=Math.pow(2,-52));const a=g*g,y=(t,e)=>{if(-g<t&&t<g&&-g<e&&e<g)return 0;const n=t-e;return n*n<a*t*e?0:t<e?-1:1};class x{constructor(){this.tree=new l,this.round(0)}round(t){const e=this.tree.add(t),n=this.tree.prev(e);if(null!==n&&0===y(e.key,n.key))return this.tree.remove(t),n.key;const r=this.tree.next(e);return null!==r&&0===y(e.key,r.key)?(this.tree.remove(t),r.key):t}}const b=new class{constructor(){this.reset()}reset(){this.xRounder=new x,this.yRounder=new x}round(t,e){return{x:this.xRounder.round(t),y:this.yRounder.round(e)}}},v=11102230246251565e-32,d=134217729,m=(3+8*v)*v;function E(t,e,n,r,i){let o,s,l,h,u=e[0],f=r[0],c=0,p=0;f>u==f>-u?(o=u,u=e[++c]):(o=f,f=r[++p]);let g=0;if(c<t&&p<n)for(f>u==f>-u?(s=u+o,l=o-(s-u),u=e[++c]):(s=f+o,l=o-(s-f),f=r[++p]),o=s,0!==l&&(i[g++]=l);c<t&&p<n;)f>u==f>-u?(s=o+u,h=s-o,l=o-(s-h)+(u-h),u=e[++c]):(s=o+f,h=s-o,l=o-(s-h)+(f-h),f=r[++p]),o=s,0!==l&&(i[g++]=l);for(;c<t;)s=o+u,h=s-o,l=o-(s-h)+(u-h),u=e[++c],o=s,0!==l&&(i[g++]=l);for(;p<n;)s=o+f,h=s-o,l=o-(s-h)+(f-h),f=r[++p],o=s,0!==l&&(i[g++]=l);return 0===o&&0!==g||(i[g++]=o),g}function S(t){return new Float64Array(t)}const _=22204460492503146e-32,w=11093356479670487e-47,k=S(4),R=S(8),I=S(12),P=S(16),N=S(4);function A(t,e,n,r,i,o){const s=(e-o)*(n-i),l=(t-i)*(r-o),h=s-l,u=Math.abs(s+l);return Math.abs(h)>=33306690738754716e-32*u?h:-function(t,e,n,r,i,o,s){let l,h,u,f,c,p,g,a,y,x,b,v,S,A,O,L,$,M;const z=t-i,B=n-i,G=e-o,T=r-o;A=z*T,p=d*z,g=p-(p-z),a=z-g,p=d*T,y=p-(p-T),x=T-y,O=a*x-(A-g*y-a*y-g*x),L=G*B,p=d*G,g=p-(p-G),a=G-g,p=d*B,y=p-(p-B),x=B-y,$=a*x-(L-g*y-a*y-g*x),b=O-$,c=O-b,k[0]=O-(b+c)+(c-$),v=A+b,c=v-A,S=A-(v-c)+(b-c),b=S-L,c=S-b,k[1]=S-(b+c)+(c-L),M=v+b,c=M-v,k[2]=v-(M-c)+(b-c),k[3]=M;let q=function(t,e){let n=e[0];for(let r=1;r<t;r++)n+=e[r];return n}(4,k),C=_*s;if(q>=C||-q>=C)return q;if(c=t-z,l=t-(z+c)+(c-i),c=n-B,u=n-(B+c)+(c-i),c=e-G,h=e-(G+c)+(c-o),c=r-T,f=r-(T+c)+(c-o),0===l&&0===h&&0===u&&0===f)return q;if(C=w*s+m*Math.abs(q),q+=z*f+T*l-(G*u+B*h),q>=C||-q>=C)return q;A=l*T,p=d*l,g=p-(p-l),a=l-g,p=d*T,y=p-(p-T),x=T-y,O=a*x-(A-g*y-a*y-g*x),L=h*B,p=d*h,g=p-(p-h),a=h-g,p=d*B,y=p-(p-B),x=B-y,$=a*x-(L-g*y-a*y-g*x),b=O-$,c=O-b,N[0]=O-(b+c)+(c-$),v=A+b,c=v-A,S=A-(v-c)+(b-c),b=S-L,c=S-b,N[1]=S-(b+c)+(c-L),M=v+b,c=M-v,N[2]=v-(M-c)+(b-c),N[3]=M;const F=E(4,k,4,N,R);A=z*f,p=d*z,g=p-(p-z),a=z-g,p=d*f,y=p-(p-f),x=f-y,O=a*x-(A-g*y-a*y-g*x),L=G*u,p=d*G,g=p-(p-G),a=G-g,p=d*u,y=p-(p-u),x=u-y,$=a*x-(L-g*y-a*y-g*x),b=O-$,c=O-b,N[0]=O-(b+c)+(c-$),v=A+b,c=v-A,S=A-(v-c)+(b-c),b=S-L,c=S-b,N[1]=S-(b+c)+(c-L),M=v+b,c=M-v,N[2]=v-(M-c)+(b-c),N[3]=M;const j=E(F,R,4,N,I);A=l*f,p=d*l,g=p-(p-l),a=l-g,p=d*f,y=p-(p-f),x=f-y,O=a*x-(A-g*y-a*y-g*x),L=h*u,p=d*h,g=p-(p-h),a=h-g,p=d*u,y=p-(p-u),x=u-y,$=a*x-(L-g*y-a*y-g*x),b=O-$,c=O-b,N[0]=O-(b+c)+(c-$),v=A+b,c=v-A,S=A-(v-c)+(b-c),b=S-L,c=S-b,N[1]=S-(b+c)+(c-L),M=v+b,c=M-v,N[2]=v-(M-c)+(b-c),N[3]=M;const U=E(j,I,4,N,P);return P[U-1]}(t,e,n,r,i,o,u)}const O=(t,e)=>t.x*e.y-t.y*e.x,L=(t,e)=>t.x*e.x+t.y*e.y,$=(t,e,n)=>{const r=A(t.x,t.y,e.x,e.y,n.x,n.y);return r>0?-1:r<0?1:0},M=t=>Math.sqrt(L(t,t)),z=(t,e,n)=>{const r={x:e.x-t.x,y:e.y-t.y},i={x:n.x-t.x,y:n.y-t.y};return O(i,r)/M(i)/M(r)},B=(t,e,n)=>{const r={x:e.x-t.x,y:e.y-t.y},i={x:n.x-t.x,y:n.y-t.y};return L(i,r)/M(i)/M(r)},G=(t,e,n)=>0===e.y?null:{x:t.x+e.x/e.y*(n-t.y),y:n},T=(t,e,n)=>0===e.x?null:{x:n,y:t.y+e.y/e.x*(n-t.x)};class q{static compare(t,e){const n=q.comparePoints(t.point,e.point);return 0!==n?n:(t.point!==e.point&&t.link(e),t.isLeft!==e.isLeft?t.isLeft?1:-1:F.compare(t.segment,e.segment))}static comparePoints(t,e){return t.x<e.x?-1:t.x>e.x?1:t.y<e.y?-1:t.y>e.y?1:0}constructor(t,e){void 0===t.events?t.events=[this]:t.events.push(this),this.point=t,this.isLeft=e}link(t){if(t.point===this.point)throw new Error("Tried to link already linked events");const e=t.point.events;for(let t=0,n=e.length;t<n;t++){const n=e[t];this.point.events.push(n),n.point=this.point}this.checkForConsuming()}checkForConsuming(){const t=this.point.events.length;for(let e=0;e<t;e++){const n=this.point.events[e];if(void 0===n.segment.consumedBy)for(let r=e+1;r<t;r++){const t=this.point.events[r];void 0===t.consumedBy&&(n.otherSE.point.events===t.otherSE.point.events&&n.segment.consume(t.segment))}}}getAvailableLinkedEvents(){const t=[];for(let e=0,n=this.point.events.length;e<n;e++){const n=this.point.events[e];n!==this&&!n.segment.ringOut&&n.segment.isInResult()&&t.push(n)}return t}getLeftmostComparator(t){const e=new Map,n=n=>{const r=n.otherSE;e.set(n,{sine:z(this.point,t.point,r.point),cosine:B(this.point,t.point,r.point)})};return(t,r)=>{e.has(t)||n(t),e.has(r)||n(r);const{sine:i,cosine:o}=e.get(t),{sine:s,cosine:l}=e.get(r);return i>=0&&s>=0?o<l?1:o>l?-1:0:i<0&&s<0?o<l?-1:o>l?1:0:s<i?-1:s>i?1:0}}}let C=0;class F{static compare(t,e){const n=t.leftSE.point.x,r=e.leftSE.point.x,i=t.rightSE.point.x,o=e.rightSE.point.x;if(o<n)return 1;if(i<r)return-1;const s=t.leftSE.point.y,l=e.leftSE.point.y,h=t.rightSE.point.y,u=e.rightSE.point.y;if(n<r){if(l<s&&l<h)return 1;if(l>s&&l>h)return-1;const n=t.comparePoint(e.leftSE.point);if(n<0)return 1;if(n>0)return-1;const r=e.comparePoint(t.rightSE.point);return 0!==r?r:-1}if(n>r){if(s<l&&s<u)return-1;if(s>l&&s>u)return 1;const n=e.comparePoint(t.leftSE.point);if(0!==n)return n;const r=t.comparePoint(e.rightSE.point);return r<0?1:r>0?-1:1}if(s<l)return-1;if(s>l)return 1;if(i<o){const n=e.comparePoint(t.rightSE.point);if(0!==n)return n}if(i>o){const n=t.comparePoint(e.rightSE.point);if(n<0)return 1;if(n>0)return-1}if(i!==o){const t=h-s,e=i-n,f=u-l,c=o-r;if(t>e&&f<c)return 1;if(t<e&&f>c)return-1}return i>o?1:i<o||h<u?-1:h>u?1:t.id<e.id?-1:t.id>e.id?1:0}constructor(t,e,n,r){this.id=++C,this.leftSE=t,t.segment=this,t.otherSE=e,this.rightSE=e,e.segment=this,e.otherSE=t,this.rings=n,this.windings=r}static fromRing(t,e,n){let r,i,o;const s=q.comparePoints(t,e);if(s<0)r=t,i=e,o=1;else{if(!(s>0))throw new Error(`Tried to create degenerate segment at [${t.x}, ${t.y}]`);r=e,i=t,o=-1}const l=new q(r,!0),h=new q(i,!1);return new F(l,h,[n],[o])}replaceRightSE(t){this.rightSE=t,this.rightSE.segment=this,this.rightSE.otherSE=this.leftSE,this.leftSE.otherSE=this.rightSE}bbox(){const t=this.leftSE.point.y,e=this.rightSE.point.y;return{ll:{x:this.leftSE.point.x,y:t<e?t:e},ur:{x:this.rightSE.point.x,y:t>e?t:e}}}vector(){return{x:this.rightSE.point.x-this.leftSE.point.x,y:this.rightSE.point.y-this.leftSE.point.y}}isAnEndpoint(t){return t.x===this.leftSE.point.x&&t.y===this.leftSE.point.y||t.x===this.rightSE.point.x&&t.y===this.rightSE.point.y}comparePoint(t){if(this.isAnEndpoint(t))return 0;const e=this.leftSE.point,n=this.rightSE.point,r=this.vector();if(e.x===n.x)return t.x===e.x?0:t.x<e.x?1:-1;const i=(t.y-e.y)/r.y,o=e.x+i*r.x;if(t.x===o)return 0;const s=(t.x-e.x)/r.x,l=e.y+s*r.y;return t.y===l?0:t.y<l?-1:1}getIntersection(t){const e=this.bbox(),n=t.bbox(),r=p(e,n);if(null===r)return null;const i=this.leftSE.point,o=this.rightSE.point,s=t.leftSE.point,l=t.rightSE.point,h=c(e,s)&&0===this.comparePoint(s),u=c(n,i)&&0===t.comparePoint(i),f=c(e,l)&&0===this.comparePoint(l),g=c(n,o)&&0===t.comparePoint(o);if(u&&h)return g&&!f?o:!g&&f?l:null;if(u)return f&&i.x===l.x&&i.y===l.y?null:i;if(h)return g&&o.x===s.x&&o.y===s.y?null:s;if(g&&f)return null;if(g)return o;if(f)return l;const a=((t,e,n,r)=>{if(0===e.x)return T(n,r,t.x);if(0===r.x)return T(t,e,n.x);if(0===e.y)return G(n,r,t.y);if(0===r.y)return G(t,e,n.y);const i=O(e,r);if(0==i)return null;const o={x:n.x-t.x,y:n.y-t.y},s=O(o,e)/i,l=O(o,r)/i;return{x:(t.x+l*e.x+(n.x+s*r.x))/2,y:(t.y+l*e.y+(n.y+s*r.y))/2}})(i,this.vector(),s,t.vector());return null===a?null:c(r,a)?b.round(a.x,a.y):null}split(t){const e=[],n=void 0!==t.events,r=new q(t,!0),i=new q(t,!1),o=this.rightSE;this.replaceRightSE(i),e.push(i),e.push(r);const s=new F(r,o,this.rings.slice(),this.windings.slice());return q.comparePoints(s.leftSE.point,s.rightSE.point)>0&&s.swapEvents(),q.comparePoints(this.leftSE.point,this.rightSE.point)>0&&this.swapEvents(),n&&(r.checkForConsuming(),i.checkForConsuming()),e}swapEvents(){const t=this.rightSE;this.rightSE=this.leftSE,this.leftSE=t,this.leftSE.isLeft=!0,this.rightSE.isLeft=!1;for(let t=0,e=this.windings.length;t<e;t++)this.windings[t]*=-1}consume(t){let e=this,n=t;for(;e.consumedBy;)e=e.consumedBy;for(;n.consumedBy;)n=n.consumedBy;const r=F.compare(e,n);if(0!==r){if(r>0){const t=e;e=n,n=t}if(e.prev===n){const t=e;e=n,n=t}for(let t=0,r=n.rings.length;t<r;t++){const r=n.rings[t],i=n.windings[t],o=e.rings.indexOf(r);-1===o?(e.rings.push(r),e.windings.push(i)):e.windings[o]+=i}n.rings=null,n.windings=null,n.consumedBy=e,n.leftSE.consumedBy=e.leftSE,n.rightSE.consumedBy=e.rightSE}}prevInResult(){return void 0!==this._prevInResult||(this.prev?this.prev.isInResult()?this._prevInResult=this.prev:this._prevInResult=this.prev.prevInResult():this._prevInResult=null),this._prevInResult}beforeState(){if(void 0!==this._beforeState)return this._beforeState;if(this.prev){const t=this.prev.consumedBy||this.prev;this._beforeState=t.afterState()}else this._beforeState={rings:[],windings:[],multiPolys:[]};return this._beforeState}afterState(){if(void 0!==this._afterState)return this._afterState;const t=this.beforeState();this._afterState={rings:t.rings.slice(0),windings:t.windings.slice(0),multiPolys:[]};const e=this._afterState.rings,n=this._afterState.windings,r=this._afterState.multiPolys;for(let t=0,r=this.rings.length;t<r;t++){const r=this.rings[t],i=this.windings[t],o=e.indexOf(r);-1===o?(e.push(r),n.push(i)):n[o]+=i}const i=[],o=[];for(let t=0,r=e.length;t<r;t++){if(0===n[t])continue;const r=e[t],s=r.poly;if(-1===o.indexOf(s))if(r.isExterior)i.push(s);else{-1===o.indexOf(s)&&o.push(s);const t=i.indexOf(r.poly);-1!==t&&i.splice(t,1)}}for(let t=0,e=i.length;t<e;t++){const e=i[t].multiPoly;-1===r.indexOf(e)&&r.push(e)}return this._afterState}isInResult(){if(this.consumedBy)return!1;if(void 0!==this._isInResult)return this._isInResult;const t=this.beforeState().multiPolys,e=this.afterState().multiPolys;switch(H.type){case"union":{const n=0===t.length,r=0===e.length;this._isInResult=n!==r;break}case"intersection":{let n,r;t.length<e.length?(n=t.length,r=e.length):(n=e.length,r=t.length),this._isInResult=r===H.numMultiPolys&&n<r;break}case"xor":{const n=Math.abs(t.length-e.length);this._isInResult=n%2==1;break}case"difference":{const n=t=>1===t.length&&t[0].isSubject;this._isInResult=n(t)!==n(e);break}default:throw new Error(`Unrecognized operation type found ${H.type}`)}return this._isInResult}}class j{constructor(t,e,n){if(!Array.isArray(t)||0===t.length)throw new Error("Input geometry is not a valid Polygon or MultiPolygon");if(this.poly=e,this.isExterior=n,this.segments=[],"number"!=typeof t[0][0]||"number"!=typeof t[0][1])throw new Error("Input geometry is not a valid Polygon or MultiPolygon");const r=b.round(t[0][0],t[0][1]);this.bbox={ll:{x:r.x,y:r.y},ur:{x:r.x,y:r.y}};let i=r;for(let e=1,n=t.length;e<n;e++){if("number"!=typeof t[e][0]||"number"!=typeof t[e][1])throw new Error("Input geometry is not a valid Polygon or MultiPolygon");let n=b.round(t[e][0],t[e][1]);n.x===i.x&&n.y===i.y||(this.segments.push(F.fromRing(i,n,this)),n.x<this.bbox.ll.x&&(this.bbox.ll.x=n.x),n.y<this.bbox.ll.y&&(this.bbox.ll.y=n.y),n.x>this.bbox.ur.x&&(this.bbox.ur.x=n.x),n.y>this.bbox.ur.y&&(this.bbox.ur.y=n.y),i=n)}r.x===i.x&&r.y===i.y||this.segments.push(F.fromRing(i,r,this))}getSweepEvents(){const t=[];for(let e=0,n=this.segments.length;e<n;e++){const n=this.segments[e];t.push(n.leftSE),t.push(n.rightSE)}return t}}class U{constructor(t,e){if(!Array.isArray(t))throw new Error("Input geometry is not a valid Polygon or MultiPolygon");this.exteriorRing=new j(t[0],this,!0),this.bbox={ll:{x:this.exteriorRing.bbox.ll.x,y:this.exteriorRing.bbox.ll.y},ur:{x:this.exteriorRing.bbox.ur.x,y:this.exteriorRing.bbox.ur.y}},this.interiorRings=[];for(let e=1,n=t.length;e<n;e++){const n=new j(t[e],this,!1);n.bbox.ll.x<this.bbox.ll.x&&(this.bbox.ll.x=n.bbox.ll.x),n.bbox.ll.y<this.bbox.ll.y&&(this.bbox.ll.y=n.bbox.ll.y),n.bbox.ur.x>this.bbox.ur.x&&(this.bbox.ur.x=n.bbox.ur.x),n.bbox.ur.y>this.bbox.ur.y&&(this.bbox.ur.y=n.bbox.ur.y),this.interiorRings.push(n)}this.multiPoly=e}getSweepEvents(){const t=this.exteriorRing.getSweepEvents();for(let e=0,n=this.interiorRings.length;e<n;e++){const n=this.interiorRings[e].getSweepEvents();for(let e=0,r=n.length;e<r;e++)t.push(n[e])}return t}}class Y{constructor(t,e){if(!Array.isArray(t))throw new Error("Input geometry is not a valid Polygon or MultiPolygon");try{"number"==typeof t[0][0][0]&&(t=[t])}catch(t){}this.polys=[],this.bbox={ll:{x:Number.POSITIVE_INFINITY,y:Number.POSITIVE_INFINITY},ur:{x:Number.NEGATIVE_INFINITY,y:Number.NEGATIVE_INFINITY}};for(let e=0,n=t.length;e<n;e++){const n=new U(t[e],this);n.bbox.ll.x<this.bbox.ll.x&&(this.bbox.ll.x=n.bbox.ll.x),n.bbox.ll.y<this.bbox.ll.y&&(this.bbox.ll.y=n.bbox.ll.y),n.bbox.ur.x>this.bbox.ur.x&&(this.bbox.ur.x=n.bbox.ur.x),n.bbox.ur.y>this.bbox.ur.y&&(this.bbox.ur.y=n.bbox.ur.y),this.polys.push(n)}this.isSubject=e}getSweepEvents(){const t=[];for(let e=0,n=this.polys.length;e<n;e++){const n=this.polys[e].getSweepEvents();for(let e=0,r=n.length;e<r;e++)t.push(n[e])}return t}}class V{static factory(t){const e=[];for(let n=0,r=t.length;n<r;n++){const r=t[n];if(!r.isInResult()||r.ringOut)continue;let i=null,o=r.leftSE,s=r.rightSE;const l=[o],h=o.point,u=[];for(;i=o,o=s,l.push(o),o.point!==h;)for(;;){const t=o.getAvailableLinkedEvents();if(0===t.length){const t=l[0].point,e=l[l.length-1].point;throw new Error(`Unable to complete output ring starting at [${t.x}, ${t.y}]. Last matching segment found ends at [${e.x}, ${e.y}].`)}if(1===t.length){s=t[0].otherSE;break}let n=null;for(let t=0,e=u.length;t<e;t++)if(u[t].point===o.point){n=t;break}if(null!==n){const t=u.splice(n)[0],r=l.splice(t.index);r.unshift(r[0].otherSE),e.push(new V(r.reverse()));continue}u.push({index:l.length,point:o.point});const r=o.getLeftmostComparator(i);s=t.sort(r)[0].otherSE;break}e.push(new V(l))}return e}constructor(t){this.events=t;for(let e=0,n=t.length;e<n;e++)t[e].segment.ringOut=this;this.poly=null}getGeom(){let t=this.events[0].point;const e=[t];for(let n=1,r=this.events.length-1;n<r;n++){const r=this.events[n].point,i=this.events[n+1].point;0!==$(r,t,i)&&(e.push(r),t=r)}if(1===e.length)return null;const n=e[0],r=e[1];0===$(n,t,r)&&e.shift(),e.push(e[0]);const i=this.isExteriorRing()?1:-1,o=this.isExteriorRing()?0:e.length-1,s=this.isExteriorRing()?e.length:-1,l=[];for(let t=o;t!=s;t+=i)l.push([e[t].x,e[t].y]);return l}isExteriorRing(){if(void 0===this._isExteriorRing){const t=this.enclosingRing();this._isExteriorRing=!t||!t.isExteriorRing()}return this._isExteriorRing}enclosingRing(){return void 0===this._enclosingRing&&(this._enclosingRing=this._calcEnclosingRing()),this._enclosingRing}_calcEnclosingRing(){let t=this.events[0];for(let e=1,n=this.events.length;e<n;e++){const n=this.events[e];q.compare(t,n)>0&&(t=n)}let e=t.segment.prevInResult(),n=e?e.prevInResult():null;for(;;){if(!e)return null;if(!n)return e.ringOut;if(n.ringOut!==e.ringOut)return n.ringOut.enclosingRing()!==e.ringOut?e.ringOut:e.ringOut.enclosingRing();e=n.prevInResult(),n=e?e.prevInResult():null}}}class X{constructor(t){this.exteriorRing=t,t.poly=this,this.interiorRings=[]}addInterior(t){this.interiorRings.push(t),t.poly=this}getGeom(){const t=[this.exteriorRing.getGeom()];if(null===t[0])return null;for(let e=0,n=this.interiorRings.length;e<n;e++){const n=this.interiorRings[e].getGeom();null!==n&&t.push(n)}return t}}class Q{constructor(t){this.rings=t,this.polys=this._composePolys(t)}getGeom(){const t=[];for(let e=0,n=this.polys.length;e<n;e++){const n=this.polys[e].getGeom();null!==n&&t.push(n)}return t}_composePolys(t){const e=[];for(let n=0,r=t.length;n<r;n++){const r=t[n];if(!r.poly)if(r.isExteriorRing())e.push(new X(r));else{const t=r.enclosingRing();t.poly||e.push(new X(t)),t.poly.addInterior(r)}}return e}}class W{constructor(t){let e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:F.compare;this.queue=t,this.tree=new l(e),this.segments=[]}process(t){const e=t.segment,n=[];if(t.consumedBy)return t.isLeft?this.queue.remove(t.otherSE):this.tree.remove(e),n;const r=t.isLeft?this.tree.add(e):this.tree.find(e);if(!r)throw new Error(`Unable to find segment #${e.id} [${e.leftSE.point.x}, ${e.leftSE.point.y}] -> [${e.rightSE.point.x}, ${e.rightSE.point.y}] in SweepLine tree.`);let i,o,s=r,l=r;for(;void 0===i;)s=this.tree.prev(s),null===s?i=null:void 0===s.key.consumedBy&&(i=s.key);for(;void 0===o;)l=this.tree.next(l),null===l?o=null:void 0===l.key.consumedBy&&(o=l.key);if(t.isLeft){let r=null;if(i){const t=i.getIntersection(e);if(null!==t&&(e.isAnEndpoint(t)||(r=t),!i.isAnEndpoint(t))){const e=this._splitSafely(i,t);for(let t=0,r=e.length;t<r;t++)n.push(e[t])}}let s=null;if(o){const t=o.getIntersection(e);if(null!==t&&(e.isAnEndpoint(t)||(s=t),!o.isAnEndpoint(t))){const e=this._splitSafely(o,t);for(let t=0,r=e.length;t<r;t++)n.push(e[t])}}if(null!==r||null!==s){let t=null;if(null===r)t=s;else if(null===s)t=r;else{t=q.comparePoints(r,s)<=0?r:s}this.queue.remove(e.rightSE),n.push(e.rightSE);const i=e.split(t);for(let t=0,e=i.length;t<e;t++)n.push(i[t])}n.length>0?(this.tree.remove(e),n.push(t)):(this.segments.push(e),e.prev=i)}else{if(i&&o){const t=i.getIntersection(o);if(null!==t){if(!i.isAnEndpoint(t)){const e=this._splitSafely(i,t);for(let t=0,r=e.length;t<r;t++)n.push(e[t])}if(!o.isAnEndpoint(t)){const e=this._splitSafely(o,t);for(let t=0,r=e.length;t<r;t++)n.push(e[t])}}}this.tree.remove(e)}return n}_splitSafely(t,e){this.tree.remove(t);const n=t.rightSE;this.queue.remove(n);const r=t.split(e);return r.push(n),void 0===t.consumedBy&&this.tree.add(t),r}}const Z="undefined"!=typeof process&&process.env.POLYGON_CLIPPING_MAX_QUEUE_SIZE||1e6,D="undefined"!=typeof process&&process.env.POLYGON_CLIPPING_MAX_SWEEPLINE_SEGMENTS||1e6;const H=new class{run(t,e,n){H.type=t,b.reset();const r=[new Y(e,!0)];for(let t=0,e=n.length;t<e;t++)r.push(new Y(n[t],!1));if(H.numMultiPolys=r.length,"difference"===H.type){const t=r[0];let e=1;for(;e<r.length;)null!==p(r[e].bbox,t.bbox)?e++:r.splice(e,1)}if("intersection"===H.type)for(let t=0,e=r.length;t<e;t++){const e=r[t];for(let n=t+1,i=r.length;n<i;n++)if(null===p(e.bbox,r[n].bbox))return[]}const i=new l(q.compare);for(let t=0,e=r.length;t<e;t++){const e=r[t].getSweepEvents();for(let t=0,n=e.length;t<n;t++)if(i.insert(e[t]),i.size>Z)throw new Error("Infinite loop when putting segment endpoints in a priority queue (queue size too big).")}const o=new W(i);let s=i.size,h=i.pop();for(;h;){const t=h.key;if(i.size===s){const e=t.segment;throw new Error(`Unable to pop() ${t.isLeft?"left":"right"} SweepEvent [${t.point.x}, ${t.point.y}] from segment #${e.id} [${e.leftSE.point.x}, ${e.leftSE.point.y}] -> [${e.rightSE.point.x}, ${e.rightSE.point.y}] from queue.`)}if(i.size>Z)throw new Error("Infinite loop when passing sweep line over endpoints (queue size too big).");if(o.segments.length>D)throw new Error("Infinite loop when passing sweep line over endpoints (too many sweep line segments).");const e=o.process(t);for(let t=0,n=e.length;t<n;t++){const n=e[t];void 0===n.consumedBy&&i.insert(n)}s=i.size,h=i.pop()}b.reset();const u=V.factory(o.segments);return new Q(u).getGeom()}};var J={union:function(t){for(var e=arguments.length,n=new Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];return H.run("union",t,n)},intersection:function(t){for(var e=arguments.length,n=new Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];return H.run("intersection",t,n)},xor:function(t){for(var e=arguments.length,n=new Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];return H.run("xor",t,n)},difference:function(t){for(var e=arguments.length,n=new Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];return H.run("difference",t,n)}};return J}));
+//# sourceMappingURL=polygon-clipping.umd.min.js.map
+</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div class="app">
+<aside>
+  <h1>Caja postal</h1>
+  <p class="sub">Caja tipo FEFCO 0427 para impresión 3D. Caja y tapa se imprimen en plano y se pliegan (bisagras vivas); la tapa se clipa en un pasador trasero y, al cerrarla, sus orejetas ya dobladas entran de frente en la pared lateral doble. Medidas en mm.</p>
+
+  <details open>
+    <summary>Medidas interiores</summary>
+    <div class="row"><label>Largo</label><input type="number" id="L" min="30" max="300" step="1"></div>
+    <div class="row"><label>Ancho</label><input type="number" id="W" min="30" max="300" step="1"></div>
+    <div class="row"><label>Alto</label><input type="number" id="H" min="15" max="200" step="1"></div>
+  </details>
+
+  <details open>
+    <summary>Material y ajuste</summary>
+    <div class="row"><label>Grosor de panel<small>0,75 – 1,25 mm</small></label><input type="number" id="T" min="0.75" max="1.25" step="0.05"></div>
+    <div class="row"><label>Grosor de bisagra viva<small>2 capas: 0,4 con capa 0,2</small></label><input type="number" id="hT" min="0.2" max="1" step="0.05"></div>
+    <div class="row"><label>Ancho de bisagra (factor)<small>1 = π/2 · grosor (pliegue limpio a 90°)</small></label><input type="number" id="gapF" min="0.8" max="2" step="0.05"></div>
+    <div class="row"><label>Holgura de ajuste<small>hueco de la pared doble, ranuras y faldón</small></label><input type="number" id="fit" min="0.1" max="1" step="0.05"></div>
+  </details>
+
+  <details open>
+    <summary>Cuerpo</summary>
+    <div class="row"><label>Fondo de orejetas<small>de frontal y trasera; rectangulares, dentro de la pared doble</small></label><input type="number" id="earD" min="3" max="60" step="1"></div>
+    <div class="row"><label>Lengüetas de encaje por pared<small>pared interior → ranuras de la base · 0 = sin encaje</small></label><input type="number" id="tabs" min="0" max="4" step="1"></div>
+    <div class="row"><label>Largo de lengüeta</label><input type="number" id="tabW" min="3" max="40" step="1"></div>
+    <div class="row"><label>Saliente de lengüeta<small>≤ grosor de panel para que no asome bajo la base</small></label><input type="number" id="tabLen" min="0.4" max="3" step="0.05"></div>
+  </details>
+
+  <details open>
+    <summary>Tapa y cierre</summary>
+    <div class="row"><label>Fondo de orejetas de la tapa<small>entran de frente en la pared doble al cerrar; la tira se acorta lo mismo</small></label><input type="number" id="lidEarL" min="4" max="60" step="1"></div>
+    <div class="row"><label>Alto de orejetas de la tapa<small>por defecto toda la altura de la caja · <span id="earInfo"></span></small></label><input type="number" id="lidEarH" min="3" max="200" step="1"></div>
+    <div class="row"><label>Ø del pasador<small>bisagra de clip en la arista trasera</small></label><input type="number" id="pinD" min="2" max="6" step="0.5"></div>
+    <div class="row"><label>Nº de pinzas</label><input type="number" id="clips" min="1" max="8" step="1"></div>
+  </details>
+
+  <details open>
+    <summary>Texto y logo</summary>
+    <div class="seg" id="faceSeg"><button data-v="lid">Tapa (arriba)</button><button data-v="front">Frontal de la tapa</button><button data-v="none">Ninguna</button></div>
+    <div class="seg" id="modeSeg"><button data-v="deboss">Grabado</button><button data-v="inlay">Bicolor (+1 STL)</button></div>
+    <div class="row"><label>Grosor del logo / grabado<small>mínimo 0,30 mm · <span id="ddInfo"></span></small></label><input type="number" id="decoDepth" min="0.3" max="3" step="0.1"></div>
+    <div class="row"><label>Usar mitad del grosor de panel</label><input type="checkbox" id="decoHalf"></div>
+
+    <div class="row full"><label>Texto <small>Intro = nueva línea</small></label><textarea id="text" rows="2"></textarea></div>
+    <div class="row"><label>Tipografía</label>
+      <select id="font"><option value="poppins">Poppins Bold</option><option value="lora">Lora Bold</option><option value="custom" disabled>Propia (.ttf/.otf)</option></select></div>
+    <div class="file"><label class="pill" id="fontName">Sube tu fuente .ttf/.otf</label><input type="file" id="fontFile" accept=".ttf,.otf"><button class="btn ghost" style="width:auto" onclick="document.getElementById('fontFile').click()">Subir fuente</button></div>
+    <div class="row"><label>Altura de letra</label><input type="number" id="textSize" min="3" max="80" step="0.5"></div>
+    <div class="row"><label>Desplaz. texto ↔ / ↕</label><div style="display:flex;gap:4px"><input type="number" id="textX" step="1"><input type="number" id="textY" step="1"></div></div>
+
+    <div class="file"><label class="pill" id="logoName">Sin logo (SVG con relleno)</label><input type="file" id="logoFile" accept=".svg,image/svg+xml"><button class="btn ghost" style="width:auto" onclick="document.getElementById('logoFile').click()">Subir SVG</button></div>
+    <div class="row"><label>Ancho del logo</label><input type="number" id="logoW" min="5" max="250" step="1"></div>
+    <div class="row"><label>Desplaz. logo ↔ / ↕</label><div style="display:flex;gap:4px"><input type="number" id="logoX" step="1"><input type="number" id="logoY" step="1"></div></div>
+    <div class="row"><label>Quitar logo</label><button class="btn ghost" id="logoClear" style="padding:5px">Quitar</button></div>
+    <div id="decoMsg" class="msg"></div>
+  </details>
+
+  <details>
+    <summary>Vista previa</summary>
+    <div class="row"><label>Color caja</label><input type="color" id="colBox" value="#d8b48a"></div>
+    <div class="row"><label>Color incrustación</label><input type="color" id="colInlay" value="#3d2b20"></div>
+    <div class="row"><label>Cama de impresión</label>
+      <select id="bed"><option value="180">180 × 180</option><option value="220">220 × 220</option><option value="256" selected>256 × 256</option><option value="300">300 × 300</option><option value="350">350 × 350</option></select></div>
+  </details>
+
+  <details>
+    <summary>Consejos de impresión</summary>
+    <ul class="tips">
+      <li><b>Material:</b> PETG o PP. En PLA las bisagras vivas se agrietan pronto y las pinzas pueden partirse al clipar.</li>
+      <li>Imprime <b>caja y tapa por separado, tal cual salen</b> (cara exterior sobre la cama). La primera capa hace de bisagra: tiene que salir perfecta.</li>
+      <li>Relleno de las capas inferiores <b>perpendicular a las bisagras</b> para que las fibras crucen el pliegue.</li>
+      <li>Montaje: pliega orejetas → frontal y trasera → laterales → tira superior → pared interior con sus lengüetas en las ranuras.</li>
+      <li>Tapa: dobla su frontal 90° y clípala en el pasador empujando hacia atrás.</li>
+      <li>Cierre: dobla las dos orejetas de la tapa a 90° y cierra: entran de frente, a toda la altura, en la capa exterior de la pared doble (la interior la ocupan las orejetas del frontal de la caja). La tapa se sujeta por ajuste: si queda floja, baja la holgura.</li>
+      <li>Si caja y tapa no caben juntas, salen dos STL (cama 1 y cama 2); si caben, uno solo con ambas piezas colocadas.</li>
+      <li>Bicolor: carga el STL de la incrustación como <b>parte del mismo objeto</b> que la pieza con el logo (comparten coordenadas).</li>
+    </ul>
+  </details>
+
+  <div class="export">
+    <button class="btn" id="exportBtn">Descargar STL</button>
+    <div id="exportMsg" class="msg"></div>
+  </div>
+</aside>
+
+<main>
+  <div id="view"></div>
+  <div class="stats" id="stats"></div>
+  <div class="hud">
+    <button class="btn" id="foldBtn">Plegar ▶</button>
+    <input type="range" id="fold" min="0" max="1000" value="0">
+    <button class="btn ghost" id="fitBtn" style="min-width:auto">Encuadrar</button>
+  </div>
+</main>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
+import { TTFLoader } from 'three/addons/loaders/TTFLoader.js';
+import { Font } from 'three/addons/loaders/FontLoader.js';
+
+// ===== Caja postal imprimible (tipo FEFCO 0427) con tapa separada y bisagra de clip =====
+
+const DEFAULTS = {
+  L: 80, W: 60, H: 40,          // medidas INTERIORES (mm)
+  T: 1.0, hT: 0.4, gapF: 1.0,   // grosor de panel (0,75–1,25), de bisagra viva y factor de ancho de bisagra
+  fit: 0.3,                     // holgura general de ajuste
+  earD: 12,                     // fondo de las orejetas de frontal y trasera (van dentro de la pared doble)
+  tabs: 2, tabW: 12, tabLen: 0.8, // lengüetas de encaje de la pared interior en la base (saliente ≤ grosor)
+  lidEarL: 12, lidEarH: 99,     // orejetas del frontal de la tapa: fondo y alto (99 = toda la altura de la caja)
+  pinD: 3, clips: 3,            // bisagra: Ø del pasador y nº de pinzas de la tapa
+  face: 'lid', decoMode: 'deboss', decoDepth: 0.8, decoHalf: false,
+};
+
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+/* Esquema (y hacia delante, z arriba, cotas en mm):
+   base Lb×Wb · laterales dobles: exterior ─ tira superior ─ interior con lengüetas a la base ·
+   frontal y trasera simples con orejetas dentro del hueco de la pared doble (abajo).
+   Tapa aparte: panel superior + frontal a toda altura (bisagra viva) con dos orejetas rectangulares ya dobladas
+   a 90°. Al cerrar, las orejetas entran DE FRENTE en el hueco de la pared doble; para que pasen, la tira superior
+   se acorta por delante lo justo (calculado simulando el cierre). La tapa se sujeta por ajuste.
+   Trasera más baja: en su canto superior lleva un pasador (sujeto por nudillos) donde se clipa la tapa. */
+const OPEN_DEG = 100;
+function derived(p) {
+  const T = p.T, c = p.fit;
+  const g = (Math.PI / 2) * T * p.gapF;
+  const wt = 2 * T + 2 * c;                           // hueco de la pared doble: dos capas (orejeta de la caja + orejeta de la tapa)
+  const Ho = p.H - T;                                 // alto de pared (interior: base → cara inferior de la tapa = H)
+  const Lb = p.L + 2 * (T + wt), Wb = p.W;
+  const e0x = Lb / 2, e0y = Wb / 2;
+  const eB = e0x - wt + c / 2;                        // semiancho de frontal/trasera: sus orejetas van en la capa interior del hueco
+  const fbSpan = 2 * eB;
+  const tabD = clamp(isFinite(p.tabLen) ? p.tabLen : T - 0.2, 0.4, T + 6);
+  const sc = 0.25;
+  const earD = clamp(p.earD, 3, p.W / 2 - 2);
+  const m = Math.max(1, T);
+  const bev = clamp(T * 0.45, 0.3, 0.5);              // biseles de entrada (lateral exterior, interior, tira)
+  // --- bisagra de clip
+  const R = clamp(p.pinD / 2, 1, 3), cr = 0.25, tw = Math.max(1.2, T + 0.35 - cr);   // pinza: la tapa puede pasar sobre el pasador
+  const Ri = R + cr, Ro = Ri + tw;
+  const zU = 2 * T + Ho;                              // cara inferior de la tapa (= cara superior de las tiras)
+  const zL = zU + T;                                  // cara exterior de la tapa
+  const xRod = zU - Ro;                               // centro del pasador en coords. de la trasera (x = altura desde su base)
+  const Hb = xRod - Ro - 0.3;                         // la trasera acaba por debajo de la pinza
+  const yR = -e0y - T + R, zR = T + xRod;             // eje del pasador (mundo)
+  // borde trasero de la tapa lo más atrás posible sin rozar nudillos/pasador/trasera al abrir hasta OPEN_DEG
+  const kY0 = -R - 0.25, kY1 = -R + T + 0.25, kZ0 = (T + Hb) - zR - 0.25;   // caja de nudillo + trasera (rel. al eje)
+  const clashes = yb => {
+    const Y0 = yb - yR, pts = [];
+    for (let k = 0; k <= 12; k++) for (const Z of [Ro - T, Ro - T / 2, Ro]) pts.push([Y0 + k * 0.5, Z]);
+    for (let a = 0; a <= OPEN_DEG; a += 1) {
+      const ph = a * Math.PI / 180, cs = Math.cos(ph), sn = Math.sin(ph);
+      for (const [Y, Z] of pts) {
+        const y = Y * cs - Z * sn, z = Y * sn + Z * cs;
+        if (Math.hypot(y, z) < R + 0.25) return true;                         // pasador
+        if (y > kY0 && y < kY1 && z < 0.25) return true;                      // nudillo / trasera (toda su altura)
+        if (y > -R - 0.25 && z < (Ro - T) - 0.05) return true;                // plano superior de la caja (tiras laterales)
+      }
+    }
+    return false;
+  };
+  let yLb = yR + Ro + 0.4;
+  for (let yb = yR + Ro + 0.4; yb >= yR - Ro; yb -= 0.05) { if (clashes(yb)) break; yLb = yb; }
+  const Wl = Lb + 2 * T;
+  const Li = p.L;                                     // ancho interior entre paredes interiores
+  const Lh = Li - 2 * c - 1;                          // largo de bisagra (sin invadir las paredes interiores)
+  // --- frontal de la tapa (bisagra viva, altura completa) y orejetas ya dobladas que entran de frente
+  const d1 = T + 0.3;                                 // orejeta justo por debajo del nivel de la tira
+  const earHmax = (T + Ho - 0.3) - (T + 0.6);        // de justo bajo la tira hasta 0,6 mm sobre la base
+  const earH = clamp(p.lidEarH, 3, earHmax), earL = clamp(p.lidEarL, 4, p.W / 2);
+  const earCh = Math.min(2, earH / 4);                // chaflán de las esquinas traseras de la orejeta
+  const yLf = e0y + T + c;                            // borde delantero de la tapa → frontal a una holgura del frente
+  const Wf = 2 * (e0x + T), Hf = zU - 0.3;            // frontal de la tapa: ancho y alto (hasta 0,3 mm del suelo)
+  const xh = e0x - T - c / 2;                         // canto de la orejeta de la tapa: doblada queda en la capa exterior del hueco
+  const yH = yLf;                                     // plano interior del frontal de la tapa
+  const zEarTop = zU - d1, zEarBot = zEarTop - earH;
+  // recorte de la tira: envolvente de la orejeta mientras está a la altura de la tira durante el cierre
+  const tiraBot = T + Ho;
+  let yCut = e0y + T;
+  for (let a = 0; a <= 60; a += 0.1) {
+    const ph = a * Math.PI / 180, cs = Math.cos(ph), sn = Math.sin(ph);
+    for (let s = 0; s <= earL + 1e-6; s += 0.25) for (let h = 0; h <= earH + 1e-6; h += 0.25) {
+      if (s > earL - earCh && h < earCh - (earL - s)) continue;              // chaflán superior-trasero
+      const Y = (yH - s) - yR, Z = (zEarTop - h) - zR;
+      const y = yR + Y * cs - Z * sn, z = zR + Y * sn + Z * cs;
+      if (z > tiraBot - 0.05 && z < tiraBot + T + 0.05) yCut = Math.min(yCut, y);
+    }
+  }
+  yCut -= c;                                          // holgura
+  const inA = -(Wb / 2 - c), inB = Wb / 2 - c;
+  const tabs = clamp(Math.round(p.tabs), 0, 4);
+  const sideTabs = [];
+  if (tabs) {
+    const span = inB - inA, w = clamp(p.tabW, 3, span / (tabs + 1));
+    for (let i = 0; i < tabs; i++) { const cc = -span / 2 + span * (i + 1) / (tabs + 1); sideTabs.push({ c: cc, w, yw: (inA + inB) / 2 + cc }); }
+  }
+  const frontEarTop = Ho - m;                         // orejetas del frontal a toda altura (capa interior del hueco)
+  // segmentos de bisagra: nudillo, pinza, nudillo, pinza, …, nudillo
+  let n = clamp(Math.round(p.clips), 1, 8), kl, cl;
+  const gap = 0.4;
+  for (; n >= 1; n--) { kl = Math.max(4, Lh * 0.1); cl = (Lh - (n + 1) * kl - 2 * n * gap) / n; if (cl >= 5) break; }
+  if (n < 1) { n = 1; kl = 3; cl = Math.max(3, Lh - 2 * kl - 2 * gap); }
+  const segs = []; let x = -Lh / 2;
+  for (let i = 0; i <= n; i++) {
+    segs.push({ k: 'n', a: x, b: x + kl }); x += kl;
+    if (i < n) { segs.push({ k: 'c', a: x + gap, b: x + gap + cl }); x += 2 * gap + cl; }
+  }
+  const netX = Lb + 2 * (g + Ho + g + wt + g + Ho + (sideTabs.length ? tabD : 0));
+  const netY = Wb + (g + Ho) + (g + xRod + R);
+  const Dl = yLf - yLb;
+  const xc = yR - yLb;                                // centro de la pinza en coords. de la tapa
+  return { T, c, g, wt, Ho, Lb, Wb, e0x, e0y, eB, fbSpan, tabD, sc, earD, m, bev, R, Ri, Ro, cr, tw, zU, zL, xRod, Hb, yR, zR,
+    yLb, yLf, Wl, Dl, xc, Li, Lh, d1, earH, earHmax, earL, earCh, Wf, Hf, xh, yH, zEarTop, zEarBot, yCut, inA, inB, sideTabs, frontEarTop,
+    hingeStrip: (yLb - (-e0y - T)), tiraOpen: (e0y + T) - yCut,
+    nClips: n, segs, netX, netY, outer: [Lb + 2 * T, Wb + 2 * T, p.H + 2 * T], openDeg: OPEN_DEG };
+}
+
+// polígono → geometría extruida a lo largo de un eje (sin espejo: matrices de permutación con det = +1)
+function extrudeXZ(pts, y0, y1) {        // perfil en (x,z), extruido en y ∈ [y0, y1]
+  const g = new THREE.ExtrudeGeometry(mpToShapes([[ring(pts)]]), { depth: y1 - y0, bevelEnabled: false });
+  g.applyMatrix4(new THREE.Matrix4().set(1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1));
+  g.translate(0, y1, 0);
+  return g;
+}
+function extrudeMPXZ(mp, y0, y1) {
+  const g = new THREE.ExtrudeGeometry(mpToShapes(mp), { depth: y1 - y0, bevelEnabled: false });
+  g.applyMatrix4(new THREE.Matrix4().set(1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1));
+  g.translate(0, y1, 0);
+  return g;
+}
+function extrudeYZ(pts, x0, x1) {        // perfil en (y,z), extruido en x ∈ [x0, x1]
+  const g = new THREE.ExtrudeGeometry(mpToShapes([[ring(pts)]]), { depth: x1 - x0, bevelEnabled: false });
+  g.applyMatrix4(new THREE.Matrix4().set(0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1));
+  g.translate(x0, 0, 0);
+  return g;
+}
+function earPts(L, H, ch) {
+  return [[0, -H / 2], [L - ch, -H / 2], [L, -H / 2 + ch], [L, H / 2 - ch], [L - ch, H / 2], [0, H / 2]];
+}
+/* Panel con un canto biselado: cara inferior (z=0) y superior (z=T) con el mismo nº de vértices; los vértices del
+   canto elegido se retranquean 'd' hacia dentro en las caras indicadas. Malla cerrada (tapas + caras laterales). */
+function loftBevel(pts, T, bv) {
+  const k = bv.axis === 'x' ? 0 : 1, vals = pts.map(q => q[k]);
+  const mid = (Math.min(...vals) + Math.max(...vals)) / 2, dir = bv.at > mid ? -1 : 1;
+  const move = (face) => pts.map(q => (Math.abs(q[k] - bv.at) < 1e-6 && bv.faces.includes(face))
+    ? (k === 0 ? [q[0] + dir * bv.d, q[1]] : [q[0], q[1] + dir * bv.d]) : [q[0], q[1]]);
+  let P = move('bottom'), Q = move('top');
+  const area = P.reduce((s, q, i) => s + q[0] * P[(i + 1) % P.length][1] - P[(i + 1) % P.length][0] * q[1], 0);
+  if (area < 0) { P = P.reverse(); Q = Q.reverse(); }
+  const pos = [];
+  const tri = (a, b, c) => pos.push(...a, ...b, ...c);
+  const n = P.length;
+  const bot = THREE.ShapeUtils.triangulateShape(P.map(q => new THREE.Vector2(q[0], q[1])), []);
+  const cz = (A, B, C) => (B[0] - A[0]) * (C[1] - A[1]) - (B[1] - A[1]) * (C[0] - A[0]);
+  for (let [a, b, c] of bot) { if (cz(P[a], P[b], P[c]) > 0) [b, c] = [c, b]; tri([P[a][0], P[a][1], 0], [P[b][0], P[b][1], 0], [P[c][0], P[c][1], 0]); } // normal −z
+  const top = THREE.ShapeUtils.triangulateShape(Q.map(q => new THREE.Vector2(q[0], q[1])), []);
+  for (let [a, b, c] of top) { if (cz(Q[a], Q[b], Q[c]) < 0) [b, c] = [c, b]; tri([Q[a][0], Q[a][1], T], [Q[b][0], Q[b][1], T], [Q[c][0], Q[c][1], T]); } // normal +z
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n, p0 = [P[i][0], P[i][1], 0], p1 = [P[j][0], P[j][1], 0], q0 = [Q[i][0], Q[i][1], T], q1 = [Q[j][0], Q[j][1], T];
+    tri(p0, p1, q1); tri(p0, q1, q0);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.computeVertexNormals();
+  return g;
+}
+function circlePts(cx, cz, r, n = 40, a0 = 0, a1 = Math.PI * 2) {
+  const o = [];
+  for (let i = 0; i < n; i++) { const a = a0 + (a1 - a0) * i / n; o.push([cx + r * Math.cos(a), cz + r * Math.sin(a)]); }
+  return o;
+}
+
+function buildBox(p, deco, mats) {
+  const d = derived(p);
+  const T = p.T, c = p.fit;
+  const root = new THREE.Group();
+  const joints = [], panels = [], extras = [];
+
+  function panel(name, parent, pts, opts = {}) {
+    const grp = new THREE.Group(); grp.name = name;
+    (parent || root).add(grp);
+    panels.push({ name, group: grp, pts, opts });
+    return grp;
+  }
+  function attach(parentGrp, px, py, dirAng, hingeSpan, stage, name, pts, opts = {}) {
+    const j = new THREE.Group();
+    j.position.set(px, py, 0); j.rotation.z = dirAng;
+    (parentGrp || root).add(j);
+    const child = new THREE.Group(); j.add(child);
+    const hinge = new THREE.Mesh(hingeGeometry(d.g, hingeSpan, p.hT, 0), mats.hinge);
+    hinge.userData.part = opts.part || 'box'; j.add(hinge);
+    joints.push({ j, child, hinge, span: hingeSpan, stage, theta: -1 });
+    return panel(name, child, pts, opts);
+  }
+  const extra = (grp, geo, part, mat) => { const m = new THREE.Mesh(geo, mat || mats.panel); m.userData.part = part; grp.add(m); extras.push(m); return m; };
+
+  // ---------- CUERPO ----------
+  const S = { ears: [0, 0.1], fb: [0.1, 0.26], side: [0.26, 0.42], sTop: [0.42, 0.54], sIn: [0.54, 0.7],
+              lFront: [0.72, 0.78], lEars: [0.78, 0.84] };
+  // ranuras de la base para las lengüetas de la pared interior
+  const holes = [];
+  const slot = (x0, x1, y0, y1) => { const j = holes.length * 0.013; holes.push([[x0 + j, y0 + j], [x1 + j, y0 + j], [x1 + j, y1 + j], [x0 + j, y1 + j]]); };
+  for (const sg of [1, -1]) {
+    const u0 = d.e0x - d.wt - T - d.sc, u1 = d.e0x - d.wt + d.sc;
+    for (const t of d.sideTabs) slot(sg > 0 ? u0 : -u1, sg > 0 ? u1 : -u0, t.yw - t.w / 2 - d.sc, t.yw + t.w / 2 + d.sc);
+  }
+  panel('base', null, [[-d.e0x, -d.e0y], [d.e0x, -d.e0y], [d.e0x, d.e0y], [-d.e0x, d.e0y]], { holes });
+
+  // laterales dobles (en el izquierdo, girado 180°, y local = −y mundo)
+  for (const [ang, sgn, nm] of [[0, 1, 'lateral_d'], [Math.PI, -1, 'lateral_i']]) {
+    const loc = ([a, b]) => sgn > 0 ? [a, b] : [-b, -a];
+    const yA = -(d.Wb / 2 + T), yB = d.Wb / 2 + T;
+    const fy = v => sgn * v;                              // y mundo → y local (los laterales están centrados en 0)
+    // lateral exterior entero; bisel en su canto delantero, cara interior (la que mira al hueco)
+    const out = attach(null, sgn * d.e0x, 0, ang, d.Wb, S.side, nm, rectPts(d.Ho, yB - yA),
+      { bevelEdge: { axis: 'y', at: fy(yB), faces: ['top'], d: d.bev } });
+    // tira superior: acortada por delante lo justo para que entren las orejetas de la tapa; bisel abajo-delante
+    const [ta, tb] = loc([yA, d.yCut]), tc = (ta + tb) / 2;
+    const top = attach(out, d.Ho, tc, 0, tb - ta, S.sTop, nm + '_tira', tabbedRangePts(d.wt, ta - tc, tb - tc, [], 0),
+      { bevelEdge: { axis: 'y', at: (sgn > 0 ? tb : ta) - tc, faces: ['top'], d: d.bev } });
+    // pared interior entera (con lengüetas a la base); bisel en su canto delantero, cara que mira al hueco
+    const [ia, ib] = loc([d.inA, d.inB]), oc = (ia + ib) / 2;
+    const oa = Math.max(ta, ia), ob = Math.min(tb, ib), hcI = (oa + ob) / 2;      // bisagra: tramo común con la tira
+    const tabsLoc = d.sideTabs.map(t => ({ c: (sgn > 0 ? t.yw : -t.yw) - hcI, w: t.w }));
+    attach(top, d.wt, hcI - tc, 0, ob - oa, S.sIn, nm + '_interior', tabbedRangePts(d.Ho, ia - hcI, ib - hcI, tabsLoc, d.tabD),
+      { bevelEdge: { axis: 'y', at: (sgn > 0 ? ib : ia) - hcI, faces: ['bottom'], d: d.bev } });
+  }
+  // frontal y trasera con orejetas
+  const back = attach(null, 0, -d.e0y, -Math.PI / 2, d.fbSpan, S.fb, 'trasera', rectPts(d.Hb, d.fbSpan));
+  const front = attach(null, 0, d.e0y, Math.PI / 2, d.fbSpan, S.fb, 'frontal', rectPts(d.Ho, d.fbSpan));
+  for (const [wall, x1] of [[back, d.Hb - d.m], [front, d.frontEarTop]]) for (const sgn of [1, -1]) {
+    const x0 = d.m; if (x1 - x0 < 4) continue;
+    const sp = x1 - x0;
+    attach(wall, (x0 + x1) / 2, sgn * d.fbSpan / 2, sgn * Math.PI / 2, sp, S.ears, 'orejeta', rectPts(d.earD, sp));
+  }
+  // pasador (base plana de 0,15 mm para que apoye en la cama) + nudillos
+  {
+    const circ = circlePts(d.xRod, d.R, d.R, 48).map(([x, z]) => [x, Math.max(z, 0.15)]);
+    extra(back, extrudeXZ(circ, -d.Lh / 2, d.Lh / 2), 'box');
+    for (const s of d.segs.filter(q => q.k === 'n'))
+      extra(back, extrudeXZ([[d.Hb - 0.05, 0], [d.xRod, 0], [d.xRod, T], [d.Hb - 0.05, T]], s.a, s.b), 'box');
+  }
+
+  // ---------- TAPA (pieza aparte) ----------
+  // coords. de la tapa = como se imprime: x de atrás a delante, y a lo ancho, z hacia arriba (z = 0 cara exterior)
+  const lidPivot = new THREE.Group(); root.add(lidPivot);
+  const lidGrp = new THREE.Group(); lidGrp.matrixAutoUpdate = false; lidPivot.add(lidGrp);
+  const lidTop = panel('tapa', lidGrp, rectPts(d.Dl, d.Wl), { part: 'lid' });
+  // pinzas en C sobre los tramos libres del pasador, unidas al borde trasero por un nervio
+  {
+    const xc = d.xc, zc = d.Ro, beta = Math.PI * 0.75;                    // abertura hacia atrás-arriba (impresión)
+    const alpha = Math.asin(clamp(0.8 * d.R / d.Ri, 0.2, 0.95));
+    const outer = circlePts(xc, zc, d.Ro, 48, beta + alpha, beta + 2 * Math.PI - alpha);
+    const inner = circlePts(xc, zc, d.Ri, 48, beta + alpha, beta + 2 * Math.PI - alpha);
+    outer.push([xc + d.Ro * Math.cos(beta - alpha), zc + d.Ro * Math.sin(beta - alpha)]);
+    inner.push([xc + d.Ri * Math.cos(beta - alpha), zc + d.Ri * Math.sin(beta - alpha)]);
+    const cring = [...outer, ...inner.reverse()];
+    const web = [[Math.min(xc, 0) - 0.05, 0], [0.05 + Math.max(0, 0), 0], [0.05, T], [Math.min(xc, 0) - 0.05, T]];
+    const mp = PC().difference(PC().union([[ring(cring)]], [[ring(web)]]), [[ring(circlePts(xc, zc, d.Ri, 48))]]);
+    for (const s of d.segs.filter(q => q.k === 'c')) extra(lidGrp, extrudeMPXZ(mp, s.a, s.b), 'lid');
+  }
+  // frontal de la tapa (bisagra viva): altura completa, más estrecho solo donde nacen las orejetas (la "proyección"
+  // por encima y por debajo cubre la esquina); orejetas rectangulares dobladas a 90° que entran de frente en el hueco
+  {
+    const W = d.Wf / 2, x0 = d.d1 - 0.4, x1 = d.d1 + d.earH + 0.4, H = d.Hf, xh = d.xh;
+    const fpts = [[0, -W], [x0, -W], [x0, -xh], [x1, -xh], [x1, -W], [H, -W], [H, W], [x1, W], [x1, xh], [x0, xh], [x0, W], [0, W]];
+    const fr = attach(lidTop, d.Dl, 0, 0, d.Wl - 0.4, S.lFront, 'tapa_frontal', fpts, { part: 'lid' });
+    for (const sgn of [1, -1])
+      attach(fr, d.d1 + d.earH / 2, sgn * xh, sgn * Math.PI / 2, d.earH, S.lEars, 'orejeta_tapa', earPts(d.earL, d.earH, d.earCh),
+        { part: 'lid', bevelEdge: { axis: 'x', at: d.earL, faces: ['top', 'bottom'], d: Math.min(0.35, T * 0.35) } });
+  }
+
+  const box = { root, joints, panels, extras, d, lidPivot, lidGrp, fold: -1 };
+  box.setFold = f => setFold(box, f, p);
+
+  // ---------- decoración (en la tapa o en el frontal) ----------
+  setFold(box, 1, p); root.updateMatrixWorld(true);
+  const target = p.face === 'lid' ? 'tapa' : p.face === 'front' ? 'tapa_frontal' : null;
+  let decoLocal = null, decoWarn = null;
+  if (target && deco && deco.outlines.length) {
+    const pr = panels.find(q => q.name === target);
+    const ex = new THREE.Vector3(), ey = new THREE.Vector3(), ez = new THREE.Vector3();
+    pr.group.matrixWorld.extractBasis(ex, ey, ez);
+    const Rv = new THREE.Vector3(-1, 0, 0);
+    const Uv = target === 'tapa' ? new THREE.Vector3(0, -1, 0) : new THREE.Vector3(0, 0, 1);
+    const a = Rv.dot(ex), b = Uv.dot(ex), cc = Rv.dot(ey), e = Uv.dot(ey);
+    const xs = pr.pts.map(q => q[0]), ys = pr.pts.map(q => q[1]);
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const tf = ([u, v]) => [cx + a * u + b * v, cc * u + e * v];
+    decoLocal = deco.outlines.map(o => ({ pts: o.pts.map(tf), holes: o.holes.map(hh => hh.map(tf)) }));
+    const minX = Math.min(...xs) + 1, maxX = Math.max(...xs) - 1, minY = Math.min(...ys) + 1, maxY = Math.max(...ys) - 1;
+    let out = false;
+    for (const o of decoLocal) for (const [x, y] of o.pts) if (x < minX || x > maxX || y < minY || y > maxY) out = true;
+    if (out) decoWarn = 'El texto/logo se sale del panel: redúcelo o muévelo.';
+    pr.deco = decoLocal;
+  }
+
+  // ---------- mallas de paneles ----------
+  const dd = clamp(p.decoHalf ? T / 2 : p.decoDepth, 0.3, T - 0.4);
+  box.decoDepthUsed = dd;
+  for (const pr of panels) {
+    const part = pr.opts.part || 'box';
+    if (!pr.opts.mp && pr.opts.holes && pr.opts.holes.length)
+      pr.opts.mp = PC().difference([[ring(pr.pts)]], ...pr.opts.holes.map(hh => [[ring(hh)]]));
+    const base = pr.opts.mp ? mpToShapes(pr.opts.mp) : polyShape(pr.pts);
+    const add = (g, prt, mat) => { const m = new THREE.Mesh(g, mat); m.userData.part = prt; m.userData.owner = part; pr.group.add(m); };
+    if (pr.deco && !decoWarn) {
+      const panelPoly = pr.opts.mp ? pr.opts.mp[0] : [ring(pr.pts)];
+      const decoPolys = pr.deco.map(o => [ring(o.pts), ...o.holes.map(ring)]).filter(q => q[0].length >= 4);
+      let U = decoPolys.length ? PC().union(...decoPolys.map(q => [q])) : [];
+      U = U.length ? PC().intersection(U, [panelPoly]) : [];
+      const bottomMP = U.length ? PC().difference([panelPoly], U) : [panelPoly];
+      const g1 = new THREE.ExtrudeGeometry(mpToShapes(bottomMP), { depth: dd + 0.02, bevelEnabled: false });
+      const g2 = new THREE.ExtrudeGeometry(base, { depth: T - dd, bevelEnabled: false }); g2.translate(0, 0, dd);
+      add(g1, part, mats.panel); add(g2, part, mats.panel);
+      if (p.decoMode === 'inlay' && U.length) add(new THREE.ExtrudeGeometry(mpToShapes(U), { depth: dd, bevelEnabled: false }), 'inlay', mats.inlay);
+    } else if (pr.opts.bevelEdge && !pr.opts.mp) add(loftBevel(pr.pts, T, pr.opts.bevelEdge), part, mats.panel);
+    else add(new THREE.ExtrudeGeometry(base, { depth: T, bevelEnabled: false }), part, mats.panel);
+  }
+  box.decoWarn = decoWarn;
+  box.decoOwner = 'lid';
+  box.hasInlay = !!(p.decoMode === 'inlay' && decoLocal && !decoWarn);
+  return box;
+}
+
+// ---------- reparto en camas ----------
+function bboxParts(box, pred) {
+  box.root.updateMatrixWorld(true);
+  const bb = new THREE.Box3();
+  box.root.traverse(o => { if (o.isMesh && pred(o)) bb.expandByObject(o); });
+  return bb;
+}
+/* Coloca caja y tapa en la misma cama si caben (tapa delante/detrás o al lado, girada o no);
+   si no, cada una en su cama. Devuelve las placas con su centro y las piezas que llevan. */
+function layoutPlates(box, bedSize, gap = 8, margin = 4) {
+  const keep = box.fold, bed = bedSize - margin;     // margen para falda/borde
+  box.lidFlat = { x: 0, y: 0, rot: 0 }; box.setFold(0);
+  const B = bboxParts(box, o => o.userData.part === 'box');
+  const opts = [];
+  for (const rot of [0, Math.PI / 2]) {
+    box.lidFlat = { x: 0, y: 0, rot }; box.setFold(0);
+    const Lb = bboxParts(box, o => o.userData.part === 'lid' || o.userData.part === 'inlay');
+    const lw = Lb.max.x - Lb.min.x, lh = Lb.max.y - Lb.min.y;
+    // tapa debajo (−y), encima (+y), a la derecha (+x) del troquel
+    const place = [
+      { x: (B.min.x + B.max.x) / 2 - (Lb.min.x + Lb.max.x) / 2, y: B.min.y - gap - Lb.max.y },
+      { x: (B.min.x + B.max.x) / 2 - (Lb.min.x + Lb.max.x) / 2, y: B.max.y + gap - Lb.min.y },
+      { x: B.max.x + gap - Lb.min.x, y: (B.min.y + B.max.y) / 2 - (Lb.min.y + Lb.max.y) / 2 },
+    ];
+    for (const pl of place) {
+      const U = B.clone().union(new THREE.Box3(new THREE.Vector3(Lb.min.x + pl.x, Lb.min.y + pl.y, 0), new THREE.Vector3(Lb.max.x + pl.x, Lb.max.y + pl.y, 1)));
+      const w = U.max.x - U.min.x, h = U.max.y - U.min.y;
+      opts.push({ rot, ...pl, w, h, fits: w <= bed && h <= bed, U, lw, lh });
+    }
+  }
+  const bw = B.max.x - B.min.x, bh = B.max.y - B.min.y;
+  const one = opts.filter(o => o.fits).sort((a, b) => Math.max(a.w, a.h) - Math.max(b.w, b.h))[0];
+  let plates;
+  if (one) {
+    box.lidFlat = { x: one.x, y: one.y, rot: one.rot };
+    const cc = one.U.getCenter(new THREE.Vector3());
+    plates = [{ name: 'cama', parts: ['box', 'lid'], center: cc, size: [one.w, one.h] }];
+  } else {
+    // dos camas: la tapa (girada si así cabe) a la derecha, a una cama de distancia
+    const o2 = opts.filter(o => o.lw <= bed && o.lh <= bed).sort((a, b) => Math.max(a.lw, a.lh) - Math.max(b.lw, b.lh))[0] || opts[0];
+    box.lidFlat = { x: 0, y: 0, rot: o2.rot }; box.setFold(0);
+    const Lb = bboxParts(box, o => o.userData.part === 'lid' || o.userData.part === 'inlay');
+    const c1 = B.getCenter(new THREE.Vector3());
+    const c2 = new THREE.Vector3(c1.x + Math.max(bedSize, bw) / 2 + 25 + Math.max(bedSize, o2.lw) / 2, c1.y, 0);
+    box.lidFlat = { x: c2.x - (Lb.min.x + Lb.max.x) / 2, y: c2.y - (Lb.min.y + Lb.max.y) / 2, rot: o2.rot };
+    plates = [{ name: 'cama1_caja', parts: ['box'], center: c1, size: [bw, bh] }, { name: 'cama2_tapa', parts: ['lid'], center: c2, size: [o2.lw, o2.lh] }];
+  }
+  for (const pl of plates) pl.fits = pl.size[0] <= bed && pl.size[1] <= bed;
+  box.setFold(keep < 0 ? 0 : keep);
+  box.plates = plates;
+  return plates;
+}
+
+const LID_MOUNT = 0.72, LID_CLOSE = [0.86, 1];
+function setFold(box, f, p) {
+  box.fold = f;
+  for (const jr of box.joints) {
+    const [a, b] = jr.stage;
+    const t = ease(clamp((f - a) / (b - a), 0, 1));
+    const theta = (Math.PI / 2) * t;
+    if (Math.abs(theta - jr.theta) < 1e-6) continue;
+    jr.theta = theta;
+    jr.hinge.geometry.dispose();
+    jr.hinge.geometry = hingeGeometry(box.d.g, jr.span, p.hT, theta);
+    const [ex, ez] = hingeEnd(box.d.g, theta);
+    jr.child.position.set(ex, 0, ez);
+    jr.child.rotation.set(0, -theta, 0);
+  }
+  const d = box.d, L = box.lidGrp.matrix, P = box.lidPivot;
+  if (f < LID_MOUNT) {
+    // tapa en posición de impresión, detrás del troquel (x local → y mundo, y local → −x mundo)
+    P.position.set(0, 0, 0); P.rotation.set(0, 0, 0);
+    const lf = box.lidFlat || { x: 0, y: -(d.e0y + d.g + d.xRod + d.R) - 14 - d.Dl - d.g - d.Hf, rot: 0 };
+    const r = lf.rot, cs = Math.cos(r), sn = Math.sin(r);
+    // base de impresión (x local → +y, y local → −x) girada lf.rot alrededor de z
+    L.makeBasis(new THREE.Vector3(-sn, cs, 0), new THREE.Vector3(-cs, -sn, 0), new THREE.Vector3(0, 0, 1)).setPosition(lf.x, lf.y, 0);
+  } else {
+    // montada: gira sobre el eje del pasador (x local → y mundo, y local → x mundo, z local → −z mundo)
+    const t = ease(clamp((f - LID_CLOSE[0]) / (LID_CLOSE[1] - LID_CLOSE[0]), 0, 1));
+    P.position.set(0, d.yR, d.zR); P.rotation.set((1 - t) * d.openDeg * Math.PI / 180, 0, 0);
+    L.makeBasis(new THREE.Vector3(0, 1, 0), new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 0, -1)).setPosition(0, d.yLb - d.yR, d.zL - d.zR);
+  }
+  box.lidGrp.matrixWorldNeedsUpdate = true;
+}
+
+
+// ---------- utilidades ----------
+function polyShape(pts) {
+  const s = new THREE.Shape();
+  pts.forEach(([x, y], i) => i ? s.lineTo(x, y) : s.moveTo(x, y));
+  s.closePath();
+  return s;
+}
+
+function rectPts(depth, span) { return [[0, -span / 2], [depth, -span / 2], [depth, span / 2], [0, span / 2]]; }
+
+function trapPts(depth, span, ch) {
+  ch = Math.min(ch, span / 2 - 0.5, depth);
+  return [[0, -span / 2], [depth, -span / 2 + ch], [depth, span / 2 - ch], [0, span / 2]];
+}
+
+function tabbedRangePts(depth, a, b, tabs, tabD) {
+  const pts = [[0, a], [depth, a]];
+  const ch = tabD * 0.6;
+  for (const t of [...tabs].sort((p, q) => p.c - q.c)) {
+    if (t.c - t.w / 2 < a + 1 || t.c + t.w / 2 > b - 1) continue;
+    pts.push([depth, t.c - t.w / 2], [depth + tabD, t.c - t.w / 2 + ch], [depth + tabD, t.c + t.w / 2 - ch], [depth, t.c + t.w / 2]);
+  }
+  pts.push([depth, b], [0, b]);
+  return pts;
+}
+
+function hingeGeometry(g, span, hT, theta, eps = 0.05) {
+  const outer = [], inner = [];
+  const push = (x, z, nx, nz) => { outer.push([x, z]); inner.push([x + hT * nx, z + hT * nz]); };
+  push(-eps, 0, 0, 1);
+  if (theta < 1e-4) {
+    push(g + eps, 0, 0, 1);
+  } else {
+    const r = g / theta, N = Math.max(2, Math.ceil(theta / 0.1));
+    for (let i = 0; i <= N; i++) {
+      const a = (theta * i) / N;
+      push(r * Math.sin(a), r * (1 - Math.cos(a)), -Math.sin(a), Math.cos(a));
+    }
+    const ex = r * Math.sin(theta), ez = r * (1 - Math.cos(theta));
+    push(ex + eps * Math.cos(theta), ez + eps * Math.sin(theta), -Math.sin(theta), Math.cos(theta));
+  }
+  const shape = polyShape([...outer, ...inner.reverse()]);
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: span, bevelEnabled: false, curveSegments: 1 });
+  geo.rotateX(Math.PI / 2);
+  geo.translate(0, span / 2, 0);
+  return geo;
+}
+
+function hingeEnd(g, theta) {
+  if (theta < 1e-4) return [g, 0];
+  const r = g / theta;
+  return [r * Math.sin(theta), r * (1 - Math.cos(theta))];
+}
+
+function PC() {
+  const pc = globalThis.polygonClipping;
+  if (!pc) throw new Error('Falta la librería polygon-clipping');
+  return pc;
+}
+
+function ring(pts) {
+  const r = [];
+  for (const q of pts) { const l = r[r.length - 1]; if (!l || Math.hypot(q[0] - l[0], q[1] - l[1]) > 1e-4) r.push([q[0], q[1]]); }
+  while (r.length > 1 && Math.hypot(r[0][0] - r[r.length - 1][0], r[0][1] - r[r.length - 1][1]) <= 1e-4) r.pop();
+  const out = cleanCollinear(r);
+  if (out.length) out.push([out[0][0], out[0][1]]);
+  return out;
+}
+
+function cleanCollinear(r) {
+  let changed = true;
+  while (changed && r.length > 3) {
+    changed = false;
+    for (let i = 0; i < r.length; i++) {
+      const a = r[(i - 1 + r.length) % r.length], b = r[i], c = r[(i + 1) % r.length];
+      const cross = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+      if (Math.abs(cross) < 1e-7) { r.splice(i, 1); changed = true; break; }
+    }
+  }
+  return r.length >= 3 ? r : [];
+}
+
+function mpToShapes(mp) {
+  const shapes = [];
+  for (const poly of mp) {
+    const [outer, ...holes] = poly.map(r => ring(r.slice(0, -1)));
+    if (!outer || outer.length < 4 || ringArea(outer) < 0.01) continue;
+    const s = polyShape(outer.slice(0, -1));
+    for (const h of holes) {
+      if (h.length < 4 || ringArea(h) < 0.01) continue;
+      const hp = new THREE.Path(); h.slice(0, -1).forEach(([x, y], i) => i ? hp.lineTo(x, y) : hp.moveTo(x, y)); s.holes.push(hp);
+    }
+    shapes.push(s);
+  }
+  return shapes;
+}
+
+function disposeBox(box) {
+  box.root.traverse(o => { if (o.isMesh) o.geometry.dispose(); });
+}
+
+function toSTL(root, part) {
+  const want = typeof part === 'function' ? part : (o => o.userData.part === part);
+  root.updateMatrixWorld(true);
+  const tris = [];
+  const v = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+  const box3 = new THREE.Box3();
+  root.traverse(o => {
+    if (!o.isMesh || !want(o)) return;
+    const pos = o.geometry.attributes.position, idx = o.geometry.index;
+    const n = idx ? idx.count : pos.count;
+    for (let i = 0; i < n; i += 3) {
+      const t = [];
+      for (let k = 0; k < 3; k++) {
+        const vi = idx ? idx.getX(i + k) : i + k;
+        v[k].fromBufferAttribute(pos, vi).applyMatrix4(o.matrixWorld);
+        t.push(v[k].x, v[k].y, v[k].z); box3.expandByPoint(v[k]);
+      }
+      tris.push(t);
+    }
+  });
+  return { tris, box3 };
+}
+
+function writeSTL(tris, offset) {
+  const buf = new ArrayBuffer(84 + tris.length * 50);
+  const dv = new DataView(buf);
+  const hdr = 'MAMEMI caja plegable';
+  for (let i = 0; i < hdr.length; i++) dv.setUint8(i, hdr.charCodeAt(i));
+  dv.setUint32(80, tris.length, true);
+  let o = 84;
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), n = new THREE.Vector3();
+  for (const t of tris) {
+    a.set(t[0] - offset.x, t[1] - offset.y, t[2] - offset.z);
+    b.set(t[3] - offset.x, t[4] - offset.y, t[5] - offset.z);
+    c.set(t[6] - offset.x, t[7] - offset.y, t[8] - offset.z);
+    n.subVectors(b, a).cross(new THREE.Vector3().subVectors(c, a)).normalize();
+    for (const val of [n.x, n.y, n.z, a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z]) { dv.setFloat32(o, val, true); o += 4; }
+    dv.setUint16(o, 0, true); o += 2;
+  }
+  return buf;
+}
+
+function makeZip(files) { // [{name, data:ArrayBuffer|Uint8Array}]
+  const enc = new TextEncoder(), parts = [], central = [];
+  let off = 0;
+  for (const f of files) {
+    const data = f.data instanceof Uint8Array ? f.data : new Uint8Array(f.data);
+    const name = enc.encode(f.name), crc = crc32(data);
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(8, 0, true);
+    lh.setUint32(14, crc, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true);
+    lh.setUint16(26, name.length, true);
+    parts.push(new Uint8Array(lh.buffer), name, data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true);
+    ch.setUint32(16, crc, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true);
+    ch.setUint16(28, name.length, true); ch.setUint32(42, off, true);
+    central.push(new Uint8Array(ch.buffer), name);
+    off += 30 + name.length + data.length;
+  }
+  const cdSize = central.reduce((s, x) => s + x.length, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, cdSize, true); end.setUint32(16, off, true);
+  return new Blob([...parts, ...central, new Uint8Array(end.buffer)], { type: 'application/zip' });
+}
+
+function ringArea(r) { let a = 0; for (let i = 0; i < r.length - 1; i++) a += r[i][0] * r[i + 1][1] - r[i + 1][0] * r[i][1]; return Math.abs(a) / 2; }
+
+const CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(u8) { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC[(c ^ u8[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+
+
+// ---------- fuentes incrustadas (OFL) ----------
+const FONT_B64 = { poppins: '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', lora: 'AAEAAAAPAIAAAwBwR0RFRgR7BGsAAFmEAAAAcEdQT1NEdkx1AABZ9AAAACBHU1VCI34kjAAAWhQAAAAwT1MvMmSh8hkAAFTwAAAAYFNUQVTl1swVAABaRAAAAERjbWFwZp9qSgAAVVAAAAHcZ2FzcAAAABAAAFl8AAAACGdseWaQKdBnAAAA/AAATlhoZWFkLHQ64QAAUSwAAAA2aGhlYQifAdQAAFTMAAAAJGhtdHi5Mx0AAABRZAAAA2hsb2Nh2dfG1AAAT3QAAAG2bWF4cADrAcUAAE9UAAAAIG5hbWU2dFNeAABXLAAAAi5wb3N0/58AMgAAWVwAAAAgAAIABAAAApgCzgAfACkAAHM1MjY2NxMzExYWFzY2MxUhNTI2JicnBwcGBgc2NjMVEzMnJiYnIwYGBwQcIhcLw0bVBhQCER8K/vMcFQIKFNkQBRMIEC0KAqcuDRQFAQQQEUUgNB4CF/3fDz0XAgFNQhcoGTcELw0zEQIBUAEYfSRJHBFELwAAAwAEAAACmAOvAB8AKQA0AABzNTI2NjcTMxMWFhc2NjMVITUyNiYnJwcHBgYHNjYzFRMzJyYmJyMGBgcTJzc2NhYXFgYGBwQcIhcLw0bVBhQCER8K/vMcFQIKFNkQBRMIEC0KAqcuDRQFAQQQERgkbw4kIwwMBBYQRSA0HgIX/d8PPRcCAU1CFygZNwQvDTMRAgFQARh9JEkcEUQvAVQxdg4MBxERJB8KAP//AAQAAAKYA8sGJgABAAAABgDUSwD//wAEAAACmAO1BiYAAQAAAAcAzgCEAAD//wAEAAACmAOvBiYAAQAAAAcAzwCJAAD//wAEAAACmAPuBiYAAQAAAAcA0ACYAAD//wAEAAACmAO6BiYAAQAAAAYA0UkAAAL/+gAAA38CvAA4ADsAAGM1MjY2NwEHNSEXIzQmJgcHIgYGFRUzJzMVIzQmJgcHFRQGBzMyNjY1MwchNT4CNTUHBwYGBzcVEzM1BhgpJhABQ0sB9AZCJjgbJBUeEHUETUIaLRsaAgKGHjgkQgb98BcfEcQjEB8QUEOTQiExFwHHA03CNzgTAQELJSeWV/MqJQoBAaQbMA0bPzbcQgEKJCg2BTMXKQwCTQEU4AADADIAAAJ5Ar8AHwAxAD8AAHM1PgI1ETQ2NwYGBzU2Mjc2FgcOAgcVFhYVFAYGIycyMjYzNjY1NCYmIyIiBxUUBhM3PgI1NCYmByIGBhUyFx8RAwEQMAtFi0V4jQUCID8vZF4/bkaAEiAgDz04JjsgGSQUAgI0KjEVIDAaEBoQQgEKJCgBfxsyDQEBAU0BAQFbXB03LA0BEGU+QVktRwEDSDcuNRYBoxswATUBASQ9JCgtFAEKIycAAQAj//ACpwLMACQAAEEmJiciDgIVFBYWMzI2NxcOAiMiLgI1ND4CMzIWFyczFQI2DVVGNE4zGTFeQz98KjAxbGcpTX5bMSxXhFcnXSkETQHcU1QBMFBmNlaFTEE6LENFGDdhgUtEhm1BGRgq6f//ACP+7QKnAswGJgAKAAAABwDSAPIAAAACADIAAALUAr0AGAAtAAB3PgI1ETQ2NwYGBzUlMh4CFRQOAiMhNxQGBzYWFjMyPgI1NCYmJyYGBhUyFx8RAwEQMAsBI2ORXS4rXJRp/uLYAgIKIyYMN08zGDhlRhghEEIBCiQoAX8bMg0BAQFNATtkez49fmlBpBsyDQEBASxLXjJmgkACAQskJwADAB4AAALUAr0AAwAcADEAAFM1IRUFPgI1ETQ2NwYGBzUlMh4CFRQOAiMhNxQGBzYWFjMyPgI1NCYmJyYGBhUeAYf+jRcfEQMBEDALASNjkV0uK1yUaf7i2AICCiMmDDdPMxg4ZUYYIRABOE9L+gEKJCgBfxsyDQEBAU0BO2R7Pj1+aUGkGzINAQEBLEteMmaCQAIBCyQnAAEAMgAAAkcCvAAvAABlNCYmBwcVFAYHMzI2NjUzByE1PgI1ETQ2NwYGBzUhFyM0JiYHByIGBhUVMyczFQGGGi0bGgIChh44JEEF/fAXHxEDARAwCwH0BkImOBskFR4QdQRN8SomCQEBpBswDRs/NtxCAQokKAF/GzINAQEBTcI3OBMBAQslJ5ZX8wAAAgAyAAACRwOvAC8AOgAAZTQmJgcHFRQGBzMyNjY1MwchNT4CNRE0NjcGBgc1IRcjNCYmBwciBgYVFTMnMxUDJzc2NhYXFgYGBwGGGi0bGgIChh44JEEF/fAXHxEDARAwCwH0BkImOBskFR4QdQRNrCRvDiQjDAwEFhDxKiYJAQGkGzANGz823EIBCiQoAX8bMg0BAQFNwjc4EwEBCyUnllfzAf0xdg4MBxERJB8KAP//ADIAAAJHA8sGJgAOAAAABgDURgD//wAyAAACRwO1BiYADgAAAAYAzn8A//8AMgAAAkcDrwYmAA4AAAAHAM8AhAAAAAEAMgAAAiwCvAAtAABzNT4CNRE0NjcGBgc1IRcjNCYmBwciBgYVFTMnMxUjNCYmByMVFAYHPgIzFTIXHxEDARAwCwH0BkImOBskFR4QZwRNQhotGwwCAgskIwdCAQokKAF/GzINAQEBTcI3OBMBAQslJ65W8yomCQGMGzINAQEBTQABACT/8ALhAswAOAAARSImJjU0PgIzMhYWFyczFSMuAiMiDgIVFBYWMzI2Njc1NDY3BgYHNSEVDgMVFSMiBgcGBgF4bJhQK1aDVxtERRsETUEJNE4vNE0yGTBdRBM0NBIDARAwCwEKERkRCBgdOiEfShBfomNEhm1BCxYQKuk4SiYwUGY2VoZNBgwJXRsyDQEBAU1CAQYRIh2gEAoJDwAAAQAyAAAC9QK8ADsAAHM1PgI1ETQ2NwYGBzUhFQ4CFRUhNTQ2NwYGBzUhFQ4CFREUBgc2NjMVITU+AjU1BRUUBgc2NjMVMhcfEQMBEDALAR8WIBEBEwICEDALAR8WIBECAhAxCv7hFx8R/u0CAhAxCkIBCiQoAX8bMg0BAQFNQgEKIymckRsyDQEBAU1CAQojKf6BGzINAgFNQgEKJCiiA5QbMg0CAU0AAQAyAAABUQK8ABsAAEEOAhURFAYHNjYzFSE1PgI1ETQ2NwYGBzUhAVEWIBECAhAxCv7hFx8RAwEQMAsBHwJ6AQojKf6BGzINAgFNQgEKJCgBfxsyDQEBAU0AAgAyAAABUQOvABsAJgAAQQ4CFREUBgc2NjMVITU+AjURNDY3BgYHNSEnJzc2NhYXFgYGBwFRFiARAgIQMQr+4RcfEQMBEDALAR+5JG8OJCMMDAQWEAJ6AQojKf6BGzINAgFNQgEKJCgBfxsyDQEBAU0yMXYODAcRESQfCgD//wAXAAABbAPLBiYAFgAAAAYA1MIA//8AJgAAAVoDtQYmABYAAAAGAM77AP//ACAAAAFRA68GJgAWAAAABgDPAAAAAQAB//ABqAK8ACQAAFciJiY1NDY3NhYXFgYHFhYzMjY1ETQ2NwYGBzUhFQ4CFREUBpAnQScjIiYhAQEFBQUVBRUXAgIQMAsBHxYgEWwQHDAfIDIBAikaCBQJCgYlKgGRGzINAQEBTUIBCiMp/tuQfgAAAQAyAAACxwK8AD8AAHM1PgI1ETQ2NwYGBzUhFQ4CFRUzNzY2NwYGBzUzFQ4CBwcWFhcXHgIXFSMuAicnJiYnIxUUBgc2NjMVMhcfEQMBEDALAR8WIBFITREmDRAkC/UWMzYcYBQfDGcUKy4WmggkKA5jDR8OJAICEDEKQgEKJCgBfxsyDQEBAU1CAQojKZiDHjwLAQIBTUIBDiotmg0dEZEcMR4BQgEiMBOQEygKlxsyDQIBTQABADIAAAJNArwAHQAAczU+AjURNDY3BgYHNSEVDgIVERQGBzMyNjUzBzIXHxEDARAwCwEfFiARAgKGO0NDBkIBCiQoAX8bMg0BAQFNQgEKIyn+gRswDVJS8AABAC//9gOiArwATgAARSYmJy4CJxYWBxQUBhQVFAYHNjYzFSM1PgI1EzY2NwYGBzUzEx4CFzM2Njc2NjczFQ4CFxMWBgc2NjMVITU+AicnNCYmJwYGBwMBmCJDIggZGwsCAgEBAwIRMQrkFx8RBgECARAwC92XCRYUBQENFgwnTSfnFiIRAQ8CBAIRMQr+6hchEQIIBAMBAwYCwwpTpFITRVowOGMtFi4tLRcbMg0CAU1CAQokKAF/GzINAQEBTf59Fz05ESNCH2jOZ0IBCiMp/oEbMg0CAU1CAQokKNQMO0cfBw0H/fcAAQAw//YC4gK8ADAAAEUBJiYnIxMUBgc2NjMVIzU+AjUDNDY3BgYHNTMBFhYXMxE0NjcGBgc1MxUOAhURAkb+wA0cDgECAgIQMQrkFx8RAgICEDELnQEyGSEMAQIBEDAL5BYgEQoBmREmFP7KGzINAgFNQgEKJCgBfxsyDQEBAU3+fiAuEQE9GzINAQEBTUIBCiMp/dP//wAw//YC4gO6BiYAHwAAAAcA0QCDAAAAAgAj//AC3gLMABMAJwAARSIuAjU0PgIzMh4CFRQOAicyPgI1NC4CBw4DFRQeAgF/X4VSJitXhFlbhFQpK1eETjRGKhIYMk00M0YqEhUuThBAa4JBP4FsQkJtgD8+gG1DSTNSYS5FclMtAQE1U2IuL2peOgADACP/8ALeA68AEwAnADIAAEUiLgI1ND4CMzIeAhUUDgInMj4CNTQuAgcOAxUUHgITJzc2NhYXFgYGBwF/X4VSJitXhFlbhFQpK1eETjRGKhIYMk00M0YqEhUuTgckbw4kIwwMBBYQEEBrgkE/gWxCQm2APz6AbUNJM1JhLkVyUy0BATVTYi4val46ArUxdg4MBxERJB8K//8AI//wAt4DywYmACEAAAAHANQAggAA//8AI//wAt4DtQYmACEAAAAHAM4AuwAA//8AI//wAt4DrwYmACEAAAAHAM8AwAAAAAMAI/+dAt4DEgADABcAKwAAQRcBJyUiLgI1ND4CMzIeAhUUDgInMj4CNTQuAgcOAxUUHgICU1D+FUsBEl+FUiYrV4RZW4RUKStXhE40RioSGDJNNDNGKhIVLk4DEjH8vDIhQGuCQT+BbEJCbYA/PoBtQ0kzUmEuRXJTLQEBNVNiLi9qXjr//wAj//AC3gO6BiYAIQAAAAcA0QCAAAAAAgAyAAACcAK/ACUANgAAdz4CNRE0NjcGBgc1NjI3NhYWBw4DBwYiJxUUBgc+AjMVIRMWFjMyNjY1NC4CIyIGBhUyFx8RAwEQMAtHjkdYg0cCASRGakcWIRECAgsiIQf+19gLFgw3RSAbKi4TFR4QQgEKJCgBfxsyDQEBAU0BAQEwZFAoTT8oAgEBWBwyDQEBAU0BSAECJUczMjwdCQoiIwAAAgAyAAACawK8ACYANQAAczU+AjURNDY3BgYHNSEVBgYHNzYWFgcOAwcGBicGBgc2NjMVJzI2NTQuAiMiIiMRFhYyFx8RAwEQMAsBHx4lAzxYhEgCASVHakcVHQ8BAQIQMQoiU0weLS4QEh0MCBNCAQokKAF/GzINAQEBTUIBEywBAShdUChJOSMCAQEBGCoLAgFN30hJMDYYBv7tAQEAAAIAJP8mAxoCzAAmADoAAEUiJiYnLgIjIi4CNTQ+AjMyHgIVFA4CBzIWFhceAzMVATI+AjU0LgIHDgMVFB4CAu8uNyscKj08KlyBUCUrV4RZW4RUKBw4VTgdLSwaIykaFxD+cDRGKhMYMk00NEYpEhUuTdoHFxgmQytBa4JAP4FsQkJtgD8yZ19LFggXGSAoFQdDARMzUmEuRXJTLQEBNVNiLi9qXjoAAAIAMgAAAqACvwA1AEYAAHM1PgI1ETQ2NwYGBzU2Mjc2FhYHDgIHFhYXFx4CFxUjJiYnJyYmJyIiIxUUBgc+AjMVAzI2NjU0LgIjIgYGFRUWFjIXHxEDARAwC0eOR1iCRgIBJ007EyUNLxYiIhalEiMUSg0TChAWDgICCyIhByE4RB8eLS4PFR4QCxhCAQokKAF/GzINAQEBTQEBASpeUCpMOhEIJBRGIigTAUINMSB4FBwKaxwyDQEBAU0BWCFDMzA3GwcKIiPNAQMAAAEAK//wAjMCzAA2AABBLgIHIgYVFBYWFx4DFRQGBiMiJicXIzUzFhYzMjY2NTQmJicuAzU0PgIzMhYXJzMVAcYJLkcvK0EjSDcmUEQqQHNNKF0pA01CDmVGJDYeMUkmMFM+Ihg2WkIoXyIETgHcOEsmATAmHy4oFw8oN0kxO1wzGRgq6lRVGisZIy4gDxQtOksxH0M5JBgYKekAAAEAEAAAAnkCvAAcAABBNCYmByMRFAYHNjYzFSE1PgI1ESMGBhUjNyEXAjceNyYwAgIRNQr+3BcfES45QkIFAl4GAdo2RyMB/isbMg0CAU1CAQokKAHfAUxR4uIAAQAa//AC4AK8ADAAAEEOAhURFB4CFxY2NjURNDY3BgYHNTMVDgIVFRQOAiMiLgI1NTQ2NwYGBzUhATkWIBEbLTkeN04qAgIQMQvoFiARKkxmPFRwQRsDARAwCwEfAnoBCiMp/u0/US8UAQIuYEoBBhsyDQEBAU1CAQojKfpWeEohMFZwQPIbMg0BAQFNAAIAGv/wAuADrwAwADsAAEEOAhURFB4CFxY2NjURNDY3BgYHNTMVDgIVFRQOAiMiLgI1NTQ2NwYGBzUhNyc3NjYWFxYGBgcBORYgERstOR43TioCAhAxC+gWIBEqTGY8VHBBGwMBEDALAR8gJG8OJCMMDAQWEAJ6AQojKf7tP1EvFAECLmBKAQYbMg0BAQFNQgEKIyn6VnhKITBWcEDyGzINAQEBTTIxdg4MBxERJB8KAP//ABr/8ALgA8sGJgAuAAAABwDUAIMAAP//ABr/8ALgA7UGJgAuAAAABwDOALwAAP//ABr/8ALgA68GJgAuAAAABwDPAMEAAAABAAj/+gLEArwALgAARQMmJjUGBgc1IRUmBhcWFhcWFhczNjY3PgI3NjY3BgYHNTMVBgYHDgUHAUDmChIQGwsBJyUnEhcuFxEYEAELGQwNGRoMBRcNEDIL4SIyFhEhISIhIREGAhkZNhABAQFNQgEiLDhyOCo/Jh5KIiNGRSMROhABAQFNQgEwOixZWVlZWC0AAAEADf/6A/kCvABIAABFAyYmNQYGBzUhFSYGFxYWFxYWFzM+Azc+AjczHgMXFhYXMzY2Nz4DNzY2NwYGBzUzFQ4CBwYCByMDJiYnBgYHAwERsgoLEx0NASclIw0PHg8JDwkBBBATDwMQHx8PWg4dHB0OCxEIAQkTCgcODg4HBhQPEDIL4RYnIA0oUilZdg0RCAUOCnIGAhsdMBABAQFNQgEeLjlyOSI8MA46QzcLM2ZmMy5cXFwuIkklIEUlGjQ1NBoYMxABAQFNQgEVLieF/vaGAWYnSyIiPyL+iQABAA4AAAK3ArwARgAAczU2Njc3JiYnJiYnBgYHNSEVIyIGFhcWFhc3NjY3BgYHNTMVDgIHBx4CFxYWFzY2MxUhNTI2JicmJicGBgcGBgc2NjMVIx06JXQoUCkQGggQFwsBMAofGAcPFywWTBUZDRAwC+MXLS4bYCA+Px8RHAcRDgr+1SUWCw8ZMxoWLBYVFgwRLApCBzMxmzNmMxUzFgEBAU1CEh8THDgdaR0bDAEBAU1CAxovJYMoUFAoFSYRAgFNQhIfEyBBIB49HhwcDAECTQABAAMAAAKXArwAOgAAczU+AjU1AyYmNQYGBzUhFSYGBhcXHgIXMzY2Nzc+AjcGBgc1MxUGBgcGBgccAxUUBgc2NjMVyxcfEbgOGBAWCwEnHSYIEEwFFBUFAQUYEjQFEhUJEDIL3SMyHSBCIAICETUKQgEKJChXASMXOBABAQFNQgIQIxx9CCMnDwwwJmYLIyMLAQIBTUIFLzc+fj4OHB0cDhsyDQIBTQACAAMAAAKXA68AOgBFAABzNT4CNTUDJiY1BgYHNSEVJgYGFxceAhczNjY3Nz4CNwYGBzUzFQYGBwYGBxwDFRQGBzY2MxUDJzc2NhYXFgYGB8sXHxG4DhgQFgsBJx0mCBBMBRQVBQEFGBI0BRIVCRAyC90jMh0gQiACAhE1Cr4kbw4kIwwMBBYQQgEKJChXASMXOBABAQFNQgIQIxx9CCMnDwwwJmYLIyMLAQIBTUIFLzc+fj4OHB0cDhsyDQIBTQLuMXYODAcRESQfCgABACgAAAIxArwAGQAAczU2Njc2NjcnJgYVIzchFQEGBgcXFjY1MwcoS5VLEyATqzdIQgYB/f7gFSoXtzhGQgZLcuRyHS8WBgJFUdVL/kwfPRsEAUNS1gAAAgAe//AB/AIEADEAQgAAYSYmJwYGIyImNTQ+Ajc1NCYmBwYGBxYWFRQGJyYmNTQ2NjMyFhUUFAYVFAYHNjYzFScOAxUWFjMyNjc0NDU0NAE/AgEBIkwnQEgxUWMyDR8cEyQNCAQgIx4gOWA6WGEBAgIRJgrIHDIlFQEiFhcoEA4TDSIcTDkwRCsXAjQaKhgBAQ4NCRUIFCsBASgbKDshW2QiMDAiDjMXAgFM5gMOGCIVHBgUEAoTChIlAP//AB7/8AH8Aw8GJgA5AAAABgDIAAD//wAe//AB/AMPBiYAOQAAAAYAySUA//8AHv/wAfwC7wYmADkAAAAGAMUmAP//AB7/8AH8Aw8GJgA5AAAABgDHAAD//wAe//AB/AMbBiYAOQAAAAYAykkA//8AHv/wAfwC8QYmADkAAAAGAMsnAAADAB3/8ALuAgQAOQBIAFEAAFciJjU0PgI3NTQmJgcGBgcWFhUUBicmJjU0NjYzMhYXNjYzMhYWBwUUFhYzMjY3Fw4CIyImJwYGNzI2Ny4CNQ4DFxYWNzMuAiMiBganQEoxUmMyDh4ZFCcNCAUhIx0hNV06M0gNHEg6LFQ2Af7lFDUwH0kiLCNMSiI4Txouaw4XKxABAgEcMyYWAQEm85EBEx4QGyEQEEw5MEQrFwI2GioXAQEMDggYCBQrAQEoGyU8IyUvLiYwa1wGNlYyISoqMzUSMiI0IGIVERMlJBIDDhgiFRwY+yoxFR8zAAL//P/wAh0C8wAdAC0AAFM0NjcGBgc1MjY2NzMRNjYzMhYWFRQGBiMiJicHIzcUFhYXFjY2NTQmJgcGBgc/AQIQKwsvPyUHNiJGHzxbMztsTBtTIx48jRYiES0zFRYwJxkqDgI1Ei8WAQEBTAoOBv7bHhg+ck1Qf0gXJSyWIigSAQE2WTEuUjMBARcTAAABAB//8AH5AgQAKAAARSImJjU0PgIzMhYWFRQGBwYmNTQ2Ny4CBwYGFRQWFhcWNjcXDgIBFUNwQyZFXzpAVSsjICYeBgYHHB0JMD4ZOjEqUBwuJE5NEDxyUTlkTCwnPyMdLQEBLRUJGQoPDgUBA1pVMlc4AgEqJC0yNBP//wAf/v0B+QIEBiYAQgAAAAcAzQDCAAAAAgAg//ACOwLzACYAOAAAVyImJjU0NjYzMhYXNTQ2NwYGIzUyNjY3MxEUBgc2NjMVIyYmJwYGNzI2NzQ0NTUmJiMOAhUUFhbqPFszPnBKGysTAgIQLAsvPyUHNgICESYKvgEDAiFGDhosDQooFS40FRUvED5yTVF+SAsHQg40FgECTAoOBv2uDjMXAgFMCxgLIhxbGxUPHg/wCAsBOFYvKlI1AAACACD/8AHwAxYAJQA1AABFIiYmJyY+AjMyFhczLgInByc3JiYnNxYWFzcXBx4CFRQGBicyNjY1NC4CIyIGBhUUFgEGQWY8AgEbOVc6ETIVAQcmMBU6PDETLxoOLEQXMzoqPVw0NGdIGy0aChcmGx8sFzoQOGxNMWBPLwsSGzkyDkc2OQsQBUkEFgtDNDIpfp9cToJOVSZMOB0/NSEwTS1VXQACAB//8AH/AgQAGgAiAABFIiYmNTQ2NjMyHgIHBRQWFjMyNjY3Fw4CAzMuAiMiBgEWSXA+PnFLKlBBJwH+uBs+NBQzNRctJFJRgLgBFSQYLDIQQXdRRnpLFzhgSAY2VjIOIRwqMzUSAV0qMRY///8AH//wAf8DDwYmAEYAAAAGAMggAP//AB//8AH/Aw8GJgBGAAAABgDJRQD//wAf//AB/wLvBiYARgAAAAYAxUYA//8AH//wAf8DDwYmAEYAAAAGAMcgAAABAB4AAAGqAvMALQAAUzQ2MzIWFhUUBgcGJjU0NjcmJiMiBgYVFTMVBxMUBgc2NjMVITUyNjY1EQc1M2dqWi84GCAeHSABAQUNBRASBnBvAQICESsK/vUcGQdJSQIReWkbKBUaKAEBIRkFCgUFAxMcD3tNA/7/DjUXAgFMQRYpGgEIAVMAAAMAHP7xAkoCXgBBAFEAYAAAQSImJjU0NjY3JiY1NDY3JiYnJjY2MzIWFz4CMzIWFRQGBiMiJicGBgcWFhUUBgYjIiYjIgYVFBYXHgIVFA4CJzI2NTQmJicmJicGBgcGFhMyNjY1NCYmIyIGFRQWFgEAVmQqEikkKSEqNyo2AgJAaDkaRBkLIzIfIiMLGxgPHgMNGgIdHkFnOw0gDxYeOkZNc0AyU2QVR0kgPzEWOhYPEAECSTEbJRMSJR0oLBQm/vElPCIVKicNCzEcGkEREUgzPF00DhEfNyMjHQwdFBcQBCwRGUImOlkzAxAOEw4EBB9COitBLRdFNBwVGxACAgIEDCQRKDEBjSI0GyNBKUguIz8mAAEAEgAAAloC8wA3AABlMjY2NScmJiMiBgcVFAYHNjYzFSE1MjY2NRE0NjcGBgc1MjY2NzMRPgIzMhYVFRQGBzY2MxUhAVMcGQcBASYqGTERAgIRJgr++hwZBgICECsLLz8lBzYUNDYUXE0CAhAmC/75QRYpGo5BPxYP4g4zFwIBTEEWKRoBmxIvFgEBAUwKDgb+2RAZD2l0hg4zFwIBTP//ACIAAAEvAvEGJgBPAAAABgDGLAAAAQAiAAABLwH+ABoAAHcyNjY1NTQ2NwYGBzUyNjY3MxEUBgc2NjMVISkcGAcCAhArCy5AJQc2AgIQJwr++kEWKRqmEi8WAQEBTAoOBv6jDjMXAgFMAP//ACIAAAEvAw8GJgBPAAAABgDIqAD//wAIAAABNwMPBiYATwAAAAYA08gA//8ACgAAAT0C7wYmAE8AAAAGAMXOAP//ACIAAAEvAw8GJgBPAAAABgDHqAD///+o/vEA6wLxBiYAVQAAAAYAxicAAAH/qP7xAOgB/gAjAABTIiY1NDY3NhYVFAYHFjMyNjY1AzQ2NwYGBzUyNjY3MxEUBgYVODUhHhsiAQEGCxMRBgMCAhArCy8/JQc2N2D+8TMfGikBASIaBAgFBBkkDgG+Ei8WAQEBTAoOBv4EXHo7AAABABMAAAJAAvMAPAAAczUyNjY1ETQ2NwYGBzUyNjY3MxEzNzY2NyM1MxUOAgcHFhYXFx4DMxUjIiYnLgInBxUUBgc2NjMVGRwZBwICECsLLj8mBjcwSA0RCTXhIzYnDkAPHRVDBhMYHA9zIDAfEichChcCAhAmC0EWKRoBmxIvFgEBAUwKDgb+OFMOFAhMQAQZIhBIBxscWAcYFxBBLSoYNzEOAUMOMxcCAUwAAQASAAABHwLzABoAAHcyNjY1ETQ2NwYGBzUyNjY3MxEUBgc2NjMVIRkcGQYCAhArCy8/JQc2AgIRJgr++kEWKRoBmxIvFgEBAUwKDgb9rg4zFwIBTAABACIAAAOFAgQAWwAAczUyNjY1NTQ2NwYGBzUyNjY3MxYWFzY2MzIWFzY2MzIWFRUUBgc2NjMVIzUyNjY1NSYmJyYGBxYWFRQUFRQGBzY2MxUhNTI2NjUnNCYnIgYHFBQVFRQGBzY2MxUpHBgHAgIQKwsuQCUHMQIBASJPIy48EiRXKFFTAgIQJwr9FxUGASkiGi0SBQQCAhAmC/7+GhcGASYiGSsRAgIQIgpBFikaqBItFgEBAUwKDgYKHgoaHiEhHiRdc5MOMxcCAUxBFikamUEyAQEUDhQwGyJCIg4zFwIBTEEWKRqcQTABFg8NGA2wDjMXAgFMAAEAIgAAAmkCBAA9AABzNTI2NjU1NDY3BgYHNTI2NjczFhQWFz4CMzIWFRUUBgc2NjMVITUyNjY1JzQmIyIGBxQUFRUUBgc2NjMVKRwYBwICECsLLkAlBzECAQMUNDQUXE0CAhEmCv76HBkHASUsGTERAgIQJwpBFikaqBItFgEBAUwKDgYNDAsOEBkPaXSGDjMXAgFMQRYpGo5BPxYPDh0OqQ4zFwIBTAD//wAiAAACaQLxBiYAWQAAAAcAywCDAAAAAgAf//ACFwIEAA8AIAAARSImJjU0NjYzMhYWFRQGBic+AjU0LgIHDgIVFBYWAR5IdENFc0RIckJAcEUoKRALGCkeJy0TFjEQPnNOU31FPnNQVHxDRwE2UiolTD4mAQE2USwzYj///wAf//ACFwMPBiYAWwAAAAYAyB8A//8AH//wAhcDDwYmAFsAAAAGAMlEAP//AB//8AIXAu8GJgBbAAAABgDFRQD//wAf//ACFwMPBiYAWwAAAAYAxx8AAAMAH/+tAhcCPgADABMAJAAAVycBFwMiJiY1NDY2MzIWFhUUBgYnPgI1NC4CBw4CFRQWFnQ9AYZD4kh0Q0VzREhyQkBwRSgpEAsYKR4nLRMWMVMvAmIr/d0+c05TfUU+c1BUfENHATZSKiVMPiYBATZRLDNiP///AB//8AIXAvEGJgBbAAAABgDLRgAAAgAY/wECOQIEACsAPwAAVzUyNjY1ETQ2NwYGBzUyNjY3MxYWFzY2MzIWFhUUBgYjIiYnFRQGBzY2MxUTPgI1NCYmBwYGBxwEFRYWHxwZBwICECwLLz8lBzECAgEjRR88WzM+b0sbKxMBAhAmCgwuMxQWMCcZKg4LKP9BFikaAacSLRYBAQFMCg4GCh0JHhg+ck1Qf0gLB2AOMxcCAUwBOgE1VjEuUjMBARcUHz08PT0fBwwAAv/8/wECHQLzACkAOAAAVzUyNjY1ETQ2NwYGBzUyNjY3MxE2NjMyFhYVFAYGIyImJxUUBgc2NjMVEz4CNTQmJgcGBgcRFhYDHBkHAQIQKwsvPyUHNiBEIzxbMz5wShsrEwICESYKCy8zFBYwJxkqDgso/0EWKRoCmhIvFgEBAUwKDgb+2xocPnJNUH9ICwdgDjMXAgFMAToBNVYxLlIzAQEXFP7PBwwAAgAg/wECPAIEACAAMAAARTUyNjY1NwYGIyImJjU0NjYzMhYzMjY3MxEUBgc2NjMVATI2NzU0JiYjIgYGFx4CATYcGAcBIEUjPFszPnFLOEETCBUGNgICECcK/uIZLQ0ZIxEsMhQBARUu/0EWKRqNHxk+ck1RfkgWCQf9pA4zFwIBTAFJGhXqJiUNOVcvKlI2AAABACIAAAHaAgQALwAAdzI2NjU1NDY3BgYHNTMyNjczFhYVPgIzMhYVFAYGIyImJyIGBgcVFAYHNjYzFSEpHBgHAgIQKwsoJ0EKMQICGzAvGCM0Dh4aFCoDFCgfBgICECcK/vpBFikaqBItFgEBAUwUCgo3FSEoEycsDyEWGCIhLROjDjMXAgFMAAABACf/8AHFAgQANgAARSImJxcjJzMeAjMyNjY1NCYmJy4DNTQ+AjMyFhc1MxUjLgIjIgYVFBYWFx4CFRQGBgEPK1IXAkwEQQMqRCoRHxUbMyYfPzUgFi5HMRtFGExBBiU6JBkpIDgiM08uNFMQFhEerB4yHQoXERMYFg4MGiU3KB05LxwRER2xIzIbGB0XGxIMES5BLzREIgAAAQAe//AC9QLzAE8AAEUiJicXIyczFhYzMjYnNCYnLgI1NDY3NC4CIw4CFREUBgc2NjMVITUyNjY1EQc1Mz4CMzIeAxUUBgcmDgIVFBYWFx4CFRQGBgJEKz4XAkwEQAVDQBYrATY5KUotO0QZJysTHjklAgIQKwv+9BwZB0hKCEt2RhU/RT0mAQIZMikZFy4iM00rMlAQFhEerC4/GhgdIBYQJj82MlkNOUQhCgEhUk3+vA41FwIBTEEWKRoBCQJTZG4tCBs4XkgNGw4CAQoWFBQaEwwRL0MvNEQiAAEAEf/wAakCgAAeAABXIi4CNTcjNT4CNzMHMxUHBxQWFjMyNjcXDgPvHjgsGgJEHzopB0oBf38BCRoZDjEcMBs6NSgQDidMP/FTAShAI4xNA/YXLR0UKC0oLBQEAAABAA//8AJSAf4AMwAAVyImJjU1NDY3BgYHNTMyNjczERQWMzI2NzU0NjcGBgc1MzI2NzMRFAYHNjYzFSMmJicGBvg8SSECARArCwo+SAo3IiUaNRECAhArCxgvSAo3AgIQJwq+AQMCH0cQLmJNcxIvFgEBAUwUCv7OQT8dE8QSLxYBAQFMFQn+ow4zFwIBTA0aDRoqAP//AA//8AJSAw8GJgBpAAAABgDIQAD//wAP//ACUgMPBiYAaQAAAAYAyWUA//8AD//wAlIC7wYmAGkAAAAGAMVmAP//AA//8AJSAw8GJgBpAAAABgDHQAAAAQAG//0CFwH0ACIAAFcDLgInBzUzFQYGFhcXFhYXMzY2Nzc2NjcHNTMVDgIHA+OeCwkDAyXqFQ4EBzQIEAgBCA8HKwkPCT6+FyQaCIADAVsZGhMMAkxAARYjFIATKBQVKhV6GR4QBExABCs1FP7BAAEACP/9AygB9AA1AABXAy4CJwc1MxUGBhcXFhYXNjY3NzMTFhYXNjY3NzY2Nwc1MxUiDgIHAyMnLgInDgIHB8F5CQkEAyfwHwoIIgYLBAULC0ltUAYNBQQOBicIDAk5vhQeFw4DcmpFAw0NBgUUEgQ3AwFbGhoSDAJMQAEuH3oWMRgVMiX7/uwVMRQUMBN/GyMSBExAGiUjCv611QsqMRUcSDwLpQABABUAAAITAfQAMwAAczU2Njc3LgInJiYnBzUzFQYWFxc3NjY3BzUzFQ4CBwcXFhYXNxUjNTY2JycHBgYHNxUoFCQUVxAhIBEMJgcb3RwHEi4nDBgNMbAUIx4PQ3QOGAoi7CADEjwvBR8JLkAIIhdkEycmEw8xEgJMQAEhFTYuDhwNBExACBgdE1KHEB8SAkxAAhsUPzgHIgcETAABAAX+8QIjAfQAMwAAUyImNTQ2NzYWFRQUBzI3NjY3NjY3AyYmJwc1MxUxBgYXFzY2Nz4CNwc1MxUGBgcDDgKUJjUjHBYfAQIDCRUKCxUInhwRAy75JQcMYgogFgQNEAk5sh8pEH0cMj7+8S0lGykBAR8bAwYEAQMbFhc5HwE9ODkWAkxABDAa4BptQA0jIwsDTEAHPi3+m1FpMv//AAX+8QIjAw8GJgBxAAAABgDIKwD//wAF/vECIwLvBiYAcQAAAAYAxVEAAAEAIwAAAeEB9AAZAABzNRM2NjcHIgYGByM3IRUDBgYHFxY2NjczByPmER4EhxcdEgU+DgGV3w4cDo0gJRQFPg9IAS8WIgQCIzgjwT/+0RMeDAQBIjsjxAACACMBbwFuAswAMgA/AABTIiY1ND4CNzU0JiYnIgYHFhYVFAYnIiY1NDY2MzIWFRQGFRQWMzI2NxcGBiMiJicGBjcyNjc0NDUOAhcWFoUuNCA1QB8EDxEJFgcEAxcbFxkkPyg8QAEFDAQIBRQPLRUVJQQONgsMGA0UJBYBAQ0BbyomHSkcDwIrDRkRAQYIBREGDiUBHBUaLBw+RBk/GgoYAQQdFRocHRwdSgwNDBgMAQ0VDwkOAAIAHgFsAV0CzAAPAB0AAFMiJiY1NDY2MzIWFhUWBgYnNjY1NCYmBwYGFRQWFrwwRycnSTExRiYBJ0gtGBsLGBQYHAwZAWwsTDE0UzArTTM1Ui44ATg2KDshAQE4Nyg7HwAAAQBU/vECSAH0ACwAAFMiJjURMxEUFhYzMjY3ETMDFBYWMzI2NxcGBiMiJicGBiMiJicHHgMVFAaaJiB9FSUYEiYTfQECCgwHEgwhEEMmHS4JHDAfIDsXBhQaDgYb/vE6LgKb/sQfLxsQFQGA/poIGBMICioYMBcaHxQoMQU/VTssFRwwAAACACv/8AJQAswAEwAoAABFIi4CNTQ+AjMyHgIVFA4CJzI+AjU0LgIjIg4CFRQeAwE+TGpAHSNGaEZJZ0AeIURnQCMuGQoJGS8nJDAdDAUPHC8QQWuAPz+CbUNCa4A/PoJtQ0csTWQ3PXFZNCxOZDgqWFFAJgAAAQAGAAABbwLMABIAAHM1PgI1EQcnNzMRFAYHNjYzFVAXHxFtJOU8AQIQMQpCAQokKAGRQTyn/dgbMg0CAU0AAAEAJwAAAeUCzAAyAABzND4CNzY2NTQmJgciBgcWFhUUBgYjJiY1ND4CMzIeAhUUDgIHBgYHFxY2NjUzBycbLTcdST0QKiYbKwsLCQ4dGR8hHDhRNShPQicSMFZENzQFxBchE0AINFJCOBtEbjYgPCcBGRELHgsLHxYCKh0XNTEfFCxINRk3QVQ4LUoUBQEJHRyjAAABACP/8AIIAswARgAAVyImJjU0Njc2FhYVFAYHFhYzMjY1NCYmByIGBzUWMjMyNjY3NiYmIyIGBxYWFRQGBicmJjU0NjYzMhYWFRQGBgcWFhUUBgb8S2AuJR8ZHAwICAszHD9AGkA6ByQJCA4HLD4hAQETKSIbLAgJBw0eGR8gLl5GPmU7HUI3YFtFeRAtRCIeLQEBFh4NChkLExVMOCJELQECAUgBIDglIzUeGhALHQkMHxYBASodHkgzIk5BGkE2DRFoQERfMQAAAgAMAAACAgLMABcAGwAAZRQGBzY2MxUhNTMyNjY1NSE1ATMRMxUjAwcXNwGgAgIRMAr+4wYXIRP+8QFXPWJihrGyAaQbMg0CAU1CCiUoHF4Buf5DWgFF6AHpAAABACz/8AH8Av0ANAAAVyImJjU0Njc2FhYVFAYHHgIzMjY2NTQuAiMiBgYHJwMhMjY1MwcFFTY2MzIeAhUUBgb6QVwxJB8ZHAwFBgUaIQ4oMRYGFzEqDiYtFysEAQMjKT8H/sYXRB4+XDwdS3YQKj8gHS4BARUeDggXCgsRCSpCIhc6OCQHEA4hAU4XKqIGsgoOJD9RLU1pNAAAAgAu//ACFALMACwAPgAARSImJjU0PgMzMhYWFRQGIyImNTQ2NyYmBw4EBz4CNzYeAhUUBgYnMjY2NTQuAiMiBgYHFB4CAR9Zai4OIj5gRD9RJiAfJR0GCAgjGR0rHREJAQspNBg4UDQZP29CIycPBRIkHxUnHwkKFycQU5hnI2RrXjoqPR8bLCsUCBoKDBICAiE1QkYgDRkRAQIhP1YzP2k/Ric/Ihc7OSUSHhIjVE0yAAEAD//vAcACvAAaAABXIiY1NDY2Nz4CNycmBhUjNyEVDgMHBgbIHxkTHhARLDok0iIqPwcBqiIxJyMUByMQJBYUPkslKGiGVQIBHymqW0WCgoxQHDEAAwA4//ACEgLMACAALAA5AABFIi4CNTQ2NjcmJjU0PgIzMhYWFRQGBgceAhUUBgYnFjY1NCYnBgYHBhYTNjY3NiYjIgYGFRQWARskT0UrJzwhQjcpRE8nNF48JDccM0IgRXFAMDc4SiglAgI8UCArAQI2Jh0rF0EQEihDMSZGOxMpZCgxSC8XJ0w3Ij4yEh9ESSZBUyhGATkpJlElH08dL0IBcBhDHDI2GSoaJ0kAAgAr//ACEQLMACwAPgAAVyImJjU0NjMyFhUUBgcWFjc+BCcGBgcGLgI1NDY2MzIeAhUUDgMDMjY2NzQuAiMiBgYVFB4C/0JQJSMfJhoHBwgjGR0sHxMHAhBIJjdRNRo9bUdDXTobDSE9YScVJh4JChcnHR4oEwYSJRAmPCEbLysUCBsIDBEBAh0yQEkmEyQCASFAVjNDZzsyW3xJLWpoVzQBXhIeEjBYRignPiMWPDklAAH/6v/wAekCzAADAABXJwEXK0EBu0QQMAKsNf//ABX/8ALyAswEJgCGAAAAJwCCAJEAAAAHAIcBp/7P//8AFf/wAuACzAQmAIYAAAAnAIIAkQAAAAcAiQGI/s///wAk//ADBwLMBCYAiAAAACcAggC4AAAABwCJAa/+zwABABUBLQDzAswAEQAAUzU2NjU1Byc3MxEUBgc2MjMVQBQUPxSSIwEBCRsHAS0mAQ8i5iUnX/6/DxwIASwAAAEAKwEuAUsCzAAsAABTPgI3NjY1NCYjIgYHFhYVFAYjJiY1NDY2MzIWFhUUBgYHBgYHFzI2NjUzBy4BHC0aJxcaFQoUBAgGGBsWGR89LCM/KC1GJQ4NB3sJDQcwBgEuLkEzFyM9Ex4aCgYHEwUNIwEfFhUuIBUvJyI4NiEMFA4CBRAQdwAAAQAkASQBTgLMAD8AAFMiJjU0Njc2FhUUBgcWFjMyNjU0JiYjIgYjNTIWMzI2Nic0JiMiBgcWFhUUBicmJjU0NjYzMhYVFAYHFhYXFgaoPUccFhwUBggIHAgdIhIjGwcVBgkSCBkdDAEaGQ0TBAgGFRwWGx08LzlOLCAvLgICUwEkPCUWIgEBIRIFFwcKBSYdFSESATYBFh8PGx4IBAYUBQ0jAQEcFhMrHzQ1HDQICjQmN0wAAgAlAS0BWALMABQAFwAAUzU2NjU1JzU3MxEXFSMUBgc2MjMVJzcHkxQVl9UjOzsBAQkbB4gEWgEtJgEPIg0BOv/+/QE3ER4KASydeHYAAQAs//AAvQCMAAsAAFciJjU0NjMyFhUUBnYhKSwdHyknEC4gIC4uICAuAAABACz/RQDQAIoAFAAAVyc+AicGBiMiJjU0NjM2FhUUBgZ0JwsbFAEHCQUbKichLi4UKbscDjQ/HQIBICIeLQE9LSBITAD//wAz//AAxAIfBCYAjAcAAAcAjAAHAZP//wAy/0UA1gIfBCYAjQYAAAcAjAAVAZMAAgA2//AAywLMAAgAFAAAdwMmNjMyFgcDByImNTQ2MzIWFRQGXyYDJSYpIQMlIx0rLB0fKSzVAZwgOzsg/mTlLiAgLi4gIC4AAgAs/ygAwQIEAAgAFAAAUxMWBiMiJjcTNzIWFRQGIyImNTQ2mCYDJSYoIgMlIx0rLB0fKS0BH/5kIDs7IAGc5S4gIC4uICAuAAACACX/8AHKAswAMwA/AAB3IiY1NDY2NzY2NTQmJiMiBgYHFhYVFAYGJyYmNTQ2NjMyFhYVFA4DFRQWMzI2NxcGBgciJjU0NjMyFhUUBu0gNw0jISMuDyUiEB4XBwsHDh4YIB82XjxQXSgqPj4qExUGDwkPGTYJHSssHR8pLLUgJREeKyEjSDkfMR0KDggKHQsMIRcBAiceJEQsLkkoKkU6LyoTDRECAjMNCcUuICAuLiAgLgACACj/KAHNAgQAMwA/AABBMhYVFAYGBwYGFRQWFjMyNjY3JiY1NDY2FxYWFRQGBiMiJiY1ND4DNTQmIyIGByc2NjcyFhUUBiMiJjU0NgEFIDcNIiIjLg8mIREdGAYKCA4eGCAfNl48T14oKj4+KhMVBg8JDxk2CR0rLB0fKS0BPx8mEB8qIiJJOR8xHQoPBwoeCg0gGAIBKB4jRSwuSSgqRTovKhMNEQICMw0JxS4gIC4uICAu//8AKQEIALoBpAQHAIz//QEYAAEAHwDOAV8CCAAPAAB3IiYmNTQ2NjMyFhYVFAYGvixIKytILCxJLCxJzipHLCxHKipHLCxHKgAAAQAoARwB8QLMAEMAAFMmJjY3NjY3IiYnLgI3NjYXFhYXJiY1NDY2MzIWFhUUBgc2Njc2NhYXFgYHBgYjFhYXFhYGBwYmJicmJicGBgcOAoIRBQwKDS8mLz8UEB0NBgswGRQ3Jg8NCBcVFhYIDQ8mNhMRIhwGCiUYFT4vJi8MCg0FEhEfGgoNGQ4OGg0KGh4BKA0fHw4RKxoHBgYRHRQfBAgHHxssPhURIRUVIREVPiwbHwcGAg8UHyEIBgcbKhEOIB4NDAQWDRI6LCw6EQ4WBAAAAgAl//ADQgLMABwAIAAAVzcjNzM3IzczNzMHMzczBzMVByMHMwcjByM3IwcTMzcjoimmFaMyqBWmLGUrrSxkKqcUpi+nFaQoaimrJzmrMq0QqlnFWbu7u7sBWMVZqqqqAQPFAAEAGf7xAqIC8wADAABTJwEXZ04CLlv+8TMDzzoAAAEAGf7xAqIC8wADAABBATcBAlT9xVsCLv7xA8g6/DEAAQAzAQQBowFwAAMAAFM1IRUzAXABBGxpAAABAGz/ZQLT/84AAwAAVzUFFWwCZ5tpBGUAAAEAGP7xAR4C+AAXAABTFw4EFRQeAxcHLgM1ND4C+SUfLB0QBwcQHSwfJCVQQyoqQ08C+CMpanJtWRsbV2lvaCkjImmGmlNTnopsAAABAAr+8QEQAvgAFwAAUyc+BDU0LgMnNx4DFRQOAi8lHywdEAcHEB0sHyQmT0MqKkNP/vEjKWpybVkbG1dpb2gpIyJphppTU56KbAAAAf/9/vEBaQL4ADQAAEEiJiY1NDY2NTQmIyM1MzI2NTQmNTQ2NjMzFSYGBhUUFhYXFgYGBxUeAgcOAhUUFhY3FQFNTGUyBQUoOBcXOCgKMmVMHCo1GQMFAgUpTzQzTyoEAgUEGTUq/vEwYEYdRkQaMylHJDMnVSxHWyxHAg01OQ8mKRU2UjAFAgUxUTYZNzAQOTgRAUcAAQAH/vEBcwL4ADQAAFMjNRY2NjU0JiYnJjY2NzUuAjc+AjU0JiYHNTMyFhYVFAYVFBYzMxUjIgYVFBYWFRQGBiMcKjUZBAUCBCpPMzRPKQUCBQMZNSocTGUyCik3Fxc3KQUFMmX+8UcBETg5EDA3GTZRMQUCBTBSNhUpJg85NQ0CRyxbRyxVJzMkRykzGkRGHUZgMAAAAQA+/wEBgQLzAAcAAFcTIRUHAxcVPgEBQL8Exf8D8kcD/KIDRwABAAH/AQFEAvMABwAAQQMhNTcTJzUBRAH+wL8ExQLz/A5HAwNeA0cAAgAhAbMBjQL4ABQAKQAAUxcOAhc2NjMyFhUUBiMGJjU0NjY3Fw4CFzY2MzIWFRQGIwYmNTQ2Nn0nChwUAQcJBRsqJyEuLhQp5ycKHBQBBwkFGyonIS4uFCkC+BwNNT8dAgEfIx4tAT0tIEhNJhwNNT8dAgEfIx4tAT0tIEhNAP//ABUBtAGBAvkEJwCN/+kCbwAHAI0AsQJv//8AFQG0ALkC+QQHAI3/6QJvAAIAFP/vAckCKgAHAA8AAEUBNQEXBxUXNyc1NxcHFRcBH/71AQgvur1MqqkuYmQRARYYAQ0u6QHyHMcXwiepAakAAAIAJP/vAdkCKgAHAA8AAFcnNzUnNwEVBSc3NSc3FxXOL726LwEI/novZGIuqREx8gHpLv7zGMkmqQGpJ8IXAAACACsB6wEbAswAAwAHAABTJzMHIyczB8IIYQnfCGEJAevh4eHhAAEAKgHrAJICzAADAABTJzMHNApoCQHr4eEAAgAv/5sC7AJ9AEoAWgAARQYuAjU0PgIzMh4CBw4DJy4DNwYGIyImNTQ+AjMyFhcOAxUUFhYzMj4CNTQmJiMiDgIVFB4CMzI2NjcXBgYnMj4CNyYmBw4DFRQWAZ9bil0uMF+KWlN8UikCASg9RSASIxsOAxtGIClBHjpWOBZAIQQLCwYHEA4eJxcKRXVKQGpMKS9UbT0pV1IgFjePjxMmIBUCBxUJGigcDxNjAjhkgUhAhXJGOWB3Pj1aORoCAQwcMiZDOUVMMV5MLQoLIlJTRBMOHBEoPUIaW35BN113QUx0TykXLyMbPj/yOFljKwICAQIqQEojIyYAAAMAF//wAqMCzAA5AEoAVgAARSIuAjU0NjcuAjU2NjMyFhYVFAYGBx4CFzY2NTQmJic1MxUnFhYVFAYHFhYXFhYzFSMiJicGBicyNjcmJicmJicOAhUUFhYTNjY1NCYjIgYVFBYBBStVRSlZQyQjCwFoVjVOKylCJQQwSCYDAgwXEqg3BQYKCQQHBCdAFGsINyMnaiAmPxgNGA06Rx8TFQkgPBYmJiMfHCchEBYtRjFDZxknQDgbTFksRyopSTsWBDJGIwwZDRwgDwFASwMMHxIdNhkDBwMhKkIeGyInRxkWCxcLNUkjDyopDy0/IAFqHVcfJC4uLB5PAAABACn/AQHlArwADwAAVxMuAjU0NjYzIQMjEwcDpgIgOiUsRiYBJAJvAl4C/wKQBiA9MTRCIfxFA3YB/IsAAAIALP8cAfkC+ABRAGMAAEUiJiY1NDY3NhYWFRQGBxYWMzI2NjU0LgInLgI1NDY3JiYnJj4CMzIWFhUUBgciJiY1NDY3JiYjIgYGBx4DFx4CFRQGBxYWFRQOAhM2NjU0LgMnBgYVFB4DAQs3Uy8gHBgcDQUGCCgWHycUIzU5FyRCKiokFxABARUvTDc3Uy8fHRgcDQUGByUXHigTAQEiNDsZJT8oKyINGxYwTDcIBx8yOzkWBwcfMjs55Cg/IBwqAQEUHAsKFgoQExglFB8xKSEPGDlKMShQIh09HB1COyUoPiEcKQITHAsLFQkQExklFCIzKSIRFzpKMCdSIhQ0JRxCOyUBYw4jEBwvKSUiEA8gERwvKSUiAAADAC7/uQNlAvMAEwAnAEoAAEUiLgI1ND4CMzIeAhUUDgInMj4CNTQuAiMiDgIVFB4CNyImJjU0PgIXFhYXJzMVIyYmIyIGBhUUFhYXFjY3Fw4CActcl248PnCYWVqWbTs/cJVTTnxYLzBZfU5MflsxMFqAU0VsPh08Wj0eNhoBTEMHQSgjOiIjQy4kSB0wIU5JRz1vlllWlnJBQXOWVlWVcEA5OGKASEiBYzk5Y4FISIBiOGxBb0QsW0ssAgEPEx+vPDIsTjItTC4BASUlLS0yFAAEAC7/uQNlAvMAEwAnAFYAZQAARSIuAjU0PgIzMh4CFRQOAicyPgI1NC4CIyIOAhUUHgInNTY2NTU0NjcHNTI2MjMyFgcOAgcWFhceAhcVIyYmJy4CJyIiIxUUBhU3FScyNjY1NCYmIyIGFRUWFgHLXJduPD5wmFlalm07P3CVU058WC8wWX1OTH5bMTBagHoXGQIBMyA/Px9YaQIBFzEnDRIJHh4WEWkMGg0eGgcEChELATgbIS0XICoOFRQIDEc9b5ZZVpZyQUFzllZVlXBAOThigEhIgWM5OWOBSEiAYjiELAIQKf0UIQgCNAFBUBw0JwsFGA4uLQ4BLAkgFjIuDwVEEiMIAjTsFiodJyMJFSF3AgEAAAIAHAGLAWICzAAPABsAAFMiJiY1NDY2MzIWFhUUBgYnMjY1NCYjIgYVFBa+MUkoLUssMkknLUosIywsIyIsLAGLK0guLkgqKkguLkgrRzYkJDY2JCQ2AAABAD3+8QDHAvgAAwAAUwMzAz8CigT+8QQH+/kAAgBD/vEAtAL4AAMABwAAUwMzCwIzA0YDcQRqA3EEAXcBgf5//XoBgP6AAAABADP/dwINAnIAKwAARTUuAjU0NjY3JzMHFhYVFAYHBiY1NDY3LgIHBgYVFBYWFxY2NxcGBgcHAQE6XTc0Xj8BWQFOTiMgJh4GBgccHQkwPhk6MSpQHC4sXi4BiXwJP2tJQ3JPDXJwCFAvHS0BAS0VCRkKDw4FAQNaVTJXOAIBKiQtPTIHfAAAAgA/ABsB+AHoACEANQAAdyc3JjU0NjcnNxc2NjMyFhc3FwcWFhUUBxcHJwYGIyImJzcyPgI1NC4CIyIOAhUUHgKHSDkbEA48SDIUMhwdMRUySD0PDxs6SDAVMx0dMxRkFBsQBgcQGhQTGw8HBg8bGzpCMDccNhlFOj8NDw8NPjlFGTYcOi1COjwMDQ0MMxopLRMOJiMXFyMmDhMtKRoAAAEAMv9mAiIDRQA7AABFJyYmJxcjNTMWFjMyNjU0JiYnLgI1ND4CNzUzBxYWFyczFSMuAgciBgYVFBYWFx4DFRQGBgcHAQcBH0IdAk1BDlxGNTopQyY6YzwSLE48XgEWKRIDTkIJJ0AvHCoYHEM5JUw/JixVPgGajQUXEirqVFU5KyIqHw8YQV1BHkA4JgN5gwYSDinpOEsmARYnGR8rKBoQKTZIMTRUNgmNAAABACr/8AMDAswAMwAARSImJicHNxcmNDUjNzM+AjMyFhc3MwcjNCYmIyIGBgcFBwUGFBcFBwcWFjMyNjcXDgIB1lOEWRRoEkkBWhJVElSIXidYKAJNGEIhPy83UzYMAU8v/tYBAwEbMtwWaUw/fCowMWxnEEBwSAFPAQ8eDk5Ie0sXGirbMUQlNlo2AUsBDx4PAUsBUlVBOixDRRgAAAEAM//wAhMCzABNAABTJiY1NDY2MzIWFhUUBgcGJiY1NDY3JiYjIgYGFRQWFzMVBxYGBgc2NjMyFhYzMjY3MwYGIyIuAicmJicGBiMiJjU0Njc2NjU0JicHNXkFBztgNz5KISEfGB4OBwoEFhEkKREJBZ6OBgogHRgnESU1KRMLFgJBAzk4EB8dHA4XOhoJLxsfGTIlBwoHBU8BdxYxHU1sOCk5Gh0sAQEVHQwNGwwGCSo9HydEHk0DHTw0FAkGGRkcHUljCA4RCQ4ZASUzIhYdMw0NKhAZLBQBUwABACAAAAKzArwAQwAAczU+AjcjNTM1IzUzJyYmNQYGBzUhFSYGBhcXHgIXPgIwNjc3PgI3BgYHNTMVBgYHBzMVBxUXFQcUBgYHNjYzFecVHxIBbW5uMXwPFxAVCwEmHSYIEE0FExUFDwoBCQ00BRMVCBAyC90iMh1jRGRkZAIBARE1CkIBCB4hTTJNvRc4EAEBAU1CAhAkG30HIycPHhYCERpmCyMjCwECAU1CBS83u0kBNAFJAQ0ZFAcCAU0AAgAqAIkB6AJHAAMABwAAUyEVIQERIxEqAb7+QgEGTgGPTgEG/kIBvgAAAQAqAUEB6AGPAAMAAFMhFSEqAb7+QgGPTgACAFAArwHCAiEAAwAHAABTAQcBJQEnAYcBOzf+xQFy/sQ2ATwCIf7FNwE7Af7ENgE8//8AKgB7AegCWgQnAIwAlQCLACcAjACVAc4CBgC5AAAAAgAqAO0B6AHtAAMABwAAUyEVIRUhFSEqAb7+QgG+/kIB7U5kTgABACgASAHqAi0ABgAAUwUVBTUlJSgBwv4+AUH+vwItxFnIZI6OAAEAKABIAeoCLQAGAABlJTUlFQUFAer+PgHC/r8BQUjEWchkjo7//wAq/+0B6AJHBiYAuAAAAAcAuQAA/qwAAQArAMkB6AGPABcAAGUiLgIjIgYHNTY2MzIeAhcWNjcVBgYBcSYzKSseKDgbIDgnJzEmJhskQRoVO8kXHRccFHYaGxUcGAIDGxd2Fh4AAQAkAJUB5gFqAAUAAGUnBTUFFQGOA/6ZAcKVdQJiA9IAAAEAPAG1AvsCzAAGAABBJwcjATMBAnLa2YMBNFkBMgG1zsoBE/7pAP//AFT+8QJIAfQGBgB3AAAABQAp/+8DYALNAAMAEwAlADUARwAAVycBFwEiJiY1NDY2NzYWFhUUBgYnMjY2NTQuAiMiBgYVFB4CASImJjU0NjY3NhYWFRQGBicyNjY1NC4CIyIGBhUUHgLBQQI6Sf3jPVUrLFQ7PlQrMlQ0GRsMBg8aExkdCwYOGgHTPVUrLFQ7PVQsMlQ0GRsMBg8aExkdDAYPGhE9AqBC/rs3WDEvWj0BATlYLjVcOFAhMhcULCcZJjITEywnGf5bN1gxL1o9AQE5WC40XDlQIjEXFCwnGSYyExMsJxkAAgA8AlgBbwLvAAsAFwAAQSImNTQ2MzIWFRQGIyImNTQ2MzIWFRQGASwbJygbHSUoyRsnKBsdJSgCWCwfHy0tHx8sLB8fLS0fHywAAAEALAJNAMQC8QALAABTIiY1NDYzMhYVFAZ6IiwuHyArKAJNMCIiMDAiIjAAAQCZAjUBXQMPAAoAAEEnJiY2NzYWFhcXAS95DRAFEBAjIApSAjVqDSMlDg0BExGMAAABAJsCNQFfAw8ACgAAUyc3PgIXFhYGB8kuUgsfJBAQBA8OAjUpjBETAQ0OJSMNAAABACwCMgGBAw8ABwAAQScjByc3MxcBVn8BgCqrCqACMmliMKaqAAIAPAIzASoDGwAPABsAAFMiJiYnJjY2MzIWFhcWBgYnNjY1NCYjBgYVFBa0GzYkAgEhNx8cNiMBASI3GA0UFxENFRcCMxoyIyM2IBgwJiU3Hj0BGBciHQEWGR8gAAABACICXQGIAvEAFQAAQQYGIyImJiMiBgcnNjYzMhYWMzI2NwGIFUQeGycjFAwjDzgRQiIfJB8YESANAtQ+NxQTERghLjkTExsXAAEALQJzAUkC0wADAABTNSEVLQEcAnNgXAAAAQAt/v0BGAAKABgAAFMnPgM1NCYGByc3Mwc2NjMWFhUUDgI1CAwoKBwaIAolH0wcDCsNICkwSU3+/TQCCQ8WDxEKCAgQf08HCQEhJCMwHxIAAAIAKwMdAV8DtQALABcAAFMiJjU0NjMyFhUUBjMiJjU0NjMyFhUUBm4bKCkbHCYokxooKRodJSgDHSwfIC0tIB8sLB8gLS0gHywAAQAgAu4A+wOvAAoAAFMnLgI3NjYWFxfXjg8WBAsNIiQObwLuSwofJBERBwwOdgAAAgArAu8BOAPuAA8AGwAAUyImJicmNjYzMhYWFxYGBic2NjU0JgcGBhUUFrIgPCgCASc+IR88KQIBKD4aERUbFhIWHQLvGjUqKDwiGjUqKjwgNgEeHywsAgEkHygpAAEALQMaAdIDugAYAABBDgIjIi4CIyIGByc2NjMyHgIzMjY3AdISLjAVFyUhIhUTLRQ4F00kGSYgIRMULw4DmjM3FA8UDxYeJTgzDxMPJRwAAQAt/u0BGwAKABgAAFMnPgM1NCYGByc3Mwc2NhcWFhUUDgI1CAwoKBwaIAopHlEcDCsNICwxSk7+7TcCDBMaDxMICQgPg00GCgEBJSMjNSQWAAEAQAIyAW8DDwAHAABTMxcHJyMHJ9gKjStrAW4qAw+qM2RdMAAAAQBVAwYBqgPLAAYAAEEnByc3MxcBiouPG6UTnQMGV1Utlpb//wA8AlgBbwLvBAYAxQAA//8AmQI1AV0DDwQGAMcAAP//ACwCNQDwAw8EBgDIkQD//wAtAnMBSQLTBAYAzAAA//8ALf79ARgACgQGAM0AAAABAAAA2gE9AAcAhgAFAAEAAAAAAAAAAAAAAAAABAABAAAAAABDAJgAowCvALsAxwDSASgBhAG7AccCDAJYAp4C9gMBAwwDGANZA6kD/QQqBGkEdAR/BIoEwwUeBUsFvwYKBhYGUAacBqgGtAbABwMHDwdgB7AIBAhqCLgI5gktCYYJkgmeCaoJ8wphCsoLHguEC7AMDgwZDCQMLww6DEUMUAzGDQ0NSw1XDakN+g4xDjwORw5SDl0OoA8qD3oPhQ+wD7sPxg/RD9wP5xAfEHUQoBEcEXERfRGwEbsRxhHREdwSFxIiEnwS0BMZE14TqxQZFEgUkxSeFKkUtBS/FPcVShWYFeYV8RX8FigWgxa0FvcXMhdSF5wYARgvGHwY1RkAGVcZsBm+Gc4Z3hnuGg0aUBqqGtEa0RrRGucbChsWGyIbRhtrG8UcIBwpHEUcrhzgHO8c/x0MHRkdPx1lHbAd+x4OHiIeYh5vHngemR65Hswe2R9WH9Mf8iB+IOchciGeIawhwiIGIlYirCL7I2kjyCPdI+okAyQTJCYkOSRMJFgkfySQJKQkrCUYJT4lVCVtJYUlmCXHJewl+SYiJkcmXyaOJrYm3ybyJwQnDCcUJxwnJCcsAAAAAQAAAAMCDLtVORBfDzz1AAMD6AAAAADhjRO9AAAAAOcf4Lf/j/7kBR8EmgAAAAYAAgAAAAAAAAIRAB4CnAAEApwABAKcAAQCnAAEApwABAKcAAQCnAAEA6f/+gKVADICsAAjArAAIwL3ADIC9gAeAnAAMgJwADICcAAyAnAAMgJwADICOwAyAvIAJAMnADIBgwAyAYMAMgGDABcBgwAmAYMAIAHDAAECyAAyAlwAMgPMAC8DBQAwAwUAMAMBACMDAQAjAwEAIwMBACMDAQAjAwEAIwMBACMCfwAyAnkAMgMCACQCrgAyAlYAKwKKABAC+AAaAvgAGgL4ABoC+AAaAvgAGgLEAAgD+AANArsADgKbAAMCmwADAlwAKAIMAB4CDAAeAgwAHgIMAB4CDAAeAgwAHgIMAB4DAgAdAj3//AIGAB8CBgAfAlQAIAIeACACGgAfAhoAHwIaAB8CGgAfAhoAHwFxAB4CLQAcAm0AEgFHACIBRwAiAUcAIgFHAAgBRwAKAUcAIgEu/6gBLv+oAlIAEwE4ABIDmAAiAn4AIgJ+ACICNgAfAjYAHwI2AB8CNgAfAjYAHwI2AB8CNgAfAlkAGAI9//wCPQAgAeAAIgHlACcDAwAeAZ0AEQJqAA8CagAPAmoADwJqAA8CagAPAhoABgMrAAgCJAAVAicABQInAAUCJwAFAgIAIwGCACMBegAeAmQAVAJ8ACsBlgAGAhUAJwIwACMCIwAMAhwALAI/AC4B1QAPAjwAOAJAACsB0//qAxsAFQMJABUDMAAkARYAFQF3ACsBbQAkAaEAJQEHAAABBwAAAOkALAD6ACwA+gAzAQsAMgECADYA7QAsAfcAJQHtACgA4gApAX4AHwIVACgDZwAlArsAGQK7ABkB1wAzA0AAbAEoABgBKAAKAXD//QFwAAcBggA+AYIAAQGnACEBmwAVANIAFQHtABQB7QAkAUYAKwC8ACoDGQAvAp4AFwI9ACkCJQAsA5MALgOTAC4BfgAcAQMAPQD4AEMCNQAzAjYAPwJMADIDKQAqAj0AMwLSACACEgAqAhIAKgISAFACEgAqAhIAKgISACgCEgAoAhIAKgISACsCEgAkAzcAPAJkAFQDiAApAAAAPAAAACwAAACZAAAAmwAAACwAAAA8AAAAIgAAAC0AAAAtAAAAKwAAACAAAAArAAAALQAAAC0AAABAAAAAVQGrADwCDACZARoALAF2AC0BRQAtAAEAAAPu/u4AAAUk/4/85wUfAAEAAAAAAAAAAAAAAAAAAADaAAQCbgK8AAUAAAKKAlgAAABLAooCWAAAAV4AMgEsAAAAAAAAAAAAAAAAgAAAAwAAAAIAAAAAAAAAAENZUkUAwAAgIKwD7v7uAAAEtgEmAAAAAQAAAAAB9AK8AAAAIAADAAAAAgAAAAMAAAAUAAMAAQAAABQABAHIAAAAFAAQAAMABAAvADkAfgCsAP8gGSAdICIgrP//AAAAIAAwADoAoACuIBkgHCAiIKz//wAAAEgAAAAAAADgi+CG4HPgCQABABQAAAAwALgA0AAAAAAAAAAAAAAAigCQAKcAlwC0AMQAqgCoAJwAnQCWALgAjQCaAIwAmACOAI8AvgC8AL0AkgCpAAEACQAKAAwADgATABQAFQAWABsAHAAdAB4AHwAhACgAKgArACwALQAuADMANAA1ADYAOACgAJkAoQDCAJsA1gA5AEEAQgBEAEYASwBMAE0ATgBUAFYAVwBYAFkAWwBiAGQAZQBmAGgAaQBuAG8AcABxAHQAngCwAJ8AwACLAJEAsgC2ALMAtwCxAKwA1QCtAHUApQDBAK4A2ACvAL8AhwCIANcAwwCrAJQA2QCGAHYApgCEAIMAhQCTAAUAAgADAAcABAAGAAgACwASAA8AEAARABoAFwAYABkADQAgACUAIgAjACcAJAC6ACYAMgAvADAAMQA3ACkAZwA9ADoAOwA/ADwAPgBAAEMASgBHAEgASQBTAFAAUQBSAEUAWgBfAFwAXQBhAF4AuwBgAG0AagBrAGwAcgBjAHMAAAALAIoAAwABBAkAAADsAAAAAwABBAkAAQAIAOwAAwABBAkAAgAOAPQAAwABBAkAAwAuAQIAAwABBAkABAAYATAAAwABBAkABQAaAUgAAwABBAkABgAYAWIAAwABBAkBAAAMAXoAAwABBAkBBAAIAYYAAwABBAkBBQAMAY4AAwABBAkBBgAKAZoAQwBvAHAAeQByAGkAZwBoAHQAIAAyADAAMQAxACAAVABoAGUAIABMAG8AcgBhACAAUAByAG8AagBlAGMAdAAgAEEAdQB0AGgAbwByAHMAIAAoAGgAdAB0AHAAcwA6AC8ALwBnAGkAdABoAHUAYgAuAGMAbwBtAC8AYwB5AHIAZQBhAGwAdAB5AHAAZQAvAEwAbwByAGEALQBDAHkAcgBpAGwAbABpAGMAKQAsACAAdwBpAHQAaAAgAFIAZQBzAGUAcgB2AGUAZAAgAEYAbwBuAHQAIABOAGEAbQBlACAAIgBMAG8AcgBhACIALgBMAG8AcgBhAFIAZQBnAHUAbABhAHIAMwAuADAAMAA4ADsAQwBZAFIARQA7AEwAbwByAGEALQBSAGUAZwB1AGwAYQByAEwAbwByAGEAIABSAGUAZwB1AGwAYQByAFYAZQByAHMAaQBvAG4AIAAzAC4AMAAwADgATABvAHIAYQAtAFIAZQBnAHUAbABhAHIAVwBlAGkAZwBoAHQAQgBvAGwAZABJAHQAYQBsAGkAYwBSAG8AbQBhAG4AAAADAAAAAAAA/5wAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAwAAAAAAAAAAgAQAAEABwABAAoAEgABABQAJwABACsAMgABADQANAABADYAPwABAEIARAABAEYASgABAEwATgABAFAAVAABAFYAVwABAFkAYQABAGUAZgABAGgAbQABAG8AbwABAHEAdAABAAEAAAAKABwAHgABREZMVAAIAAQAAAAA//8AAAAAAAAAAQAAAAoALAAuAANERkxUABRjeXJsAB5sYXRuAB4ABAAAAAD//wAAAAAAAAAAAAAAAQABAAgAAgAAABQAAgAAACQAAndnaHQBAAAAaXRhbAEFAAEABAAQAAEAAAAAAQQCvAAAAAMAAQACAQYAAAAAAAEAAA==' };
+const fonts = {};
+function b64ToBuf(b) { const s = atob(b), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u.buffer; }
+const ttf = new TTFLoader();
+for (const k in FONT_B64) fonts[k] = new Font(ttf.parse(b64ToBuf(FONT_B64[k])));
+
+// ---------- estado ----------
+const STORE = 'cajaPostal.v4';
+const st = Object.assign({}, DEFAULTS, {
+  text: 'MAMEMI', font: 'poppins', textSize: 10, textX: 0, textY: 0,
+  logoW: 30, logoX: 0, logoY: 0,
+});
+try { Object.assign(st, JSON.parse(localStorage.getItem(STORE) || '{}')); } catch (e) {}
+if (st.font === 'custom') st.font = 'poppins';
+let logoSVG = null;
+
+const $ = id => document.getElementById(id);
+const NUM = ['L','W','H','T','hT','gapF','fit','earD','tabs','tabW','tabLen','lidEarL','lidEarH','pinD','clips','decoDepth','textSize','textX','textY','logoW','logoX','logoY'];
+for (const k of NUM) { if (st[k] === undefined) st[k] = DEFAULTS[k]; $(k).value = st[k]; $(k).addEventListener('input', () => { const v = parseFloat($(k).value); if (isFinite(v)) { st[k] = v; schedule(); } }); }
+for (const k of ['decoHalf']) { $(k).checked = !!st[k]; $(k).addEventListener('change', () => { st[k] = $(k).checked; decoUI(); schedule(); }); }
+function decoUI() { $('decoDepth').disabled = !!st.decoHalf; }
+decoUI();
+$('text').value = st.text; $('text').addEventListener('input', () => { st.text = $('text').value; schedule(); });
+$('font').value = st.font; $('font').addEventListener('change', () => { st.font = $('font').value; schedule(); });
+function seg(id, key) {
+  const el = $(id);
+  const paint = () => el.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === st[key]));
+  el.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; st[key] = b.dataset.v; paint(); schedule(); });
+  paint();
+}
+seg('faceSeg', 'face'); seg('modeSeg', 'decoMode');
+
+$('fontFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    fonts.custom = new Font(ttf.parse(await f.arrayBuffer()));
+    const opt = $('font').querySelector('option[value=custom]'); opt.disabled = false; opt.textContent = 'Propia: ' + f.name;
+    st.font = 'custom'; $('font').value = 'custom'; $('fontName').textContent = f.name; schedule();
+  } catch (err) { showMsg('decoMsg', 'warn', 'No se pudo leer la fuente: ' + err.message); }
+});
+$('logoFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; if (!f) return;
+  logoSVG = await f.text(); $('logoName').textContent = f.name; schedule();
+});
+$('logoClear').addEventListener('click', () => { logoSVG = null; $('logoName').textContent = 'Sin logo (SVG con relleno)'; $('logoFile').value = ''; schedule(); });
+
+function showMsg(id, kind, txt) { const m = $(id); m.className = 'msg' + (txt ? ' ' + kind : ''); m.textContent = txt || ''; }
+
+// ---------- decoración → contornos 2D ----------
+function shapesToOutlines(shapes, tf) {
+  const out = [];
+  for (const s of shapes) {
+    const ex = s.extractPoints(16);
+    out.push({ pts: ex.shape.map(p => tf(p.x, p.y)), holes: ex.holes.map(h => h.map(p => tf(p.x, p.y))) });
+  }
+  return out;
+}
+function bboxOf(outlines) {
+  let a = Infinity, b = Infinity, c = -Infinity, d = -Infinity;
+  for (const o of outlines) for (const [x, y] of o.pts) { a = Math.min(a, x); b = Math.min(b, y); c = Math.max(c, x); d = Math.max(d, y); }
+  return { minX: a, minY: b, maxX: c, maxY: d };
+}
+function moveOutlines(outlines, dx, dy, s = 1) {
+  const f = ([x, y]) => [x * s + dx, y * s + dy];
+  return outlines.map(o => ({ pts: o.pts.map(f), holes: o.holes.map(h => h.map(f)) }));
+}
+function buildDeco() {
+  const all = []; const notes = [];
+  if (st.face === 'none') return { outlines: all, notes };
+  const text = (st.text || '').replace(/\r/g, '');
+  if (text.trim()) {
+    const font = fonts[st.font] || fonts.poppins;
+    const lines = text.split('\n'); const lh = st.textSize * 1.3;
+    const block = [];
+    lines.forEach((ln, i) => {
+      if (!ln.trim()) return;
+      let o = shapesToOutlines(font.generateShapes(ln, st.textSize), (x, y) => [x, y]);
+      if (!o.length) return;
+      const bb = bboxOf(o);
+      block.push(...moveOutlines(o, -(bb.minX + bb.maxX) / 2, -i * lh));
+    });
+    if (block.length) {
+      const bb = bboxOf(block);
+      all.push(...moveOutlines(block, st.textX, -(bb.minY + bb.maxY) / 2 + st.textY));
+    }
+    const missing = [...text.replace(/\s/g, '')].filter(ch => !(font.data.glyphs[ch]));
+    if (missing.length) notes.push('La fuente no tiene: ' + [...new Set(missing)].join(' '));
+  }
+  if (logoSVG) {
+    try {
+      const data = new SVGLoader().parse(logoSVG);
+      const shapes = [];
+      let strokes = 0;
+      for (const path of data.paths) {
+        const fill = path.userData?.style?.fill;
+        if (fill === 'none' || fill === 'transparent') { strokes++; continue; }
+        shapes.push(...SVGLoader.createShapes(path));
+      }
+      let o = shapesToOutlines(shapes, (x, y) => [x, -y]);
+      if (o.length) {
+        const bb = bboxOf(o); const s = st.logoW / Math.max(1e-6, bb.maxX - bb.minX);
+        o = moveOutlines(o, 0, 0, s); const b2 = bboxOf(o);
+        all.push(...moveOutlines(o, -(b2.minX + b2.maxX) / 2 + st.logoX, -(b2.minY + b2.maxY) / 2 + st.logoY));
+      } else notes.push('El SVG no tiene formas con relleno (solo trazos). Conviértelos a contornos en tu editor.');
+      if (strokes && o.length) notes.push(strokes + ' trazo(s) sin relleno ignorados.');
+    } catch (err) { notes.push('No se pudo leer el SVG: ' + err.message); }
+  }
+  return { outlines: all, notes };
+}
+
+// ---------- escena ----------
+const view = $('view');
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio));
+renderer.setClearColor(0xf4efe7);
+renderer.shadowMap.enabled = true;
+view.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(35, 1, 1, 5000);
+camera.up.set(0, 0, 1);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xfff8ee, 0x8a7a6a, 1.6));
+const sun = new THREE.DirectionalLight(0xffffff, 1.6);
+sun.position.set(120, -160, 260); sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0008; sun.shadow.normalBias = 0.6;
+Object.assign(sun.shadow.camera, { left: -250, right: 250, top: 250, bottom: -250, near: 10, far: 900 });
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0xffeedd, 0.5); fill.position.set(-200, 150, 80); scene.add(fill);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.ShadowMaterial({ opacity: 0.12 }));
+ground.position.z = -0.05; ground.receiveShadow = true; scene.add(ground);
+let bedGrid = null;
+
+const mats = {
+  panel: new THREE.MeshStandardMaterial({ color: $('colBox').value, roughness: 0.75, side: THREE.DoubleSide }),
+  hinge: new THREE.MeshStandardMaterial({ color: $('colBox').value, roughness: 0.75, side: THREE.DoubleSide }),
+  inlay: new THREE.MeshStandardMaterial({ color: $('colInlay').value, roughness: 0.6, side: THREE.DoubleSide}),
+};
+function tint() { mats.panel.color.set($('colBox').value); mats.hinge.color.set($('colBox').value).multiplyScalar(0.82); mats.inlay.color.set($('colInlay').value); }
+$('colBox').addEventListener('input', tint); $('colInlay').addEventListener('input', tint); tint();
+
+let box = null, fold = 0, firstFit = true;
+
+function rebuild() {
+  try { localStorage.setItem(STORE, JSON.stringify(st)); } catch (e) {}
+  const p = { ...st };
+  p.T = Math.min(1.25, Math.max(0.75, p.T)); p.hT = Math.min(p.hT, p.T - 0.3); p.gapF = Math.max(0.8, p.gapF);
+  const deco = buildDeco();
+  if (box) { scene.remove(box.root); disposeBox(box); }
+  box = buildBox(p, deco, mats);
+  box.root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+  scene.add(box.root);
+  box.setFold(fold);
+  const notes = [...deco.notes];
+  if (box.decoWarn) notes.unshift(box.decoWarn);
+  if (st.face !== 'none' && (deco.outlines.length || notes.length)) showMsg('decoMsg', notes.length ? 'warn' : 'info',
+    notes.length ? notes.join(' · ') : 'El grabado va en la cara que toca la cama (cara exterior): pliega la caja o gira la vista para verlo. Las formas solapadas se fusionan; las formas blancas del SVG no restan, se rellenan.');
+  else showMsg('decoMsg', '', '');
+  $('earInfo').textContent = `aplicado ${box.d.earH.toFixed(1)} mm (máx. ${box.d.earHmax.toFixed(1)})`;
+  const ddU = box.decoDepthUsed;
+  $('ddInfo').textContent = `aplicado ${ddU.toFixed(2)} mm` + (Math.abs(ddU / 0.2 - Math.round(ddU / 0.2)) > 0.01 ? ' (no es múltiplo de capa 0,2)' : '');
+  if (st.decoHalf) $('decoDepth').value = ddU.toFixed(2);
+  layoutPlates(box, +$('bed').value);
+  box.setFold(fold);
+  updateStats(p);
+  updateBed();
+  if (firstFit) { fitView(); firstFit = false; }
+}
+let timer = null;
+function schedule() { clearTimeout(timer); timer = setTimeout(rebuild, 90); }
+
+let bedGrids = [];
+function updateStats(p) {
+  const d = box.d, bed = +$('bed').value, pls = box.plates || [];
+  const col = ok => ok ? 'var(--ok)' : 'var(--warn)';
+  const plateRows = pls.map((pl, i) => `<div><span>${pls.length > 1 ? (i ? 'Cama 2 · tapa' : 'Cama 1 · caja') : 'Cama · caja + tapa'}</span><b style="color:${col(pl.fits)}">${pl.size.map(v => v.toFixed(0)).join(' × ')}</b></div>`).join('');
+  const bad = pls.filter(q => !q.fits);
+  $('stats').innerHTML = `
+    <div><span>Exterior montada</span><b>${d.outer.map(v => v.toFixed(1)).join(' × ')}</b></div>
+    ${plateRows}
+    <div><span>Tira abierta delante</span><b>${d.tiraOpen.toFixed(1)} mm</b></div>
+    <div><span>Holgura tapa–trasera</span><b>${d.hingeStrip > 0 ? d.hingeStrip.toFixed(2) + ' mm' : 'cubre todo'}</b></div>
+    <div><span>Bisagra de clip</span><b>${d.nClips} pinzas · Ø ${(2 * d.R).toFixed(1)} · abre ${d.openDeg}°</b></div>
+    ${d.tabD > p.T + 0.01 ? `<div style="color:var(--warn)"><span>Lengüetas asoman bajo la base</span><b>${(d.tabD - p.T).toFixed(1)} mm</b></div>` : ''}
+    ${bad.length ? `<div style="color:var(--warn);display:block;margin-top:6px;max-width:260px">${bad.map(q => q.parts.includes('box') ? 'El troquel de la caja' : 'La tapa').join(' y ')} no cabe en la cama ${bed} (con 2 mm de margen por lado): reduce medidas; en la caja el alto cuenta dos veces por la pared doble.</div>` : ''}`;
+}
+function updateBed() {
+  for (const g of bedGrids) { scene.remove(g); g.geometry.dispose(); }
+  bedGrids = [];
+  const bed = +$('bed').value;
+  for (const pl of box.plates || []) {
+    const g = new THREE.GridHelper(bed, bed / 10, 0xc9b8a4, 0xe2d6c7);
+    g.rotation.x = Math.PI / 2; g.position.set(pl.center.x, pl.center.y, -0.02);
+    scene.add(g); bedGrids.push(g);
+  }
+  bedGrid = bedGrids[0];
+}
+$('bed').addEventListener('change', () => { rebuild(); });
+
+function fitView() {
+  // encuadra todas las camas · cámara desde el frente (+Y)
+  const pls = box.plates || [];
+  const bed = +$('bed').value;
+  const xs = pls.map(q => q.center.x), ys = pls.map(q => q.center.y);
+  const cx = xs.length ? (Math.min(...xs) + Math.max(...xs)) / 2 : 0, cy = ys.length ? (Math.min(...ys) + Math.max(...ys)) / 2 : 0;
+  const s = Math.max(bed, (Math.max(...xs) - Math.min(...xs)) + bed) * 0.8;
+  controls.target.set(cx, cy, 12);
+  camera.position.set(cx + s * 0.3, cy + s * 1.15, s * 0.85);
+  controls.update();
+}
+$('fitBtn').addEventListener('click', fitView);
+
+// ---------- plegado ----------
+let anim = null;
+function setFoldUI(f) { fold = f; box.setFold(f); $('fold').value = Math.round(f * 1000); $('foldBtn').textContent = f > 0.5 ? 'Desplegar ◀' : 'Plegar ▶'; }
+$('fold').addEventListener('input', () => { anim = null; setFoldUI($('fold').value / 1000); });
+$('foldBtn').addEventListener('click', () => {
+  const from = fold, to = fold > 0.5 ? 0 : 1, t0 = performance.now(), dur = 2600 * Math.abs(to - from) + 1;
+  anim = now => { const t = Math.min(1, (now - t0) / dur); setFoldUI(from + (to - from) * t); if (t >= 1) anim = null; };
+});
+
+function resize() { const w = view.clientWidth, h = view.clientHeight; renderer.setSize(w, h, false); renderer.domElement.style.width = w + 'px'; renderer.domElement.style.height = h + 'px'; camera.aspect = w / Math.max(1, h); camera.updateProjectionMatrix(); }
+new ResizeObserver(resize).observe(view); resize();
+renderer.setAnimationLoop(now => { if (anim) anim(now); controls.update(); renderer.render(scene, camera); });
+
+// ---------- exportación ----------
+let downloads = null;
+const inArtifact = !!(window.claude && window.claude.use);
+if (inArtifact) window.claude.use('downloads').then(d => { downloads = d; }).catch(() => {});
+
+function exportFiles() {
+  const keep = fold;
+  box.setFold(0);
+  const name = `caja_${st.L}x${st.W}x${st.H}`;
+  const files = [];
+  const pls = box.plates || [];
+  for (const pl of pls) {
+    const A = toSTL(box.root, o => pl.parts.includes(o.userData.part));
+    const off = pl.center.clone(); off.z = A.box3.min.z;
+    const tag = pls.length > 1 ? (pl.parts.includes('box') ? '_cama1_caja' : '_cama2_tapa') : '_caja_y_tapa';
+    files.push({ name: name + tag + '.stl', data: writeSTL(A.tris, off) });
+    // incrustación bicolor: en la misma cama que la tapa, con las mismas coordenadas
+    if (box.hasInlay && pl.parts.includes('lid')) {
+      const B = toSTL(box.root, o => o.userData.part === 'inlay');
+      if (B.tris.length) files.push({ name: name + tag + '_incrustacion.stl', data: writeSTL(B.tris, off) });
+    }
+  }
+  box.setFold(keep);
+  return { name, files };
+}
+$('exportBtn').addEventListener('click', async () => {
+  const { name, files } = exportFiles();
+  if (inArtifact) {
+    if (!downloads) { showMsg('exportMsg', 'warn', 'Esta vista no permite descargas. Abre el artefacto en claude.ai o usa el archivo HTML en local.'); return; }
+    try {
+      await downloads.save({ filename: name + '.zip', data: makeZip(files) });
+      showMsg('exportMsg', 'info', 'ZIP guardado: ' + files.map(f => f.name).join(' + '));
+    } catch (e) {
+      showMsg('exportMsg', 'warn', e && e.code === 'declined' ? 'Descarga cancelada.' : 'No se pudo descargar (' + (e && (e.code || e.message)) + ').');
+    }
+  } else {
+    for (const f of files) {
+      const url = URL.createObjectURL(new Blob([f.data], { type: 'model/stl' }));
+      const a = document.createElement('a'); a.href = url; a.download = f.name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }
+    showMsg('exportMsg', 'info', 'Descargado: ' + files.map(f => f.name).join(' + '));
+  }
+});
+$('exportBtn').textContent = inArtifact ? 'Descargar STL (.zip)' : 'Descargar STL';
+
+rebuild();
+window.__app = { exportFiles, st, get box() { return box; }, setFoldUI, fitView, camera, controls, rebuild };
+</script>
+</body>
+</html>
